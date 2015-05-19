@@ -1,0 +1,1543 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 219
+y 85
+w 1000
+h 995
+font "helvetica-medium-r-12.0"
+ctlFont "helvetica-medium-r-12.0"
+btnFont "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 5
+textColor index 14
+ctlFgColor1 index 14
+ctlFgColor2 index 0
+ctlBgColor1 index 0
+ctlBgColor2 index 14
+topShadowColor index 1
+botShadowColor index 11
+showGrid
+snapToGrid
+gridSize 8
+endScreenProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 8
+y 48
+w 984
+h 920
+lineColor index 3
+fill
+fillColor index 3
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 188
+y 56
+w 56
+h 21
+font "helvetica-bold-i-18.0"
+fgColor index 25
+bgColor index 3
+useDisplayBg
+value {
+  "States"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 152
+y 488
+w 128
+h 21
+font "helvetica-bold-i-18.0"
+fgColor index 25
+bgColor index 3
+useDisplayBg
+value {
+  "Measurements"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 678
+y 56
+w 85
+h 21
+font "helvetica-bold-i-18.0"
+fgColor index 25
+bgColor index 3
+useDisplayBg
+value {
+  "Actuators"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 844
+y 970
+w 148
+h 20
+controlPv "SIOC:SYS0:AL00:TOD"
+fgColor index 14
+bgColor index 7
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 8
+y 968
+w 176
+h 24
+controlPv "SIOC:SYS0:AL00:MODE"
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+limitsFromDb
+nullColor index 18
+nullCondition "disabled"
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 1000
+h 40
+lineColor index 58
+fill
+fillColor index 58
+endObjectProperties
+
+# (Exit Button)
+object activeExitButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 940
+y 8
+w 48
+h 24
+fgColor index 14
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+label "Exit"
+font "helvetica-medium-r-12.0"
+3d
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 800
+y 72
+w 119
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 10
+bgColor index 3
+useDisplayBg
+value {
+  "XCOR:LTU1:738:BCTRL"
+}
+autoSize
+endObjectProperties
+
+# (X-Y Graph)
+object xyGraphClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+# Geometry
+x 552
+y 88
+w 352
+h 120
+# Appearance
+border
+plotAreaBorder
+autoScaleBothDirections
+xLabel "Pulses"
+yLabel "kG-m"
+fgColor index 14
+bgColor index 3
+gridColor index 14
+font "helvetica-medium-r-8.0"
+# Operating Modes
+nPts 2
+# X axis properties
+showXAxis
+xAxisSrc "fromUser"
+xMin 0
+xMax 200
+xAxisSmoothing 1
+# Y axis properties
+showYAxis
+yAxisSrc "AutoScale"
+yMax 1
+# Y2 axis properties
+y2AxisSrc "AutoScale"
+y2Min 0
+y2Max 1
+y2MajorsPerLabel 3
+# Trace Properties
+numTraces 1
+yPv {
+  0 "FBCK:FB05:TR04:A1HST_S"
+}
+plotColor {
+  0 index 10
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 800
+y 216
+w 119
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 15
+bgColor index 3
+useDisplayBg
+value {
+  "XCOR:LTU1:818:BCTRL"
+}
+autoSize
+endObjectProperties
+
+# (X-Y Graph)
+object xyGraphClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+# Geometry
+x 552
+y 230
+w 352
+h 120
+# Appearance
+border
+plotAreaBorder
+autoScaleBothDirections
+xLabel "Pulses"
+yLabel "kG-m"
+fgColor index 14
+bgColor index 3
+gridColor index 14
+font "helvetica-medium-r-8.0"
+# Operating Modes
+nPts 2
+# X axis properties
+showXAxis
+xAxisSrc "fromUser"
+xMin 0
+xMax 200
+xAxisSmoothing 1
+# Y axis properties
+showYAxis
+yAxisSrc "AutoScale"
+yMax 1
+# Y2 axis properties
+y2AxisSrc "AutoScale"
+y2Min 0
+y2Max 1
+y2MajorsPerLabel 3
+# Trace Properties
+numTraces 1
+yPv {
+  0 "FBCK:FB05:TR04:A2HST_S"
+}
+plotColor {
+  0 index 15
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 800
+y 360
+w 119
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 20
+bgColor index 3
+useDisplayBg
+value {
+  "XCOR:LTU1:878:BCTRL"
+}
+autoSize
+endObjectProperties
+
+# (X-Y Graph)
+object xyGraphClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+# Geometry
+x 552
+y 372
+w 352
+h 120
+# Appearance
+border
+plotAreaBorder
+autoScaleBothDirections
+xLabel "Pulses"
+yLabel "kG-m"
+fgColor index 14
+bgColor index 3
+gridColor index 14
+font "helvetica-medium-r-8.0"
+# Operating Modes
+nPts 2
+# X axis properties
+showXAxis
+xAxisSrc "fromUser"
+xMin 0
+xMax 200
+xAxisSmoothing 1
+# Y axis properties
+showYAxis
+yAxisSrc "AutoScale"
+yMax 1
+# Y2 axis properties
+y2AxisSrc "AutoScale"
+y2Min 0
+y2Max 1
+y2MajorsPerLabel 3
+# Trace Properties
+numTraces 1
+yPv {
+  0 "FBCK:FB05:TR04:A3HST_S"
+}
+plotColor {
+  0 index 20
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 800
+y 496
+w 120
+h 24
+font "helvetica-bold-r-10.0"
+fgColor index 25
+bgColor index 3
+useDisplayBg
+value {
+  "YCOR:LTU1:747:BCTRL"
+}
+autoSize
+endObjectProperties
+
+# (X-Y Graph)
+object xyGraphClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+# Geometry
+x 552
+y 515
+w 352
+h 120
+# Appearance
+border
+plotAreaBorder
+autoScaleBothDirections
+xLabel "Pulses"
+yLabel "kG-m"
+fgColor index 14
+bgColor index 3
+gridColor index 14
+font "helvetica-medium-r-8.0"
+# Operating Modes
+nPts 2
+# X axis properties
+showXAxis
+xAxisSrc "fromUser"
+xMin 0
+xMax 200
+xAxisSmoothing 1
+# Y axis properties
+showYAxis
+yAxisSrc "AutoScale"
+yMax 1
+# Y2 axis properties
+y2AxisSrc "AutoScale"
+y2Min 0
+y2Max 1
+y2MajorsPerLabel 3
+# Trace Properties
+numTraces 1
+yPv {
+  0 "FBCK:FB05:TR04:A4HST_S"
+}
+plotColor {
+  0 index 25
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 88
+w 52
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 30
+bgColor index 3
+useDisplayBg
+value {
+  "X Position"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 105
+w 69
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 35
+bgColor index 3
+useDisplayBg
+value {
+  ""
+  "X Position SP"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 122
+w 53
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 40
+bgColor index 3
+useDisplayBg
+value {
+  "Y Position"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 139
+w 70
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 45
+bgColor index 3
+useDisplayBg
+value {
+  ""
+  "Y Position SP"
+}
+autoSize
+endObjectProperties
+
+# (X-Y Graph)
+object xyGraphClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+# Geometry
+x 16
+y 88
+w 384
+h 192
+# Appearance
+border
+plotAreaBorder
+autoScaleBothDirections
+xLabel "Pulses"
+yLabel "mm"
+fgColor index 14
+bgColor index 3
+gridColor index 14
+font "helvetica-medium-r-8.0"
+# Operating Modes
+nPts 2
+# X axis properties
+showXAxis
+xAxisSrc "fromUser"
+xMin 0
+xMax 200
+xAxisSmoothing 1
+# Y axis properties
+showYAxis
+yAxisSrc "AutoScale"
+yMax 1
+# Y2 axis properties
+y2AxisSrc "AutoScale"
+y2Min 0
+y2Max 1
+y2MajorsPerLabel 3
+# Trace Properties
+numTraces 4
+yPv {
+  0 "FBCK:FB05:TR04:S1HST_S"
+  1 "FBCK:FB05:TR04:S1DESHST_S"
+  2 "FBCK:FB05:TR04:S3HST_S"
+  3 "FBCK:FB05:TR04:S3DESHST_S"
+}
+plotColor {
+  0 index 30
+  1 index 35
+  2 index 40
+  3 index 45
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 288
+w 40
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 11
+bgColor index 3
+useDisplayBg
+value {
+  "X Angle"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 305
+w 57
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 16
+bgColor index 3
+useDisplayBg
+value {
+  ""
+  "X Angle SP"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 322
+w 41
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 21
+bgColor index 3
+useDisplayBg
+value {
+  "Y Angle"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 339
+w 58
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 26
+bgColor index 3
+useDisplayBg
+value {
+  ""
+  "Y Angle SP"
+}
+autoSize
+endObjectProperties
+
+# (X-Y Graph)
+object xyGraphClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+# Geometry
+x 16
+y 288
+w 384
+h 192
+# Appearance
+border
+plotAreaBorder
+autoScaleBothDirections
+xLabel "Pulses"
+yLabel "mrad"
+fgColor index 14
+bgColor index 3
+gridColor index 14
+font "helvetica-medium-r-8.0"
+# Operating Modes
+nPts 2
+# X axis properties
+showXAxis
+xAxisSrc "fromUser"
+xMin 0
+xMax 200
+xAxisSmoothing 1
+# Y axis properties
+showYAxis
+yAxisSrc "AutoScale"
+yMax 1
+# Y2 axis properties
+y2AxisSrc "AutoScale"
+y2Min 0
+y2Max 1
+y2MajorsPerLabel 3
+# Trace Properties
+numTraces 4
+yPv {
+  0 "FBCK:FB05:TR04:S2HST_S"
+  1 "FBCK:FB05:TR04:S2DESHST_S"
+  2 "FBCK:FB05:TR04:S4HST_S"
+  3 "FBCK:FB05:TR04:S4DESHST_S"
+}
+plotColor {
+  0 index 11
+  1 index 16
+  2 index 21
+  3 index 26
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 290
+y 486
+w 40
+h 24
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+value {
+  "1"
+}
+border
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 3
+release 0
+x 337
+y 486
+w 40
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+font "helvetica-bold-r-12.0"
+buttonLabel "2 "
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "FB05_TR04_plots_2_0.edl"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 520
+w 94
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 31
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:100:X"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 537
+w 94
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 36
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:190:X"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 554
+w 94
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 41
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:290:X"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 571
+w 94
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 46
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:390:X"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 588
+w 94
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 12
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:490:X"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 605
+w 94
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 17
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:590:X"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 622
+w 94
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 22
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:690:X"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 639
+w 94
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 27
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:790:X"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 656
+w 94
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 32
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:890:X"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 673
+w 94
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 37
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:990:X"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 690
+w 100
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 42
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:1090:X"
+}
+autoSize
+endObjectProperties
+
+# (X-Y Graph)
+object xyGraphClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+# Geometry
+x 16
+y 520
+w 384
+h 192
+# Appearance
+border
+plotAreaBorder
+autoScaleBothDirections
+xLabel "Pulses"
+yLabel "mm"
+fgColor index 14
+bgColor index 3
+gridColor index 14
+font "helvetica-medium-r-8.0"
+# Operating Modes
+nPts 2
+# X axis properties
+showXAxis
+xAxisSrc "fromUser"
+xMin 0
+xMax 200
+xAxisSmoothing 1
+# Y axis properties
+showYAxis
+yAxisSrc "AutoScale"
+yMax 1
+# Y2 axis properties
+y2AxisSrc "AutoScale"
+y2Min 0
+y2Max 1
+y2MajorsPerLabel 3
+# Trace Properties
+numTraces 11
+yPv {
+  0 "FBCK:FB05:TR04:M1HST_S"
+  1 "FBCK:FB05:TR04:M2HST_S"
+  2 "FBCK:FB05:TR04:M3HST_S"
+  3 "FBCK:FB05:TR04:M4HST_S"
+  4 "FBCK:FB05:TR04:M5HST_S"
+  5 "FBCK:FB05:TR04:M6HST_S"
+  6 "FBCK:FB05:TR04:M7HST_S"
+  7 "FBCK:FB05:TR04:M8HST_S"
+  8 "FBCK:FB05:TR04:M9HST_S"
+  9 "FBCK:FB05:TR04:M10HST_S"
+  10 "FBCK:FB05:TR04:M11HST_S"
+}
+plotColor {
+  0 index 31
+  1 index 36
+  2 index 41
+  3 index 46
+  4 index 12
+  5 index 17
+  6 index 22
+  7 index 27
+  8 index 32
+  9 index 37
+  10 index 42
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 720
+w 95
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 47
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:100:Y"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 737
+w 95
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 13
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:190:Y"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 754
+w 95
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 18
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:290:Y"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 771
+w 95
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 23
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:390:Y"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 788
+w 95
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 28
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:490:Y"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 805
+w 95
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 33
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:590:Y"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 822
+w 95
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 38
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:690:Y"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 839
+w 95
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 43
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:790:Y"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 856
+w 95
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 48
+bgColor index 3
+useDisplayBg
+value {
+  "BPMS:UND1:890:Y"
+}
+autoSize
+endObjectProperties
+
+# (X-Y Graph)
+object xyGraphClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+# Geometry
+x 16
+y 720
+w 384
+h 192
+# Appearance
+border
+plotAreaBorder
+autoScaleBothDirections
+xLabel "Pulses"
+yLabel "mm"
+fgColor index 14
+bgColor index 3
+gridColor index 14
+font "helvetica-medium-r-8.0"
+# Operating Modes
+nPts 2
+# X axis properties
+showXAxis
+xAxisSrc "fromUser"
+xMin 0
+xMax 200
+xAxisSmoothing 1
+# Y axis properties
+showYAxis
+yAxisSrc "AutoScale"
+yMax 1
+# Y2 axis properties
+y2AxisSrc "AutoScale"
+y2Min 0
+y2Max 1
+y2MajorsPerLabel 3
+# Trace Properties
+numTraces 9
+yPv {
+  0 "FBCK:FB05:TR04:M12HST_S"
+  1 "FBCK:FB05:TR04:M13HST_S"
+  2 "FBCK:FB05:TR04:M14HST_S"
+  3 "FBCK:FB05:TR04:M15HST_S"
+  4 "FBCK:FB05:TR04:M16HST_S"
+  5 "FBCK:FB05:TR04:M17HST_S"
+  6 "FBCK:FB05:TR04:M18HST_S"
+  7 "FBCK:FB05:TR04:M19HST_S"
+  8 "FBCK:FB05:TR04:M20HST_S"
+}
+plotColor {
+  0 index 47
+  1 index 13
+  2 index 18
+  3 index 23
+  4 index 28
+  5 index 33
+  6 index 38
+  7 index 43
+  8 index 48
+}
+endObjectProperties
+
+# (Freeze Button)
+object activeFreezeButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 16
+y 936
+w 100
+h 24
+fgColor index 14
+bgColor index 4
+frozenBgColor index 77
+topShadowColor index 1
+botShadowColor index 11
+label "Freeze Plots"
+frozenLabel "Unfreeze Plots"
+font "helvetica-bold-r-12.0"
+3d
+endObjectProperties
+
+# (Shell Command)
+object shellCmdClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 432
+y 936
+w 116
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+font "helvetica-bold-r-12.0"
+buttonLabel "Data Snapshot..."
+multipleInstances
+numCmds 1
+command {
+  0 "xterm -T 'Feedback Plots Data Snapshot' -e 'matlab -nojvm -r FB05_TR04_plots'"
+}
+endObjectProperties
+
+# (Shell Command)
+object shellCmdClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 864
+y 936
+w 120
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+font "helvetica-bold-r-12.0"
+buttonLabel "ArchiveViewer..."
+numCmds 1
+command {
+  0 "fbckrunav /u1/lcls/tools/ArchiveBrowser/config/FB05_TR04_plots.xml"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 16
+y 10
+w 193
+h 21
+controlPv "FBCK:FB05:TR04:NAME"
+format "string"
+font "helvetica-bold-r-18.0"
+fgColor index 76
+bgColor index 4
+useDisplayBg
+autoHeight
+limitsFromDb
+nullColor index 14
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 3
+release 0
+x 880
+y 8
+w 48
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+font "helvetica-medium-r-12.0"
+buttonLabel "Help..."
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "fbck_l3l_plot_help.edl"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 800
+y 784
+w 120
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 39
+bgColor index 3
+useDisplayBg
+value {
+  "YCOR:LTU1:857:BCTRL"
+}
+autoSize
+endObjectProperties
+
+# (X-Y Graph)
+object xyGraphClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+# Geometry
+x 552
+y 800
+w 352
+h 120
+# Appearance
+border
+plotAreaBorder
+autoScaleBothDirections
+xLabel "Pulses"
+yLabel "kG-m"
+fgColor index 14
+bgColor index 3
+gridColor index 14
+font "helvetica-medium-r-8.0"
+# Operating Modes
+nPts 2
+# X axis properties
+showXAxis
+xAxisSrc "fromUser"
+xMin 0
+xMax 200
+xAxisSmoothing 1
+# Y axis properties
+showYAxis
+yAxisSrc "AutoScale"
+yMax 1
+# Y2 axis properties
+y2AxisSrc "AutoScale"
+y2Min 0
+y2Max 1
+y2MajorsPerLabel 3
+# Trace Properties
+numTraces 1
+yPv {
+  0 "FBCK:FB05:TR04:A6HST_S"
+}
+plotColor {
+  0 index 39
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 800
+y 640
+w 120
+h 12
+font "helvetica-bold-r-10.0"
+fgColor index 44
+bgColor index 3
+useDisplayBg
+value {
+  "YCOR:LTU1:837:BCTRL"
+}
+autoSize
+endObjectProperties
+
+# (X-Y Graph)
+object xyGraphClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+# Geometry
+x 552
+y 657
+w 352
+h 120
+# Appearance
+border
+plotAreaBorder
+autoScaleBothDirections
+xLabel "Pulses"
+yLabel "kG-m"
+fgColor index 14
+bgColor index 3
+gridColor index 14
+font "helvetica-medium-r-8.0"
+# Operating Modes
+nPts 2
+# X axis properties
+showXAxis
+xAxisSrc "fromUser"
+xMin 0
+xMax 200
+xAxisSmoothing 1
+# Y axis properties
+showYAxis
+yAxisSrc "AutoScale"
+yMax 1
+# Y2 axis properties
+y2AxisSrc "AutoScale"
+y2Min 0
+y2Max 1
+y2MajorsPerLabel 3
+# Trace Properties
+numTraces 1
+yPv {
+  0 "FBCK:FB05:TR04:A5HST_S"
+}
+plotColor {
+  0 index 44
+}
+endObjectProperties
+

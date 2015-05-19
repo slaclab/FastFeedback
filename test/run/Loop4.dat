@@ -1,0 +1,17 @@
+Patterns 1
+Pattern 3 4 5 6 7 8
+
+Measurements 2
+BPM4 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM4_P4.dat 0
+BPM5 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM5_P4.dat 0
+
+Actuators 1
+MAG4 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/MAG4_P4.dat 0
+
+Setpoints 1
+SP4 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/SP4.dat 0
+
+States 1
+ST4 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/ST4_P4.dat SP4 0
+
+Algorithm sine2

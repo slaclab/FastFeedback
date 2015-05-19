@@ -1,0 +1,27 @@
+# File fbckFB03.substitutions
+#
+#
+# NOTE - feedback names cannot have any spaces in them
+#
+# Feedback Types :
+#
+# define all loops here
+file ../../../../db/fbckLoop.db {
+  pattern { AR,  LP   ,  LN          }
+          { FB03, "TR01"  , "LaunchLoop1"   }
+          { FB03, "TR02"  , "LaunchLoop2"   }
+          { FB03, "TR03"  , "LaunchLoop3"   }
+          { FB03, "TR04"  , "LaunchLoop4"   }
+          { FB03, "TR05"  , "LaunchLoop5"   }
+# Every IOC will have two spares for on the fly general loop configurations 
+          { FB03, "GN01"  , "General1"       }
+          { FB03, "GN02"  , "General2"       }   
+# Every IOC will have one longitudinal loop configuration
+          { FB03, "LG01"  , "Longitudinal"   }   
+}
+file ../../../../db/fbckIoc.db {
+  pattern { AR }
+          { FB03 }
+} 
+
+

@@ -1,0 +1,63 @@
+Patterns 2
+Pattern 1 2 3 4 5 6
+Pattern 10 11 12 13 14 15
+
+Measurements 10
+Measurement1 100 null 0 
+Measurement2 100 null 0 
+Measurement3 100 null 0 
+Measurement4 100 null 0 
+Measurement5 100 null 0 
+Measurement6 100 null 1 
+Measurement7 100 null 1 
+Measurement8 100 null 1 
+Measurement9 100 null 1 
+Measurement10 100 null 1 
+
+Actuators 6
+Actuator1 100 file /tmp/Act1.dat 0
+Actuator2 100 file /tmp/Act2.dat 0
+Actuator3 100 file /tmp/Act3.dat 0
+Actuator4 100 file /tmp/Act4.dat 1
+Actuator5 100 file /tmp/Act5.dat 1
+Actuator6 100 file /tmp/Act6.dat 1
+
+Setpoints 6
+Setpoint1 100 null 0
+Setpoint2 100 null 0
+Setpoint3 100 null 0
+Setpoint4 100 null 1
+Setpoint5 100 null 1
+Setpoint6 100 null 1
+
+States 6
+State2 100 file /tmp/Sta1.dat Setpoint1 0
+State2 100 file /tmp/Sta2.dat Setpoint2 0
+State3 100 file /tmp/Sta3.dat Setpoint3 0
+State4 100 file /tmp/Sta4.dat Setpoint4 1
+State5 100 file /tmp/Sta5.dat Setpoint5 1
+State6 100 file /tmp/Sta6.dat Setpoint6 1
+
+Algorithm sine
+
+FMatrix
+12 5
+1 0 0 0 0
+0.18414 19.8116 0 0 0
+-0.81562 13.3677 0 0 0
+-0.83903 -12.7949 0 0 0
+-0.61865 -24.1439 0 0 0
+1.3505 -34.2132 0 0 0
+0 0 1 0 0
+0 0 1.2082 41.4592 0
+0 0 0.68356 48.9002 0
+0 0 -0.84115 61.8134 0
+0 0 -0.85709 48.3119 0
+0 0 -1.038 21.552 0
+
+GMatrix
+4 4
+43.2195 53.2769 0 0
+-0.49998 0.41137 0 0
+0 0 27.1689 42.2175
+0 0 -0.88168 0.31071

@@ -1,0 +1,5 @@
+Loops 1
+TR01 /boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/run/input/TR01.dat
+
+PatternGenerator /boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/run/input/TR01_Pattern.dat
+MeasurementDelay 1

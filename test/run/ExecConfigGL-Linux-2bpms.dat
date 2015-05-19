@@ -1,0 +1,5 @@
+Loops 1
+TR01 /afs/slac/g/lcls/vol8/epics/iocTop/FFController/Development/test/run/GunLaunch/GL-Linux-2bpms.dat
+
+PatternGenerator /afs/slac/g/lcls/vol8/epics/iocTop/FFController/Development/test/run/GunLaunch/GL_Pattern.dat
+MeasurementDelay 1

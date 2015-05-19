@@ -1,0 +1,5 @@
+ffStart 4.dat
+ffPeek Loop1 MAG5 1
+ffPeek Loop1 BPM1 0
+ffPeek Loop1 ST1 0
+

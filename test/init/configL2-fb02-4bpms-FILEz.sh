@@ -1,0 +1,112 @@
+#!/bin/sh
+# L2 Launch 
+# BPMS -> File
+# Magnets -> File
+
+caput FBCK:FB02:TR01:STATE 0
+
+# 0.5 HZ, pockcel_perm
+#caput -a FBCK:FB02:TR01:POI1 21 0 0 0 0 0 8 0 0 0 256 0 0 54 0 0 0 0 0 0 0 0
+
+# 1 HZ, pockcel_perm
+caput -a FBCK:FB02:TR01:POI1 21 0 0 0 0 0 8 0 0 0 128 0 0 54 0 0 0 0 0 0 0 0
+
+# 5 Hz, pockcel_perm
+#caput -a FBCK:FB02:TR01:POI1 21 0 0 0 0 0 8 0 0 0 64 0 0 54 0 0 0 0 0 0 0 0
+
+# 10 Hz, pockcel_perm
+#caput -a FBCK:FB02:TR01:POI1 21 0 0 0 0 0 8 0 0 0 32 0 0 54 0 0 0 0 0 0 0 0
+
+# 30 Hz, pockcel_perm
+#caput -a FBCK:FB02:TR01:POI1 21 0 0 0 0 0 8 0 0 0 16 0 0 54 0 0 0 0 0 0 0 0
+
+# F matrix
+caput -a FBCK:FB02:TR01:FMATRIX 20 1 0 0 0 0.23918 10.3291 0 0 -0.64393 23.995 0 0 -0.36735 7.2518 0 0 0 0 1 0 0 0 1.4138 10.3347 0 0 -0.51264 4.9749 0 0 -1.2004 3.5638
+
+# G matrix
+caput -a FBCK:FB02:TR01:GMATRIX 16 5.7343 8.2411 0 0 -0.057862 0.23759 0 0 0 0 -2.0573 2.581 0 0 -0.92958 0.16559
+
+# Loop configs
+caput FBCK:FB02:TR01:NAME L2Launch
+caput FBCK:FB02:TR01:INSTALLED 1
+caput FBCK:FB02:TR01:TOTALPOI 1
+caput FBCK:FB02:TR01:ITERATEFUNC TrajectoryFit
+
+# Measurements
+caput FBCK:FB02:TR01:M1DEVNAME FILE:/tmp/dat4/m1z.dat
+caput FBCK:FB02:TR01:M1USED 1
+caput FBCK:FB02:TR01:M1CAMODE 0
+
+caput FBCK:FB02:TR01:M2DEVNAME FILE:/tmp/dat4/m2z.dat
+caput FBCK:FB02:TR01:M2USED 1
+caput FBCK:FB02:TR01:M2CAMODE 0
+
+caput FBCK:FB02:TR01:M3DEVNAME FILE:/tmp/dat4/m3z.dat
+caput FBCK:FB02:TR01:M3USED 1
+caput FBCK:FB02:TR01:M3CAMODE 0
+
+caput FBCK:FB02:TR01:M4DEVNAME FILE:/tmp/dat4/m4z.dat
+caput FBCK:FB02:TR01:M4USED 1
+caput FBCK:FB02:TR01:M4CAMODE 0
+
+caput FBCK:FB02:TR01:M5DEVNAME FILE:/tmp/dat4/m5z.dat
+caput FBCK:FB02:TR01:M5USED 1
+caput FBCK:FB02:TR01:M5CAMODE 0
+
+caput FBCK:FB02:TR01:M6DEVNAME FILE:/tmp/dat4/m6z.dat
+caput FBCK:FB02:TR01:M6USED 1
+caput FBCK:FB02:TR01:M6CAMODE 0
+
+caput FBCK:FB02:TR01:M7DEVNAME FILE:/tmp/dat4/m7z.dat
+caput FBCK:FB02:TR01:M7USED 1
+caput FBCK:FB02:TR01:M7CAMODE 0
+
+caput FBCK:FB02:TR01:M8DEVNAME FILE:/tmp/dat4/m8z.dat
+caput FBCK:FB02:TR01:M8USED 1
+caput FBCK:FB02:TR01:M8CAMODE 0
+
+# Reference orbit
+caput -a FBCK:FB02:TR01:REFORBIT 8 0 0 0 0 0 0 0 0
+
+# States
+caput FBCK:FB02:TR01:S1NAME FILE:/tmp/dat4/s1calcz.dat
+caput FBCK:FB02:TR01:S1USED 1
+
+caput FBCK:FB02:TR01:S2NAME FILE:/tmp/dat4/s2calcz.dat
+caput FBCK:FB02:TR01:S2USED 1
+
+caput FBCK:FB02:TR01:S3NAME FILE:/tmp/dat4/s3calcz.dat
+caput FBCK:FB02:TR01:S3USED 1
+
+caput FBCK:FB02:TR01:S4NAME FILE:/tmp/dat4/s4calcz.dat
+caput FBCK:FB02:TR01:S4USED 1
+
+# Actuators
+caput FBCK:FB02:TR01:A1DEVNAME FILE:/tmp/dat4/a1calcz.dat
+caput FBCK:FB02:TR01:A1USED 1
+caput FBCK:FB02:TR01:A1CAMODE 1
+
+caput FBCK:FB02:TR01:A2DEVNAME FILE:/tmp/dat4/a2calcz.dat
+caput FBCK:FB02:TR01:A2USED 1
+caput FBCK:FB02:TR01:A2CAMODE 1
+
+caput FBCK:FB02:TR01:A3DEVNAME FILE:/tmp/dat4/a3calcz.dat
+caput FBCK:FB02:TR01:A3USED 1
+caput FBCK:FB02:TR01:A3CAMODE 1
+
+caput FBCK:FB02:TR01:A4DEVNAME FILE:/tmp/dat4/a4calcz.dat
+caput FBCK:FB02:TR01:A4USED 1
+caput FBCK:FB02:TR01:A4CAMODE 1
+
+# Energy
+caput -a FBCK:FB02:TR01:ACTENERGY 4 0.25 0.25 0.25 0.25
+
+# Must set these up in order to have the config app work
+caput FBCK:FB02:TR01:MEASNUM 8
+caput FBCK:FB02:TR01:ACTNUM 4
+caput FBCK:FB02:TR01:STATENUM 4
+caput FBCK:FB02:TR01:PGAIN 0.1
+
+# Enable loop
+caput FBCK:FB02:TR01:INSTALLED 1
+####caput FBCK:FB02:TR01:STATE 1

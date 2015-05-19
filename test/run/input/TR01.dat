@@ -1,0 +1,21 @@
+Patterns 2
+Pattern 1 1 1 1 1 1
+Pattern 2 2 2 2 2 2
+
+Measurements 2
+M1 1000 file /boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/run/input/TR01_M1_P1.dat 0
+M1 1000 file /boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/run/input/TR01_M1_P2.dat 1
+
+Actuators 2
+A1 1000 file /tmp/TR01_A1_P1.dat 0
+A1 1000 file /tmp/TR01_A1_P2.dat 1
+
+Setpoints 2
+S1DES 1000 file /boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/run/input/TR01_SP1.dat 0
+S1DES 1000 file /boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/run/input/TR01_SP2.dat 1
+
+States 2
+S1 1000 file /tmp/S1_P1.dat S1DES 0
+S1 1000 file /tmp/S1_P2.dat S1DES 1
+
+Algorithm sine1

@@ -1,0 +1,4 @@
+# FFController VME module device support
+# devFfDeviceView
+
+device(ai, INST_IO, devAiFfDeviceView, "FfDeviceView")

@@ -1,0 +1,20 @@
+# FFController VME module device support
+# devFfConfig
+
+# Output Records
+device(ao, INST_IO, devAoFfConfig, "FfConfig")
+device(bo, INST_IO, devBoFfConfig, "FfConfig")
+device(stringout, INST_IO, devStringoutFfConfig, "FfConfig")
+device(waveform, INST_IO, devWoFfConfig, "FfConfig")
+device(longout, INST_IO, devLongoutFfConfig, "FfConfig")
+device(calcout, INST_IO, devCalcoutFfConfig, "FfConfig")
+
+# Input Records
+device(waveform, INST_IO, devWiFfConfig, "FfConfig Waveform Read")
+device(longin, INST_IO, devLonginFfConfig, "FfConfig")
+device(stringin, INST_IO, devStringinFfConfig, "FfConfig")
+device(bi, INST_IO, devBiFfConfig, "FfConfig")
+device(ai, INST_IO, devAiFfConfig, "FfConfig")
+
+# Chirp Sequence
+registrar(chirpControlRegistrar)

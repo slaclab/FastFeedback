@@ -1,0 +1,8 @@
+Loops 4
+Loop1 /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/SIOCLoop1.dat
+Loop2 /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/SIOCLoop2.dat
+Loop3 /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/SIOCLoop3.dat
+Loop4 /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/SIOCLoop4.dat
+
+PatternGenerator /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/Pattern.dat
+MeasurementDelay 1

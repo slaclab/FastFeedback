@@ -1,0 +1,5 @@
+Loops 1
+Loop1 /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/Loop1.dat
+
+PatternGenerator /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/Pattern.dat
+MeasurementDelay 1

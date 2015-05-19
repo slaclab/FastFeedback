@@ -1,0 +1,25 @@
+#==============================================================================
+#
+# Abs:  FBCK records for a single Feedback IOC
+#
+# Name: fbckIoc.substitutions  
+#
+# Note: Must follow the LCLS naming conventions.
+#
+# NOTE: This file includes fbck records for the feedback IOCs
+#       These records store function names of functions available on this ioc
+#       modified:
+#   
+#==============================================================================
+#
+#
+# ioc level config pvs
+file fbckIocConfig.db {
+	pattern { AREA }
+	        { $(AR)}
+}
+# ioc level status pvs
+file fbckIocStatus.db {
+	pattern { AREA }
+	        { $(AR)}
+}

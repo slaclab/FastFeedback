@@ -1,0 +1,35 @@
+Patterns 4
+Pattern 0 1 2 3 4 5
+Pattern 1 2 3 4 5 6
+Pattern 2 3 4 5 6 7
+Pattern 3 4 5 6 7 8
+
+Measurements 8
+BPM1 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM1_P1.dat 0
+BPM1 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM1_P2.dat 1
+BPM1 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM1_P4.dat 3
+BPM2 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM2_P2.dat 1
+BPM2 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM2_P3.dat 2
+BPM5 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM5_P1.dat 0
+BPM5 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM5_P3.dat 2
+BPM5 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM5_P4.dat 3
+
+Actuators 4
+MAG1 1000 file /tmp/MAG1_P1.dat 0
+MAG1 1000 file /tmp/MAG1_P3.dat 2
+MAG5 1000 file /tmp/MAG5_P2.dat 1
+MAG5 1000 file /tmp/MAG5_P4.dat 3
+
+Setpoints 4
+SP1 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/SP1.dat 0
+SP1 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/SP1.dat 1
+SP1 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/SP1.dat 2
+SP1 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/SP1.dat 3
+
+States 4
+ST1 1000 file /tmp/ST1_P1.dat SP1 0
+ST1 1000 file /tmp/ST1_P2.dat SP1 1
+ST1 1000 file /tmp/ST1_P3.dat SP1 2
+ST1 1000 file /tmp/ST1_P4.dat SP1 3
+
+Algorithm sine2

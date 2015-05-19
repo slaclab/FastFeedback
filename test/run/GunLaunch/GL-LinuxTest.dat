@@ -1,0 +1,31 @@
+Patterns 1
+Pattern 1 1 1 1 1 1
+
+Measurements 2
+M01 100 null 0
+M02 100 null 0
+
+Actuators 2
+A01 100 null 0
+A02 100 null 0
+
+Setpoints 2
+S01DES 1000 file /afs/slac/g/lcls/vol8/epics/iocTop/FFController/Development/test/run/input/TR01_SP1.dat 0
+S02DES 1000 file /afs/slac/g/lcls/vol8/epics/iocTop/FFController/Development/test/run/input/TR01_SP2.dat 0
+
+States 2
+S01 1000 file /tmp/S1_P1.dat S01DES 0
+S02 1000 file /tmp/S1_P2.dat S02DES 0
+
+Algorithm sine3
+
+FMatrix
+2 5
+1 4.7684e-07 2.068e-25 0 0
+0 0 1 0 0
+
+GMatrix
+2 2
+0.98466 -1.5494e-08
+1.3018e-08 0.42569
+

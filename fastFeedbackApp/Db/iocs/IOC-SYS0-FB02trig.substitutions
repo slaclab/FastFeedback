@@ -1,0 +1,88 @@
+#==============================================================================
+#
+# Abs:  LCLS Trigger records for SYS0 FB02
+#
+# Name: IOC-SYS0-FB02.substitutions
+#
+# Associated Display: 
+#
+# Rem:  Instantiate one line for every trigger channel including ones not used. 
+# There should be 3 lines for each PMC EVR without a transition module for the 3 front panel triggers.
+# There should be 4 lines for each VME EVR without a transition module for the 4 front panel triggers.
+# There should be 14 additional lines for each PMC or VME EVR that has a transition module.
+# 
+# Macros:
+#	DEV	Name of the device being triggered up to and including the 3rd colon.  
+#		Add a qualifying name after the 3rd colon, if necessary, to keep name unique.
+#		If the trigger channel is not used, use "TRIG:<loca>:<unit>:" 
+#		where <loca> is the location of your IOC and <unit> is xxyy, where xx = subsystem
+#		and yy is 01, 02, etc.
+#	DESC	Description.  Include MAD name in the description if applicable. 
+#	POL	Initial polarity.  0 = normal, 1 = inverted.  Normally restored on reboot.
+#	WID	Initial pulse width in nsec.                  Normally restored on reboot.
+#	DES	Initial desired delay in nsec.                Normally restored on reboot.
+#		Note: the DES value is with respect to IOC TREF (reference time) which is set in 
+#		<ioc>pattern.substitution:
+#		EVR delay = TREF + TDES - event code delay from the fiducial		
+#	CTL	Initial state.     0 = disabled, 1 = enabled. Normally restored on reboot.
+#	TEC	Trigger event code name.  To find all available event codes:
+#		lclshome -> Event -> Events... (in the EVG IOC box).
+#		This display brings up all the event that are beam-dependent.
+#	        For events that are beam-independent (constant or standby), select 
+#		"Time Slot 1 to 6 Event Codes" and find the event that you want to trigger your device.  
+#		Use the middle-mouse-button in the Event Code column to find the PV name.  TEC is the 
+#		part of the name between "IOC:IN20:EV01:" and "EVNT.A".
+#		Also check sharepoint spreadsheet:
+#		Controls -> Timing -> timingEventCodes
+#	LOCA	Location of the EVR that triggers the device.  It is the second part of the 
+#		EVR:<loca>:<unit>:CTRL record instantiated in <ioc>evr.db.
+#	UNIT	Unit number of the EVR instantiated in <ioc>evr.db.
+#	IOC	Name of IOC that contains the EVR, not including the 3rd colon.
+#	DRVL and DRVH  Drive low and high limits for the trigger delay in nsec.
+#	TCTL	Field in EVR:<loca>:<unit>:CTRL that enables/disables the trigger:
+#		DGxE, where x=0 to 3   for front panel triggers.
+#		OTPx, where x=0 to 0xD for transition module triggers.
+#	TPOL	Field in EVR:<loca>:<unit>:CTRL for polarity: 
+#		DGxP, where x=0 to 3   for front panel triggers.
+#		OTxP, where x=0 to 0xD for transition module triggers.
+#	TWID	Field in EVR:<loca>:<unit>:CTRL for pulse width: 
+#		DGxW, where x=0 to 3   for front panel triggers.
+#		OTxW, where x=0 to 0xD for transition module triggers.
+#	TDES	Field in EVR:<loca>:<unit>:CTRL for delay: 
+#		DGxD, where x=0 to 3   for front panel triggers.
+#		OTxD, where x=0 to 0xD for transition module triggers.
+#
+#-- New with latest event module including back-propogation of changes to width & delay values----
+#
+# We have made changes on the evrDevTrg.db. This database has new macros: TOUT and ACTV.
+# We need to put those two macros into the section for the evrDevTrig.db  
+# in the "<application>trig.subsititutions" file.
+# 
+# The TOUT macro provides mapping between the output channel and the event invariant logic.
+# We can use OUT0, OUT1, ..., OUTA, OUTB, OUTC to describe the output channel.
+# Actually, front panel trigger outputs share the events with the real panel triggers.
+# So, you can use, OUT0, OUT1, OUT2 for the front panel.
+# 
+# The ACTV macro enables/disables the event code invariant delay.
+# If you don't like to use this new feature, you can put 0, other then, you can put 1.
+#    
+#-----------------------------------------------------------------------------
+# Mod:
+#       27-Jan-2012, T. Lahey          (LAHEY):
+#          Add EVR and FILE tags to generate event edl files
+#==============================================================================
+# 
+file evrDevTrig.db 
+{
+#EVR EVR:SYS0:FB02
+#FILE evnt_bsy0_fb02
+#           Device	   , Description    ,polarity,width,delay,event , EVR  , EVR,  IOC 
+#			                                         code   ,location,unit
+  pattern { DEV        ,  DESC          ,POL, WID    , DES, TEC     , SYS, LOCA , UNIT, IOC          ,  DRVL  ,  DRVH   , TCTL , TPOL, TWID, TDES, CTL, TOUT, ACTV}
+
+	  { IOC:SYS0:FB02:, "Spare Trig 0" , 1 ,10000000,  500000, LCLSPROF, SYS0 , SYS0 , FB02, IOC:SYS0:FB02, -2.8E06, 2.8E06  , DG0E , DG0P, DG0W, DG0D, 0  , OUT0, 1 }
+	  { IOC:SYS0:FB02:, "Spare Trig 1" , 1 ,20000000,  1000  , LCLSPROF, SYS0 , SYS0 , FB02, IOC:SYS0:FB02, -2.8E06, 2.8E06  , DG1E , DG1P, DG1W, DG1D, 0  , OUT1, 1 }
+	  { IOC:SYS0:FB02:, "Spare Trig 2" , 0 ,30000000,  100   , LCLSPROF, SYS0 , SYS0 , FB02, IOC:SYS0:FB02, -2.8E06, 2.8E06  , DG2E , DG2P, DG2W, DG2D, 0  , OUT2, 1 }
+	  { IOC:SYS0:FB02:, "Spare Trig 3" , 1 ,40000000,  10    , LCLSPROF, SYS0 , SYS0 , FB02, IOC:SYS0:FB02, -2.8E06, 2.8E06  , DG3E , DG3P, DG3W, DG3D, 0  , OUT3, 1 }
+}
+

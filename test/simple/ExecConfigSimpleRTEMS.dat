@@ -1,0 +1,5 @@
+Loops 1
+SimpleLoop /boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/simple/SimpleLoop.dat
+
+PatternGenerator /boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/simple/SimplePatternConfig.dat
+MeasurementDelay 1

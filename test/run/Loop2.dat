@@ -1,0 +1,23 @@
+Patterns 2
+Pattern 0 1 2 3 4 5
+Pattern 1 2 3 4 5 6
+
+Measurements 4
+BPM2 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM2_P1.dat 0
+BPM2 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM2_P2.dat 1
+BPM5 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM5_P1.dat 0
+BPM5 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/BPM5_P2.dat 1
+
+Actuators 2
+MAG2 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/MAG2_P1.dat 0
+MAG2 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/MAG2_P2.dat 1
+
+Setpoints 2
+SP2 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/SP2.dat 0
+SP2 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/SP2.dat 1
+
+States 2
+ST2 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/ST2_P1.dat SP2 0
+ST2 1000 file /afs/slac/g/lcls/epics/iocTop/FFController/Development/test/run/ST2_P2.dat SP2 1
+
+Algorithm sine2
