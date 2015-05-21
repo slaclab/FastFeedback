@@ -2,7 +2,7 @@
 #include "Device.h"
 #include <set>
 
-CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(DeviceTest, "FeedbackUnitTest");
+CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::DeviceTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
@@ -13,7 +13,7 @@ USING_FF_NAMESPACE
  *
  * @author L.Piccoli
  */
-void DeviceTest::testEquality() {
+void FF::DeviceTest::testEquality() {
     std::string name;
     name = "BarackObama";
     std::string slotName = "XX00";
@@ -46,7 +46,7 @@ void DeviceTest::testEquality() {
  *
  * @author L.Piccoli
  */
-void DeviceTest::testLessThan() {
+void FF::DeviceTest::testLessThan() {
     std::string name = "Lula";
     std::string slotName = "XX00";
     Device device1(slotName, name, 10);
@@ -86,7 +86,7 @@ void DeviceTest::testLessThan() {
  *
  * @author L.Piccoli
  */
-void DeviceTest::testDeviceCompare() {
+void FF::DeviceTest::testDeviceCompare() {
     std::string name = "Lula";
     std::string slotName = "XX00";
     Device device1(slotName, name, 10);
@@ -117,7 +117,7 @@ void DeviceTest::testDeviceCompare() {
     CPPUNIT_ASSERT_EQUAL(2, (int) deviceSet.size());
 }
 
-void DeviceTest::testPvComparison() {
+void FF::DeviceTest::testPvComparison() {
     Device deviceM1("XX00", "M1", 1);
     Device deviceM2("XX00", "M2", 1);
     Device deviceM10("XX00", "M10", 1);

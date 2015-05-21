@@ -10,6 +10,9 @@
 
 #include "cppunit/extensions/HelperMacros.h"
 #include "cppunit/TestFixture.h"
+#include "Defs.h"
+
+FF_NAMESPACE_START
 
 class TimerTest : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(TimerTest);
@@ -24,6 +27,8 @@ public:
   void testCallback();
   void testRepeatedCallback();
 };
+
+FF_NAMESPACE_END
 
 #endif	/* _TIMERTEST_H */
 

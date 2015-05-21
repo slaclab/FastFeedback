@@ -6,7 +6,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FileChannelTest, "FeedbackUnitTest");
+CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::FileChannelTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
@@ -15,7 +15,7 @@ USING_FF_NAMESPACE
 #ifdef RTEMS
 #define TEST_DIR "/boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/"
 #else
-#define TEST_DIR "/afs/slac/g/lcls/epics/iocTop/FFController/Development/test/"
+#define TEST_DIR "./test/"
 #endif
 #define TEST_FILE_IN TEST_DIR"TestDevice.in"
 #define TEST_FILE_OUT TEST_DIR"TestDevice.out"
@@ -26,7 +26,7 @@ USING_FF_NAMESPACE
 #define TMP_TEST_FILE_IN_PERM TMP_TEST_DIR"TestDevice.in.nopermission"
 #define TMP_TEST_FILE_OUT_PERM TMP_TEST_DIR"TestDevice.out.nopermission"
 
-void FileChannelTest::testConstructor() {
+void FF::FileChannelTest::testConstructor() {
 /** Do not run this test on RTEMS */
 #ifndef RTEMS
     try {
@@ -35,7 +35,6 @@ void FileChannelTest::testConstructor() {
         CPPUNIT_ASSERT_MESSAGE("Tried opening READ file that does not exist",
                 true);
     }
-
 
     try {
         FileChannel fr(CommunicationChannel::READ_ONLY, TEST_FILE_IN);
@@ -96,7 +95,7 @@ void FileChannelTest::testConstructor() {
 #endif
 }
 
-void FileChannelTest::testRead() {
+void FF::FileChannelTest::testRead() {
     // Write known values to input file first
     int numMeas = 10;
     std::ofstream testFile;
@@ -131,12 +130,12 @@ void FileChannelTest::testRead() {
     CPPUNIT_ASSERT_EQUAL(0.0, value);
 }
 
-void FileChannelTest::testWritingReadFile() {
+void FF::FileChannelTest::testWritingReadFile() {
     FileChannel fr(CommunicationChannel::READ_ONLY, TEST_FILE_IN);
     CPPUNIT_ASSERT_EQUAL(-1, fr.write(0.0));
 }
 
-void FileChannelTest::testReadBadFile() {
+void FF::FileChannelTest::testReadBadFile() {
     epicsTimeStamp timestamp;
     // Write known values to input file first
 
@@ -172,7 +171,7 @@ void FileChannelTest::testReadBadFile() {
     CPPUNIT_ASSERT_EQUAL(-1, fr.read(value, timestamp));
 }
 
-void FileChannelTest::testReadWrap() {
+void FF::FileChannelTest::testReadWrap() {
     // Write known values to input file first
     int numMeas = 10;
     std::ofstream testFile;
@@ -212,7 +211,7 @@ void FileChannelTest::testReadWrap() {
     }
 }
 
-void FileChannelTest::testWrite() {
+void FF::FileChannelTest::testWrite() {
     int numMeas = 10;
     std::string testFileName;
 #ifdef RTEMS
@@ -245,7 +244,7 @@ void FileChannelTest::testWrite() {
     }
 }
 
-void FileChannelTest::testReadingWriteFile() {
+void FF::FileChannelTest::testReadingWriteFile() {
     double value = 0;
     FileChannel fw(CommunicationChannel::WRITE_ONLY, TEST_FILE_IN);
     CPPUNIT_ASSERT_EQUAL(-1, fw.write(value));

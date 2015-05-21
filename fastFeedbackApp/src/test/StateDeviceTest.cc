@@ -7,16 +7,16 @@
 #include <fstream>
 #include <iostream>
 
-CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(StateDeviceTest, "FeedbackUnitTest");
+CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::StateDeviceTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-void StateDeviceTest::setUp() {
+void FF::StateDeviceTest::setUp() {
     setpoint = new SetpointDevice("XX00", "MySetPoint", 10);
 }
 
-void StateDeviceTest::tearDown() {
+void FF::StateDeviceTest::tearDown() {
     delete setpoint;
 }
 
@@ -26,7 +26,7 @@ void StateDeviceTest::tearDown() {
  * 
  * @author L.Piccoli
  */
-void StateDeviceTest::testError() {
+void FF::StateDeviceTest::testError() {
     StateDevice state("XX00", "MyState", 10);
     NullChannel stateNc(CommunicationChannel::WRITE_ONLY);
     state.setCommunicationChannel(&stateNc);
@@ -70,7 +70,7 @@ void StateDeviceTest::testError() {
  *
  * @author L.Piccoli
  */
-void StateDeviceTest::testWrite() {
+void FF::StateDeviceTest::testWrite() {
     std::string name = "MyState";
     std::string fileName = "/tmp/" + name + ".dat";
     int size = 10;

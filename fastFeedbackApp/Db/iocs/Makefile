@@ -40,7 +40,6 @@ DB += IOC-SYS0-FB04trig.db
 DB += IOC-SYS0-FB05trig.db
 
 DB_INSTALLS += $(IOCADMIN)/db/iocAdminSoft.db 
-DB_INSTALLS += $(IOCADMIN)/db/iocAdminRTEMS.db 
 IOCRELEASE_DB += iocRelease.db
 
 #  autosave

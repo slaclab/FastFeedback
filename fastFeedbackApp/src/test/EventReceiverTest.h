@@ -10,6 +10,9 @@
 
 #include "cppunit/extensions/HelperMacros.h"
 #include "cppunit/TestFixture.h"
+#include "Defs.h"
+
+FF_NAMESPACE_START
 
 class EventReceiverTest : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(EventReceiverTest);
@@ -24,6 +27,8 @@ public:
   void testSendReceive();
   void testPending();
 };
+
+FF_NAMESPACE_END
 
 #endif	/* _EVENTRECEIVERTEST_H */
 

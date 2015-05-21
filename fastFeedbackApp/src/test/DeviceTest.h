@@ -10,6 +10,9 @@
 
 #include "cppunit/extensions/HelperMacros.h"
 #include "cppunit/TestFixture.h"
+#include "Defs.h"
+
+FF_NAMESPACE_START
 
 class DeviceTest : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(DeviceTest);
@@ -29,6 +32,8 @@ public:
   void testPvComparison();
 };
 
+
+FF_NAMESPACE_END
 
 #endif	/* _DEVICETEST_H */
 

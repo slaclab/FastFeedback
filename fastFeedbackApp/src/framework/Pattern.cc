@@ -129,13 +129,14 @@ bool Pattern::hasBeam() {
  * @return true if there is a match, false otherwise
  */
 bool Pattern::match(PatternMask& patternMask) {
-#ifdef RTEMS
+  //#ifdef RTEMS
     if (evrPatternCheck(0, patternMask._timeSlot, patternMask._inclusionMask,
             patternMask._exclusionMask, _value) == 0) {
         return false;
     }
     return true;
-#else
+    //#else
+    /*
     // On Linux a match means that bits from the inclusion masks are set
     // and bits from the exclusion mask are reset.
     for (int i = 0; i < MAX_EVR_MODIFIER; ++i) {
@@ -151,6 +152,7 @@ bool Pattern::match(PatternMask& patternMask) {
 
     return true;
 #endif
+    */
 }
 
 /**

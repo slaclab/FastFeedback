@@ -1,12 +1,12 @@
 #include "EventGeneratorTest.h"
 #include "EventGenerator.h"
 
-CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(EventGeneratorTest, "FeedbackUnitTest");
+CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::EventGeneratorTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-void EventGeneratorTest::testAddReceiver() {
+void FF::EventGeneratorTest::testAddReceiver() {
     EventReceiver r1;
     EventReceiver r2;
     EventGenerator g;
@@ -16,12 +16,12 @@ void EventGeneratorTest::testAddReceiver() {
 
     CPPUNIT_ASSERT_EQUAL(0, g.add(r2));
     CPPUNIT_ASSERT_EQUAL(-1, g.add(r1));
-
+    
     CPPUNIT_ASSERT_EQUAL(-1, g.add(r1));
     CPPUNIT_ASSERT_EQUAL(-1, g.add(r1));
 }
 
-void EventGeneratorTest::testRemoveReceiver() {
+void FF::EventGeneratorTest::testRemoveReceiver() {
     EventReceiver r1;
     EventReceiver r2;
     EventGenerator g;
@@ -36,7 +36,7 @@ void EventGeneratorTest::testRemoveReceiver() {
     CPPUNIT_ASSERT_EQUAL(0, g.remove(r2));
 }
 
-void EventGeneratorTest::testSendEvent() {
+void FF::EventGeneratorTest::testSendEvent() {
     EventReceiver r1;
     EventReceiver r2;
     EventGenerator g;
@@ -62,7 +62,7 @@ void EventGeneratorTest::testSendEvent() {
     CPPUNIT_ASSERT_EQUAL(0, g.remove(r2));
 }
 
-void EventGeneratorTest::testEmpty() {
+void FF::EventGeneratorTest::testEmpty() {
     EventGenerator g;
 
     CPPUNIT_ASSERT_EQUAL(true, g.isEmpty());

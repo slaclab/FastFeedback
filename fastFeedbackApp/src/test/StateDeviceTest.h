@@ -12,6 +12,9 @@
 #include "cppunit/TestFixture.h"
 
 #include "SetpointDevice.h"
+#include "Defs.h"
+
+FF_NAMESPACE_START
 
 class StateDeviceTest : public CppUnit::TestFixture {
     CPPUNIT_TEST_SUITE(StateDeviceTest);
@@ -29,6 +32,8 @@ public:
     void testError();
     void testWrite();
 };
+
+FF_NAMESPACE_END
 
 
 #endif	/* _STATEDEVICETEST_H */

@@ -4,14 +4,14 @@
 
 #include "Log.h"
 
-CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(PatternTest, "FeedbackUnitTest");
+CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::PatternTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-void PatternTest::testConstructor() {
+void FF::PatternTest::testConstructor() {
     Log l;
-    l.logToConsole();
+    //    l.logToConsole();
     l << "Test message number=" << 1 << " double=" << 3.1415 << Log::flush;
 
     l << "Another message PI=" << 3.1415 << Log::flush;
@@ -31,7 +31,7 @@ void PatternTest::testConstructor() {
     CPPUNIT_ASSERT_EQUAL((epicsUInt32) 20, p._timestamp.secPastEpoch);
 }
 
-void PatternTest::testAssign() {
+void FF::PatternTest::testAssign() {
     Pattern p1;
 
     for (int i = 0; i < MAX_EVR_MODIFIER; ++i) {
@@ -53,7 +53,7 @@ void PatternTest::testAssign() {
     }
 }
 
-void PatternTest::testCompare() {
+void FF::PatternTest::testCompare() {
     Pattern p1;
 
     p1._value[0] = 0;
@@ -79,7 +79,7 @@ void PatternTest::testCompare() {
     CPPUNIT_ASSERT(p1 == p2);
 }
 
-void PatternTest::testPatternMap() {
+void FF::PatternTest::testPatternMap() {
     Pattern p1;
     Pattern p3;
     Pattern p2;
@@ -104,7 +104,7 @@ void PatternTest::testPatternMap() {
     CPPUNIT_ASSERT(it == pmap.end());
 }
 
-void PatternTest::testMatch() {
+void FF::PatternTest::testMatch() {
     PatternMask m1;
     epicsUInt32 maskBit = 0x1;
     for (int i = 0; i < MAX_EVR_MODIFIER; ++i) {
@@ -145,8 +145,8 @@ void PatternTest::testMatch() {
 
     PatternMask m2;
     std::vector<unsigned short> v;
-    v.push_back(0);
-    v.push_back(0);
+
+    // inclusion mask
     v.push_back(0);
     v.push_back(256);
     v.push_back(0);
@@ -157,6 +157,10 @@ void PatternTest::testMatch() {
     v.push_back(0);
     v.push_back(0);
     v.push_back(0);
+
+    // exclusion mask
+    v.push_back(0);
+    v.push_back(0);
     v.push_back(54);
     v.push_back(0);
     v.push_back(0);
@@ -165,14 +169,11 @@ void PatternTest::testMatch() {
     v.push_back(0);
     v.push_back(0);
     v.push_back(0);
+
+    // time slot
     v.push_back(0);
+
     m2 = v;
 
     CPPUNIT_ASSERT_EQUAL(true, p1.match(m2));
 }
-
-//Time: 2699
-//Prev: 654482464:861249133
-//Now: 654482467:560826084
-//PatternMask: [IncMask: 0x000 0x1000000 0x80000 0x0        0x0        0x0; ExcMask: 0x0 0x36 0x0 0x0 0x0 0x0; TS: 0]
-//Pattern:     [Evr:     0x100 0x7800008 0x90600 0x8c003ff0 0x12fb8002 0x1][519590560sec, 2534020 nsec]

@@ -4,22 +4,22 @@
 #include <iostream>
 #include <stdlib.h>
 
-CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(TimerTest, "FeedbackUnitTest");
+CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::TimerTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-        int COUNTER = 0;
+int COUNTER = 0;
 
 void callback(void *arg) {
     COUNTER++;
 }
 
-void TimerTest::setUp() {
+void FF::TimerTest::setUp() {
     COUNTER = 0;
 }
 
-void TimerTest::testCallback() {
+void FF::TimerTest::testCallback() {
     Timer t(&callback);
 
     t.start(1);
@@ -32,7 +32,7 @@ void TimerTest::testCallback() {
     t.start(2); // Start timer that won't expire
 }
 
-void TimerTest::testRepeatedCallback() {
+void FF::TimerTest::testRepeatedCallback() {
     Timer t(&callback);
 
     t.start(2, true);

@@ -7,7 +7,6 @@ include $(TOP)/configure/CONFIG
 
 # for gdb/ddd debugger:
 USR_CFLAGS_linux-x86 += -g
-USR_CFLAGS_RTEMS     += -g -ggdb
 #USR_CFLAGS           += -DDEBUG_PRINT
 
 #------------------------------------------------------------------------------
@@ -34,14 +33,12 @@ USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS
 # Flags for testing on FB05
 #USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DLOG -DnoDEBUG_EVENT -DNDEBUG -DnCHECK_BEAM -DnCONTROL_ACTUATORS
 
-# This is to keep debugging symbols when building for RTEMS
-# OP_SYS_LDFLAGS contains -Wl,-S
 override OP_SYS_LDFLAGS =
 
-SRC_DIRS += $(TOP)/ffControllerApp/src/framework
-SRC_DIRS += $(TOP)/ffControllerApp/src/util
-SRC_DIRS += $(TOP)/ffControllerApp/src/algo
-SRC_DIRS += $(TOP)/ffControllerApp/src/test
+SRC_DIRS += $(TOP)/fastFeedbackApp/src/framework
+SRC_DIRS += $(TOP)/fastFeedbackApp/src/util
+SRC_DIRS += $(TOP)/fastFeedbackApp/src/algo
+SRC_DIRS += $(TOP)/fastFeedbackApp/src/test
 
 # Source Files
 CC_FILES = Thread.cc EventReceiver.cc EventGenerator.cc PatternManager.cc \
@@ -79,90 +76,12 @@ CC_TEST_FILES = EventReceiverTest.cc ThreadTest.cc \
 
 LCLS_PACKAGE_DIR=/usr/local/lcls/package
 
+CPPUNIT_DIR=$(PACKAGE_TOP)/cppunit
 BOOST_DIR=$(PACKAGE_TOP)/boost
 BOOST_BINDINGS_DIR=$(PACKAGE_TOP)/boost-numeric-bindings
-GFORTRAN_RTEMS_DIR=$(PACKAGE_TOP)/gfortran-rtems
-LAPACK_RTEMS_DIR=$(PACKAGE_TOP)/lapack
 LAPACK_DIR=$(PACKAGE_TOP)/lapack
 
-# RTEMS Starts here ====================================================
-ifeq ($(OS_CLASS), RTEMS)
-PROD_IOC = feedback #feedbackTest
-
-USR_CXXFLAGS += -DRTEMS
-
-
-ifeq ($(BOOST_DIR), )
-USR_CXXFLAGS += -I $(LCLS_PACKAGE_DIR)/boost/include
-else
-USR_CXXFLAGS += -I $(BOOST_DIR)/include
-endif
-
-ifeq ($(BOOST_BINDINGS_DIR), )
-USR_CXXFLAGS += -I $(LCLS_PACKAGE_DIR)/boost-numeric-bindings/include/boost-numeric-bindings
-else
-USR_CXXFLAGS += -I $(BOOST_BINDINGS_DIR)/include/boost-numeric-bindings
-endif
-
-ifeq ($(GFORTRAN_RTEMS_DIR), )
-USR_LDFLAGS += -L$(LCLS_PACKAGE_DIR)/gfortran-rtems
-else
-USR_LDFLAGS += -L$(GFORTRAN_RTEMS_DIR)
-endif
-
-ifeq ($(LAPACK_RTEMS_DIR), )
-USR_LDFLAGS += -L$(LCLS_PACKAGE_DIR)/lapack
-else
-USR_LDFLAGS += -L$(LAPACK_RTEMS_DIR)
-endif
-
-USR_LDFLAGS += -L$(EPICS_BASE_RELEASE)/lib/RTEMS-beatnik
-feedback_LDFLAGS  += -L $(EPICS_BASE_RELEASE)/lib/linux-x86
-feedback_SYS_LIBS += lapack_RTEMS blas_RTEMS gfortran Com ca dbIoc dbStaticIoc asIoc dbtoolsIoc rsrvIoc miscIoc registryIoc
-
-# the dbd file
-DBD = feedback.dbd
-feedback_DBD += base.dbd
-feedback_DBD += iocAdmin.dbd
-feedback_DBD += autosaveSupport.dbd
-feedback_DBD += caPutLog.dbd
-feedback_DBD += devFfDeviceView.dbd
-feedback_DBD += devFfConfig.dbd
-
-feedback_DBD += evrSupport.dbd
-feedback_DBD += devMrfEr.dbd
-feedback_DBD += fcomUtil.dbd
-
-# IOC Source Files
-feedback_SRCS         += feedback_registerRecordDeviceDriver.cpp
-feedback_SRCS         += $(CC_FILES) chirpControl.st chirpUpdate.st limitUpdate.st
-# Is this for softioc only?
-#feedback_SRCS_DEFAULT += ffControllerMain.cpp
-feedback_SRCS_vxWorks += -nil-
-feedback_SRCS_RTEMS   += -nil-
-
-# libs rtems IOC app
-feedback_LIBS += miscUtils
-feedback_LIBS += devIocStats
-feedback_LIBS += rtemsutils
-feedback_LIBS += evrSupport
-feedback_LIBS += devMrfEr
-feedback_LIBS += mrfVme64x
-feedback_LIBS += fcom fcomIocshSupport fcomUtil
-feedback_LIBS += udpComm
-feedback_LIBS += autosave
-feedback_LIBS += caPutLog
-feedback_LIBS += seq pv
-feedback_LIBS += $(EPICS_BASE_IOC_LIBS)
-
-# CPPUNIT Tests
-feedbackTest_SRCS         += $(CC_TEST_FILES)
-feedbackTest_SRCS_DEFAULT += ffUnitTest.cc 
-
-# LINUX Starts here ====================================================
-else
-
-PROD_IOC = ffSoft ffUnitTest
+PROD_IOC = fastFeedback ffUnitTest
 
 # BOOST 1.42 (local on cdlx22)
 USR_CXXFLAGS += -DLINUX
@@ -191,43 +110,49 @@ else
 USR_LDFLAGS += -L$(LAPACK_DIR)
 endif
 
-ffSoft_LDFLAGS  += -L $(EPICS_BASE_RELEASE)/lib/linux-x86
-ffSoft_SYS_LIBS += lapackF blasF gfortran Com dbIoc dbStaticIoc dbtoolsIoc rsrvIoc ca asIoc miscIoc registryIoc
+ifeq ($(CPPUNIT_DIR), )
+CPPUNIT_DIR=$(LCLS_PACKAGE_DIR)/cppunit
+endif
 
-# SIOC Source Files
-ffSoft_SRCS += $(CC_FILES) chirpControl.st
+fastFeedback_LDFLAGS  += -L $(EPICS_BASE_RELEASE)/lib/linux-x86
+fastFeedback_SYS_LIBS += lapackF blasF gfortran Com dbIoc dbStaticIoc dbtoolsIoc rsrvIoc ca asIoc miscIoc registryIoc
+
+
+DBD = fastFeedback.dbd
+fastFeedback_DBD += base.dbd
+fastFeedback_DBD += iocAdmin.dbd
+fastFeedback_DBD += autosaveSupport.dbd
+fastFeedback_DBD += caPutLog.dbd
+fastFeedback_DBD += ffRecord.dbd
+fastFeedback_DBD += devFfDeviceView.dbd
+fastFeedback_DBD += devFfConfig.dbd
+fastFeedback_DBD += evrSupport.dbd
+fastFeedback_DBD += devMrfEr.dbd
+
+fastFeedback_SRCS += $(CC_FILES) chirpControl.st
+fastFeedback_SRCS += fastFeedback_registerRecordDeviceDriver.cpp
+fastFeedback_SRCS_DEFAULT += ffControllerMain.cpp
+
+# libs linux IOC app
+fastFeedback_LIBS += miscUtils
+fastFeedback_LIBS += devIocStats
+fastFeedback_LIBS += caPutLog
+fastFeedback_LIBS += autosave
+fastFeedback_LIBS += seq pv
+fastFeedback_LIBS += evrSupport
+fastFeedback_LIBS += devMrfEr
+fastFeedback_LIBS += drvMrf
+fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 # CPPUNIT Tests
 USR_CXXFLAGS            += -I $(CPPUNIT_DIR)/include
-ffUnitTest_LDFLAGS      += -L $(CPPUNIT_DIR)/lib $(ffSoft_LDFLAGS)
-ffUnitTest_SYS_LIBS     += cppunit dl $(ffSoft_SYS_LIBS)
-ffUnitTest_SYS_LIBS     += $(ffSoft_SYS_LIBS)
 ffUnitTest_SRCS         += $(CC_TEST_FILES) $(CC_FILES)
 ffUnitTest_SRCS_DEFAULT += ffUnitTest.cc
-
-DBD = ffSoft.dbd
-ffSoft_DBD += base.dbd
-ffSoft_DBD += iocAdmin.dbd
-ffSoft_DBD += autosaveSupport.dbd
-ffSoft_DBD += caPutLog.dbd
-ffSoft_DBD += ffRecord.dbd
-ffSoft_DBD += devFfDeviceView.dbd
-ffSoft_DBD += devFfConfig.dbd
-
-# <name>_registerRecordDeviceDriver.cpp will be created from <name>.dbd
-ffSoft_SRCS         += ffSoft_registerRecordDeviceDriver.cpp
-ffSoft_SRCS_DEFAULT += ffControllerMain.cpp
-ffSoft_SRCS_vxWorks += -nil-
-ffSoft_SRCS_RTEMS   += -nil-
-
-# libs linux IOC app
-ffSoft_LIBS += miscUtils
-ffSoft_LIBS += devIocStats
-ffSoft_LIBS += caPutLog
-ffSoft_LIBS += autosave
-ffSoft_LIBS += seq pv
-ffSoft_LIBS += $(EPICS_BASE_IOC_LIBS)
-endif
+ffUnitTest_LIBS         += $(fastFeedback_LIBS)
+ffUnitTest_DBD          += $(fastFeedback_DBD)
+ffUnitTest_LDFLAGS      += -L $(CPPUNIT_DIR)/lib $(fastFeedback_LDFLAGS)
+ffUnitTest_SYS_LIBS     += cppunit dl $(fastFeedback_SYS_LIBS)
+ffUnitTest_SYS_LIBS     += $(fastFeedback_SYS_LIBS)
 
 #========================================
 

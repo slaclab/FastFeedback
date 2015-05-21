@@ -1,0 +1,18 @@
+-include $(TOP)/configure/CONFIG_SITE
+
+# For linuxRT-x86
+
+# Define the location of the hdf5, sz
+# So only need to define location of libs and headers
+#BUILDROOT_HOME=/u/cd/mdewart/buildroot
+BUILDROOT_HOME=/afs/slac/g/lcls/package/linuxRT/buildroot-2014.11
+STAGE_X86=$(BUILDROOT_HOME)/buildroot-glibc-x86_64/output/staging
+
+#ETHERLAB_RT=/afs/slac/g/lcls/package/linuxKernel_Modules/ethercat/MAIN_TRUNK_linuxRT-x86_64
+
+#ETHERCAT_LIB = $(ETHERLAB_RT)/lib/.libs/libethercat
+#ETHERCAT_INCLUDE = -I$(ETHERLAB_RT)/include
+#ETHERCAT_LINK = -L$(ETHERLAB_RT)/lib/.libs -Wl,-rpath=$(ETHERLAB_RT)/lib/.libs
+
+#LIBXML2_LIB = $(STAGE_X86)/usr/lib
+#LIBXML2_INCLUDE = -I$(STAGE_X86)/usr/include -I$(STAGE_X86)/usr/include/libxml2

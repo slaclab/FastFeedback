@@ -10,6 +10,9 @@
 
 #include "cppunit/extensions/HelperMacros.h"
 #include "cppunit/TestFixture.h"
+#include "Defs.h"
+
+FF_NAMESPACE_START
 
 class PatternTest : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(PatternTest);
@@ -30,6 +33,8 @@ public:
   void testPatternMap();
   void testMatch();
 };
+
+FF_NAMESPACE_END
 
 #endif	/* _PATTERNTEST_H */
 

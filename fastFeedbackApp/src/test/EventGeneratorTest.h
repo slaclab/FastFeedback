@@ -10,6 +10,9 @@
 
 #include "cppunit/extensions/HelperMacros.h"
 #include "cppunit/TestFixture.h"
+#include "Defs.h"
+
+FF_NAMESPACE_START
 
 class EventGeneratorTest : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(EventGeneratorTest);
@@ -29,6 +32,7 @@ public:
   void testEmpty();
 };
 
+FF_NAMESPACE_END
 
 #endif	/* _EVENTGENERATORTEST_H */
 

@@ -1,12 +1,12 @@
 #include "EventReceiverTest.h"
 #include "EventReceiver.h"
 
-CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(EventReceiverTest, "FeedbackUnitTest");
+CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::EventReceiverTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-void EventReceiverTest::testSendReceive() {
+void FF::EventReceiverTest::testSendReceive() {
     EventReceiver er;
     Event sendEvent(QUIT_EVENT);
     Event recvEvent;
@@ -17,7 +17,7 @@ void EventReceiverTest::testSendReceive() {
     CPPUNIT_ASSERT_EQUAL(recvEvent._type, sendEvent._type);
 }
 
-void EventReceiverTest::testPending() {
+void FF::EventReceiverTest::testPending() {
     EventReceiver er;
     int pending = 11;
     Event pendingEvent(PATTERN_EVENT);
