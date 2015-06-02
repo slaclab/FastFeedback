@@ -95,7 +95,7 @@ int StateDevice::set(double value) {
  * @author L.Piccoli
  */
 int StateDevice::write() {
-    _lastValueSet = _buffer[_nextWrite]._value + _offset;
+  _lastValueSet = _buffer[_nextWrite]._value + _offsetPv->getValue();
 
     // Write value to the outgoing blob
     if (_statesChannel != NULL) {
@@ -103,7 +103,7 @@ int StateDevice::write() {
         _statesChannel->write(value, _stateIndex);
     }
 
-    return ActuatorDevice::write(_buffer[_nextWrite]._value + _offset);
+    return ActuatorDevice::write(_buffer[_nextWrite]._value + _offsetPv->getValue());
 }
 
 int StateDevice::writeFcom(epicsTimeStamp timestamp) {
@@ -153,7 +153,7 @@ void StateDevice::setOffset(double offset) {
  *
  * @param setpoint new SetpointDevice that contains the setpoints for the
  * state
- * @author L.Piccoli
+ * @author L.Piccolixb
  */
 void StateDevice::setSetpointDevice(SetpointDevice *setpoint) {
     _setpoint = setpoint;
@@ -179,7 +179,7 @@ int StateDevice::getInitialSetting() throw (Exception) {
  */
 double StateDevice::getSetpoint() {
     if (_setpoint != NULL) {
-        return _setpoint->peek();
+      return _setpoint->peek();
     } else {
         return 0;
     }

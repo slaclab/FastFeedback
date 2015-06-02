@@ -1,12 +1,12 @@
 #include "PatternMaskTest.h"
 #include "PatternMask.h"
 
-CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(PatternMaskTest, "FeedbackUnitTest");
+CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::PatternMaskTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-void PatternMaskTest::testAssign() {
+void FF::PatternMaskTest::testAssign() {
     PatternMask p1;
 
     for (int i = 0; i < MAX_EVR_MODIFIER; ++i) {
@@ -34,7 +34,7 @@ void PatternMaskTest::testAssign() {
     CPPUNIT_ASSERT_EQUAL(p1._timeSlot, p3._timeSlot);
 }
 
-void PatternMaskTest::testAssignVector() {
+void FF::PatternMaskTest::testAssignVector() {
     PatternMask p1;
     for (int i = 0; i < MAX_EVR_MODIFIER; ++i) {
         p1._inclusionMask[i] = i + 10;
@@ -63,20 +63,20 @@ void PatternMaskTest::testAssignVector() {
     p1 = v;
     for (epicsUInt32 i = 0; i < MAX_EVR_MODIFIER - 1; ++i) {
         epicsUInt32 val = v[i * 2 + 1] << 16 | v[i * 2];
-        CPPUNIT_ASSERT_EQUAL(val, p1._inclusionMask[i]);
+        CPPUNIT_ASSERT_EQUAL(val, p1._inclusionMask[i+1]);
     }
-    CPPUNIT_ASSERT_EQUAL((epicsUInt32) 0, p1._inclusionMask[MAX_EVR_MODIFIER - 1]);
+    CPPUNIT_ASSERT_EQUAL((epicsUInt32) 0, p1._inclusionMask[0]);
     int maskIndex = 0;
     for (epicsUInt32 i = MAX_EVR_MODIFIER - 1; i < (MAX_EVR_MODIFIER - 1) * 2 - 1; ++i) {
         epicsUInt32 val = v[i * 2 + 1] << 16 | v[i * 2];
-        CPPUNIT_ASSERT_EQUAL(val, p1._exclusionMask[maskIndex]);
+        CPPUNIT_ASSERT_EQUAL(val, p1._exclusionMask[maskIndex+1]);
         maskIndex++;
     }
-    CPPUNIT_ASSERT_EQUAL((epicsUInt32) 0, p1._exclusionMask[MAX_EVR_MODIFIER - 1]);
+    CPPUNIT_ASSERT_EQUAL((epicsUInt32) 0, p1._exclusionMask[0]);
     CPPUNIT_ASSERT_EQUAL((unsigned long) v[20], p1._timeSlot);
 }
 
-void PatternMaskTest::testCompare() {
+void FF::PatternMaskTest::testCompare() {
     PatternMask p1;
     for (int i = 0; i < MAX_EVR_MODIFIER; ++i) {
         p1._inclusionMask[i] = i + 10;
@@ -99,7 +99,7 @@ void PatternMaskTest::testCompare() {
     CPPUNIT_ASSERT(p1 != p2);
 }
 
-void PatternMaskTest::testPatternMaskMap() {
+void FF::PatternMaskTest::testPatternMaskMap() {
     PatternMask p1;
     PatternMask p3;
     PatternMask p2;

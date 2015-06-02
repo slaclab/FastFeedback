@@ -16,8 +16,6 @@ FF_NAMESPACE_START
 
 class MeasurementDeviceTest : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(MeasurementDeviceTest);
-  CPPUNIT_TEST(testDropPoints);
-  CPPUNIT_TEST(testGetTooMuch);
   CPPUNIT_TEST(testFailSetWrite);
   CPPUNIT_TEST(testFileChannel);
   CPPUNIT_TEST(testAverage);
@@ -28,8 +26,6 @@ public:
   void setUp() {};
   void tearDown() {};
 
-  void testDropPoints();
-  void testGetTooMuch();
   void testFailSetWrite();
   void testFileChannel();
   void testAverage();

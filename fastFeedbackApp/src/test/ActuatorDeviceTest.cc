@@ -22,8 +22,8 @@ USING_FF_NAMESPACE
 void FF::ActuatorDeviceTest::testDropPoints() {
     int size = 10;
     ActuatorDevice a("XX00", "MyMagnet", size);
-    NullChannel nc(CommunicationChannel::WRITE_ONLY);
-    a.setCommunicationChannel(&nc);
+    NullChannel *nc = new NullChannel(CommunicationChannel::WRITE_ONLY);
+    a.setCommunicationChannel(nc);
 
     CPPUNIT_ASSERT_EQUAL(0, a._droppedPoints);
     for (int i = 0; i < size; ++i) {
@@ -49,14 +49,21 @@ void FF::ActuatorDeviceTest::testDropPoints() {
  * to send data that was not previously added to the internal buffer using
  * set().
  *
+ * REMOVED: this test has been removed because the write() function writes out
+ * the latest set value, if there are queue set values they are skipped.
+ * 
  * @author L.Piccoli
  */
 void FF::ActuatorDeviceTest::testWriteTooMuch() {
+  /*
     int size = 10;
     ActuatorDevice a("XX00", "MyMagnet", size);
 
-    NullChannel nc(CommunicationChannel::WRITE_ONLY);
-    a.setCommunicationChannel(&nc);
+    NullChannel *nc = new NullChannel(CommunicationChannel::WRITE_ONLY);
+    a.setCommunicationChannel(nc);
+
+    a._hihiPv = 1000;
+    a._loloPv = -1000;
 
     for (int i = 0; i < size; ++i) {
         double value = i;
@@ -65,10 +72,13 @@ void FF::ActuatorDeviceTest::testWriteTooMuch() {
 
     for (int i = 0; i < size; ++i) {
         double value = i;
+
         CPPUNIT_ASSERT_EQUAL(value, a._buffer[a._nextWrite]._value);
-        CPPUNIT_ASSERT_EQUAL(0, a.write());
+	int ret = a.write();
+        CPPUNIT_ASSERT_EQUAL(0, ret);
     }
     CPPUNIT_ASSERT_EQUAL(-1, a.write());
+  */
 }
 
 /**
@@ -97,8 +107,8 @@ void FF::ActuatorDeviceTest::testFileChannel() {
     int size = 10;
     ActuatorDevice a("XX00", name, size);
 
-    FileChannel fc(CommunicationChannel::WRITE_ONLY, fileName);
-    a.setCommunicationChannel(&fc);
+    FileChannel *fc = new FileChannel(CommunicationChannel::WRITE_ONLY, fileName);
+    a.setCommunicationChannel(fc);
 
     for (int i = 0; i < size * 4; ++i) {
         double value = i + 100;
@@ -127,8 +137,8 @@ void FF::ActuatorDeviceTest::testPeek() {
     int size = 10;
     ActuatorDevice a("XX00", "MyMagnet", size);
 
-    NullChannel nc(CommunicationChannel::WRITE_ONLY);
-    a.setCommunicationChannel(&nc);
+    NullChannel *nc = new NullChannel(CommunicationChannel::WRITE_ONLY);
+    a.setCommunicationChannel(nc);
 
     for (int i = 0; i < size; ++i) {
         double value = i;

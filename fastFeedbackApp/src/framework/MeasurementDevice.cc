@@ -143,17 +143,13 @@ int MeasurementDevice::read() {
         _droppedPoints++;
     }
     _buffer[_next]._status = DataPoint::EMPTY;
-
-#ifdef DEBUG_PRINT
-    /** The timestamp of the measurement MUST match the PULSEID */
-    if (_name == "M1") {
-      Log::getInstance() << Log::flagPulseId << Log::dpInfo
-			 << "MeasurementDevice::read() M1 only, _next="
-			 << (int) _next << ", _nextRead=" << (int) _nextRead
-			 << " PULSEID=" << (int) PULSEID(timestamp) << Log::dp;
-    }
-#endif
-
+    /*
+      std::cout 
+	<< "MeasurementDevice::read() M1 only, _next="
+	<< (int) _next << ", _nextRead=" << (int) _nextRead
+	<< " PULSEID=" << (int) PULSEID(timestamp)
+	<< ", status=" << _buffer[_next]._status << std::endl;
+*/
     return 0;
 }
 

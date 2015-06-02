@@ -145,6 +145,9 @@ int MeasurementCollector::add(MeasurementDevice* measurement) {
     // If this is a new pattern mask create a new MeasurementSet,
     // otherwise retrieve existing MeasurementSet
     if (!hasPatternMask(measurement->getPatternMask())) {
+      Log::getInstance() << Log::dpInfo << "INFO: New pattern mask "
+			 << measurement->getPatternMask().toString().c_str()
+			 << Log::flush;
         measurementSet = new CollectorMeasurementSet;
         _measurements.insert(std::pair<PatternMask, CollectorMeasurementSet *>
                 (measurement->getPatternMask(), measurementSet));

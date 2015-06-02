@@ -1,5 +1,6 @@
 
 #include "PatternMask.h"
+#include "Log.h"
 #include <sstream>
 
 USING_FF_NAMESPACE

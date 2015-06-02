@@ -1,5 +1,6 @@
 #include "MeasurementCollectorTest.h"
 #include "MeasurementCollector.h"
+#include "Log.h"
 
 #include <iostream>
 
@@ -46,6 +47,7 @@ void FF::MeasurementCollectorTest::setUp() {
 }
 
 void FF::MeasurementCollectorTest::tearDown() {
+  /*
     delete m1;
     delete m2;
     delete m3;
@@ -55,6 +57,7 @@ void FF::MeasurementCollectorTest::tearDown() {
     delete nc2;
     delete nc3;
     delete nc4;
+  */
 }
 
 /**
@@ -100,6 +103,7 @@ void FF::MeasurementCollectorTest::testHasPattern() {
  */
 void FF::MeasurementCollectorTest::testAddDevice() {
     MeasurementCollector collector;
+    Log::getInstance().logToConsole();
 
     // Try adding same device twice
     CPPUNIT_ASSERT_EQUAL(0, collector.add(m1));
@@ -108,6 +112,8 @@ void FF::MeasurementCollectorTest::testAddDevice() {
     // Adding device with same name/pattern should not be allowed
     CPPUNIT_ASSERT_EQUAL(0, collector.add(m1Clone));
 
+    // The set returned should contain m1 only. Later m4 is
+    // added to the same set (because both m1 and m4 use p1)
     CollectorMeasurementMap::iterator iterator;
     iterator = collector._measurements.find(p1);
     CollectorMeasurementSet *set = iterator->second;
@@ -117,6 +123,7 @@ void FF::MeasurementCollectorTest::testAddDevice() {
     CPPUNIT_ASSERT_EQUAL(0, collector.add(m2));
     CPPUNIT_ASSERT_EQUAL(0, collector.add(m3));
     CPPUNIT_ASSERT_EQUAL(0, collector.add(m4));
+
     CPPUNIT_ASSERT_EQUAL(2, (int) set->size());
 }
 

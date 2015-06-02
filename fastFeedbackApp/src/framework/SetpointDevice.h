@@ -42,6 +42,7 @@ public:
     virtual void show();
 
     friend class SetpointDeviceTest;
+    friend class StateDeviceTest;
 
     /** Unsupported method */
     virtual int read() {

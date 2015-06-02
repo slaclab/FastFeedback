@@ -235,7 +235,10 @@ long TimeAverage::getAverage() {
     if (_full) {
         _averageTime = _sum / _size;
     } else {
+      _averageTime = 0;
+      if (_head != 0) {
         _averageTime = _sum / _head;
+      }
     }
     return _averageTime;
 }

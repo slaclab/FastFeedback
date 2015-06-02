@@ -13,73 +13,6 @@ CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 USING_FF_NAMESPACE
 
 /**
- * Verify that if a MeasurementDevice is read times (i.e. values are retrieved
- * from the actual device) there will be measurement values dropped
- * once the internal buffer wraps. Some of the values will *not* be seen by
- * user when calling get() because they were overridden by multiple calls
- * to read().
- *
- * @author L.Piccoli
- */
-void FF::MeasurementDeviceTest::testDropPoints() {
-    int size = 10;
-    MeasurementDevice m("XX00", "MyBPM", size);
-    NullChannel nc(CommunicationChannel::READ_ONLY, true);
-    m.setCommunicationChannel(&nc);
-
-    CPPUNIT_ASSERT_EQUAL(0, m._droppedPoints);
-    for (int i = 0; i < size; ++i) {
-        CPPUNIT_ASSERT_EQUAL(0, m.read());
-    }
-    CPPUNIT_ASSERT_EQUAL(0, m._droppedPoints);
-
-    // Next buffer entry read using get() should have the value 1? 0?
-    CPPUNIT_ASSERT_EQUAL(0, m._nextRead);
-    CPPUNIT_ASSERT_EQUAL(0.0, m._buffer[m._nextRead]._value);
-
-    // Now add one more so we have a dropped point
-    CPPUNIT_ASSERT_EQUAL(0, m.read());
-    CPPUNIT_ASSERT_EQUAL(1, m._droppedPoints);
-
-    // The next value waiting to be read over should be 1,
-    // because 0 was dropped
-    CPPUNIT_ASSERT_EQUAL(1.0, m._buffer[m._nextRead]._value);
-}
-
-/**
- * Test when a user tries to get() more data from the internal buffer than it
- * was retrieved using read(). Once all read() values are get() then get()
- * should return errors.
- *
- * @author L.Piccoli
- */
-void FF::MeasurementDeviceTest::testGetTooMuch() {
-    int size = 10;
-    MeasurementDevice m("XX00", "MyBPM", size);
-
-    NullChannel nc(CommunicationChannel::READ_ONLY, true);
-    m.setCommunicationChannel(&nc);
-
-    // First read() values from the NullChannel (counting mode)
-    for (int i = 0; i < size; ++i) {
-        CPPUNIT_ASSERT_EQUAL(0, m.read());
-    }
-
-    // Call get() for all values read() above
-    double value;
-    epicsTimeStamp timestamp;
-    for (int i = 0; i < size; ++i) {
-        double expectedValue = i;
-        CPPUNIT_ASSERT_EQUAL(expectedValue, m._buffer[m._nextRead]._value);
-        CPPUNIT_ASSERT_EQUAL(0, m.get(value, timestamp));
-        CPPUNIT_ASSERT_EQUAL(expectedValue, value);
-    }
-
-    // Getting an extra value should fail!
-    CPPUNIT_ASSERT_EQUAL(-1, m.get(value, timestamp));
-}
-
-/**
  * Make sure the MeasurementDevice class does not provide methods to write data.
  *
  * @author L.Piccoli
@@ -110,13 +43,13 @@ void FF::MeasurementDeviceTest::testFileChannel() {
     }
     testFile.close();
 
-    FileChannel fr(CommunicationChannel::READ_ONLY, fileName);
+    FileChannel *fr = new FileChannel(CommunicationChannel::READ_ONLY, fileName);
     double value;
     epicsTimeStamp timestamp;
 
     int size = 10;
     MeasurementDevice m("XX00", "MyBPM", size);
-    m.setCommunicationChannel(&fr);
+    m.setCommunicationChannel(fr);
 
     // Reads measurements in, checking values
     for (int i = 0; i < numMeas; ++i) {
@@ -142,8 +75,8 @@ void FF::MeasurementDeviceTest::testAverage() {
     int iterations = 10;
     MeasurementDevice m("XX00", "MyBPM", size);
 
-    NullChannel nc(CommunicationChannel::READ_ONLY, true);
-    m.setCommunicationChannel(&nc);
+    NullChannel *nc = new NullChannel(CommunicationChannel::READ_ONLY, true);
+    m.setCommunicationChannel(nc);
 
     // Fill up the internal buffer first
     for (int i = 0; i < size * iterations; ++i) {
@@ -152,17 +85,31 @@ void FF::MeasurementDeviceTest::testAverage() {
 
     // Average the last 100 points 
     int averageSize = 100;
-    double last = (size * iterations) - 1;
-    double first = (size * iterations) - averageSize;
-    double expectedAverage = (first + last) / 2;
-
     m.setAverageCount(averageSize);
-    CPPUNIT_ASSERT_EQUAL(expectedAverage, m.getAverage());
+    double actualAverage = m.getAverage();
 
-    // Average all points
-    first = (size * iterations) - size;
-    expectedAverage = (first + last) / 2;
+    double expectedAverage = 0;
+    double value = size * iterations - 1;
+    for (int i = 0; i < averageSize; ++i) {
+      expectedAverage += value;
+      value = value - 1;
+    }
+    expectedAverage /= averageSize;
+
+    CPPUNIT_ASSERT_EQUAL(expectedAverage, actualAverage);
+
+    // Average all points in the buffer (size elements)
     m.setAverageCount(size * 2);
+
+    expectedAverage = 0;
+    value = size * iterations - 1;
+    // Even though there are 1000 elements in the buffer, only 999 are used.
+    for (int i = 0; i < size - 1; ++i) {
+      expectedAverage += value;
+      value = value - 1;
+    }
+    expectedAverage /= (size - 1);
+
     CPPUNIT_ASSERT_EQUAL(expectedAverage, m.getAverage());
 
     // Try to average half-empty buffer - average count is still of the size
@@ -171,8 +118,8 @@ void FF::MeasurementDeviceTest::testAverage() {
     for (int i = 0; i < size / 2; ++i) {
         CPPUNIT_ASSERT_EQUAL(0, m.read());
     }
-    last = (size * iterations) + size / 2 - 1;
-    first = (size * iterations);
+    double last = (size * iterations) + size / 2 - 1;
+    double first = (size * iterations);
     expectedAverage = (first + last) / 2;
     CPPUNIT_ASSERT_EQUAL(expectedAverage, m.getAverage());
 }
@@ -188,31 +135,36 @@ void FF::MeasurementDeviceTest::testPeek() {
     int size = 100;
     MeasurementDevice m("XX00", "MyBPM", size);
 
-    NullChannel nc(CommunicationChannel::READ_ONLY, true);
-    m.setCommunicationChannel(&nc);
+    NullChannel *nc = new NullChannel(CommunicationChannel::READ_ONLY, true);
+    m.setCommunicationChannel(nc);
 
-    // Fill up the internal buffer first
+    // Fill up the internal buffer first, reading from NullChannel
+    // and then retrieving with get() for the first 50 elements
+    double value = 0;
+    epicsTimeStamp timestamp;
     for (int i = 0; i < size; ++i) {
-        CPPUNIT_ASSERT_EQUAL(0, m.read());
+      CPPUNIT_ASSERT_EQUAL(0, m.read());
+      if (i < size / 2) {
+	CPPUNIT_ASSERT_EQUAL(0, m.get(value, timestamp));
+      }
+      value = i;
     }
 
     // Get half of the values out using get(), which moves the cursor
-    double value;
-    epicsTimeStamp timestamp;
+    /*
     for (int i = 0; i < size / 2; ++i) {
         CPPUNIT_ASSERT_EQUAL(0, m.get(value, timestamp));
     }
-
+    */
     // Peek a few times at the last measurement returned by get()
-    value = value;
     CPPUNIT_ASSERT_EQUAL(value, m.peek());
     CPPUNIT_ASSERT_EQUAL(value, m.peek());
     CPPUNIT_ASSERT_EQUAL(value, m.peek());
 
     // Get another value and peek a few more
+    CPPUNIT_ASSERT_EQUAL(0, m.read());
     CPPUNIT_ASSERT_EQUAL(0, m.get(value, timestamp));
 
-    value = value;
     CPPUNIT_ASSERT_EQUAL(value, m.peek());
     CPPUNIT_ASSERT_EQUAL(value, m.peek());
     CPPUNIT_ASSERT_EQUAL(value, m.peek());

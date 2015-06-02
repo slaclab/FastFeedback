@@ -28,22 +28,18 @@ void FF::StateDeviceTest::tearDown() {
  */
 void FF::StateDeviceTest::testError() {
     StateDevice state("XX00", "MyState", 10);
-    NullChannel stateNc(CommunicationChannel::WRITE_ONLY);
-    state.setCommunicationChannel(&stateNc);
+    NullChannel *stateNc = new NullChannel(CommunicationChannel::WRITE_ONLY);
+    state.setCommunicationChannel(stateNc);
 
     // Set up the setpoint
-    NullChannel setpointNc(CommunicationChannel::READ_ONLY, true);
-    setpoint->setCommunicationChannel(&setpointNc);
+    NullChannel *setpointNc = new NullChannel(CommunicationChannel::READ_ONLY, true);
+    setpoint->setCommunicationChannel(setpointNc);
     state.setSetpointDevice(setpoint);
 
-    // Read setpoint a few times
+    // Set setpoint
     double setpointValue;
     epicsTimeStamp timestamp;
-    setpoint->read(); setpoint->get(setpointValue, timestamp); // 0
-    setpoint->read(); setpoint->get(setpointValue, timestamp); // 1
-    setpoint->read(); setpoint->get(setpointValue, timestamp); // 2
-    setpoint->read(); setpoint->get(setpointValue, timestamp); // 3
-    setpoint->read(); setpoint->get(setpointValue, timestamp); // 4
+    setpoint->_setpointPv=4;
 
     setpointValue = setpoint->peek();
     CPPUNIT_ASSERT_EQUAL(4.0, setpointValue);
@@ -76,12 +72,12 @@ void FF::StateDeviceTest::testWrite() {
     int size = 10;
     StateDevice state("XX00", name, size);
 
-    FileChannel fc(CommunicationChannel::WRITE_ONLY, fileName);
-    state.setCommunicationChannel(&fc);
+    FileChannel *fc = new FileChannel(CommunicationChannel::WRITE_ONLY, fileName);
+    state.setCommunicationChannel(fc);
 
     // Set up the setpoint
-    NullChannel setpointNc(CommunicationChannel::READ_ONLY, true);
-    setpoint->setCommunicationChannel(&setpointNc);
+    NullChannel *setpointNc = new NullChannel(CommunicationChannel::READ_ONLY, true);
+    setpoint->setCommunicationChannel(setpointNc);
     state.setSetpointDevice(setpoint);
     double value;
     epicsTimeStamp timestamp;

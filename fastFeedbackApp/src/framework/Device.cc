@@ -76,7 +76,7 @@ Device::~Device() {
     	delete _fbckCommunicationChannel;
     }
     if (_communicationChannel != NULL) {
-      std::cout << "DELETE: " << _devNamePv.getValue() << " (Device)" << std::endl;
+      //      std::cout << "DELETE: " << _devNamePv.getValue() << " (Device)" << std::endl;
       delete _communicationChannel;
     }
 }

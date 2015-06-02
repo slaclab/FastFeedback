@@ -118,7 +118,7 @@ void ActuatorDevice::setGroupLimit() {
  * @author L.Piccoli
  */
 int ActuatorDevice::set(double value) {
-    if (_buffer[_next]._status == DataPoint::SET) {
+   if (_buffer[_next]._status == DataPoint::SET) {
         _droppedPoints++;
         _nextWrite = CIRCULAR_INCREMENT(_nextWrite);
     }
@@ -158,9 +158,12 @@ void ActuatorDevice::warnAboutFcom() {
  */
 int ActuatorDevice::write(bool send) {
     int res = -1;
-    //    int writeIndex = _nextWrite;
+
     // The next value to be written is always the last value set
+    // Previously the _nextWrite would have the next value to be written,
+    // but it did not make sense to update actuators with old data.
     int writeIndex = CIRCULAR_DECREMENT(_next);
+
     if (_buffer[writeIndex]._status == DataPoint::SET) {
         if (send) {
             // Save the last data sent to actuator
