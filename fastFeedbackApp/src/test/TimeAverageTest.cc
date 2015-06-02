@@ -7,8 +7,8 @@ CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-        /** 10 microseconds in nanos */
-        const long TEN_MICROS = 10000;
+/** 10 microseconds in nanos */
+const long TEN_MICROS = 10000;
 
 /**
  * @author L.Piccoli
@@ -44,5 +44,4 @@ void FF::TimeAverageTest::testAverage() {
     CPPUNIT_ASSERT_EQUAL(TEN_MICROS * 3, avg.getMax());
     CPPUNIT_ASSERT_EQUAL(TEN_MICROS / 2, avg.getMin());
     CPPUNIT_ASSERT_EQUAL((TEN_MICROS * 3 + TEN_MICROS * 2 + TEN_MICROS / 2) / 4, avg.getAverage());
-
 }

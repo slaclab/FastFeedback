@@ -236,12 +236,14 @@ int TrajectoryFit::getMeasurements() {
         epicsTimeStamp timestamp;
         MeasurementDevice *measurement = (*it);
         // Make sure the measurement has expected PulseId
+#ifdef CHECK_BEAM
         if (measurement->isFcom() && !measurement->isFile()) {
             if (measurement->peekPulseId() !=
                     (epicsUInt32) _loopConfiguration->_pulseIdPv.getValue()) {
                 pulseMismatch = true;
             }
         }
+#endif
 
         if (measurement->get(meas, timestamp) != 0) {
             getFailed = true;

@@ -1,5 +1,6 @@
 #include "CollectorThreadTest.h"
 #include "CollectorThread.h"
+#include "PatternManager.h"
 
 #include <iostream>
 
@@ -49,7 +50,7 @@ void FF::CollectorThreadTest::tearDown() {
     MeasurementCollector::getInstance().remove(m2);
     MeasurementCollector::getInstance().remove(m3);
     MeasurementCollector::getInstance().remove(m4);
-
+    /*
     delete m1;
     delete m2;
     delete m3;
@@ -59,6 +60,7 @@ void FF::CollectorThreadTest::tearDown() {
     delete nc2;
     delete nc3;
     delete nc4;
+    */
 }
 
 /**
@@ -121,13 +123,16 @@ void FF::CollectorThreadTest::testProcessMeasurement() {
     collector.add(r1);
     collector.add(r2);
 
+    PatternManager::getInstance().enable();
+
     int numMeasurements = 10;
     for (int i = 0; i < numMeasurements; ++i) {
         // Update devices for pattern p1
         Event measurementEvent(MEASUREMENT_EVENT);
         Pattern pattern(p1);
         measurementEvent._pattern = pattern;
-        collector.processMeasurementEvent(measurementEvent);
+	collector._state = CollectorThread::WAITING_MEASUREMENT;
+        CPPUNIT_ASSERT_EQUAL(0, collector.processMeasurementEvent(measurementEvent));
 
         // Check if devices were updated for p1
         double value;
@@ -143,6 +148,7 @@ void FF::CollectorThreadTest::testProcessMeasurement() {
         // Update devices for pattern p2
         Pattern pattern2(p2);
         measurementEvent._pattern = pattern2;
+	collector._state = CollectorThread::WAITING_MEASUREMENT;
         collector.processMeasurementEvent(measurementEvent);
 
         // Check if devices were updated for p2

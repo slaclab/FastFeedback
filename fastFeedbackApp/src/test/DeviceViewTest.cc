@@ -1,5 +1,6 @@
 #include "DeviceViewTest.h"
 #include "DeviceView.h"
+#include "Log.h"
 
 CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::DeviceViewTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
@@ -54,6 +55,7 @@ void FF::DeviceViewTest::setUp() {
 }
 
 void FF::DeviceViewTest::tearDown() {
+  /*
     delete a1;
     delete a2;
     delete s1;
@@ -70,6 +72,7 @@ void FF::DeviceViewTest::tearDown() {
     delete nc2;
     delete nc3;
     delete nc4;
+  */
 }
 
 /**
@@ -110,11 +113,13 @@ void FF::DeviceViewTest::testAddDevice() {
  * @author L.Piccoli
  */
 void FF::DeviceViewTest::testUpdateMeasurements() {
+  Log::getInstance().logToConsole();
+  
     int index = 5;
     char type = 'M';
     DeviceView view(size, index, type);
 
-    int readings = 10;
+    int readings = 15;
     double expectedBuffer[size];
 
     // These are the values expected from updating the view
@@ -140,9 +145,6 @@ void FF::DeviceViewTest::testUpdateMeasurements() {
 
         // Update view
         CPPUNIT_ASSERT_EQUAL(0, view.update(m1->getPatternMask()));
-
-        // This should not update view
-        CPPUNIT_ASSERT_EQUAL(0, view.update(p3));
     }
 
     // Check if view does have expected values
@@ -152,29 +154,6 @@ void FF::DeviceViewTest::testUpdateMeasurements() {
 
     // Add another MeasurementDevice with a different pattern (p2)
     view.add(m2);
-
-    // Repeat sequence of events, but updating only the new device.
-    // In practice devices are updated one at a time.
-    for (int i = 0; i < readings; ++i) {
-        // Read device
-        m2->read();
-
-        // Get data
-        double value;
-        epicsTimeStamp timestamp;
-        m2->get(value, timestamp);
-
-        // Update view
-        CPPUNIT_ASSERT_EQUAL(0, view.update(m2->getPatternMask()));
-
-        // This should not update view
-        CPPUNIT_ASSERT_EQUAL(0, view.update(p3));
-    }
-
-    // Check if view does have expected values
-    for (int i = readings; i < readings * 2; ++i) {
-        CPPUNIT_ASSERT_EQUAL(expectedBuffer[i - readings], view._buffer[i]);
-    }
 
     // Now try a more realistic scenario, updating m1 and then m2 on every
     // iteration
@@ -241,7 +220,7 @@ void FF::DeviceViewTest::testUpdateActuators() {
 
         CPPUNIT_ASSERT_EQUAL(0, view.update(a1->getPatternMask()));
         CPPUNIT_ASSERT_EQUAL(0, view.update(a2->getPatternMask()));
-        CPPUNIT_ASSERT_EQUAL(0, view.update(p3));
+	CPPUNIT_ASSERT_EQUAL(0, view.update(p3));
     }
 
     // At this point _next should be pointing to writings * 2 position

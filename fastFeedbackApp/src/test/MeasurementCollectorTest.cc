@@ -103,7 +103,7 @@ void FF::MeasurementCollectorTest::testHasPattern() {
  */
 void FF::MeasurementCollectorTest::testAddDevice() {
     MeasurementCollector collector;
-    Log::getInstance().logToConsole();
+    //    Log::getInstance().logToConsole();
 
     // Try adding same device twice
     CPPUNIT_ASSERT_EQUAL(0, collector.add(m1));
@@ -135,7 +135,7 @@ void FF::MeasurementCollectorTest::testAddDevice() {
  */
 void FF::MeasurementCollectorTest::testUpdate() {
     MeasurementCollector collector;
-
+    //    Log::getInstance().logToConsole();
     // First add the devices
     collector.add(m1);
     collector.add(m2);
@@ -161,44 +161,25 @@ void FF::MeasurementCollectorTest::testUpdate() {
     }
 
     // Check if measurements from devices are what we expect (a counting value)
-    // We should be able to call get() on a device until it returns -1, i.e.
-    // all measurements have been read.
-    double lastValue = -1;
-    double value;
+    // The call to get() returns the latest value read by the
+    // measurement device
+    double value = -1;
     epicsTimeStamp timestamp;
-    while (m1->get(value, timestamp) == 0) {
-        CPPUNIT_ASSERT_EQUAL(lastValue + 1, value);
-        lastValue = value;
-    }
-    CPPUNIT_ASSERT_EQUAL(updateP1 - 1.0, lastValue);
 
-    lastValue = -1;
-    while (m2->get(value, timestamp) == 0) {
-        CPPUNIT_ASSERT_EQUAL(lastValue + 1, value);
-        lastValue = value;
-    }
-    CPPUNIT_ASSERT_EQUAL(updateP2 - 1.0, lastValue);
+    CPPUNIT_ASSERT_EQUAL(0, m1->get(value, timestamp));
+    CPPUNIT_ASSERT_EQUAL(updateP1 - 1.0, value);
 
-    lastValue = -1;
-    while (m3->get(value, timestamp) == 0) {
-        CPPUNIT_ASSERT_EQUAL(lastValue + 1, value);
-        lastValue = value;
-    }
-    CPPUNIT_ASSERT_EQUAL(updateP3 - 1.0, lastValue);
+    CPPUNIT_ASSERT_EQUAL(0, m2->get(value, timestamp));
+    CPPUNIT_ASSERT_EQUAL(updateP2 - 1.0, value);
 
-    lastValue = -1;
-    while (m4->get(value, timestamp) == 0) {
-        CPPUNIT_ASSERT_EQUAL(lastValue + 1, value);
-        lastValue = value;
-    }
-    CPPUNIT_ASSERT_EQUAL(updateP1 - 1.0, lastValue);
+    CPPUNIT_ASSERT_EQUAL(0, m3->get(value, timestamp));
+    CPPUNIT_ASSERT_EQUAL(updateP3 - 1.0, value);
 
-    lastValue = -1;
-    while (m5->get(value, timestamp) == 0) {
-        CPPUNIT_ASSERT_EQUAL(lastValue + 1, value);
-        lastValue = value;
-    }
-    CPPUNIT_ASSERT_EQUAL(updateP1 - 1.0, lastValue);
+    CPPUNIT_ASSERT_EQUAL(0, m4->get(value, timestamp));
+    CPPUNIT_ASSERT_EQUAL(updateP1 - 1.0, value);
+
+    CPPUNIT_ASSERT_EQUAL(0, m5->get(value, timestamp));
+    CPPUNIT_ASSERT_EQUAL(updateP1 - 1.0, value);
 }
 
 /**
@@ -236,17 +217,17 @@ void FF::MeasurementCollectorTest::testRemoveDevice() {
  * @author L.Piccoli
  */
 void FF::MeasurementCollectorTest::testClear() {
-    MeasurementCollector collector = MeasurementCollector::getInstance();
+    MeasurementCollector *collector = &MeasurementCollector::getInstance();
 
-    collector.clear();
-    CPPUNIT_ASSERT_EQUAL(0, (int) collector._measurements.size());
+    collector->clear();
+    CPPUNIT_ASSERT_EQUAL(0, (int) collector->_measurements.size());
 
-    collector.add(m1);
-    collector.add(m2);
-    collector.add(m3);
-    collector.add(m4);
+    collector->add(m1);
+    collector->add(m2);
+    collector->add(m3);
+    collector->add(m4);
 
-    CPPUNIT_ASSERT_EQUAL(3, (int) collector._measurements.size());
-    collector.clear();
-    CPPUNIT_ASSERT_EQUAL(0, (int) collector._measurements.size());
+    CPPUNIT_ASSERT_EQUAL(3, (int) collector->_measurements.size());
+    collector->clear();
+    CPPUNIT_ASSERT_EQUAL(0, (int) collector->_measurements.size());
 }

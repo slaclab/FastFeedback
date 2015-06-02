@@ -85,6 +85,17 @@ bool PatternMask::operator!=(const PatternMask & other) const {
  * @author L.Piccoli
  */
 bool PatternMask::operator<(const PatternMask & other) const {
+  /*
+  PatternMask p2 = other;
+  std::string str2 = p2.toString();
+  PatternMask p1 = *this;
+  std::string str1 = p1.toString();
+
+  Log::getInstance() << Log::dpInfo << "INFO: PatternMask::operator< (this="
+		     << str1.c_str() << ", other="
+		     << str2.c_str() << ")"
+		     << Log::flush;
+  */
     if (*this == other) {
         return false;
     }

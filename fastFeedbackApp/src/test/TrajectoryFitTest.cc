@@ -90,6 +90,8 @@ void TrajectoryFitTest::testCalculateInjLaunch() {
     int numBpms = 5;
     int rmatCols = 4;
 
+    config._logger.logToConsole();
+
     // G Matrix is read from the LoopConfiguration._gMatrix
     int numStates = 4; // G Matrix rows
     int numAct = 4; // G Matrix cols
@@ -143,86 +145,86 @@ void TrajectoryFitTest::testCalculateInjLaunch() {
     // Create 10 Measurements (5 BPMs), insert values to be read by
     // TrajectoryFit
     MeasurementSet measurements;
-    MeasurementDevice M1("XX00", "M1", 10);
-    MeasurementDevice M2("XX00", "M2", 10);
-    MeasurementDevice M3("XX00", "M3", 10);
-    MeasurementDevice M4("XX00", "M4", 10);
-    MeasurementDevice M5("XX00", "M5", 10);
-    MeasurementDevice M6("XX00", "M6", 10);
-    MeasurementDevice M7("XX00", "M7", 10);
-    MeasurementDevice M8("XX00", "M8", 10);
-    MeasurementDevice M9("XX00", "M9", 10);
-    MeasurementDevice M10("XX00", "M10", 10);
+    MeasurementDevice *M1 = new MeasurementDevice("XX00", "M1", 10);
+    MeasurementDevice *M2 = new MeasurementDevice("XX00", "M2", 10);
+    MeasurementDevice *M3 = new MeasurementDevice("XX00", "M3", 10);
+    MeasurementDevice *M4 = new MeasurementDevice("XX00", "M4", 10);
+    MeasurementDevice *M5 = new MeasurementDevice("XX00", "M5", 10);
+    MeasurementDevice *M6 = new MeasurementDevice("XX00", "M6", 10);
+    MeasurementDevice *M7 = new MeasurementDevice("XX00", "M7", 10);
+    MeasurementDevice *M8 = new MeasurementDevice("XX00", "M8", 10);
+    MeasurementDevice *M9 = new MeasurementDevice("XX00", "M9", 10);
+    MeasurementDevice *M10 = new MeasurementDevice("XX00", "M10", 10);
     epicsTimeStamp timestamp;
 
     // Fill in the actual measurements
-    M1.insert(0.0951, timestamp);
-    M2.insert(-0.1331, timestamp);
-    M3.insert(-0.1575, timestamp);
-    M4.insert(0.0503, timestamp);
-    M5.insert(-0.0535, timestamp);
-    M6.insert(-0.1568, timestamp);
-    M7.insert(-0.0012, timestamp);
-    M8.insert(0.0184, timestamp);
-    M9.insert(0.0372, timestamp);
-    M10.insert(-0.1165, timestamp);
-    measurements.insert(&M1);
-    measurements.insert(&M2);
-    measurements.insert(&M3);
-    measurements.insert(&M4);
-    measurements.insert(&M5);
-    measurements.insert(&M6);
-    measurements.insert(&M7);
-    measurements.insert(&M8);
-    measurements.insert(&M9);
-    measurements.insert(&M10);
+    M1->insert(0.0951, timestamp);
+    M2->insert(-0.1331, timestamp);
+    M3->insert(-0.1575, timestamp);
+    M4->insert(0.0503, timestamp);
+    M5->insert(-0.0535, timestamp);
+    M6->insert(-0.1568, timestamp);
+    M7->insert(-0.0012, timestamp);
+    M8->insert(0.0184, timestamp);
+    M9->insert(0.0372, timestamp);
+    M10->insert(-0.1165, timestamp);
+    measurements.insert(M1);
+    measurements.insert(M2);
+    measurements.insert(M3);
+    measurements.insert(M4);
+    measurements.insert(M5);
+    measurements.insert(M6);
+    measurements.insert(M7);
+    measurements.insert(M8);
+    measurements.insert(M9);
+    measurements.insert(M10);
     t._measurements = &measurements;
 
     // Create 4 Actuators
     ActuatorSet actuators;
-    ActuatorDevice A1("XX00", "A1", 10);
-    ActuatorDevice A2("XX00", "A2", 10);
-    ActuatorDevice A3("XX00", "A3", 10);
-    ActuatorDevice A4("XX00", "A4", 10);
-    NullChannel nc(CommunicationChannel::WRITE_ONLY, true);
-    A1.setCommunicationChannel(&nc);
-    A2.setCommunicationChannel(&nc);
-    A3.setCommunicationChannel(&nc);
-    A4.setCommunicationChannel(&nc);
-    actuators.insert(&A1);
-    actuators.insert(&A2);
-    actuators.insert(&A3);
-    actuators.insert(&A4);
+    ActuatorDevice *A1 = new ActuatorDevice("XX00", "A1", 10);
+    ActuatorDevice *A2 = new ActuatorDevice("XX00", "A2", 10);
+    ActuatorDevice *A3 = new ActuatorDevice("XX00", "A3", 10);
+    ActuatorDevice *A4 = new ActuatorDevice("XX00", "A4", 10);
+    NullChannel *nc = new NullChannel(CommunicationChannel::WRITE_ONLY, true);
+    A1->setCommunicationChannel(nc);
+    A2->setCommunicationChannel(nc);
+    A3->setCommunicationChannel(nc);
+    A4->setCommunicationChannel(nc);
+    actuators.insert(A1);
+    actuators.insert(A2);
+    actuators.insert(A3);
+    actuators.insert(A4);
 
     // Inital Actuators = 0.9435 (* 1e-3) -0.0013 0.0022 0.0018
-    A1.set(0.0009435);
-    A1.write();
-    A2.set(-0.0013);
-    A2.write();
-    A3.set(0.0022);
-    A3.write();
-    A4.set(0.0018);
-    A4.write();
+    A1->set(0.0009435);
+    A1->write();
+    A2->set(-0.0013);
+    A2->write();
+    A3->set(0.0022);
+    A3->write();
+    A4->set(0.0018);
+    A4->write();
 
     t._actuators = &actuators;
 
     // Create 4 States (and setpoints)
     StateSet states;
-    StateDevice S1("XX00", "S1", 10);
-    StateDevice S2("XX00", "S2", 10);
-    StateDevice S3("XX00", "S3", 10);
-    StateDevice S4("XX00", "S4", 10);
-    states.insert(&S1);
-    states.insert(&S2);
-    states.insert(&S3);
-    states.insert(&S4);
+    StateDevice *S1 = new StateDevice("XX00", "S1", 10);
+    StateDevice *S2 = new StateDevice("XX00", "S2", 10);
+    StateDevice *S3 = new StateDevice("XX00", "S3", 10);
+    StateDevice *S4 = new StateDevice("XX00", "S4", 10);
+    states.insert(S1);
+    states.insert(S2);
+    states.insert(S3);
+    states.insert(S4);
     t._states = &states;
 
-    SetpointDevice SP("XX00", "SP", 10);
-    S1.setSetpointDevice(&SP);
-    S2.setSetpointDevice(&SP);
-    S3.setSetpointDevice(&SP);
-    S4.setSetpointDevice(&SP);
+    SetpointDevice *SP = new SetpointDevice("XX00", "SP", 10);
+    S1->setSetpointDevice(SP);
+    S2->setSetpointDevice(SP);
+    S3->setSetpointDevice(SP);
+    S4->setSetpointDevice(SP);
 
     // Set devices
     t._measurements = &measurements;

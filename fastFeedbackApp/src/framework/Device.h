@@ -11,6 +11,7 @@
 #include <string>
 #include <sstream>
 #include <epicsTime.h>
+#include "Log.h"
 #include "Defs.h"
 #include "PatternMask.h"
 #include "CommunicationChannel.h"
@@ -370,7 +371,7 @@ protected:
 
 struct DeviceCompare {
     bool operator() (Device *lhs, Device * rhs) const {
-        return *lhs<*rhs;
+      return *lhs<*rhs;
     }
 };
 

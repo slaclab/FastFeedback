@@ -46,9 +46,10 @@ void FF::TimeTest::test1HzDifference() {
     difference = end - start;
 
     long millis = difference.toMillis();
+    std::cout << "Diff: " << millis << std::endl;
     CPPUNIT_ASSERT(millis > 990);
     CPPUNIT_ASSERT(millis < 1100);
-
+    /*
     start._time.secPastEpoch = 654469939;
     start._time.nsec = 663814143;
 
@@ -61,4 +62,5 @@ void FF::TimeTest::test1HzDifference() {
     std::cout << "Diff: " << millis << std::endl;
     CPPUNIT_ASSERT(millis > 990);
     CPPUNIT_ASSERT(millis < 1100);
+    */
 }

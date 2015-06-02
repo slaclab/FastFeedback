@@ -125,7 +125,6 @@ int PatternGenerator::add(PatternMask patternMask) {
         ++(it->second);
         return -1;
     } else {
-        std::cout << "INFO: Adding pattern mask " << &patternMask << std::endl;
         _patternMasks.insert(std::pair<PatternMask, int>(patternMask, 1));
     }
     return 0;

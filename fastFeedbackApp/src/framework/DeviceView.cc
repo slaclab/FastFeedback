@@ -65,23 +65,20 @@ int DeviceView::add(Device *device) {
  * @author L.Piccoli
  */
 int DeviceView::update(Pattern evrPattern) {
-  /*
-  if (_loopName == "GN01" && _index == 1 && _patternIndex == 1) {
-    char str[10];
-    str[0] = _type;
-    str[1] = 0;
-    Log::getInstance() << Log::showtime
-		       << "Update " << _loopName.c_str() << ":"
-		       << str << _patternIndex << " -> ";
-  }
-  */
     std::vector<Device *>::iterator iterator;
+    
     for (iterator = _devices.begin(); iterator < _devices.end(); ++iterator) {
+      /* This was the code running on RTEMS, not sure why. Removed while
+	 fixing the unit test 
       if (iterator != _devices.begin()) {// && !evrPattern.hasBeam()) {
 	return 0;
       }
-      _buffer[_next] = (*iterator)->peek();
-      _next = CIRCULAR_INCREMENT(_next);
+      */
+      PatternMask m = (*iterator)->getPatternMask();
+      if (evrPattern.match(m)) {
+	_buffer[_next] = (*iterator)->peek();
+	_next = CIRCULAR_INCREMENT(_next);
+      }
     }
     return 0;
 }

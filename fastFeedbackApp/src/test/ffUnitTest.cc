@@ -9,31 +9,26 @@
 #include <cppunit/Exception.h>
 #include "CaChannel.h"
 
-#ifdef RTEMS
-
-int runTest(char *test) {
-#else
-
 int main(int argc, char* argv[]) {
-#endif
     // Command line argument is the test path. Defaults to "", which resolves to the
     // top level suite
-#ifdef RTEMS
-    std::string testPath = std::string(test);
-#else
     std::string testPath = (argc > 1) ? std::string(argv[1]) : std::string("");
-#endif
 
-    if (testPath == "info") {
+    if (testPath == "info" || testPath == "-h" || testPath == "--help") {
         CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry("FeedbackUnitTest");
         CppUnit::Test *suite = registry.makeTest();
 
         int testCount = suite->getChildTestCount();
+	std::cout << "Usage: " << argv[0] << " [test]" << std::endl;
+
         std::cout << "There are " << testCount << " test units:" << std::endl;
         for (int i = 0; i < testCount; ++i) {
             CppUnit::Test *t = suite->getChildTestAt(i);
             std::cout << "  " << t->getName() << "\n";
         }
+
+	std::cout << "If no test is specified the command " << argv[0] << " runs all of them." << std::endl;
+
         return 0;
     }
 
@@ -47,7 +42,12 @@ int main(int argc, char* argv[]) {
     runner.addTest(CppUnit::TestFactoryRegistry::getRegistry().makeTest());
 
     try {
+      if (testPath == "") {
+        std::cout << "Running all tests (please expect some error/warning messages)" << std::endl;
+      }
+      else {
         std::cout << "Running " << testPath.c_str() << std::endl;
+      }
         runner.run(controller, testPath);
         CppUnit::TextOutputter outputter(&result, std::cout);
         outputter.write();
@@ -59,11 +59,3 @@ int main(int argc, char* argv[]) {
     return result.wasSuccessful() ? 0 : 1;
 }
 
-#ifdef RTEMS
-extern "C" {
-
-    int ffUnitTest(char *test) {
-        return runTest(test);
-    };
-}
-#endif

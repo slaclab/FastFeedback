@@ -1,6 +1,8 @@
 #include "LoopConfigurationTest.h"
 #include "LoopConfiguration.h"
 #include "MeasurementCollector.h"
+#include "Log.h"
+
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -184,6 +186,7 @@ void FF::LoopConfigurationTest::testConfigurePatterns() {
 
 void FF::LoopConfigurationTest::testConfigureFMatrix() {
     LoopConfiguration lc;
+    lc._logger.logToConsole();
 
     CPPUNIT_ASSERT_EQUAL(0, lc.initialize());
 
@@ -194,12 +197,19 @@ void FF::LoopConfigurationTest::testConfigureFMatrix() {
     lc._statesUsedPv = cols;
 
     // Need to build a 4x4 f matrix is the _fMatrixPv attribute
+    // ... actually we need an extra column with for the energies.
+    // ... the extra column in not used for configuring the F Matrix
     std::vector<double> testFMatrix;
     int index = 0;
     for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
+        for (int j = 0; j < cols+1; ++j) {
+	  if (j < cols) {
             testFMatrix.push_back(index);
             ++index;
+	  }
+	  else{
+	    testFMatrix.push_back(0);
+	  }
         }
         index = 100 * i;
     }
@@ -211,9 +221,11 @@ void FF::LoopConfigurationTest::testConfigureFMatrix() {
     // Check if the FMatrix got the correct values
     index = 0;
     for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
+        for (int j = 0; j < cols+1; ++j) {
+	  if (j < cols) {
             CPPUNIT_ASSERT_EQUAL(testFMatrix[index], lc._fMatrix(i, j));
-            ++index;
+	  }
+	  ++index;
         }
     }
 

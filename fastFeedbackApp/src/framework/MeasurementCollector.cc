@@ -103,8 +103,10 @@ int MeasurementCollector::updateMeasurementSet(CollectorMeasurementSet *measurem
       } else {
 	_readStats.end();
 	// Skip pulse id checking if TMIT is low
+#ifdef CHECK_BEAM
 	if ((*iterator)->getTmit() >
 	    ExecConfiguration::getInstance()._tmitLowPv.getValue()) {
+#endif
 	  // Check PulseID of the new measurement
 	  _checkTimestampStats.start();
 	  if (!(*iterator)->checkPulseId(patternPulseId)) {
@@ -114,7 +116,9 @@ int MeasurementCollector::updateMeasurementSet(CollectorMeasurementSet *measurem
 			       << "WARN: MeasurementCollector::updateMeasurementSet() Meas PULSEID="
 			       << (int)(*iterator)->peekPulseId() << ", Patt PULSEID="
 			       <<  (int) patternPulseId << Log::dp;
+#ifdef CHECK_BEAM
 	  }
+#endif
 	  _checkTimestampStats.end();
 	}
       }
@@ -145,9 +149,6 @@ int MeasurementCollector::add(MeasurementDevice* measurement) {
     // If this is a new pattern mask create a new MeasurementSet,
     // otherwise retrieve existing MeasurementSet
     if (!hasPatternMask(measurement->getPatternMask())) {
-      Log::getInstance() << Log::dpInfo << "INFO: New pattern mask "
-			 << measurement->getPatternMask().toString().c_str()
-			 << Log::flush;
         measurementSet = new CollectorMeasurementSet;
         _measurements.insert(std::pair<PatternMask, CollectorMeasurementSet *>
                 (measurement->getPatternMask(), measurementSet));
@@ -159,6 +160,7 @@ int MeasurementCollector::add(MeasurementDevice* measurement) {
 
     unsigned size = measurementSet->size();
     measurementSet->insert(measurement);
+
     if (size == measurementSet->size()) {
       Log::getInstance() << "WARN: Failed to add measurement "
 			 << measurement->getDeviceName().c_str() << " (" 

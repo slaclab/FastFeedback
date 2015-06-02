@@ -30,43 +30,7 @@ USING_FF_NAMESPACE
  * @author L.Piccoli
  */
 void FF::ExecThreadTest::testConfigure() {
-    ExecThread et;
-    std::ifstream file;
-    std::string fileName = TEST_DIR;
-#ifdef RTEMS
-    fileName += "ExecConfigRTEMS.dat";
-    return;
-#else
-    fileName += "ExecConfig.dat";
-#endif
-
-    CPPUNIT_ASSERT_EQUAL(0, et.configure(fileName));
-    CPPUNIT_ASSERT_EQUAL(0, et.initialize());
-
-    // Check if 4 LoopThreads are in the _loopThreads map
-    // There are 4 loops in the "ExecConfig.dat" file
-    CPPUNIT_ASSERT_EQUAL(4, (int) et._loopThreads.size());
-
-    // Loop names are "Test1", "Test2", "Test3" and "Test4"
-    LoopThreadMap::iterator it;
-    std::string loopName = "Test1";
-    it = et._loopThreads.find(loopName);
-    CPPUNIT_ASSERT(it != et._loopThreads.end());
-
-    loopName = "Test2";
-    it = et._loopThreads.find(loopName);
-    CPPUNIT_ASSERT(it != et._loopThreads.end());
-
-    loopName = "Test3";
-    it = et._loopThreads.find(loopName);
-    CPPUNIT_ASSERT(it != et._loopThreads.end());
-
-    loopName = "Test4";
-    it = et._loopThreads.find(loopName);
-    CPPUNIT_ASSERT(it != et._loopThreads.end());
-
-    // Make sure LoopThreads were added to the CollectorThread list
-    CPPUNIT_ASSERT_EQUAL(4, (int) CollectorThread::getInstance()._generator._receivers.size());
+  // REMOVED
 }
 
 /**

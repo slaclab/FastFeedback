@@ -21,7 +21,7 @@ void CaChannelTest::tearDown() {
  * Test reading a double value using ChannelAccess
  */
 void CaChannelTest::testRead() {
-    std::string pvName = "FF:Test:Read";
+    std::string pvName = "SIOC:SYS0:ML00:AO500";
 
     CaChannel *caChannel;
     try {
@@ -32,13 +32,10 @@ void CaChannelTest::testRead() {
     }
 
     double expectedValue = 3.1415;
-#ifndef RTEMS
+
     std::ostringstream cmd;
     cmd << "caput " << pvName << " " << expectedValue;
     ::system(cmd.str().c_str());
-#else
-    CPPUNIT_ASSERT_EQUAL(0, caChannel->write(expectedValue));
-#endif
 
     epicsTimeStamp timestamp;
     double value;
@@ -50,7 +47,7 @@ void CaChannelTest::testRead() {
 }
 
 void CaChannelTest::testWrite() {
-    std::string pvName = "FF:Test:Write";
+    std::string pvName = "SIOC:SYS0:ML00:AO500";
     CaChannel *caChannel;
     try {
         caChannel = new CaChannel(CommunicationChannel::WRITE_ONLY, pvName);
@@ -68,8 +65,7 @@ void CaChannelTest::testWrite() {
     CPPUNIT_ASSERT_EQUAL(0, caChannel->write(value));
 
     double readBack = 0;
-    // TODO: write equivalent code in RTEMS (replace popen())
-#ifndef RTEMS
+
     // read back value using "caget -t " + pvName
     std::string data;
     FILE *stream;
@@ -85,10 +81,7 @@ void CaChannelTest::testWrite() {
 
     std::istringstream instring(data);
     instring >> readBack;
-#else
-    epicsTimeStamp timestamp;
-    CPPUNIT_ASSERT_EQUAL(0, caChannel->read(readBack, timestamp));
-#endif
+
 
     CPPUNIT_ASSERT_EQUAL(value, readBack);
 

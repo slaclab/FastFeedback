@@ -48,7 +48,7 @@ _lowPv(slotName + " " + name + "LOW", -500),
 _loloPv(slotName + " " + name + "LOLO", -1000),
 _caModePv(slotName + " " + name + "CAMODE", false),
 _usedPv(slotName + " " + name + "USED", false),
-_devNamePv(slotName + " " + name + "DEVNAME", "noname"),
+_devNamePv(slotName + " " + name + "DEVNAME", name + "DEVNAME"),
 _fbckCommunicationChannel(NULL),
 _setFbckPv(true),
 _usedByLoopPv(slotName + " " + name + "USEDBYLOOP", true),
@@ -136,9 +136,12 @@ PatternMask Device::getPatternMask() {
  */
 bool Device::operator==(const Device &other) {
     if (_name == other._name &&
-            _patternMask == other._patternMask) {
+	_patternMask == other._patternMask) {
+      Log::getInstance() << Log::dpInfo << "INFO: equal" << Log::flush;
+
         return true;
     } else {
+      Log::getInstance() << Log::dpInfo << "INFO: not equal" << Log::flush;
         return false;
     }
 }
@@ -251,7 +254,8 @@ void Device::disconnect() {
     _fbckCommunicationChannel = NULL;
   }
 
-  Log::getInstance() << "INFO: " << _devNamePv.getValue().c_str()
+  Log::getInstance() << Log::dpInfo
+		     << "INFO: " << _devNamePv.getValue().c_str()
 		     << " disconnected." << Log::flush;
 }
 

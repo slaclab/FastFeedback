@@ -19,18 +19,18 @@ void FF::SineWaveTest::testCalculate() {
 
     std::string name = "A1";
     ActuatorDevice a1("XX00", name, size);
-    NullChannel nc1(CommunicationChannel::WRITE_ONLY);
-    a1.setCommunicationChannel(&nc1);
+    NullChannel *nc1 = new NullChannel(CommunicationChannel::WRITE_ONLY);
+    a1.setCommunicationChannel(nc1);
 
     name = "A2";
     ActuatorDevice a2("XX00", name, size);
-    NullChannel nc2(CommunicationChannel::WRITE_ONLY);
-    a2.setCommunicationChannel(&nc2);
+    NullChannel *nc2 = new NullChannel(CommunicationChannel::WRITE_ONLY);
+    a2.setCommunicationChannel(nc2);
 
     name = "S1";
     StateDevice s1("XX00", name, size);
-    NullChannel nc3(CommunicationChannel::WRITE_ONLY);
-    s1.setCommunicationChannel(&nc3);
+    NullChannel *nc3 = new NullChannel(CommunicationChannel::WRITE_ONLY);
+    s1.setCommunicationChannel(nc3);
 
     // Since the calculate for SineWave does not use the LoopConfiguration
     // and the Measurements, just create empty ones.
@@ -71,18 +71,18 @@ void FF::SineWaveTest::testCalculateMode1() {
 
     std::string name = "A1";
     ActuatorDevice a1("XX00", name, size);
-    NullChannel nc1(CommunicationChannel::WRITE_ONLY);
-    a1.setCommunicationChannel(&nc1);
+    NullChannel *nc1 = new NullChannel(CommunicationChannel::WRITE_ONLY);
+    a1.setCommunicationChannel(nc1);
 
     name = "S1";
     StateDevice s1("XX00", name, size);
-    NullChannel nc2(CommunicationChannel::WRITE_ONLY);
-    s1.setCommunicationChannel(&nc2);
+    NullChannel *nc2 = new NullChannel(CommunicationChannel::WRITE_ONLY);
+    s1.setCommunicationChannel(nc2);
 
     name = "M1";
     MeasurementDevice m1("XX00", name, size);
-    NullChannel nc3(CommunicationChannel::READ_ONLY, true);
-    m1.setCommunicationChannel(&nc3);
+    NullChannel *nc3 = new NullChannel(CommunicationChannel::READ_ONLY, true);
+    m1.setCommunicationChannel(nc3);
 
     // Since the calculate for SineWave does not use the LoopConfiguration
     // and the Measurements, just create empty ones.
@@ -127,23 +127,23 @@ void FF::SineWaveTest::testCalculateMode2() {
 
     std::string name = "A1";
     ActuatorDevice a1("XX00", name, size);
-    NullChannel nc1(CommunicationChannel::WRITE_ONLY);
-    a1.setCommunicationChannel(&nc1);
+    NullChannel *nc1 = new NullChannel(CommunicationChannel::WRITE_ONLY);
+    a1.setCommunicationChannel(nc1);
 
     name = "S1";
     StateDevice s1("XX00", name, size);
-    NullChannel nc2(CommunicationChannel::WRITE_ONLY);
-    s1.setCommunicationChannel(&nc2);
+    NullChannel *nc2 = new NullChannel(CommunicationChannel::WRITE_ONLY);
+    s1.setCommunicationChannel(nc2);
 
     name = "M1";
     MeasurementDevice m1("XX00", name, size);
-    NullChannel nc3(CommunicationChannel::READ_ONLY, true);
-    m1.setCommunicationChannel(&nc3);
+    NullChannel *nc3 = new NullChannel(CommunicationChannel::READ_ONLY, true);
+    m1.setCommunicationChannel(nc3);
 
     name = "M2";
     MeasurementDevice m2("XX00", name, size);
-    NullChannel nc4(CommunicationChannel::READ_ONLY, true);
-    m2.setCommunicationChannel(&nc4);
+    NullChannel *nc4 = new NullChannel(CommunicationChannel::READ_ONLY, true);
+    m2.setCommunicationChannel(nc4);
 
     // Since the calculate for SineWave does not use the LoopConfiguration
     // and the Measurements, just create empty ones.
