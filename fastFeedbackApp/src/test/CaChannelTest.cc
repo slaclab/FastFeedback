@@ -3,6 +3,7 @@
 #include <epicsTime.h>
 #include <sstream>
 #include <exception>
+#include <cstdlib>
 
 CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::CaChannelTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
