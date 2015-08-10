@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 #include "TimeTest.h"
 #include <epicsTime.h>
 #include "TimeUtil.h"

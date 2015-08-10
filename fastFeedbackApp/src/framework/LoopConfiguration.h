@@ -157,13 +157,65 @@ public:
     void showReferenceOrbit();
     void showActuatorEnergy();
     void showDispersion();
+//ababbitt - need to insert the template
 
     template<class Map, class MapIterator, class Set, class SetIterator, class Device>
     Device *getDevice(Map &map, std::string deviceName, PatternMask patternMask);
 
-    template<class Map, class MapIterator, class Set, class SetIterator, class Device>
-    DeviceView *createDeviceView(Map &map, std::string deviceName,
-    int patternIndex, int deviceIndex);
+    /**
+     * Template method that creates DeviceViews for the specified type of Device
+     * (Measurament, Actuator, State or Setpoint).
+     *
+     * This method is invoked by the Device Support code when connecting PVs to
+     * the feedback devices.
+     *
+     * @param map map of devices (MeasurementMap, ActuatorMap or StateMap)
+     * @param deviceName name of the device
+     * @param patternIndex specify whether the DeviceView monitors data for the
+     * specified pattern (if patternIndex is between 1 and 4), or for all the
+     * patterns for the given deviceName (if patternIndex is 0).
+     * @param deviceIndex each PV type (Measurement, Actuator, State) has an
+     * index associated (e.g. M1, A3, S2). The deviceIndex is the number extracted
+     * from the PV name by the Device Support code.
+     * @return 0 on success, -1 if DeviceView could not be created
+     * @author L.Piccoli
+     */
+    template<class Map, class MapIterator, class Set, class SetIterator, class Device >
+    DeviceView * createDeviceView(Map &map, std::string deviceName,
+    int patternIndex, int deviceIndex) {
+      char type = deviceName.c_str()[0];
+        DeviceView *deviceView = new DeviceView(1000, deviceIndex,
+                            type, "", _slotName, patternIndex);
+
+        // Get the MeasurementDevice(s) from the LoopConfiguration
+        // If patternIndex is 0 the all patterns are added to the
+        // DeviceView, otherwise only the MeasurementDevice for the
+        // specified pattern is added.
+        if (patternIndex == 0) {
+            for (int i = 0; i <= (int) _patternMasks.size(); ++i) {
+                Device *device = getDevice<Map, MapIterator, Set, SetIterator, Device >
+                        (map, deviceName, _patternMasks[i]);
+                if (device != NULL) {
+                    deviceView->add(device);
+                }
+            }
+        } else {
+            if (patternIndex > (int) _patternMasks.size() || patternIndex < 1) {
+          if (deviceView != NULL) {
+                delete deviceView;
+          }
+          return NULL;
+
+            }
+            Device *device = getDevice<Map, MapIterator, Set, SetIterator, Device >
+                    (map, deviceName, _patternMasks[patternIndex - 1]);
+            if (device != NULL) {
+                deviceView->add(device);
+            }
+        }
+
+        return deviceView;
+    }
 
     int peek(std::string deviceName, PatternMask patternMask,
 	     DataPoint &dataPoint);

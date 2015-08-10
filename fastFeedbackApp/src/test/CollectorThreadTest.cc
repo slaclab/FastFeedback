@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+#include <unistd.h>
+
 CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::CollectorThreadTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
