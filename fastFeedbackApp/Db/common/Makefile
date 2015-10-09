@@ -36,5 +36,4 @@ DB += iocEnergyChirp.db
 include $(TOP)/configure/RULES
 #----------------------------------------
 #  ADD RULES AFTER THIS LINE
-include $(TOP)/configure/RULES.Db
 

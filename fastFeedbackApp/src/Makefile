@@ -35,18 +35,36 @@ include $(TOP)/configure/CONFIG
 
 # Flags for Unit Testing
 USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCONTROL_ACTUATORS -DLOG -DNO_FBCK_PV -DLINUX
-#Question for Luciano -what is this override?  (ababbitt)
-override OP_SYS_LDFLAGS =
 
-USR_CPPFLAGS += -I$(BOOSTBINDINGS)
-USR_CPPFLAGS += -I$(BOOST)
-USR_CPPFLAGS += -I$(CPPUNIT)
-USR_CPPFLAGS += -I$(LAPACK)
+USR_CPPFLAGS += -I$(BOOSTBINDINGS)/include/boost-numeric-bindings
+USR_CPPFLAGS += -I$(BOOST)/include
+USR_CPPFLAGS += -I$(CPPUNIT)/include
+USR_CPPFLAGS += -I$(LAPACK)/include
 
+# ========================================================
+# Let's build the Following IOC Application:
+# ========================================================
+PROD_IOC = fastFeedback
+
+DBD = fastFeedback.dbd
+fastFeedback_DBD += base.dbd
+fastFeedback_DBD += iocAdmin.dbd
+fastFeedback_DBD += autosaveSupport.dbd
+fastFeedback_DBD += caPutLog.dbd
+fastFeedback_DBD += ffRecord.dbd
+fastFeedback_DBD += devFfDeviceView.dbd
+fastFeedback_DBD += devFfConfig.dbd
+fastFeedback_DBD += evrSupport.dbd
+fastFeedback_DBD += devMrfEr.dbd
+# =======================================================
+
+# ========================================================================
+# Source code for fastFeedback IOC Application
+# =========================================================================
 SRC_DIRS += $(TOP)/fastFeedbackApp/src/framework
 SRC_DIRS += $(TOP)/fastFeedbackApp/src/util
 SRC_DIRS += $(TOP)/fastFeedbackApp/src/algo
-SRC_DIRS += $(TOP)/fastFeedbackApp/src/test
+
 
 # Source Files
 CC_FILES = Thread.cc EventReceiver.cc EventGenerator.cc PatternManager.cc \
@@ -65,8 +83,61 @@ CC_FILES = Thread.cc EventReceiver.cc EventGenerator.cc PatternManager.cc \
 	TrajectoryFitPoly.cc BunchCharge.cc TrajectoryFitPinv.cc \
 	TrajectoryFitEact.cc EventLogger.cc
 
+fastFeedback_SRCS += $(CC_FILES) chirpControl.st
+fastFeedback_SRCS += fastFeedback_registerRecordDeviceDriver.cpp
+fastFeedback_SRCS_DEFAULT += fastFeedbackMain.cpp
+# ==================================================================================
+
+# ========================================================
+# Link in external package libraries (-llapack -lblas...)
+# Also, link system library (i.e. gfortran)
+# System library must be reference like so;
+# <IOCAPP>_SYS_LIB
+# ========================================================
+lapack_DIR             =  $(LAPACK)/lib
+fastFeedback_LIBS      += lapack
+
+blas_DIR               =  $(LAPACK)/lib
+fastFeedback_LIBS      += blas
+
+#ifeq ($(T_A),linuxRT_glibc-x86_64)
+#  USR_LDFLAGS += -L/afs/slac/g/lcls/package/linuxRT/buildroot-2014.11/buildroot-glibc-x86_64/output/staging/usr/lib
+#endif
+
+fastFeedback_SYS_LIBS  += gfortran
+
+# ========================================================
+# Link in EPICS MODULES and BASE
+# =======================================================
+fastFeedback_LIBS += miscUtils
+fastFeedback_LIBS += devIocStats
+fastFeedback_LIBS += caPutLog
+fastFeedback_LIBS += autosave
+fastFeedback_LIBS += seq pv
+fastFeedback_LIBS += evrSupport
+fastFeedback_LIBS += devMrfEr
+fastFeedback_LIBS += drvMrf
+fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
+
+# ========================================================================
+# CPPUNIT Tests IOC Application
+# ========================================================================
+# Let's build the Following IOC Application
+PROD_IOC         =  ffUnitTest
+
+DBD              =  ffUnitTest.dbd
+ffUnitTest_DBD   += base.dbd
+ffUnitTest_DBD   += iocAdmin.dbd
+ffUnitTest_DBD   += autosaveSupport.dbd
+ffUnitTest_DBD   += caPutLog.dbd
+ffUnitTest_DBD   += evrSupport.dbd
+ffUnitTest_DBD   += devMrfEr.dbd
+
+# ========================================================================
+# Source code for Unit Test IOC Application
+# =========================================================================
+SRC_DIRS += $(TOP)/fastFeedbackApp/src/test
 # Test Source Files
-#CC_TEST_FILES = 
 CC_TEST_FILES = EventReceiverTest.cc ThreadTest.cc \
 	EventGeneratorTest.cc PatternTest.cc PatternManagerTest.cc \
 	TimerTest.cc DeviceTest.cc FileChannelTest.cc \
@@ -82,98 +153,49 @@ CC_TEST_FILES = EventReceiverTest.cc ThreadTest.cc \
 
 #	PvDataTest.cc ExecConfigurationTest.cc PatternGeneratorTest.cc \
 
-#ababbitt - July 1st, 2015 - Clean-up to only be calling from $PACKAGE_TOP~~~~~~
-#LCLS_PACKAGE_DIR=/usr/local/lcls/package
-
-#CPPUNIT_DIR=$(PACKAGE_TOP)/cppunit
-#BOOST_DIR=$(PACKAGE_TOP)/boost
-#BOOST_BINDINGS_DIR=$(PACKAGE_TOP)/boost-numeric-bindings
-#LAPACK_DIR=$(PACKAGE_TOP)/lapack
-
-PROD_IOC = fastFeedback ffUnitTest
-
-# BOOST 1.42 (local on cdlx22)
-#USR_CXXFLAGS += -DLINUX
-
-#ifeq ($(BOOST_DIR), )
-#USR_CXXFLAGS += -I $(LCLS_PACKAGE_DIR)/boost/include
-#else
-#USR_CXXFLAGS += -I $(BOOST_DIR)/include
-#endif
-
-#ifeq ($(BOOST_BINDINGS_DIR), )
-#USR_CXXFLAGS += -I $(LCLS_PACKAGE_DIR)/boost-numeric-bindings/include/boost-numeric-bindings
-#else
-#USR_CXXFLAGS += -I $(BOOST_BINDINGS_DIR)/include/boost-numeric-bindings
-#endif
-
-#ifeq ($(GFORTRAN_DIR), )
-#USR_LDFLAGS += -L$(LCLS_PACKAGE_DIR)/gfortran
-#else
-#USR_LDFLAGS += -L$(GFORTRAN_DIR)
-#endif
-
-#ifeq ($(LAPACK_DIR), )
-#USR_LDFLAGS += -L$(LCLS_PACKAGE_DIR)/lapack
-#else
-#USR_LDFLAGS += -L$(LAPACK_DIR)
-#endif
-
-#ifeq ($(CPPUNIT_DIR), )
-#CPPUNIT_DIR=$(LCLS_PACKAGE_DIR)/cppunit
-#endif
-#CPPUNIT_DIR=$(CPPUNIT_DIR)/cppunit
-
-#ababbitt - updated this hardpath to linux-x86_64 (However, I am wondering whether we really want to have a hardpath.)
-#Also ask about what would need to be performed to get the unit tests working for linux 64 (host machine) - is this even a valuable endeavor.
-#fastFeedback_LDFLAGS  += -L $(EPICS_BASE_RELEASE)/lib/linux-x86_64
-#Need to understand what this line is doing......how are fastFeedback_SYS_LIBS being used?
-# fastFeedback_SYS_LIBS += lapackF blasF gfortran Com dbIoc dbStaticIoc dbtoolsIoc rsrvIoc ca asIoc miscIoc registryIoc
-
-# Libraries fastFeedback links with (-llapack -lblas...)
-fastFeedback_SYS_LIBS += lapack blas gfortran Com dbIoc dbStaticIoc dbtoolsIoc rsrvIoc ca asIoc miscIoc registryIoc
-#~~~~~~~~ ababbitt - don't really understand this section of code~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~h
-
-DBD = fastFeedback.dbd
-fastFeedback_DBD += base.dbd
-fastFeedback_DBD += iocAdmin.dbd
-fastFeedback_DBD += autosaveSupport.dbd
-fastFeedback_DBD += caPutLog.dbd
-fastFeedback_DBD += ffRecord.dbd
-fastFeedback_DBD += devFfDeviceView.dbd
-fastFeedback_DBD += devFfConfig.dbd
-fastFeedback_DBD += evrSupport.dbd
-fastFeedback_DBD += devMrfEr.dbd
-
-fastFeedback_SRCS += $(CC_FILES) chirpControl.st
-fastFeedback_SRCS += fastFeedback_registerRecordDeviceDriver.cpp
-fastFeedback_SRCS_DEFAULT += ffControllerMain.cpp
-
-# libs linux IOC app
-fastFeedback_LIBS += miscUtils
-fastFeedback_LIBS += devIocStats
-fastFeedback_LIBS += caPutLog
-fastFeedback_LIBS += autosave
-fastFeedback_LIBS += seq pv
-fastFeedback_LIBS += evrSupport
-fastFeedback_LIBS += devMrfEr
-fastFeedback_LIBS += drvMrf
-fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
-
-# CPPUNIT Tests
-#USR_CXXFLAGS            += -I $(CPPUNIT_DIR)/include
 ffUnitTest_SRCS         += $(CC_TEST_FILES) $(CC_FILES)
-ffUnitTest_SRCS_DEFAULT += ffUnitTest.cc
-ffUnitTest_LIBS         += $(fastFeedback_LIBS)
-#ffUnitTest_LIBS         += cppunit
-ffUnitTest_DBD          += $(fastFeedback_DBD)
-ffUnitTest_LDFLAGS      += $(fastFeedback_LDFLAGS)
-# ababbitt - why are there two ffUnitTest_SYS_LIBS?
-ffUnitTest_SYS_LIBS     +=  dl gfortran
-#ffUnitTest_SYS_LIBS     += cppunit dl $(fastFeedback_SYS_LIBS)
-ffUnitTest_SYS_LIBS     += cppunit $(fastFeedback_SYS_LIBS)
 
-#========================================
+# Where is your Main IOC App? Did you break the convention?
+ffUnitTest_SRCS_DEFAULT += ffUnitTest.cc
+
+# =========================================================================
+#  Link in external package libraries (-llapack -lblas...)
+# Also, link system library (i.e. gfortran)
+# System library must be reference like so;
+# <IOCAPP>_SYS_LIB
+# =========================================================================
+cppunit_DIR             =  $(CPPUNIT)/lib
+ffUnitTest_LIBS         += cppunit
+
+# we have already defined this library location above but will
+# redefine for decoupling and clarity
+lapack_DIR              =  $(LAPACK)/lib
+ffUnitTest_LIBS         += lapack
+
+blas_DIR                =  $(LAPACK)/lib
+ffUnitTest_LIBS         += blas
+
+#ifeq ($(T_A),linuxRT_glibc-x86_64)
+#  USR_LDFLAGS += -L/afs/slac/g/lcls/package/linuxRT/buildroot-2014.11/buildroot-glibc-x86_64/output/staging/usr/lib
+#endif
+
+ffUnitTest_SYS_LIBS     += dl 
+ffUnitTest_SYS_LIBS     += gfortran
+
+# ========================================================
+# Link in EPICS MODULES and BASE
+# =======================================================
+ffUnitTest_LIBS += miscUtils
+ffUnitTest_LIBS += devIocStats
+ffUnitTest_LIBS += caPutLog
+ffUnitTest_LIBS += autosave
+ffUnitTest_LIBS += evrSupport
+ffUnitTest_LIBS += devMrfEr
+ffUnitTest_LIBS += drvMrf
+
+ffUnitTest_LIBS += $(EPICS_BASE_IOC_LIBS)
+#=============================================================================
+
 
 include $(TOP)/configure/RULES
 #----------------------------------------

@@ -1,18 +1,11 @@
 -include $(TOP)/configure/CONFIG_SITE
 
-# For linuxRT-x86
+# For the linuxRT_glibc-x86_64 embedded system target
 
-# Define the location of the hdf5, sz
-# So only need to define location of libs and headers
-#BUILDROOT_HOME=/u/cd/mdewart/buildroot
-BUILDROOT_HOME=/afs/slac/g/lcls/package/linuxRT/buildroot-2014.11
-STAGE_X86=$(BUILDROOT_HOME)/buildroot-glibc-x86_64/output/staging
+CPPUNIT=$(PACKAGE_SITE_TOP)/cppunit/$(CPPUNIT_PACKAGE_VERSION)/linuxRT_glibc-x86_64
 
-#ETHERLAB_RT=/afs/slac/g/lcls/package/linuxKernel_Modules/ethercat/MAIN_TRUNK_linuxRT-x86_64
+BOOST=$(PACKAGE_SITE_TOP)/boost/$(BOOST_PACKAGE_VERSION)/linuxRT_glibc-x86_64
 
-#ETHERCAT_LIB = $(ETHERLAB_RT)/lib/.libs/libethercat
-#ETHERCAT_INCLUDE = -I$(ETHERLAB_RT)/include
-#ETHERCAT_LINK = -L$(ETHERLAB_RT)/lib/.libs -Wl,-rpath=$(ETHERLAB_RT)/lib/.libs
+BOOSTBINDINGS=$(PACKAGE_SITE_TOP)/boost-numeric-bindings/$(BOOSTBINDINGS_PACKAGE_VERSION)
 
-#LIBXML2_LIB = $(STAGE_X86)/usr/lib
-#LIBXML2_INCLUDE = -I$(STAGE_X86)/usr/include -I$(STAGE_X86)/usr/include/libxml2
+LAPACK=$(PACKAGE_SITE_TOP)/lapack/$(LAPACK_PACKAGE_VERSION)/linuxRT_glibc-x86_64

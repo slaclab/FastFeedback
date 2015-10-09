@@ -17,20 +17,20 @@ include $(TOP)/configure/CONFIG
 # the iocs
 
 #include evr substitutions file
-DB += IOC-SYS0-FB01.template
-DB += IOC-SYS0-FB02.template
-DB += IOC-SYS0-FB03.template
-DB += IOC-SYS0-FB04.template
-DB += IOC-SYS0-FB05.template
-DB += IOC-SYS0-FB10.template
+#DB += IOC-SYS0-FB01.template
+#DB += IOC-SYS0-FB02.template
+#DB += IOC-SYS0-FB03.template
+#DB += IOC-SYS0-FB04.template
+#DB += IOC-SYS0-FB05.template
+#DB += IOC-SYS0-FB10.template
 
 #now include overall substitution file template
-DB += fbckFB10.template
-DB += fbckFB05.template
-DB += fbckFB04.template
-DB += fbckFB03.template
-DB += fbckFB02.template
-DB += fbckFB01.template
+#DB += fbckFB10.template
+#DB += fbckFB05.template
+#DB += fbckFB04.template
+#DB += fbckFB03.template
+#DB += fbckFB02.template
+#DB += fbckFB01.template
 
 # trigger
 DB += IOC-SYS0-FB01trig.db
@@ -45,8 +45,8 @@ IOCRELEASE_DB += iocRelease.db
 #  autosave
 DB_INSTALLS += $(AUTOSAVE)/db/save_restoreStatus.db
 
-gen_trig_edl:
-	create_edm_event_msi.py IOC-SYS0-FB0{1,2,3,4,5}trig.substitutions
+#gen_trig_edl:
+#	create_edm_event_msi.py IOC-SYS0-FB0{1,2,3,4,5}trig.substitutions
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
@@ -55,5 +55,4 @@ gen_trig_edl:
 include $(TOP)/configure/RULES
 #----------------------------------------
 #  ADD RULES AFTER THIS LINE
-include $(TOP)/configure/RULES.Db
 

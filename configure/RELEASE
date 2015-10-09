@@ -74,24 +74,6 @@ FCOM=$(EPICS_MODULES)/fcom/$(FCOM_MODULE_VERSION)
 FCOMUTIL=$(EPICS_MODULES)/fcomUtil/$(FCOMUTIL_MODULE_VERSION)
 #RTEMSUTILS=$(EPICS_MODULES)/rtemsutils/$(RTEMSUTILS_MODULE_VERSION)
 
-# =============================================================
-# Define the version of packages needed by
-# IOC apps or other Support apps - this section for development
-# =============================================================
-CPPUNIT_PACKAGE_VERSION=1.12.1
-BOOST_PACKAGE_VERSION=1.42.0
-BOOSTBINDINGS_PACKAGE_VERSION=1.42.0
-LAPACK_PACKAGE_VERSION=3.2.1
-
-# ============================================================
-# Support package locations
-# ============================================================
-CPPUNIT=$(PACKAGE_SITE_TOP)/cppunit/$(CPPUNIT_PACKAGE_VERSION)/$(T_A)
-BOOST=$(PACKAGE_SITE_TOP)/boost/$(BOOST_PACKAGE_VERSION)/$(T_A)
-BOOSTBINDINGS=$(PACKAGE_SITE_TOP)/boost-numeric-bindings/$(BOOSTBINDINGS_PACKAGE_VERSION)/include/boost-numeric-bindings/
-#ababbitt - tried to update the path here so a) I don't have to redefine the directory structure or b) change the paths in every c++ file.
-LAPACK=$(PACKAGE_SITE_TOP)/lapack/$(LAPACK_PACKAGE_VERSION)/$(T_A)
-
 # Location of Linux Kernel Modules:
 LINUX_KERNEL_MODULES=$(PACKAGE_SITE_TOP)/linuxKernel_Modules
 
