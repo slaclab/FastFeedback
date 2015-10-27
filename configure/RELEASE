@@ -25,7 +25,7 @@
 
 
 # EPICS Templates
-TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
+#TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
 # =============================================================
 # All needed variables come in via the following include:
