@@ -40,6 +40,9 @@ USR_CPPFLAGS += -I$(BOOSTBINDINGS)/include/boost-numeric-bindings
 USR_CPPFLAGS += -I$(BOOST)/include
 USR_CPPFLAGS += -I$(CPPUNIT)/include
 USR_CPPFLAGS += -I$(LAPACK)/include
+USR_CPPFLAGS += -I$(GFORT_INCLUDE)
+USR_CPPFLAGS += -I$(QUADMATH_INCLUDE)
+USR_CPPFLAGS += -I$(DL_INCLUDE)
 
 # ========================================================
 # Let's build the Following IOC Application:
@@ -100,11 +103,12 @@ fastFeedback_LIBS      += lapack
 blas_DIR               =  $(LAPACK)/lib
 fastFeedback_LIBS      += blas
 
-#ifeq ($(T_A),linuxRT_glibc-x86_64)
-#  USR_LDFLAGS += -L/afs/slac/g/lcls/package/linuxRT/buildroot-2014.11/buildroot-glibc-x86_64/output/staging/usr/lib
-#endif
-
-fastFeedback_SYS_LIBS  += gfortran
+ifeq ($(T_A),linuxRT_glibc-x86_64)
+gfortran_DIR=$(GFORT_LIB)
+fastFeedback_LIBS  += gfortran
+else
+fastFeedback_LIBS  += gfortran
+endif
 
 # ========================================================
 # Link in EPICS MODULES and BASE
@@ -175,12 +179,19 @@ ffUnitTest_LIBS         += lapack
 blas_DIR                =  $(LAPACK)/lib
 ffUnitTest_LIBS         += blas
 
-#ifeq ($(T_A),linuxRT_glibc-x86_64)
-#  USR_LDFLAGS += -L/afs/slac/g/lcls/package/linuxRT/buildroot-2014.11/buildroot-glibc-x86_64/output/staging/usr/lib
-#endif
+ifeq ($(T_A),linuxRT_glibc-x86_64)
+gfortran_DIR = $(GFORT_LIB)
+dl_DIR = $(DL_LIB)
+quadmath_DIR = $(QUADMATH_LIB)
 
-ffUnitTest_SYS_LIBS     += dl 
+ffUnitTest_LIBS     += dl 
+ffUnitTest_LIBS     += gfortran
+ffUnitTest_LIBS     += quadmath
+else
+ffUnitTest_SYS_LIBS     += dl
 ffUnitTest_SYS_LIBS     += gfortran
+endif
+
 
 # ========================================================
 # Link in EPICS MODULES and BASE
