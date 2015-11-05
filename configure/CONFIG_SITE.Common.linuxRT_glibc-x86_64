@@ -9,3 +9,18 @@ BOOST=$(PACKAGE_SITE_TOP)/boost/$(BOOST_PACKAGE_VERSION)/linuxRT_glibc-x86_64
 BOOSTBINDINGS=$(PACKAGE_SITE_TOP)/boost-numeric-bindings/$(BOOSTBINDINGS_PACKAGE_VERSION)
 
 LAPACK=$(PACKAGE_SITE_TOP)/lapack/$(LAPACK_PACKAGE_VERSION)/linuxRT_glibc-x86_64
+
+
+# Define the location of the gfortran
+# So only need to define location of libs and headers
+BUILDROOT_HOME=/afs/slac/g/lcls/package/linuxRT/buildroot-2014.11
+STAGE_X86=$(BUILDROOT_HOME)/buildroot-glibc-x86_64/output/staging
+
+GFORT_LIB     = $(STAGE_X86)/usr/lib64
+GFORT_INCLUDE = $(STAGE_X86)/usr/include
+
+DL_LIB       = $(STAGE_X86)/usr/lib64
+DL_INCLUDE   = $(STAGE_X86)/usr/include
+
+QUADMATH_LIB       = $(STAGE_X86)/usr/lib64
+QUADMATH_INCLUDE   = $(STAGE_X86)/usr/include
