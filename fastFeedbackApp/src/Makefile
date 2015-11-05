@@ -47,7 +47,7 @@ USR_CPPFLAGS += -I$(DL_INCLUDE)
 # ========================================================
 # Let's build the Following IOC Application:
 # ========================================================
-PROD_IOC = fastFeedback
+PROD_IOC += fastFeedback
 
 DBD = fastFeedback.dbd
 fastFeedback_DBD += base.dbd
@@ -127,7 +127,7 @@ fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
 # CPPUNIT Tests IOC Application
 # ========================================================================
 # Let's build the Following IOC Application
-PROD_IOC         =  ffUnitTest
+PROD_IOC         +=  ffUnitTest
 
 DBD              =  ffUnitTest.dbd
 ffUnitTest_DBD   += base.dbd
