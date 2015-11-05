@@ -1,0 +1,18 @@
+How to specify/reference non-EPICS modules/packages?
+We use "CONFIG_SITE" to add location to packages 
+needed by the host build.
+
+Then we use "CONFIG_SITE.Common.<Target_Arch>"
+
+For example, "CONFIG_SITE.Common.linuxRT_glibc-x86_64"
+
+The RELEASE file is really reserved for specifying the location
+of EPICS modules.
+
+This APP will need the following packages:
+(1) CPPUNIT
+(2) BOOST
+(3) BOOSTBINDINGS
+(4) LAPACK
+
+
