@@ -47,7 +47,7 @@ USR_CPPFLAGS += -I$(DL_INCLUDE)
 # ========================================================
 # Let's build the Following IOC Application:
 # ========================================================
-PROD_IOC += fastFeedback
+PROD_IOC = fastFeedback
 
 DBD = fastFeedback.dbd
 fastFeedback_DBD += base.dbd
@@ -105,9 +105,12 @@ fastFeedback_LIBS      += blas
 
 ifeq ($(T_A),linuxRT_glibc-x86_64)
 gfortran_DIR=$(GFORT_LIB)
+quadmath_DIR = $(QUADMATH_LIB)
+
 fastFeedback_LIBS  += gfortran
+fastFeedback_LIBS  += quadmath
 else
-fastFeedback_LIBS  += gfortran
+fastFeedback_SYS_LIBS  += gfortran
 endif
 
 # ========================================================
