@@ -1,4 +1,4 @@
-#!/usr/local/lcls/package/python/current/bin/python
+#!/afs/slac/g/lcls/package/python/current/bin/python
 
 import sys
 import os

@@ -247,9 +247,14 @@ long TimeAverage::getRate() {
     if (_full) {
         _averageTime = _sum / _size;
     } else {
+      if (_head != 0) {
         _averageTime = _sum / _head;
+      }
     }
-    return std::floor(1000000/_averageTime);
+    if (_averageTime != 0) {
+      return std::floor(1000000/_averageTime);
+    }
+    return 0;
 }
 
 void TimeAverage::show(std::string leadingSpaces) {

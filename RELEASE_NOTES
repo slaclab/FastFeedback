@@ -10,6 +10,14 @@
 #==============================================================
 #
 
+FastFeedback-R1-0-0:
+	--- 06-NOV-2015 ---------------------------------------------
+	This version now runs on LinuxRT. The Timer class has been
+	changed to use clock_nanosleep() instead of the RTEMS BSP
+	timer. There have been also a few bug fixes in the TimeUtil.cc
+	file (div by zero problems). Several #ifdef LINUX/RTEMS were
+	removed.
+
 FastFeedback: Initial import, based on FFController-R1-19-1
 
 

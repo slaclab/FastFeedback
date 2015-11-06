@@ -40,6 +40,7 @@ _delay(2),
 _generatedPatternCount(0),
 _enabled(true) {
     _timer = new Timer(&PatternGeneratorCallback);
+    _timer->start();
     _nextPattern = _patternMasks.end();
 }
 
@@ -94,7 +95,7 @@ void PatternGenerator::generate() {
  */
 void PatternGenerator::start() {
     if (_timer != NULL) {
-        _timer->start(_delay, true);
+        _timer->go(_delay, true);
         _enabled = true;
     }
 }
@@ -105,7 +106,7 @@ void PatternGenerator::start() {
  * @author L.Piccoli
  */
 void PatternGenerator::stop() {
-    _timer->cancel();
+  //    _timer->cancel();
     _enabled = false;
 }
 

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Thread.h"
+#include "Log.h"
 
 USING_FF_NAMESPACE
 
@@ -59,6 +60,7 @@ void FF::Thread::run() {
         _done = true;
     }
     _started = true;
+
     while (!_done) {
         Event e;
         if (receive(e) == 0) {
@@ -97,6 +99,9 @@ void FF::Thread::run() {
  * @author L.Piccoli
  */
 int FF::Thread::start() {
+  Log::getInstance() << Log::showtime << Log::flagConfig << Log::dpInfo
+		     << "INFO: Thread::start() name=" << _name.c_str() << Log::dp;
+  
     _done = false;
     //   _join->lock();
     _thread.start();

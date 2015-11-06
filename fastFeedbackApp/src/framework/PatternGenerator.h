@@ -85,9 +85,6 @@ private:
     /** Indicates whether the PatternGenerator is on or off */
     bool _enabled;
 
-    /** Defines with timer to use */
-    Timer::TimerType _timerType;
-
     /** There is only one PatternGenerator instance */
     static PatternGenerator _instance;
 };

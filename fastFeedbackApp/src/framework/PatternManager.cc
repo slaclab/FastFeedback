@@ -43,12 +43,12 @@ long DELAY_COLLECT_MISMATCHES = 0;
  * @author L.Piccoli
  */
 void PatternManagerCallback(void *arg) {
-    PatternManager::getInstance().updateMeasurements();
-    DELAY_END++;
-    if (DELAY_START != DELAY_END) {
-        DELAY_MISMATCHES++;
-        DELAY_END = DELAY_START; // Re-sync
-    }
+  PatternManager::getInstance().updateMeasurements();
+  DELAY_END++;
+  if (DELAY_START != DELAY_END) {
+    DELAY_MISMATCHES++;
+    DELAY_END = DELAY_START; // Re-sync
+  }
 }
 
 /**
@@ -57,7 +57,6 @@ void PatternManagerCallback(void *arg) {
  * @author L.Piccoli
  */
 void PatternManagerFiducialCallback(void *arg) {
-#ifdef RTEMS
     epicsTimeStamp patternTime;
     evrModifier_ta patternWord;
     epicsUInt32 patternStatus; /* see evrPattern.h for values */
@@ -68,7 +67,6 @@ void PatternManagerFiducialCallback(void *arg) {
         Pattern pattern(patternWord, patternTime);
         PatternManager::getInstance().fiducialCallback(pattern);
     }
-#endif
 }
 
 /**
@@ -104,9 +102,6 @@ _timerCallbackStats(50, "Timer Callback Stats") {
 }
 
 PatternManager::~PatternManager() {
-    if (_timerType == Timer::EPICS_TIMER) {
-        delete _timer;
-    }
     delete _mutex;
 }
 
@@ -114,9 +109,6 @@ PatternManager::~PatternManager() {
  * @author L.Piccoli
  */
 int PatternManager::configure() {
-#ifdef LINUX
-    return 0;
-#else
     std::cout << "--- Configuring EVR...";
     int status = evrTimeRegister(PatternManagerFiducialCallback, 0);
     if (status != 0) {
@@ -125,8 +117,11 @@ int PatternManager::configure() {
         return -1;
     }
     std::cout << " done." << std::endl;
+    std::cout << "--- Starting timer ... ";
+    _timer->start();
+    std::cout << " done." << std::endl;
+
     return 0;
-#endif
 }
 
 /**
@@ -240,7 +235,7 @@ int PatternManager::process(Pattern evrPattern) {
 
     // Start the timer
     _timeBetweenFiducialStats.start();
-    _timer->start(_measurementDelay);    
+    _timer->go(_measurementDelay);    
 
     // Starts recording the time between this point and the processing of 
     // the timer generated MEASUREMENT_EVENT by the CollectorThread
@@ -443,7 +438,7 @@ void PatternManager::enable() {
  * @author L.Piccoli
  */
 void PatternManager::disable() {
-  _timer->cancel();
+  //  _timer->cancel();
   _enabled = false;
 }
 

@@ -130,9 +130,9 @@ fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
 # CPPUNIT Tests IOC Application
 # ========================================================================
 # Let's build the Following IOC Application
-PROD_IOC         +=  ffUnitTest
+#PROD_IOC         +=  ffUnitTest
 
-DBD              =  ffUnitTest.dbd
+DBD              +=  ffUnitTest.dbd
 ffUnitTest_DBD   += base.dbd
 ffUnitTest_DBD   += iocAdmin.dbd
 ffUnitTest_DBD   += autosaveSupport.dbd

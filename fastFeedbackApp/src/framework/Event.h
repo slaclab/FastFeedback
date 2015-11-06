@@ -27,6 +27,7 @@ enum EventType {
     DISCONNECT_EVENT,
     MODE_EVENT,
     HEARTBEAT_EVENT,
+    START_TIMER_EVENT,
 };
 
 /**

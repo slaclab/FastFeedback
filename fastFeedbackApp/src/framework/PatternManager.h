@@ -143,9 +143,6 @@ private:
      */
     bool _enabled;
 
-    /** Defines with timer to use */
-    Timer::TimerType _timerType;
-
     /** Keep track of time between patterns */
     Time _patternTime;
 

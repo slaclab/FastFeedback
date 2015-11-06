@@ -42,11 +42,9 @@ _s29AsumPv("S29_ASUM") {
     } else {
         Log::getInstance() << "ERROR: Failed to register algorithms." << Log::flush;
     }
-#ifdef RTEMS
+
     _hasPatternGenerator = false;
-#else
-    _hasPatternGenerator = true;
-#endif
+
     std::cout << ">> ExecConfiguration instance created." << std::endl;
 };
 
