@@ -4,10 +4,6 @@ include $(TOP)/configure/CONFIG
 #  ADD MACRO DEFINITIONS AFTER THIS LINE
 
 #----------------------------------------------------
-#  Optimization of db files using dbst (DEFAULT: NO)
-DB_OPT = YES
-
-#----------------------------------------------------
 # Create and install (or just install)
 # databases, templates, substitutions like this
 # each delivered *.template file specified below looks for its
@@ -17,20 +13,12 @@ DB_OPT = YES
 # the iocs
 
 #include evr substitutions file
-DB += IOC-SYS0-FB01.template
-DB += IOC-SYS0-FB02.template
-DB += IOC-SYS0-FB03.template
-DB += IOC-SYS0-FB04.template
-DB += IOC-SYS0-FB05.template
-DB += IOC-SYS0-FB10.template
-
-#now include overall substitution file template
-#DB += fbckFB10.template
-#DB += fbckFB05.template
-#DB += fbckFB04.template
-#DB += fbckFB03.template
-#DB += fbckFB02.template
-#DB += fbckFB01.template
+DB += IOC-SYS0-FB01.db
+DB += IOC-SYS0-FB02.db
+DB += IOC-SYS0-FB03.db
+DB += IOC-SYS0-FB04.db
+DB += IOC-SYS0-FB05.db
+DB += IOC-SYS0-FB10.db
 
 DB_INSTALLS += $(IOCADMIN)/db/iocAdminSoft.db 
 IOCRELEASE_DB += iocRelease.db
@@ -46,7 +34,4 @@ DB_INSTALLS += $(AUTOSAVE)/db/save_restoreStatus.db
 # <anyname>_TEMPLATE = <templatename>
 
 include $(TOP)/configure/RULES
-#----------------------------------------
-#  ADD RULES AFTER THIS LINE
-include $(TOP)/configure/RULES.Db
 
