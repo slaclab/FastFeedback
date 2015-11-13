@@ -44,22 +44,37 @@ DIRECTORY_TARGETS += $(INSTALL_LOCATION_STARTUP)
 # Let's reference some external packages needed by our build:
 
 # =============================================
-# Define the version of packages needed by this                      
+# Define the version of external  packages needed by this                      
 # IOC Application
 # =============================================
 include $(TOP)/RELEASE_SITE
+#Define the external package version number to be used
 CPPUNIT_PACKAGE_VERSION=1.12.1
 BOOST_PACKAGE_VERSION=1.42.0
 BOOSTBINDINGS_PACKAGE_VERSION=1.42.0
 LAPACK_PACKAGE_VERSION=3.2.1
 
+#Define the path to the external package for the host architecture
 CPPUNIT=$(PACKAGE_SITE_TOP)/cppunit/$(CPPUNIT_PACKAGE_VERSION)/linux-x86_64
-
 BOOST=$(PACKAGE_SITE_TOP)/boost/$(BOOST_PACKAGE_VERSION)/linux-x86_64
-
 BOOSTBINDINGS=$(PACKAGE_SITE_TOP)/boost-numeric-bindings/$(BOOSTBINDINGS_PACKAGE_VERSION)
-
 LAPACK=$(PACKAGE_SITE_TOP)/lapack/$(LAPACK_PACKAGE_VERSION)/linux-x86_64
+
+#=========================================================
+#EVRSharing - Need to define path to EVRMA header files
+# For Build Type: x86_64-glibc-linux                                                            
+#=========================================================
+EVRMA_PACKAGE_VERSION=R1-0-p3
+
+### NOTE: SETTABLE_CONFIG
+KERNEL_MODULE_EVRMA=$(PACKAGE_SITE_TOP)/linuxKernel_Modules/evrmaDriver/$(EVRMA_PACKAGE_VERSION)
+### NOTE: SETTABLE_CONFIG
+EVRMA=$(PACKAGE_SITE_TOP)/evrma/$(EVRMA_PACKAGE_VERSION)/rhel6-linux-x86_64
+
+EVRMA_LIB = $(EVRMA)/lib
+EVRMA_INCLUDE = -I$(EVRMA)/include
+KERNEL_MODULE_EVRMA_INCLUDE = -I$(KERNEL_MODULE_EVRMA)/src
+
 
 # Build this IOC App statically
 STATIC_BUILD=YES
