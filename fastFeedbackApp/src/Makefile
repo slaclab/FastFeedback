@@ -52,13 +52,18 @@ PROD_IOC = fastFeedback
 DBD = fastFeedback.dbd
 fastFeedback_DBD += base.dbd
 fastFeedback_DBD += iocAdmin.dbd
+fastFeedback_DBD += devIocStats.dbd #Part of the iocAdmin module
 fastFeedback_DBD += autosaveSupport.dbd
 fastFeedback_DBD += caPutLog.dbd
 fastFeedback_DBD += ffRecord.dbd
 fastFeedback_DBD += devFfDeviceView.dbd
 fastFeedback_DBD += devFfConfig.dbd
-fastFeedback_DBD += evrSupport.dbd
-fastFeedback_DBD += devMrfEr.dbd
+fastFeedback_DBD += evrSupport.dbd #Needed for EVR
+fastFeedback_DBD += devMrfEr.dbd   #Needed for EVR
+
+ # performance measurment module
+fastFeedback_DBD += drvPerfMeasure.dbd #Provides capability for real-time measurements in source code  
+
 # =======================================================
 
 # ========================================================================
@@ -85,6 +90,9 @@ CC_FILES = Thread.cc EventReceiver.cc EventGenerator.cc PatternManager.cc \
 	TrajectoryFitBy1.cc TrajectoryFit.cc FcomChannelStates.cc \
 	TrajectoryFitPoly.cc BunchCharge.cc TrajectoryFitPinv.cc \
 	TrajectoryFitEact.cc EventLogger.cc
+
+## ======================================================================      
+# <name>_registerRecordDeviceDriver.cpp will be created from <name>.dbd
 
 fastFeedback_SRCS += $(CC_FILES) chirpControl.st
 fastFeedback_SRCS += fastFeedback_registerRecordDeviceDriver.cpp
@@ -116,6 +124,7 @@ endif
 # ========================================================
 # Link in EPICS MODULES and BASE
 # =======================================================
+fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
 fastFeedback_LIBS += miscUtils
 fastFeedback_LIBS += devIocStats
 fastFeedback_LIBS += caPutLog
@@ -123,8 +132,22 @@ fastFeedback_LIBS += autosave
 fastFeedback_LIBS += seq pv
 fastFeedback_LIBS += evrSupport
 fastFeedback_LIBS += devMrfEr
-fastFeedback_LIBS += drvMrf
-fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
+#fastFeedback_LIBS += drvMrf (Migrating to EVRsharing)
+ifeq ($(T_A),linuxRT_glibc-x86_64)
+  evrClientLab_LIBS += drvMrf
+  evrma_DIR = $(EVRMA_LIB)
+  evrClientLab_LIBS += evrma
+endif
+  
+ifeq ($(T_A),linux-x86_64)
+  evrClientLab_LIBS += drvMrf
+  evrma_DIR = $(EVRMA_LIB)
+  evrClientLab_LIBS += evrma
+endif
+
+#Link in Library for perfMeasure (new)
+fastFeedback_LIBS += perfMeasure
+
 
 # ========================================================================
 # CPPUNIT Tests IOC Application
