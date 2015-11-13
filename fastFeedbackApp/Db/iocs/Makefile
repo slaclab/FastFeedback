@@ -20,8 +20,18 @@ DB += IOC-SYS0-FB04.db
 DB += IOC-SYS0-FB05.db
 DB += IOC-SYS0-FB10.db
 
+
+# ========================================================
+# # Install databases from iocAdmin package
+# These databases support IOC Health and Monitoring
+# ========================================================
+
 DB_INSTALLS += $(IOCADMIN)/db/iocAdminSoft.db 
 IOCRELEASE_DB += iocRelease.db
+
+#=========================================================
+#Install Database to support reading the status of the autosave package
+#========================================================
 
 #  autosave
 DB_INSTALLS += $(AUTOSAVE)/db/save_restoreStatus.db
