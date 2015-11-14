@@ -47,7 +47,9 @@ USR_CPPFLAGS += -I$(DL_INCLUDE)
 # ========================================================
 # Let's build the Following IOC Application:
 # ========================================================
+#ifeq ($(T_A),linuxRT_glibc-x86_64)
 PROD_IOC = fastFeedback
+#endif
 
 DBD = fastFeedback.dbd
 fastFeedback_DBD += base.dbd
@@ -62,7 +64,7 @@ fastFeedback_DBD += evrSupport.dbd #Needed for EVR
 fastFeedback_DBD += devMrfEr.dbd   #Needed for EVR
 
  # performance measurment module
-fastFeedback_DBD += drvPerfMeasure.dbd #Provides capability for real-time measurements in source code  
+#fastFeedback_DBD += drvPerfMeasure.dbd #Provides capability for real-time measurements in source code  
 
 # =======================================================
 
@@ -134,19 +136,19 @@ fastFeedback_LIBS += evrSupport
 fastFeedback_LIBS += devMrfEr
 #fastFeedback_LIBS += drvMrf (Migrating to EVRsharing)
 ifeq ($(T_A),linuxRT_glibc-x86_64)
-  evrClientLab_LIBS += drvMrf
+  fastFeedback_LIBS += drvMrf
   evrma_DIR = $(EVRMA_LIB)
-  evrClientLab_LIBS += evrma
+  fastFeedback_LIBS += evrma
 endif
   
 ifeq ($(T_A),linux-x86_64)
-  evrClientLab_LIBS += drvMrf
+  fastFeedback_LIBS += drvMrf
   evrma_DIR = $(EVRMA_LIB)
-  evrClientLab_LIBS += evrma
+  fastFeedback_LIBS += evrma
 endif
 
 #Link in Library for perfMeasure (new)
-fastFeedback_LIBS += perfMeasure
+#fastFeedback_LIBS += perfMeasure
 
 
 # ========================================================================
@@ -217,6 +219,18 @@ else
 ffUnitTest_SYS_LIBS     += dl
 ffUnitTest_SYS_LIBS     += gfortran
 endif
+
+ifeq ($(T_A),linuxRT_glibc-x86_64)
+   evrClientLab_LIBS += drvMrf
+   evrma_DIR = $(EVRMA_LIB)
+   evrClientLab_LIBS += evrma
+endif
+  
+ifeq ($(T_A),linux-x86_64)
+   evrClientLab_LIBS += drvMrf
+   evrma_DIR = $(EVRMA_LIB)
+   evrClientLab_LIBS += evrma
+endif 
 
 
 # ========================================================
