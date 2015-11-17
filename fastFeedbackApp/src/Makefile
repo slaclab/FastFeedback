@@ -63,6 +63,12 @@ fastFeedback_DBD += devFfConfig.dbd
 fastFeedback_DBD += evrSupport.dbd #Needed for EVR
 fastFeedback_DBD += devMrfEr.dbd   #Needed for EVR
 
+# The system command as part of EPICS BASE is 
+# available for all architectures
+fastFeedback_DBD += system.dbd
+
+
+
  # performance measurment module
 #fastFeedback_DBD += drvPerfMeasure.dbd #Provides capability for real-time measurements in source code  
 
@@ -164,6 +170,11 @@ ffUnitTest_DBD   += autosaveSupport.dbd
 ffUnitTest_DBD   += caPutLog.dbd
 ffUnitTest_DBD   += evrSupport.dbd
 ffUnitTest_DBD   += devMrfEr.dbd
+
+# The system command as part of EPICS BASE is 
+# available for all architectures
+ffUnitTest_DBD += system.dbd
+
 
 # ========================================================================
 # Source code for Unit Test IOC Application
