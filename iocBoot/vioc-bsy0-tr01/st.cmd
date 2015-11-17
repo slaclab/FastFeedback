@@ -6,8 +6,8 @@
 #   Nov. 05, 2015 L. Piccoli - created
 #   Nov. 16, 2015 A. Babbitt - Updated for EVR sharing and LinuxRT
 #   A) Updated for LinuxRT/real-time priority threads
-    B) Updated for EVR sharing
-    C) Updated to use generic templates and macro substitutions
+#   B) Updated for EVR sharing
+#   C) Updated to use generic templates and macro substitutions
 ##########################################################
 
 # Where am I?
