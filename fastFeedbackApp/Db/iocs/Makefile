@@ -20,15 +20,30 @@ DB += IOC-SYS0-FB04.db
 DB += IOC-SYS0-FB05.db
 DB += IOC-SYS0-FB10.db
 
+#this file generates and configures the feedback loops (generates the template files)
 DB += fbckFB01.db
+
+
+# ========================================
+# # Install timing/event related databases
+# ========================================
+DB_INSTALLS += $(EVENT)/db/EvrPmc.db
+DB_INSTALLS += $(EVENT)/db/EvrPci.db
+DB_INSTALLS += $(EVENT)/db/Pattern.db
+DB_INSTALLS += $(EVENT)/db/PCI-trig.db
+DB_INSTALLS += $(EVENT)/db/PMC-trig.db
 
 # ========================================================
 # # Install databases from iocAdmin package
 # These databases support IOC Health and Monitoring
 # ========================================================
-
+#This is for soft ioc's only
 DB_INSTALLS += $(IOCADMIN)/db/iocAdminSoft.db 
+DB_INSTALLS += $(IOCADMIN)/db/iocAdminScanMon.db
+DB_INSTALLS += $(IOCADMIN)/db/iocScanMonSum.db
+DB_INSTALLS += $(IOCADMIN)/db/iocScanMon.db
 IOCRELEASE_DB += iocRelease.db
+
 
 #=========================================================
 #Install Database to support reading the status of the autosave package
