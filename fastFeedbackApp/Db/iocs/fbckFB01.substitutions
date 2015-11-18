@@ -6,7 +6,7 @@
 # Feedback Types :
 #
 # define all loops here
-file ../../../../db/fbckLoop.db {
+file fbckLoop.db {
   pattern { AR,  LP   ,  LN          }
           { FB01, "TR01"  , "LaunchLoop1"   }
           { FB01, "TR02"  , "LaunchLoop2"   }
@@ -19,7 +19,7 @@ file ../../../../db/fbckLoop.db {
 # Every IOC will have one longitudinal loop configuration
           { FB01, "LG01"  , "Longitudinal"   }   
 }
-file ../../../../db/fbckIoc.db {
+file fbckIoc.db {
   pattern { AR }
           { FB01 }
 } 

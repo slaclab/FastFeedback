@@ -20,6 +20,7 @@ DB += IOC-SYS0-FB04.db
 DB += IOC-SYS0-FB05.db
 DB += IOC-SYS0-FB10.db
 
+DB += fbckFB01.db
 
 # ========================================================
 # # Install databases from iocAdmin package
