@@ -68,10 +68,6 @@ fastFeedback_DBD += devMrfEr.dbd   #Needed for EVR
 fastFeedback_DBD += system.dbd
 
 
-
- # performance measurment module
-#fastFeedback_DBD += drvPerfMeasure.dbd #Provides capability for real-time measurements in source code  
-
 # =======================================================
 
 # ========================================================================
@@ -163,7 +159,7 @@ endif
 # Let's build the Following IOC Application
 #PROD_IOC         +=  ffUnitTest
 
-DBD              +=  ffUnitTest.dbd
+DBD              += ffUnitTest.dbd
 ffUnitTest_DBD   += base.dbd
 ffUnitTest_DBD   += iocAdmin.dbd
 ffUnitTest_DBD   += autosaveSupport.dbd
