@@ -5,7 +5,7 @@
 # modified:
 #   Nov. 05, 2015 L. Piccoli - created
 #   Nov. 16, 2015 A. Babbitt - Updated for EVR sharing and LinuxRT
-#   A) Updated for LinuxRT/real-time priority threads
+#   A) Updated for LinuxRT real-time priority threads
 #   B) Updated for EVR sharing
 #   C) Updated to use generic templates and macro substitutions
 ##########################################################
@@ -14,24 +14,22 @@
 pwd()
 < envPaths
 
-cd ${TOP}
+# cd ${TOP} # Test later
+cd ("../..")
 
 #=======================================================================
 #Setup some additional environment variables
 #=======================================================================
 #Setup environment variables
 
-epicsEnvSet("IOC", "vioc-b34-fb01")
 epicsEnvSet("IOC_NAME",  "IOC:SYS0:FB01")
 epicsEnvSet("FB", "FB01")
 #epicsEnvSet("Loop", "TR01") #save for later  - looking for ways to isolate loop parameters near top of st.cmd 
-epicsEnvSet(TOP,"${IOC_APP}")
+#epicsEnvSet(TOP,"${IOC_APP}") #test later - currently not working 
+#epicsEnvSEt("IOC_BOOT", ${TOP}/iocBoot) #defined the path near the rtpriorities
 
 epicsEnvSet("EPICS_CA_MAX_ARRAY_BYTES","32000") #Support Large Arrays/Waveforms
 epicsEnvSet("IOCSH_PS1","epics@vioc-b34-fb01>")
-
-# bspExtMemProbe only durint init. clear this to avoid the lecture.
-bspExtVerbosity=0
 
 
 # tag messages with IOC name
@@ -120,16 +118,16 @@ dbLoadRecords("db/iocAdminSoft.db","IOC=${IOC_NAME}")
 dbLoadRecords("db/iocRelease.db","IOC=${IOC_NAME}")
 
 # load evr database
-dbLoadRecords("db/IOC-SYS0-FB01.template") #Test and Delete - Trying to use macros
-#dbLoadRecords("db/IOC-SYS0-FB01.template", "EVR=${EVR_DEV1},FBCK=${FB}") 
+dbLoadRecords("db/IOC-SYS0-FB01.db") #Test and Delete - Trying to use macros
+#dbLoadRecords("db/IOC-SYS0-FB01.db", "EVR=${EVR_DEV1},FBCK=${FB}") 
 
 # Load application
 dbLoadRecords("db/fbckFB01.template")       #Test and Delete - Trying to use macros
-#dbLoadRecords("db/fbckFB01.template","FBCK=${FB}")
+#dbLoadRecords("db/fbckFB01.db","FBCK=${FB}")
 
 ## Setup autosave/restore will write to cpu-b34-fb01 directory
-set_requestfile_path("/data/autosave-req")
-set_savefile_path("/data/autosave")
+set_requestfile_path("/data/${IOC}/autosave-req")
+set_savefile_path("/data/${IOC}/autosave")
 
 # this creates autosave status PVs named IOC:SYS0:FB01:xxx
 # to report autosave status
@@ -140,11 +138,8 @@ dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 save_restoreSet_IncompleteSetsOk(1)
 save_restoreSet_DatedBackupFiles(0)
 
-
 # evr hardware initialization
-drvMrfErFlag=0
-ErConfigure(0, 0, 0, 0, 1)
-evrInitialize()
+#ErConfigure(0, 0, 0, 0, 1) 
 
 
 ## Restore datasets
@@ -206,7 +201,7 @@ ffStart()
 # Setup Real-time priorities after starting the controller threads 
 # driver thread
 #=======================================================================
-cd ${IOC_BOOT}
+cd iocBoot/${IOC}
 system("/bin/su root -c `pwd`/rtPrioritySetup.vevr0.cmd")
 
 
