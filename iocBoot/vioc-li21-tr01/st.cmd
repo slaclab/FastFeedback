@@ -7,7 +7,7 @@
 #   Nov. 16, 2015 A. Babbitt - Updated for EVR sharing and LinuxRT
 #   A) Updated for LinuxRT real-time priority threads
 #   B) Updated for EVR sharing
-#   C) Updated to use generic templates and macro substitutions
+#   C) Updated to use generic templates and macro substitutions (in progress)
 ##########################################################
 
 # Where am I?
@@ -44,18 +44,10 @@ epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${IOC}")
 # User defined environment vars
 # 
 # =================================================================
-###epicsEnvSet("LOCA_NAME","FB01",1)     # Slate for deletion
-###epicsEnvSet("IOC_NAME","FB01",1)      # Slate for deletion
-###epicsEnvSet("LOCA2_NAME", "FB01", 1)  # Slate for deletion
- 
 ## iocAdmin
 epicsEnvSet("ENGINEER","A.Babbitt")
 epicsEnvSet("LOCATION","cpu-b34-fb01")
-###epicsEnvSet("STARTUP","/usr/local/lcls/epics/iocCommon/vioc-b34-fb01") # Slate for deletion
-###epicsEnvSet("ST_CMD","startup.cmd")  # Slate for deletion
  
-#fcomInit(fcomUtilGethostbyname(getenv("FCOMMCGRP"),0),1000)
-
 
 # Set MACROS for EVRs=================================================
 # FAC = SYS0 ==> LCLS1
@@ -138,8 +130,6 @@ dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 save_restoreSet_IncompleteSetsOk(1)
 save_restoreSet_DatedBackupFiles(0)
 
-# evr hardware initialization
-#ErConfigure(0, 0, 0, 0, 1) 
 
 
 ## Restore datasets
