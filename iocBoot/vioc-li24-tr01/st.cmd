@@ -16,7 +16,7 @@
 #   B) Set-up linuxRT to run two vioc's
 #   C) Clean-up st.cmd to use macros for vevr's, vioc's, and feedbacks (generalize/modular)
 #   D) Modernize the evr templates => pass in macros versus IOC:SYS:FB03.db
-#   E) Generic fbckFB03.db files (double-check that the only difference is the "FB0#")
+#   E) Create generic fbckFB03.db files and pass in macros
 ##########################################################
 
 # Where am I?
@@ -148,6 +148,8 @@ dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 # Load application specific databases
 # ===================================================================
 dbLoadRecords("db/fbckFB_template.db","FB=${FB}")
+#If using a longitudal feedback - use this file instead
+#dbLoadRecords("db/fbckFB_long_template.db, "FB=${FB}")
 
 #########################################################################
 #BEGIN: Setup autosave/restore
@@ -188,8 +190,8 @@ set_pass1_restoreFile("info_settings.sav")
 
 
 ## Restore datasets - Specific to Fast Feedback
-set_pass0_restoreFile("info_mon_FB01.sav")
-set_pass1_restoreFile("info_mon_FB01.sav")
+set_pass0_restoreFile("info_mon_$(FB).sav")
+set_pass1_restoreFile("info_mon_$(FB).sav")
 
 set_pass0_restoreFile("info_config_TR01.sav")
 set_pass1_restoreFile("info_config_TR01.sav")
@@ -279,31 +281,31 @@ create_monitor_set("info_settings.req" , 30 )
 
 # Start saving application specific datasets
 
-makeAutosaveFileFromDbInfo("info_mon_FB01.req", "autosaveMonFB01")
-create_monitor_set("info_mon_FB01.req",60,"")
+makeAutosaveFileFromDbInfo("info_mon_$(FB).req", "autosaveMon$(FB)")
+create_monitor_set("info_mon_$(FB).req",60,"")
 
 makeAutosaveFileFromDbInfo("info_config_TR01.req", "autosaveConfigTR01")
-create_triggered_set("info_config_TR01.req","FBCK:FB01:TR01:SAVE","")
+create_triggered_set("info_config_TR01.req","FBCK:$(FB):TR01:SAVE","")
 
 makeAutosaveFileFromDbInfo("info_config_TR02.req", "autosaveConfigTR02")
-create_triggered_set("info_config_TR02.req","FBCK:FB01:TR02:SAVE","")
+create_triggered_set("info_config_TR02.req","FBCK:$(FB):TR02:SAVE","")
 
 makeAutosaveFileFromDbInfo("info_config_TR03.req", "autosaveConfigTR03")
-create_triggered_set("info_config_TR03.req","FBCK:FB01:TR03:SAVE","")
+create_triggered_set("info_config_TR03.req","FBCK:$(FB):TR03:SAVE","")
 
 makeAutosaveFileFromDbInfo("info_config_TR04.req", "autosaveConfigTR04")
-create_triggered_set("info_config_TR04.req","FBCK:FB01:TR04:SAVE","")
+create_triggered_set("info_config_TR04.req","FBCK:$(FB):TR04:SAVE","")
 
 makeAutosaveFileFromDbInfo("info_config_TR05.req", "autosaveConfigTR05")
-create_triggered_set("info_config_TR05.req","FBCK:FB01:TR05:SAVE","")
+create_triggered_set("info_config_TR05.req","FBCK:$(FB):TR05:SAVE","")
 
 makeAutosaveFileFromDbInfo("info_config_LG01.req", "autosaveConfigLG01")
-create_triggered_set("info_config_LG01.req","FBCK:FB01:LG01:SAVE","")
+create_triggered_set("info_config_LG01.req","FBCK:$(FB):LG01:SAVE","")
 
 makeAutosaveFileFromDbInfo("info_config_GN01.req", "autosaveConfigGN01")
-create_triggered_set("info_config_GN01.req","FBCK:FB01:GN01:SAVE","")
+create_triggered_set("info_config_GN01.req","FBCK:$(FB):GN01:SAVE","")
 
 #makeAutosaveFileFromDbInfo("info_config_GN02.req", "autosaveConfigGN02")
-#create_triggered_set("info_config_GN02.req","FBCK:FB01:GN02:SAVE","")
+#create_triggered_set("info_config_GN02.req","FBCK:$(FB):GN02:SAVE","")
 
 #Done
