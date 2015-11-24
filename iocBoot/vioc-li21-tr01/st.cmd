@@ -37,6 +37,14 @@ epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
 epicsEnvSet("ENGINEER","A.Babbitt")
 epicsEnvSet("LOCATION","cpu-b34-fb01")
 
+#========================================================================
+# Fast Feedback Application Specific Environment Variables
+#========================================================================
+
+epicsEnvSet("FB", "FB01")
+epicsEnvSet("IOC_NAME",  "IOC:SYS0:$(FB)")
+epicsEnvSet("Loop", "TR01")                                                                         
+
 #=====================================================================
 # Set MACROS for EVRs
 #====================================================================
@@ -46,18 +54,10 @@ epicsEnvSet("LOCATION","cpu-b34-fb01")
 #System Location:
 epicsEnvSet("LOCA","B34")
 
-epicsEnvSet(EVR_DEV1,"EVR:B34:fb01")
+epicsEnvSet(EVR_DEV1,"EVR:SYS0:$(FB)")
 epicsEnvSet(UNIT,"fb01")
 epicsEnvSet(FAC,"SYS0")
 
-
-#========================================================================
-# Fast Feedback Application Specific Environment Variables
-#========================================================================
-
-epicsEnvSet("IOC_NAME",  "IOC:SYS0:FB01")
-epicsEnvSet("FB", "FB01")
-#epicsEnvSet("Loop", "TR01") #save for later  - looking for ways to isolate loop parameters near top of st.cmd 
 
 # ========================================================
 # Support Large Arrays/Waveforms; Number in Bytes
@@ -119,8 +119,7 @@ eevrmaConfigure(0, "/dev/vevr0")
 # ===================================================================
 # load evr database
 # ===================================================================
-dbLoadRecords("db/IOC-SYS0-FB01.db") #Test and Delete - Trying to use macros
-#dbLoadRecords("db/IOC-SYS0-FB01.db", "EVR=${EVR_DEV1},FBCK=${FB}") 
+dbLoadRecords("db/IOC-SYS0-TEMPLATE.db", "EVR=${EVR_DEV1},IOC=${IOC_NAME}") 
 
 # ===================================================================
 # Load iocAdmin record instances
@@ -134,14 +133,12 @@ dbLoadRecords("db/iocAdminScanMon.db", "IOC=${IOC_NAME}"}
 # ===================================================================
 # this creates autosave status PVs named IOC:SYS0:FB01:xxx
 # to report autosave status
-# save_restoreSet_status_prefix("IOC:SYS0:FB01:") #Test & Delete
 dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 
 # ===================================================================
 # Load application specific databases
 # ===================================================================
-dbLoadRecords("db/fbckFB01.db")       #Test and Delete - Trying to use macros
-#dbLoadRecords("db/fbckFB01.db","FBCK=${FB}")
+dbLoadRecords("db/fbckFB_template.db","FB=${FB}")
 
 #########################################################################
 #BEGIN: Setup autosave/restore

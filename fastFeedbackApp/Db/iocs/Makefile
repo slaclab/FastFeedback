@@ -12,16 +12,15 @@ include $(TOP)/configure/CONFIG
 # databases for each feedback loop are in common. Here we create
 # the iocs
 
-#include evr substitutions file
-DB += IOC-SYS0-FB01.db
-DB += IOC-SYS0-FB02.db
-DB += IOC-SYS0-FB03.db
-DB += IOC-SYS0-FB04.db
-DB += IOC-SYS0-FB05.db
-DB += IOC-SYS0-FB10.db
 
-#this file generates and configures the feedback loops (generates the template files)
-DB += fbckFB01.db
+#Generic evr substitution file (specify evr and feedback through macros in st.cmd)
+#Should repace all previous six evr substitution files (test first)
+DB += IOC-SYS0-TEMPLATE.db
+
+#fbckFB_template.db is a generic file to configure all the feedback loops (except FB04)
+DB += fbckFB_template.db
+#fbckFB_long_template.db replaces fbckFB04  (for longitudnal feedbacks)
+DB += fbckFB_long_template.db
 
 
 # ========================================
