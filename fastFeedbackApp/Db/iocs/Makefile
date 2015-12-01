@@ -14,13 +14,13 @@ include $(TOP)/configure/CONFIG
 
 
 #Generic evr substitution file (specify evr and feedback through macros in st.cmd)
-#Should repace all previous six evr substitution files (test first)
-DB += IOC-SYS0-TEMPLATE.db
+#Should repace all previous six evr substitution files 
+DB += EVR-TEMPLATE.db
 
-#fbckFB_template.db is a generic file to configure all the feedback loops (except FB04)
-DB += fbckFB_template.db
-#fbckFB_long_template.db replaces fbckFB04  (for longitudnal feedbacks)
-DB += fbckFB_long_template.db
+#fbckFB_template.db is a generic file to configure all the feedback loops 
+DB += fbck_template.db
+# Addtional file needed to replace FB04 (for longitudnal feedbacks)
+DB += long_template.db
 
 
 # ========================================
