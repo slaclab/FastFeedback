@@ -4,19 +4,25 @@
 # 
 # modified:
 #   Nov. 05, 2015 L. Piccoli - created
-#   
+
 #   Nov. 16, 2015 A. Babbitt - Updated for EVR sharing and LinuxRT
 #   A) Updated for LinuxRT real-time priority threads
 #   B) Updated for EVR sharing - with older evr substitutions (IOC-SYS0-FB01.substitutions)
 #   C) Updated save/restore and iocAdmin functionality (modernization) 
 #   D) Updated event module databases, provided macro substitution, and generic files (in progress)
-#  
+
 #   Nov. 20th, 2015 A. Babbitt - Generated new vioc-b34-fb02 to support the following:
 #   A) Set-up the 2nd vevr1
 #   B) Set-up linuxRT to run two vioc's
 #   C) Clean-up st.cmd to use macros for vevr's, vioc's, and feedbacks (generalize/modular)
-#   D) Modernize the evr templates => pass in macros versus IOC:SYS:FB03.db
+#   D) Modernize the evr templates => pass in macros versus IOC:SYS:FB03.db#   E) Create generic fbckFB03.db files and pass in macros
 #   E) Create generic fbckFB03.db files and pass in macros
+
+#   Nov. 30, 2015 A. Babbitt - Loop Splitting 
+#   A) Using generic template files - define loop parameters with macros
+#   B) Using macro for virtual EVR  - goal is to just change environment variables (generic st.cmd)
+#   C) Test new template files - update template file names
+#   D) Clean-up the auto/save restore (just one loop now per st.cmd)
 ##########################################################
 
 # Where am I?
@@ -45,16 +51,15 @@ epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
 epicsEnvSet("ENGINEER","A.Babbitt")
 epicsEnvSet("LOCATION","cpu-b34-fb01")
 
+#========================================================================
+# Fast Feedback Application Specific Environment Variables
+#========================================================================
 
-#========================================================================
-# Feedback Application Specific Environment Variables
-#========================================================================
-# IOC_NAME environment variable is used to generate PV's
 epicsEnvSet("FB", "FB03")
-epicsEnvSet("IOC_NAME",  "IOC:SYS0:$(FB)")
-epicsEnvSet("Loop", "TR01") 
-      
-# ===============================================================================================================================
+epicsEnvSet("IOC_NAME",  "IOC:SYS0:${FB}")
+epicsEnvSet("LOOP", "LG01")
+epicsEnvSet("CONFIG_NAME", "Longitudinal")
+
 #=====================================================================
 # Set MACROS for EVRs
 #====================================================================
@@ -64,9 +69,10 @@ epicsEnvSet("Loop", "TR01")
 #System Location:
 epicsEnvSet("LOCA","B34")
 
-epicsEnvSet(EVR_DEV1,"EVR:SYS0:$(FB)")
-epicsEnvSet(UNIT,"fb01")
+epicsEnvSet(EVR_DEV1,"EVR:SYS0:${FB}")
+#epicsEnvSet(UNIT,"fb01")
 epicsEnvSet(FAC,"SYS0")
+epicsEnvSet(VEVR, "vevr1")
 
 # ========================================================
 # Support Large Arrays/Waveforms; Number in Bytes
@@ -79,7 +85,7 @@ epicsEnvSet(FAC,"SYS0")
 # ========================================================
 
 epicsEnvSet("EPICS_CA_MAX_ARRAY_BYTES","32000") #Support Large Arrays/Waveforms
-epicsEnvSet("IOCSH_PS1","epics@vioc-b34-fb02>")
+epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 
 # =================================================================
 # User defined environment vars
@@ -116,7 +122,7 @@ fastFeedback_registerRecordDeviceDriver(pdbbase)
 # ErDebug=100
             
 # Here we have an VEVR
-eevrmaConfigure(0, "/dev/vevr1")
+eevrmaConfigure(0, "/dev/${VEVR}")
 
 
 # ======= EVR Setup Complete ========================================
@@ -128,14 +134,14 @@ eevrmaConfigure(0, "/dev/vevr1")
 # ===================================================================
 # load evr database
 # ===================================================================
-dbLoadRecords("db/IOC-SYS0-TEMPLATE.db", "EVR=${EVR_DEV1},IOC=${IOC_NAME}") 
+dbLoadRecords("db/EVR-TEMPLATE.db", "EVR=${EVR_DEV1},IOC=${IOC_NAME}") 
 
 # ===================================================================
 # Load iocAdmin record instances
 # ===================================================================
 dbLoadRecords("db/iocAdminSoft.db","IOC=${IOC_NAME}")
 dbLoadRecords("db/iocRelease.db","IOC=${IOC_NAME}")
-dbLoadRecords("db/iocAdminScanMon.db", "IOC=${IOC_NAME}"}
+dbLoadRecords("db/iocAdminScanMon.db", "IOC=${IOC_NAME}")
 
 # ===================================================================
 #Load database for autosave status
@@ -147,14 +153,14 @@ dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 # ===================================================================
 # Load application specific databases
 # ===================================================================
-dbLoadRecords("db/fbckFB_template.db","FB=${FB}")
-#If using a longitudal feedback - use this file instead
-#dbLoadRecords("db/fbckFB_long_template.db", "FB=${FB}")
+dbLoadRecords("db/fbck_template.db","FB=${FB},LOOP=${LOOP},CONFIG_NAME=${CONFIG_NAME}")
+#If configuring a longitudal feedback, need to uncomment the following line
+dbLoadRecords("db/long_template.db")
 
 #########################################################################
 #BEGIN: Setup autosave/restore
 ######################################################################
-## Setup autosave/restore will write to vioc-b34-fb01 directory
+## Setup autosave/restore will write to vioc directory
 #======================================================================
 #If all PVs don't connect continue anyways
 # save restore setup: incomplete restore ok, backup file overwrites
@@ -190,25 +196,11 @@ set_pass1_restoreFile("info_settings.sav")
 
 
 ## Restore datasets - Specific to Fast Feedback
-set_pass0_restoreFile("info_mon_$(FB).sav")
-set_pass1_restoreFile("info_mon_$(FB).sav")
+set_pass0_restoreFile("info_mon_${FB}.sav")
+set_pass1_restoreFile("info_mon_${FB}.sav")
 
-set_pass0_restoreFile("info_config_TR01.sav")
-set_pass1_restoreFile("info_config_TR01.sav")
-set_pass0_restoreFile("info_config_TR02.sav")
-set_pass1_restoreFile("info_config_TR02.sav")
-set_pass0_restoreFile("info_config_TR03.sav")
-set_pass1_restoreFile("info_config_TR03.sav")
-set_pass0_restoreFile("info_config_TR04.sav")
-set_pass1_restoreFile("info_config_TR04.sav")
-set_pass0_restoreFile("info_config_TR05.sav")
-set_pass1_restoreFile("info_config_TR05.sav")
-set_pass0_restoreFile("info_config_LG01.sav")
-set_pass1_restoreFile("info_config_LG01.sav")
-set_pass0_restoreFile("info_config_GN01.sav")
-set_pass1_restoreFile("info_config_GN01.sav")
-#set_pass0_restoreFile("info_config_GN02.sav")
-#set_pass1_restoreFile("info_config_GN02.sav")
+set_pass0_restoreFile("info_config_${LOOP}.sav")
+set_pass1_restoreFile("info_config_${LOOP}.sav")
 
 ## Note that autosave/restore spews a lot of messages and message
 ## throttling throttles all of other messages below.
@@ -258,7 +250,7 @@ ffStart()
 # driver thread
 #=======================================================================
 cd iocBoot/${VIOC} 
-system("/bin/su root -c `pwd`/rtPrioritySetup.vevr1.cmd")
+system("/bin/su root -c `pwd`/rtPrioritySetup.${VEVR}.cmd")
 
 ########################################################################
 #========================================================================
@@ -281,31 +273,10 @@ create_monitor_set("info_settings.req" , 30 )
 
 # Start saving application specific datasets
 
-makeAutosaveFileFromDbInfo("info_mon_$(FB).req", "autosaveMon$(FB)")
-create_monitor_set("info_mon_$(FB).req",60,"")
+makeAutosaveFileFromDbInfo("info_mon_${FB}.req", "autosaveMon${FB}")
+create_monitor_set("info_mon_${FB}.req",60,"")
 
-makeAutosaveFileFromDbInfo("info_config_TR01.req", "autosaveConfigTR01")
-create_triggered_set("info_config_TR01.req","FBCK:$(FB):TR01:SAVE","")
-
-makeAutosaveFileFromDbInfo("info_config_TR02.req", "autosaveConfigTR02")
-create_triggered_set("info_config_TR02.req","FBCK:$(FB):TR02:SAVE","")
-
-makeAutosaveFileFromDbInfo("info_config_TR03.req", "autosaveConfigTR03")
-create_triggered_set("info_config_TR03.req","FBCK:$(FB):TR03:SAVE","")
-
-makeAutosaveFileFromDbInfo("info_config_TR04.req", "autosaveConfigTR04")
-create_triggered_set("info_config_TR04.req","FBCK:$(FB):TR04:SAVE","")
-
-makeAutosaveFileFromDbInfo("info_config_TR05.req", "autosaveConfigTR05")
-create_triggered_set("info_config_TR05.req","FBCK:$(FB):TR05:SAVE","")
-
-makeAutosaveFileFromDbInfo("info_config_LG01.req", "autosaveConfigLG01")
-create_triggered_set("info_config_LG01.req","FBCK:$(FB):LG01:SAVE","")
-
-makeAutosaveFileFromDbInfo("info_config_GN01.req", "autosaveConfigGN01")
-create_triggered_set("info_config_GN01.req","FBCK:$(FB):GN01:SAVE","")
-
-#makeAutosaveFileFromDbInfo("info_config_GN02.req", "autosaveConfigGN02")
-#create_triggered_set("info_config_GN02.req","FBCK:$(FB):GN02:SAVE","")
+makeAutosaveFileFromDbInfo("info_config_${LOOP}.req", "autosaveConfig${LOOP}")
+create_triggered_set("info_config_${LOOP}.req","FBCK:${FB}:${LOOP}:SAVE","")
 
 #Done
