@@ -55,7 +55,7 @@ epicsEnvSet("LOCATION","cpu-b34-fb01")
 # Fast Feedback Application Specific Environment Variables
 #========================================================================
 
-epicsEnvSet("FB", "FB03")
+epicsEnvSet("FB", "FB04")
 epicsEnvSet("IOC_NAME",  "IOC:SYS0:${FB}")
 epicsEnvSet("LOOP", "LG01")
 epicsEnvSet("CONFIG_NAME", "Longitudinal")
