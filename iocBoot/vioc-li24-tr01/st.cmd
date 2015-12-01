@@ -149,7 +149,7 @@ dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 # ===================================================================
 dbLoadRecords("db/fbckFB_template.db","FB=${FB}")
 #If using a longitudal feedback - use this file instead
-#dbLoadRecords("db/fbckFB_long_template.db, "FB=${FB}")
+#dbLoadRecords("db/fbckFB_long_template.db", "FB=${FB}")
 
 #########################################################################
 #BEGIN: Setup autosave/restore
