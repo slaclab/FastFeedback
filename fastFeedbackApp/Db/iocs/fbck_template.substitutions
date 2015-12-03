@@ -30,4 +30,27 @@ file fbckLoop.db {
 file fbckIoc.db {
   pattern { AR }
           {$(FB) }
-} 
+}
+
+  1 # This is a necessary additional template file for longitudinal feedbacks            
+    2 # which had the energy and chirp readback pvs for L2 and L3
+      3 #
+        4 # For longitudinal feedbacks, need the generic loop template and this template
+          5 #
+            6 #
+              7 # Previously, both were encapsulated by fbckFB04.substitutions,
+                8 #
+                  9 
+                   10 
+#include energy and chirp readback pvs for L2 and L3
+file ../../../../db/iocEnergyChirp.db {
+    pattern { DEV,        RF,      PHASE_LNK,        AMPL_LNK,        DRVH}
+            {    FBCK:LI22:1,   L2,  ACCL:LI22:1:PDES,  ACCL:LI22:1:ADES,   6000}
+            {    FBCK:LI25:1,   L3,  ACCL:LI25:1:PDES,  ACCL:LI25:1:ADES,  16000}
+}
+
+
+
+
+
+

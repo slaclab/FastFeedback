@@ -6,9 +6,25 @@
 #        the FastFeedback IOC Application.        
 #
 #  Auth: 19-May-2015, L. Piccoli         (lpiccoli)
-#
+#      
 #==============================================================
 #
+
+FastFeedback-R1-0-4:
+    --- In Progress ---
+    Time to clean-up fastFeedbackApp/Db/common 
+    1) Remove unused databases
+    2) Fix macro substitution error => hardcoded PV's LG01 => user defined feedback loop type
+    3) Update to using macros for entire ioc name - IOC:SYS0 => ${VIOC}:${LOCA}
+    Colapse files in fastFeedbackApp/Db/iocs to just fbck_template.substitutions
+    (removed seperate file for long_template.substitutions)
+    Design Rationale: Seperating trajecotry, general, and 
+    longitudinal specific parameters would require extensive modifications
+    to most database under /Db as well as all the C++ code.  Will procede
+    with one generic fbck_template.substitutions file that works for all feedback
+    types until further architecture changes are needed due to performance (not anticipating
+    the increased network load to justify a complete re-architecture)
+
 
 FastFeedback-R1-0-3:
     --- 02-DEC-2015 ---------------------------------------------
