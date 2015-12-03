@@ -57,10 +57,10 @@ epicsEnvSet("LOCATION","cpu-b34-fb01")
 # Fast Feedback Application Specific Environment Variables
 #========================================================================
 
-epicsEnvSet("FB", "FB01")
+epicsEnvSet("FB", "FB02")
 epicsEnvSet("IOC_NAME",  "IOC:SYS0:${FB}")
-epicsEnvSet("LOOP", "TR02")
-epicsEnvSet("CONFIG_NAME", "LaunchLoop2")
+epicsEnvSet("LOOP", "GN01")
+epicsEnvSet("CONFIG_NAME", "General1")
 
 #=====================================================================
 # Set MACROS for EVRs
