@@ -156,8 +156,6 @@ dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 # Load application specific databases
 # ===================================================================
 dbLoadRecords("db/fbck_template.db","FB=${FB},LOOP=${LOOP},CONFIG_NAME=${CONFIG_NAME}")
-#If configuring a longitudal feedback, need to uncomment the following line
-#dbLoadRecords("db/long_template.db")
 
 #########################################################################
 #BEGIN: Setup autosave/restore
