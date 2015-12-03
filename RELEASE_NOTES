@@ -10,6 +10,38 @@
 #==============================================================
 #
 
+FastFeedback-R1-0-3:
+    --- 02-DEC-2015 ---------------------------------------------
+    This version contains loop splitting in the st.cmd file and 
+    epics modules.
+    Updated configure/RELEASE to use latest evrClient-R1-0-p4 and 
+    updated UDPCOMM, FCOM, and FCOMUTIL to utilize changes to 
+    udpcomm for sharing across mulitple vioc's on a host cpu.
+    Also, generated four new vioc's for testing on development.
+    Renamed generic substitution files in fastFeedbackApp/Db/iocs.
+    Updated st.cmd so all loop specific parameters are defined by 
+    variables in the first section.
+    Cleaned-up for loop splitting and removed any hard-coded references
+    to loops. (just one loop is now configured in the st.cmd and the 
+    same st.cmd can be used for any loop).
+
+
+FastFeedback-R1-0-2:
+    --- 24-NOV-2015 ---------------------------------------------
+    Performed major clean-up and removed all older ioc's and sioc's. 
+    This version has two vioc's (vioc-b34-fb01) and (vioc-b34-fb02).
+    Also, cleaned up fastFeedbackApp/Db/iocs and created generic 
+    feedback loop substitutions file and evr substitutions files.  
+    Cleaned up the iocBoot/vioc-b34-fb## st.cmd to use macro substitution
+    for dbLoadRecords
+
+FastFeedback-R1-0-1:
+    --- 18-NOV-2015 ---------------------------------------------
+    This verion has a working evrsharing module. 
+    Incorperated new evrsharing module evrClient (R1-0-p3) and 
+    updated UDPCOMM, FCOM, and FCOMUTIL module.
+
+
 FastFeedback-R1-0-0:
 	--- 06-NOV-2015 ---------------------------------------------
 	This version now runs on LinuxRT. The Timer class has been
@@ -17,6 +49,7 @@ FastFeedback-R1-0-0:
 	timer. There have been also a few bug fixes in the TimeUtil.cc
 	file (div by zero problems). Several #ifdef LINUX/RTEMS were
 	removed.
+
 
 FastFeedback: Initial import, based on FFController-R1-19-1
 
