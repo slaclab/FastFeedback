@@ -1,16 +1,18 @@
 #==============================================================================
 #
-# Abs:  FBCK test records for a single Feedback system -  Launch loops
+# Abs:  FBCK test records for a single Feedback system -  Generic Loop Template
 #
 # Name: fbckLoop.substitutions
 #       Launch loop spare config
 #
 # Note: Must follow the LCLS naming conventions.
 #
-# NOTE: This file includes fbck records for the spare launch feedback loops 
-#		this template will not work for 120 Hz feedbacks
+# NOTE: This file includes fbck records for all feedback loop types 
+#		this template does work for all feedback types
 #
 #       modified:
+#       12-7-2015 (ababbitt):  Updated to remove erroneous comment and to create generic 
+#       feedback loop template
 #   
 #==============================================================================
 #
