@@ -19,9 +19,6 @@ DB += EVR-TEMPLATE.db
 
 #fbckFB_template.db is a generic file to configure all the feedback loops 
 DB += fbck_template.db
-# Addtional file needed to replace FB04 (for longitudnal feedbacks)
-DB += long_template.db
-
 
 # ========================================
 # # Install timing/event related databases
