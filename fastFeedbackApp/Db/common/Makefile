@@ -21,10 +21,10 @@ DB += fbckConfig.db
 DB += fbckStatus.db
 DB += fbckIocConfig.db
 DB += fbckIocStatus.db
+
 # Loop substitutions records per loop
 DB += fbckLoop.db
-DB += fbckLTU.db
-DB += fbckLNG.db
+
 # IOC substitutions for PVs per feedback IOC
 DB += fbckIoc.db
 DB += iocEnergyChirp.db
