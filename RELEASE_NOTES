@@ -13,7 +13,7 @@
 FastFeedback-R1-0-4:
     --- In Progress ---
     Time to clean-up fastFeedbackApp/Db/common 
-    1) Remove unused databases
+    1) Remove unused databases - fbckLTU.substitutions, fbckLNG.substitutions
     2) Fix macro substitution error => hardcoded PV's LG01 => user defined feedback loop type
     3) Update to using macros for entire ioc name - IOC:SYS0 => ${VIOC}:${LOCA}
     Colapse files in fastFeedbackApp/Db/iocs to just fbck_template.substitutions
