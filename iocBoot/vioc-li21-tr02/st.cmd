@@ -15,7 +15,7 @@
 #   A) Set-up the 2nd vevr1
 #   B) Set-up linuxRT to run two vioc's
 #   C) Clean-up st.cmd to use macros for vevr's, vioc's, and feedbacks (generalize/modular)
-#   D) Modernize the evr templates => pass in macros versus IOC:SYS:FB03.db#   E) Create generic fbckFB03.db files and pass in macros
+#   D) Modernize the evr templates => pass in macros versus IOC:SYS:FB03.db#   
 #   E) Create generic fbckFB03.db files and pass in macros
 
 #   Nov. 30, 2015 A. Babbitt - Loop Splitting 
@@ -23,6 +23,38 @@
 #   B) Using macro for virtual EVR  - goal is to just change environment variables (generic st.cmd)
 #   C) Test new template files - update template file names
 #   D) Clean-up the auto/save restore (just one loop now per st.cmd)
+
+#   Dec. 7, 2015 A. Babbitt -  Database clean-up under /Db/common
+#   Goal 1: Use macros to remove hardcoded LG01 for longitudinal feedbacks to provide capability to configure 
+#         new longitudinal feedbacks in the future using the same databases (fbckIOCStatus.db, fbckState.db)
+#         & only generate the logitudinal feedback PV's when it actually is a longitudinal feedback loop
+#   Current Solution: Pass a flag into fbckIOCStatus.db and fbckState.db (as a macro) for longitudinal 
+#        feedbacks and use conditional logic in fbckIOCStatus.db and fbckState.db for longitudinal feedbacks 
+#        (and hope C++ code doesn't depend on having the logitudinal feedback PV's (regardless of loop) = > 
+#        if it does, remove flag and and just use the macro that was part one of the goal
+#   Goal 2: Update all database files and st.cmd to provide macro substitution for "IOC:SYS0" in order to be 
+#           able to configure PV names generically and easily reconfigure for testing with current screens.
+#        "IOC:SYS0" => "${IOC}:${AREA}" (then easily reconfigure PV names later)
+
+#   Test Plan:
+#        1) Change the hardcoded LG01 to ${LOOP} = >reboot (see if this fixes previous errors with the FLNK)
+#        2) Macro Flag = > need to pass through .db chain and put in conditional logic around longitudinal only code
+#                      =>  see if this breaks C++ code  (might break)
+#        3) Update macro name (pass through the .db chain) to fix hardcoded "IOC:SYS0"  => reboot
+
+
+
+#   Note: fbck_template.db => fbckLoop.db, fbckIoc.db, iocEnergyChirp.db (for longitudinal)
+#               fbckIoc.db => fbckIocConfig.db, fbckIocStatus.db
+#                       fbckIocConfig.db => records with "IOC:SYS0"
+#                       fbckIocStatus.db => records with "IOC:SYS0" + longitudinal section    
+#               fbckLoop.db => fbckConfig.db, fbckStatus.db, fbckState.db, fbckAct.db, fbckMeas.db
+#                       fbckConfig.db => records with "FBCK:$(AREA):$(LOOP):SOMETHING
+#                       fbckStatus.db => records with "FBCK:$(AREA):$(LOOP):SOMETHING   
+#                       fbckState.db  => has some IOC:SYS0 + longitudinal section 
+#                       fbckAct.db    => records with "FBCK:$(AREA):$(LOOP):SOMETHING 
+#                       fbckMeas.db   => records with "FBCK:$(AREA):$(LOOP):SOMETHING  
+#               iocEnergyChirp.db = > records (no IOC:SYS0)
 ##########################################################
 
 # Where am I?
@@ -40,7 +72,7 @@ cd ${TOP}
 
 # tag messages with IOC name
 # How to escape the "vioc-b34-fb01" as the PERL program
-# will try to repplace it.
+# will try to replace it.
 # So, uncomment the following and remove the backslash
 
 epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
@@ -55,10 +87,15 @@ epicsEnvSet("LOCATION","cpu-b34-fb01")
 # Fast Feedback Application Specific Environment Variables
 #========================================================================
 
+#System Location:
+#epicsEnvSet("LOCA","B34")
+epicsEnvSet("LOCA","SYS0")
 epicsEnvSet("FB", "FB01")
-epicsEnvSet("IOC_NAME",  "IOC:SYS0:${FB}")
 epicsEnvSet("LOOP", "TR01")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
+#epicsEnvSet("IOC_TYPE", "VIOC")
+epicsEnvSet("IOC_TYPE", "IOC")
+epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${FB}")
 
 #=====================================================================
 # Set MACROS for EVRs
@@ -66,12 +103,9 @@ epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
 # FAC = SYS0 ==> LCLS1
 # FAC = SYS1 ==> FACET
 
-#System Location:
-epicsEnvSet("LOCA","B34")
-
-epicsEnvSet(EVR_DEV1,"EVR:SYS0:${FB}")
-#epicsEnvSet(UNIT,"fb01")
 epicsEnvSet(FAC,"SYS0")
+epicsEnvSet(UNIT,"${FB}") 
+epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
 epicsEnvSet(VEVR, "vevr0")
 
 # ========================================================
@@ -153,8 +187,10 @@ dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 # ===================================================================
 # Load application specific databases
 # ===================================================================
+#ababbitt-fix this - need to pass in macros to fbck_template.db, and then every .db it calls, and replace hardcoded 
+#parameters under /Db/common
+#dbLoadRecords("db/fbck_template.db","IOC=${IOC_TYPE},AREA=${LOCA},FB=${FB},LOOP=${LOOP},CONFIG_NAME=${CONFIG_NAME}")
 dbLoadRecords("db/fbck_template.db","FB=${FB},LOOP=${LOOP},CONFIG_NAME=${CONFIG_NAME}")
-
 #########################################################################
 #BEGIN: Setup autosave/restore
 ######################################################################
