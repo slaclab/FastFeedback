@@ -110,7 +110,7 @@ record(ao, "IOC:SYS0:$(AREA):DL1_EREF") {
   field(OIF, "Full")
   field(DRVH, "20")
   field(DRVL, "0")
-  field(FLNK, "FBCK:$(AREA):LG01:DL1SETPOINT")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):DL1SETPOINT")
   field(PRIO, "MEDIUM")
 }
 
@@ -139,7 +139,7 @@ record(ao, "IOC:SYS0:$(AREA):BC1_EREF") {
   field(OIF, "Full")
   field(DRVH, "20")
   field(DRVL, "0")
-  field(FLNK, "FBCK:$(AREA):LG01:BC1SETPOINT")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):BC1SETPOINT")
   field(PRIO, "MEDIUM")
 }
 
@@ -168,7 +168,7 @@ record(ao, "IOC:SYS0:$(AREA):BC2_EREF") {
   field(OIF, "Full")
   field(DRVH, "20")
   field(DRVL, "0")
-  field(FLNK, "FBCK:$(AREA):LG01:BC2SETPOINT")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):BC2SETPOINT")
   field(PRIO, "MEDIUM")
 }
 
@@ -197,7 +197,7 @@ record(ao, "IOC:SYS0:$(AREA):DL2_EREF") {
   field(OIF, "Full")
   field(DRVH, "20")
   field(DRVL, "0")
-  field(FLNK, "FBCK:$(AREA):LG01:DL2SETPOINT")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):DL2SETPOINT")
   field(PRIO, "MEDIUM")
 }
 #------------------------------------------------------------
