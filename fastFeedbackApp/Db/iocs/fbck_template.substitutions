@@ -28,8 +28,8 @@ file fbckLoop.db {
 
 
 file fbckIoc.db {
-  pattern { AR }
-          {$(FB) }
+  pattern { AR, LP }
+          {$(FB), $(LOOP) }
 }
 
 # This is a necessary additional template file for longitudinal feedbacks            
