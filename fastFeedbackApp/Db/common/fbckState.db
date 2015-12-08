@@ -100,7 +100,7 @@ record(ao, "FBCK:$(AREA):$(LOOP):CHIRPDES") {
 #  field(DESC, "Desired BC2 chirp")
 #  field(SCAN, "Passive")
 #  field(PINI, "YES")
-#  field(FLNK, "FBCK:$(AREA):LG01:CHIRPDES")
+#  field(FLNK, "FBCK:$(AREA):$(LOOP):CHIRPDES")
 #  field(VAL, "0")
 #  field(INP, "FBCK:LI22:1:CHDES CPP MS")
 #  field(EGU, "MeV")
@@ -141,36 +141,36 @@ record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)DESHST_S") {
 #------------------------------------------------------------
 # DL1
 #------------------------------------------------------------
-record(ao, "FBCK:$(AREA):LG01:DL1VERNIER") {
+record(ao, "FBCK:$(AREA):$(LOOP):DL1VERNIER") {
   field(DTYP, "FfConfig")
   field(EGU, "$(EGU)")
   field(PINI, "YES")
   field(PREC, "4")
   field(EGU, "MeV")
-  field(OUT, "@LG01 DL1VERNIER")
+  field(OUT, "@$(LOOP) DL1VERNIER")
   field(PRIO, "LOW")
-  field(FLNK, "FBCK:$(AREA):LG01:DL1SETPOINT")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):DL1SETPOINT")
   info(autosaveMon$(AREA), "VAL EGU")
 }
-record(calcout, "FBCK:$(AREA):LG01:DL1SETPOINT") {
+record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT") {
   field(DESC, "DL1 Energy Setpoint")
   field(PINI, "YES")
   field(PRIO, "LOW")
-  field(INPA, "FBCK:$(AREA):LG01:DL1VERNIER")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL1VERNIER")
   field(INPB, "IOC:SYS0:$(AREA):DL1_EREF")
   field(EGU, "MeV")
   field(CALC, "B*1000+A")
   info(autosaveMon$(AREA), "VAL EGU")
 }
-record(compress, "FBCK:$(AREA):LG01:DL1SETPOINTHST") {
-  field(INP, "FBCK:$(AREA):LG01:DL1SETPOINT.VAL")
+record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINTHST") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL1SETPOINT.VAL")
   field(PINI, "YES")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NSAM)")
   field(EGU, "$(EGU)")
 }
-record(compress, "FBCK:$(AREA):LG01:DL1SETPOINTHST_S") {
-  field(INP, "FBCK:$(AREA):LG01:DL1SETPOINT.VAL")
+record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINTHST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL1SETPOINT.VAL")
   field(ALG, "Circular Buffer")
   field(PINI, "YES")
   field(NSAM, "$(NDISP)")
@@ -179,20 +179,20 @@ record(compress, "FBCK:$(AREA):LG01:DL1SETPOINTHST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:DL1SETPOINT1") {
+record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT1") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:DL1SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S1OFFSET1")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL1SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S1OFFSET1")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset1")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S1DES1")
+  field(OUT, "@$(LOOP) S1DES1")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:DL1SETPOINT1HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:DL1SETPOINT1")
+record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINT1HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL1SETPOINT1")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -200,20 +200,20 @@ record(compress, "FBCK:$(AREA):LG01:DL1SETPOINT1HST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:DL1SETPOINT2") {
+record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT2") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:DL1SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S1OFFSET2")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL1SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S1OFFSET2")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset2")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S1DES2")
+  field(OUT, "@$(LOOP) S1DES2")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:DL1SETPOINT2HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:DL1SETPOINT2")
+record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINT2HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL1SETPOINT2")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -221,20 +221,20 @@ record(compress, "FBCK:$(AREA):LG01:DL1SETPOINT2HST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:DL1SETPOINT3") {
+record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT3") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:DL1SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S1OFFSET3")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL1SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S1OFFSET3")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset3")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S1DES3")
+  field(OUT, "@$(LOOP) S1DES3")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:DL1SETPOINT3HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:DL1SETPOINT3")
+record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINT3HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL1SETPOINT3")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -242,20 +242,20 @@ record(compress, "FBCK:$(AREA):LG01:DL1SETPOINT3HST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:DL1SETPOINT4") {
+record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT4") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:DL1SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S1OFFSET4")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL1SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S1OFFSET4")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset4")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S1DES4")
+  field(OUT, "@$(LOOP) S1DES4")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:DL1SETPOINT4HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:DL1SETPOINT4")
+record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINT4HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL1SETPOINT4")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -302,20 +302,20 @@ record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINTHST_S") {
 #  field(SCAN, "Passive")
   field(SCAN, ".2 second")
 }
-record(calcout, "FBCK:$(AREA):LG01:BC1SETPOINT1") {
+record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT1") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:BC1SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S2OFFSET1")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC1SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S2OFFSET1")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset1")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S2DES1")
+  field(OUT, "@$(LOOP) S2DES1")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:BC1SETPOINT1HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:BC1SETPOINT1")
+record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINT1HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):BC1SETPOINT1")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -323,20 +323,20 @@ record(compress, "FBCK:$(AREA):LG01:BC1SETPOINT1HST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:BC1SETPOINT2") {
+record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT2") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:BC1SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S2OFFSET2")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC1SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S2OFFSET2")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset2")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S2DES2")
+  field(OUT, "@$(LOOP) S2DES2")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:BC1SETPOINT2HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:BC1SETPOINT2")
+record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINT2HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):BC1SETPOINT2")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -344,20 +344,20 @@ record(compress, "FBCK:$(AREA):LG01:BC1SETPOINT2HST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:BC1SETPOINT3") {
+record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT3") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:BC1SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S2OFFSET3")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC1SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S2OFFSET3")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset3")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S2DES3")
+  field(OUT, "@$(LOOP) S2DES3")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:BC1SETPOINT3HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:BC1SETPOINT3")
+record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINT3HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):BC1SETPOINT3")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -365,20 +365,20 @@ record(compress, "FBCK:$(AREA):LG01:BC1SETPOINT3HST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:BC1SETPOINT4") {
+record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT4") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:BC1SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S2OFFSET4")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC1SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S2OFFSET4")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset4")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S2DES4")
+  field(OUT, "@$(LOOP) S2DES4")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:BC1SETPOINT4HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:BC1SETPOINT4")
+record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINT4HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):BC1SETPOINT4")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -426,20 +426,20 @@ record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINTHST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:BC2SETPOINT1") {
+record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT1") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:BC2SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S4OFFSET1")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC2SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S4OFFSET1")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset1")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S4DES1")
+  field(OUT, "@$(LOOP) S4DES1")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:BC2SETPOINT1HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:BC2SETPOINT1")
+record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINT1HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):BC2SETPOINT1")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -447,20 +447,20 @@ record(compress, "FBCK:$(AREA):LG01:BC2SETPOINT1HST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:BC2SETPOINT2") {
+record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT2") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:BC2SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S4OFFSET2")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC2SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S4OFFSET2")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset2")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S4DES2")
+  field(OUT, "@$(LOOP) S4DES2")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:BC2SETPOINT2HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:BC2SETPOINT2")
+record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINT2HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):BC2SETPOINT2")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -468,20 +468,20 @@ record(compress, "FBCK:$(AREA):LG01:BC2SETPOINT2HST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:BC2SETPOINT3") {
+record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT3") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:BC2SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S4OFFSET3")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC2SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S4OFFSET3")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset3")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S4DES3")
+  field(OUT, "@$(LOOP) S4DES3")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:BC2SETPOINT3HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:BC2SETPOINT3")
+record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINT3HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):BC2SETPOINT3")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -489,20 +489,20 @@ record(compress, "FBCK:$(AREA):LG01:BC2SETPOINT3HST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:BC2SETPOINT4") {
+record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT4") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:BC2SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S4OFFSET4")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC2SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S4OFFSET4")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset4")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S4DES4")
+  field(OUT, "@$(LOOP) S4DES4")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:BC2SETPOINT4HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:BC2SETPOINT4")
+record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINT4HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):BC2SETPOINT4")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -549,20 +549,20 @@ record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINTHST_S") {
 #  field(SCAN, "Passive")
   field(SCAN, ".2 second")
 }
-record(calcout, "FBCK:$(AREA):LG01:DL2SETPOINT1") {
+record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT1") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:DL2SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S6OFFSET1")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL2SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S6OFFSET1")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset1")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S6DES1")
+  field(OUT, "@$(LOOP) S6DES1")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:DL2SETPOINT1HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:DL2SETPOINT1")
+record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINT1HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL2SETPOINT1")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -570,20 +570,20 @@ record(compress, "FBCK:$(AREA):LG01:DL2SETPOINT1HST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:DL2SETPOINT2") {
+record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT2") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:DL2SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S6OFFSET2")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL2SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S6OFFSET2")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset2")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S6DES2")
+  field(OUT, "@$(LOOP) S6DES2")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:DL2SETPOINT2HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:DL2SETPOINT2")
+record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINT2HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL2SETPOINT2")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -591,20 +591,20 @@ record(compress, "FBCK:$(AREA):LG01:DL2SETPOINT2HST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:DL2SETPOINT3") {
+record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT3") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:DL2SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S6OFFSET3")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL2SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S6OFFSET3")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset3")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S6DES3")
+  field(OUT, "@$(LOOP) S6DES3")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:DL2SETPOINT3HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:DL2SETPOINT3")
+record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINT3HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL2SETPOINT3")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -612,20 +612,20 @@ record(compress, "FBCK:$(AREA):LG01:DL2SETPOINT3HST_S") {
   field(SCAN, ".2 second")
 }
 
-record(calcout, "FBCK:$(AREA):LG01:DL2SETPOINT4") {
+record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT4") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):LG01:DL2SETPOINT")
-  field(INPB, "FBCK:$(AREA):LG01:S6OFFSET4")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL2SETPOINT")
+  field(INPB, "FBCK:$(AREA):$(LOOP):S6OFFSET4")
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(DESC, "des + offset4")
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
-  field(OUT, "@LG01 S6DES4")
+  field(OUT, "@$(LOOP) S6DES4")
   field(SCAN, ".2 second")
 }
-record(compress, "FBCK:$(AREA):LG01:DL2SETPOINT4HST_S") {
-  field(INP, "FBCK:$(AREA):LG01:DL2SETPOINT4")
+record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINT4HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL2SETPOINT4")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
