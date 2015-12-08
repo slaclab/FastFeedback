@@ -204,57 +204,57 @@ record(ao, "IOC:SYS0:$(AREA):DL2_EREF") {
 # For Longitudinal feedback only (END)
 #------------------------------------------------------------
 
-record(ai, "IOC:SYS0:$(AREA):LI21LVPOS_IN") {
-  field(DESC, "Dispr. in LI21")
-  field(SCAN, "Passive")
-  field(PINI, "YES")
-  field(FLNK, "IOC:SYS0:$(AREA):LI21LVPOS")
-  field(VAL, "0")
-  field(INP, "BMLN:LI21:235:LVPOS CPP MS")
-  field(EGU, "mm")
-  field(PRIO, "LOW")
-}
-
-record(ao, "IOC:SYS0:$(AREA):LI21LVPOS") {
-  field(DESC, "dispr. in LI21")
-  field(SCAN, "Passive")
-  field(VAL, "0")
-  field(DTYP, "FfConfig")
-  field(OUT, "@LI21LVPOS")
-  field(DOL, "IOC:SYS0:$(AREA):LI21LVPOS_IN")
-  field(EGU, "mm")
-  field(OMSL, "closed_loop")
-  field(OIF, "Full")
-  field(DRVH, "1000")
-  field(DRVL, "0")
-  field(PRIO, "LOW")
-}
-
-record(ai, "IOC:SYS0:$(AREA):LI24LVPOS_IN") {
-  field(DESC, "dispr. in LI24")
-  field(SCAN, "Passive")
-  field(PINI, "YES")
-  field(FLNK, "IOC:SYS0:$(AREA):LI24LVPOS")
-  field(VAL, "0")
-  field(INP, "BMLN:LI24:805:LVPOS CPP MS")
-  field(EGU, "mm")
-  field(PRIO, "LOW")
-}
-
-record(ao, "IOC:SYS0:$(AREA):LI24LVPOS") {
-  field(DESC, "dispr. in LI24")
-  field(SCAN, "Passive")
-  field(VAL, "0")
-  field(DTYP, "FfConfig")
-  field(OUT, "@LI24LVPOS")
-  field(DOL, "IOC:SYS0:$(AREA):LI24LVPOS_IN")
-  field(EGU, "mm")
-  field(OMSL, "closed_loop")
-  field(OIF, "Full")
-  field(DRVH, "1000")
-  field(DRVL, "0")
-  field(PRIO, "LOW")
-}
+#record(ai, "IOC:SYS0:$(AREA):LI21LVPOS_IN") {
+#  field(DESC, "Dispr. in LI21")
+#  field(SCAN, "Passive")
+#  field(PINI, "YES")
+#  field(FLNK, "IOC:SYS0:$(AREA):LI21LVPOS")
+#  field(VAL, "0")
+#  field(INP, "BMLN:LI21:235:LVPOS CPP MS")
+#  field(EGU, "mm")
+#  field(PRIO, "LOW")
+#}
+#
+#record(ao, "IOC:SYS0:$(AREA):LI21LVPOS") {
+#  field(DESC, "dispr. in LI21")
+#  field(SCAN, "Passive")
+#  field(VAL, "0")
+#  field(DTYP, "FfConfig")
+#  field(OUT, "@LI21LVPOS")
+#  field(DOL, "IOC:SYS0:$(AREA):LI21LVPOS_IN")
+#  field(EGU, "mm")
+#  field(OMSL, "closed_loop")
+#  field(OIF, "Full")
+#  field(DRVH, "1000")
+#  field(DRVL, "0")
+#  field(PRIO, "LOW")
+#}
+#
+#record(ai, "IOC:SYS0:$(AREA):LI24LVPOS_IN") {
+#  field(DESC, "dispr. in LI24")
+#  field(SCAN, "Passive")
+#  field(PINI, "YES")
+#  field(FLNK, "IOC:SYS0:$(AREA):LI24LVPOS")
+#  field(VAL, "0")
+#  field(INP, "BMLN:LI24:805:LVPOS CPP MS")
+#  field(EGU, "mm")
+#  field(PRIO, "LOW")
+#}
+#
+#record(ao, "IOC:SYS0:$(AREA):LI24LVPOS") {
+#  field(DESC, "dispr. in LI24")
+#  field(SCAN, "Passive")
+#  field(VAL, "0")
+#  field(DTYP, "FfConfig")
+#  field(OUT, "@LI24LVPOS")
+#  field(DOL, "IOC:SYS0:$(AREA):LI24LVPOS_IN")
+#  field(EGU, "mm")
+#  field(OMSL, "closed_loop")
+#  field(OIF, "Full")
+#  field(DRVH, "1000")
+#  field(DRVL, "0")
+#  field(PRIO, "LOW")
+#}
 
 #record(ao, "IOC:SYS0:$(AREA):DL2ENLOLO") {
 #  field(DESC, "DL2 Energy LOLO")
