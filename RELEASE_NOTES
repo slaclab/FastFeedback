@@ -24,7 +24,7 @@ FastFeedback-R1-0-4:
     with one generic fbck_template.substitutions file that works for all feedback
     types until further architecture changes are needed due to performance (not anticipating
     the increased network load to justify a complete re-architecture)
-
+    4)updated R1-0-p3 to evrma-R1-0-p4 for consistency between version numbers
 
 FastFeedback-R1-0-3:
     --- 02-DEC-2015 ---------------------------------------------

@@ -65,7 +65,7 @@ LAPACK=$(PACKAGE_SITE_TOP)/lapack/$(LAPACK_PACKAGE_VERSION)/linux-x86_64
 # For Build Type: x86_64-glibc-linux                                                            
 #=========================================================
 
-EVRMA_PACKAGE_VERSION=R1-0-p3
+EVRMA_PACKAGE_VERSION=evrma-R1-0-p4
 
 ### NOTE: SETTABLE_CONFIG
 KERNEL_MODULE_EVRMA=$(PACKAGE_SITE_TOP)/linuxKernel_Modules/evrmaDriver/$(EVRMA_PACKAGE_VERSION)
