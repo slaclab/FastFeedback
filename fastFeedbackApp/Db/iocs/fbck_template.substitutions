@@ -6,30 +6,30 @@
 # Each vioc will now contain one feedback loop, which is configured in the st.cmd
 #
 # Define of previous loop types defined in an IOC
-#  pattern { AR,  LP   ,  LN          }
+#  pattern { AR,  LP   ,          LN          }
 #          { $(FB), "TR01"  , "LaunchLoop1"   }
 #          { $(FB), "TR02"  , "LaunchLoop2"   }
 #          { $(FB), "TR03"  , "LaunchLoop3"   }
 #          { $(FB), "TR04"  , "LaunchLoop4"   }
 #          { $(FB), "TR05"  , "LaunchLoop5"   }
 ## Every IOC previously had two spares for on the fly general loop configurations 
-#          { $(FB), "GN01"  , "General1"       }
-#          { $(FB), "GN02"  , "General2"       }   
+#          { $(FB), "GN01"  , "General1"      }
+#          { $(FB), "GN02"  , "General2"      }   
 ## Every IOC previously had one longitudinal loop configuration
-#          { $(FB), "LG01"  , "Longitudinal"   }   
+#          { $(FB), "LG01"  , "Longitudinal"  }   
 
 
 # Each loop will be configured via macros substitutions defined in the st.cmd 
 
 file fbckLoop.db {
-   pattern { AR,  LP   ,  LN          }
-           { $(FB), $(LOOP)  , $(CONFIG_NAME)  }
+   pattern { AR,         LP,     IOC,    LC,    LN          }
+           { $(FB), $(LOOP),  $(IOC),  $(LC) (CONFIG_NAME)  }
 }
 
 
 file fbckIoc.db {
-  pattern { AR, LP }
-          {$(FB), $(LOOP) }
+  pattern { AR,        LP,    IOC,     LC     }
+          {$(FB), $(LOOP), $(IOC),   $(LC)    }
 }
 
 # This is a necessary additional template file for longitudinal feedbacks            

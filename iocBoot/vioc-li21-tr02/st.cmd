@@ -34,7 +34,7 @@
 #        if it does, remove flag and and just use the macro that was part one of the goal
 #   Goal 2: Update all database files and st.cmd to provide macro substitution for "IOC:SYS0" in order to be 
 #           able to configure PV names generically and easily reconfigure for testing with current screens.
-#        "IOC:SYS0" => "${IOC}:${AREA}" (then easily reconfigure PV names later)
+#        "IOC:SYS0" => "${IOC}:${LOCA}" (then easily reconfigure PV names later)
 
 #   Test Plan:
 #        1) Change the hardcoded LG01 to ${LOOP} = >reboot (see if this fixes previous errors with the FLNK)
@@ -187,10 +187,7 @@ dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 # ===================================================================
 # Load application specific databases
 # ===================================================================
-#ababbitt-fix this - need to pass in macros to fbck_template.db, and then every .db it calls, and replace hardcoded 
-#parameters under /Db/common
-#dbLoadRecords("db/fbck_template.db","IOC=${IOC_TYPE},AREA=${LOCA},FB=${FB},LOOP=${LOOP},CONFIG_NAME=${CONFIG_NAME}")
-dbLoadRecords("db/fbck_template.db","FB=${FB},LOOP=${LOOP},CONFIG_NAME=${CONFIG_NAME}")
+dbLoadRecords("db/fbck_template.db","IOC=${IOC_TYPE},LC=${LOCA},FB=${FB},LOOP=${LOOP},CONFIG_NAME=${CONFIG_NAME}")
 #########################################################################
 #BEGIN: Setup autosave/restore
 ######################################################################
