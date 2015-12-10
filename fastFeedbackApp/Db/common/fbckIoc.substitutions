@@ -15,11 +15,11 @@
 #
 # ioc level config pvs
 file fbckIocConfig.db {
-	pattern { AREA }
-	        { $(AR)}
+	pattern { AREA ,    IOC,     LC }
+	        { $(AR), $(IOC),  $(LC) }
 }
 # ioc level status pvs
 file fbckIocStatus.db {
-	pattern { AREA }
-	        { $(AR)}
+	pattern { AREA,    IOC,      LC }
+	        { $(AR)  $(IOC),  $(LC) }  
 }
