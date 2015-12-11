@@ -119,14 +119,14 @@ public:
     PvDataDouble _dl2ErefPv;
 
     /**
-     * This PvData is mapped to the Matlab PV SIOC:SYS0:ML00:280 PV through
+     * This PvData is mapped to the Matlab PV SIOC:SYS0:ML00:AO280 PV through
      * ChannelAccess link. That PV contains the LOLO limit for the DL2 energy
      * actuator that is used by the Longitudinal feedback.
      */
     PvDataDouble _dl2EnLoloPv;
 
     /**
-     * This PvData is mapped to the Matlab PV SIOC:SYS0:ML00:281 PV through
+     * This PvData is mapped to the Matlab PV SIOC:SYS0:ML00:AO281 PV through
      * ChannelAccess link. That PV contains the HIHI limit for the DL2 energy
      * actuator that is used by the Longitudinal feedback.
      */

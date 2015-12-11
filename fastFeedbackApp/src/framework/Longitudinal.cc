@@ -35,9 +35,6 @@ _blenBc1Average(BLEN_AVERAGE_ELEMENTS, "BC1 BLEN Average"),
 _blenBc2Average(BLEN_AVERAGE_ELEMENTS, "BC2 BLEN Average"),
 _dl1Path(NO_MEASUREMENT),
 _dl2Path(NO_MEASUREMENT),
-_dl2AutoLimitControl(true),
-_dl2HihiChannel(NULL),
-_dl2LoloChannel(NULL),
 _previousMode(false),
 _checkMeasurementsStats(50, "Long: checkMeasurements"),
 _selectStatesStats(50, "Long: selectStates"),
@@ -161,15 +158,6 @@ int Longitudinal::configure(LoopConfiguration *configuration,
 
     _firstCalculate = true;
 
-    if (connectA6Limits() != 0) {
-      _loopConfiguration->_logger << "ERROR: Failed to connect to A6 limits (using CA)"
-				  << Log::flush;
-      return -1;
-    }
-
-    // Moved this to a sequencer program
-    //    checkActuatorLimits();
-
     for (it = _actuators->begin(); it != _actuators->end(); ++it) {
       (*it)->clear(); // Reset pattern offsets
     }
@@ -177,31 +165,6 @@ int Longitudinal::configure(LoopConfiguration *configuration,
     _previousMode = configuration->_mode;
 
     return 0;
-}
-
-/**
- * Create the CaChannel connections to the DL2 energy HIHI and LOLO
- * limits. If the automatic limit control (_dl2AutoLimitControl) is
- * enabled, try to connect to devices, otherwise do not connect.
- */
-int Longitudinal::connectA6Limits() {
-  // Connect to A6HIHI/LOLO local PV to automatically set DL2 energy limits
-  if (_dl2EnergyActuator != NULL && _dl2AutoLimitControl) {
-    std::string actuatorName = _dl2EnergyActuator->getName(); // name is FBCK:FBxx:LG01:A6
-    std::string limitName = "FBCK:FB04:LG01:" + actuatorName + "HIHI";
-    if (_dl2HihiChannel == NULL) {
-        _dl2HihiChannel = new CaChannel(CommunicationChannel::WRITE_ONLY, limitName);
-    }
-    limitName = "FBCK:FB04:LG01:" + actuatorName + "LOLO";
-    if (_dl2LoloChannel == NULL) {
-	_dl2LoloChannel = new CaChannel(CommunicationChannel::READ_ONLY, limitName);
-    }
-  }
-  else {
-    // Cannot control limit if actuator device is not present
-    _dl2AutoLimitControl = false;
-  }
-  return 0;
 }
 
 /**
@@ -397,29 +360,6 @@ int Longitudinal::calculate() throw (Exception) {
 	}
 
 	return 0;
-}
-
-/**
- * Verify the current energy and set the correct limits for L3, if the
- * _dl2AutoLimitControl is set to true. Otherwise L3 limits can be 
- * set through the Longitudinal EDM panel.
- *
- * @author L.Piccoli
- */
-void Longitudinal::checkActuatorLimits() {
-  if (_dl2AutoLimitControl) {
-    double loloLimit = ExecConfiguration::getInstance()._dl2EnLoloPv.getValue();
-    double hihiLimit = ExecConfiguration::getInstance()._dl2EnHihiPv.getValue();
-   
-    // TODO: Does this propagates to the PV immediately?
-    // this new value must be available on this iteration
-    if (_dl2EnergyActuator->getHihi() != hihiLimit) {
-      _dl2HihiChannel->write(hihiLimit); 
-    }
-    if (_dl2EnergyActuator->getLolo() != loloLimit) {
-      _dl2LoloChannel->write(loloLimit); 
-    }
-  }
 }
 
 /**

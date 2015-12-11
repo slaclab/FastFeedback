@@ -292,15 +292,6 @@ protected:
     /** Holds final changes in actuator values */
     Vector _delta;
 
-    /** Enables automatic control of DL2 actuator limits */
-    bool _dl2AutoLimitControl;
-
-    /** Channel Access connection to the PV that defines the HIHI limit for DL2 energy */
-    CaChannel *_dl2HihiChannel;
-
-    /** Channel Access connection to the PV that defines the LOLO limit for DL2 energy */
-    CaChannel *_dl2LoloChannel;
-
     /** Previous feedback mode of operation  */
     bool _previousMode;
 
