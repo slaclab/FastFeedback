@@ -23,7 +23,7 @@
 #==============================================================
 # Notes on how database records are being called and where the macros needed 
 # to be passed through to remove hardcoded "IOC:SYS0"
-# Also, shows databases that currently have a longitudinal section
+# Also, shows databases that currently have a longitudinal-only section
 #
 # fbck_template.db => fbckLoop.db, fbckIoc.db, iocEnergyChirp.db (for longitudinal)
 #       fbckIoc.db => fbckIocConfig.db, fbckIocStatus.db
@@ -63,10 +63,10 @@
 # #   D) Clean-up the auto/save restore (just one loop now per st.cmd)
 #
 # #   Dec. 7, 2015 A. Babbitt -  Database clean-up under /Db/common
-# #   Goal 1: Use macros to remove hardcoded LG01 for longitudinal feedbacks to provide capability to configure 
+# #   Goal 1: A) Use macros to remove hardcoded LG01 for longitudinal feedbacks to provide capability to configure 
 # #         new longitudinal feedbacks in the future using the same databases (fbckIOCStatus.db, fbckState.db)
-# #         & only generate the logitudinal feedback PV's when it actually is a longitudinal feedback loop
-# #   Current Solution Under Consideration: Pass a flag into fbckIOCStatus.db and fbckState.db (as a macro) for longitudinal 
+# #         & B) only generate the logitudinal feedback PV's when it actually is a longitudinal feedback loop (part be deffered)
+# #   Current Solution Under Consideration (deferred): Pass a flag into fbckIOCStatus.db and fbckState.db (as a macro) for longitudinal 
 # #        feedbacks and use conditional logic in fbckIOCStatus.db and fbckState.db for longitudinal feedbacks 
 # #        (and hope C++ code doesn't depend on having the logitudinal feedback PV's (regardless of loop) = > 
 # #        if it does, remove flag and and just use the macro that was part one of the goal
@@ -75,13 +75,19 @@
 # #        "IOC:SYS0" => "${IOC}:${LOCA}" (then easily reconfigure PV names later)
 #
 # #   Test Plan:
-# #        1) Change the hardcoded LG01 to ${LOOP} = >reboot (see if this fixes previous errors with the FLNK)
+# #        1) Change the hardcoded LG01 to ${LOOP} = >reboot (see if this fixes previous errors with the FLNK-fixed)
 # #        2) Macro Flag = > need to pass through .db chain and put in conditional logic around longitudinal only code
-# #                      =>  see if this breaks C++ code  (might break - still considering whether this is necessary)
-# #        3) Update macro name (pass through the .db chain) to fix hardcoded "IOC:SYS0"  => reboot 
+# #                      =>  see if this breaks C++ code  (might break - still considering whether this is necessary-deffered logitudinal flag)
+# #        3) Update macro name (pass through the .db chain) to fix hardcoded "IOC:SYS0"  => reboot (tested-done)
 #    
 #    Dec. 14, 2015 A.Babbitt - Items 1) and 3) from the test plan have beeen tested on vioc-b34-fb01.
 #    Goal 1: Want to provide generic st.cmd that applies to ALL vioc's under /iocBoot/common
 #            Each vioc directory will contain a shortened st.cmd that contains parameters unique to that vioc
 #    Rationale: Made and tested changes to st.cmd in vioc-34-fb01/st.cmd, which now need to be rolled out to the other vioc's
-#               Isolating the common st.cmd from the vioc-unique with reduce future development work
+#               Isolating the common st.cmd from the vioc-unique parameters with reduce future development work and human errors 
+#               (one source to keep updated versus six instances (or 14 on production)
+#
+#    Dec. 15, 2015 A. Babbitt
+#            Generating a new tagged release.  Details can be found in the RELEASE_NOTES folder
+#            Begin development testing
+#

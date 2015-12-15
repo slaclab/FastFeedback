@@ -6,12 +6,13 @@
 #        the FastFeedback IOC Application.        
 #
 #  Auth: 19-May-2015, L. Piccoli         (lpiccoli)
+#        18-Nov-2015, A. Babbitt         (ababbitt)
 #      
 #==============================================================
 #
 
 FastFeedback-R1-0-4:
-    --- In Progress ---
+    --- 15-DEC-2015 --------------------------------------------
     Time to clean-up fastFeedbackApp/Db/common 
     1) Remove unused databases - fbckLTU.substitutions, fbckLNG.substitutions
     2) Fix macro substitution error => hardcoded PV's LG01 => user defined feedback loop type
@@ -24,7 +25,12 @@ FastFeedback-R1-0-4:
     with one generic fbck_template.substitutions file that works for all feedback
     types until further architecture changes are needed due to performance (not anticipating
     the increased network load to justify a complete re-architecture)
-    4)updated R1-0-p3 to evrma-R1-0-p4 for consistency between version numbers
+    4) Updated R1-0-p3 to evrma-R1-0-p4 for consistency between version numbers
+    5) Generated new README file under iocBoot with more detailed information regarding 
+       st.cmd updates
+    6) Generated new /iocBoot/common/st.cmd, which is a generic st.cmd that applies to all 
+       feedback loops.  Each vioc specific st.cmd contains vioc/feedback specific parameters and
+       calls the generic st.cmd. 
 
 FastFeedback-R1-0-3:
     --- 02-DEC-2015 ---------------------------------------------
