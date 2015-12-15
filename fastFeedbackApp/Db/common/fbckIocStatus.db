@@ -126,7 +126,7 @@ record(ai, "$(IOC):$(LC):$(AREA):BC1_EREF_IN") {
   field(EGU, "GeV/c")
   field(PRIO, "MEDIUM")
 }
-record(ao, "IOC:SYS0:$(AREA):BC1_EREF") {
+record(ao, "$(IOC):$(LC):$(AREA):BC1_EREF") {
   field(DESC, "BC1 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
@@ -155,7 +155,7 @@ record(ai, "$(IOC):$(LC):$(AREA):BC2_EREF_IN") {
   field(EGU, "GeV/c")
   field(PRIO, "MEDIUM")
 }
-record(ao, "IOC:SYS0:$(AREA):BC2_EREF") {
+record(ao, "$(IOC):$(LC):$(AREA):BC2_EREF") {
   field(DESC, "BC2 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")

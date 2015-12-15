@@ -1,9 +1,9 @@
 /*
-record(calcout, "IOC:SYS0:$(AREA):LEM_DL2ENLOLO") {
+record(calcout, "$(IOC):$(LC):$(AREA):LEM_DL2ENLOLO") {
   field(PINI, "YES")
-  field(INPA, "IOC:SYS0:$(AREA):L3AMP_NOFS")
-  field(INPB, "IOC:SYS0:$(AREA):S29_ASUM")
-  field(INPC, "IOC:SYS0:$(AREA):S30_ASUM")
+  field(INPA, "$(IOC):$(LC):$(AREA):L3AMP_NOFS")
+  field(INPB, "$(IOC):$(LC):$(AREA):S29_ASUM")
+  field(INPC, "$(IOC):$(LC):$(AREA):S30_ASUM")
   field(DTYP, "FfConfig")
   field(OUT, "@LEM_DL2ENLOLO")
   field(EGU, "MeV")
@@ -12,11 +12,11 @@ record(calcout, "IOC:SYS0:$(AREA):LEM_DL2ENLOLO") {
   field(CALC, "A-(B+C)-300")
 }
 
-record(calcout, "IOC:SYS0:$(AREA):LEM_DL2ENHIHI") {
+record(calcout, "$(IOC):$(LC):$(AREA):LEM_DL2ENHIHI") {
   field(PINI, "YES")
-  field(INPA, "IOC:SYS0:$(AREA):L3AMP_NOFS")
-  field(INPB, "IOC:SYS0:$(AREA):S29_ASUM")
-  field(INPC, "IOC:SYS0:$(AREA):S30_ASUM")
+  field(INPA, "$(IOC):$(LC):$(AREA):L3AMP_NOFS")
+  field(INPB, "$(IOC):$(LC):$(AREA):S29_ASUM")
+  field(INPC, "$(IOC):$(LC):$(AREA):S30_ASUM")
   field(EGU, "MeV")
   field(DTYP, "FfConfig")
   field(OUT, "@LEM_DL2ENHIHI")
@@ -28,17 +28,17 @@ record(calcout, "IOC:SYS0:$(AREA):LEM_DL2ENHIHI") {
 program limitUpdate
 
 double l3AmpNofs;
-/*assign l3AmpNofs to "IOC:SYS0:{LOOP}:L3AMP_NOFS";*/
+/*assign l3AmpNofs to "$(IOC):$(LC):{LOOP}:L3AMP_NOFS";*/
 assign l3AmpNofs to "ACCL:LI25:1:A_NOFS_";
 monitor l3AmpNofs;
 
 double s29Asum;
-/*assign s29Asum to "IOC:SYS0:{LOOP}:S29_ASUM";*/
+/*assign s29Asum to "$(IOC):$(LC):{LOOP}:S29_ASUM";*/
 assign s29Asum to "ACCL:LI29:0:A_SUM_";
 monitor s29Asum;
 
 double s30Asum;
-/*assign s30Asum to "IOC:SYS0:{LOOP}:S30_ASUM";*/
+/*assign s30Asum to "$(IOC):$(LC):{LOOP}:S30_ASUM";*/
 assign s30Asum to "ACCL:LI30:0:A_SUM_";
 monitor s30Asum;
 
