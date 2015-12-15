@@ -5,17 +5,25 @@
 #  Rem:  This is the top level directory for the LCLS
 #        Feedback Controller IOC Application. 
 #
-#  Loc:  /afs/slac/g/lcls/build/epics/iocTop/FFController
+#  Loc:  /afs/slac/g/lcls/build/epics/iocTop/FastFeedback
 #
 #  Auth: 06-Apr-2010, L. Piccoli      (lpiccoli)
+#           May-2015, A. Babbitt      (ababbitt)
 #  Rev:  dd-mmm-yyyy, Reviewer's Name (USERNAME)
 #--------------------------------------------------------------
 #  Mod:
 #        dd-mmm-yyyy, Reviewer's Name (USERNAME)
 #          coment
-#	     06-Apr-20010, lpiccoli
+#	     06-Apr-2010, lpiccoli
 #          created first release, R0-0-0
 #          based on Diane's FbckController
+#        14-Dec-2015, ababbitt
+#          FastFeedback (linuxRT, 64-bit) is based on 
+#          FFController (RTEMS, 32-bit), 
+#          which was originally based on FbckController (Matlab)
+#
+#          More information on updates and new features in each
+#          tagged version can be found in the RELEASE_NOTES
 #
 #==============================================================
 #
