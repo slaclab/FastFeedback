@@ -96,6 +96,20 @@ ExecThread &ExecThread::getInstance() {
  * @author L.Piccoli
  */
 int ExecThread::preRun() {
+  
+#ifdef CONTROL_ACTUATORS	      
+  std::cout << "**********************************************************************" << std::endl;
+  std::cout << "*** The feedbacks running on this IOC will control actuators       ***" << std::endl;
+  std::cout << "*** Software compiled with CONTROL_ACTUATORS flag - for production ***" << std::endl;
+  std::cout << "**********************************************************************" << std::endl;
+#else
+  std::cout << "********************************************************************" << std::endl;
+  std::cout << "*** The feedbacks running on this IOC will NOT control actuators ***" << std::endl;
+  std::cout << "*** Software compiled without the CONTROL_ACTUATORS flag         ***" << std::endl;
+  std::cout << "*** This version is safe for read-only feedback tests            ***" << std::endl;
+  std::cout << "********************************************************************" << std::endl;
+#endif
+ 
     // If the ExecConfiguration::_hasPatternGenerator is true, then start
     // Generating patterns -> This must be called here, after the ca_context
     // is created!

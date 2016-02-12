@@ -30,11 +30,11 @@ include $(TOP)/configure/CONFIG
 # Flags for testing 120Hz Undulator Launch and States on FCOM
 #USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG -DNO_FBCK_PV
 
-# Flags for testing on FB05
-#USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DLOG -DnoDEBUG_EVENT -DNDEBUG -DnCHECK_BEAM -DnCONTROL_ACTUATORS
+# Flags for testing on production - with no actuators 
+USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DLOG -DnoDEBUG_EVENT -DNDEBUG -DnCHECK_BEAM -DnCONTROL_ACTUATORS
 
 # Flags for Unit Testing
-USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCONTROL_ACTUATORS -DLOG -DNO_FBCK_PV -DLINUX
+#USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCONTROL_ACTUATORS -DLOG -DNO_FBCK_PV -DLINUX
 
 USR_CPPFLAGS += -I$(BOOSTBINDINGS)/include/boost-numeric-bindings
 USR_CPPFLAGS += -I$(BOOST)/include
@@ -62,6 +62,7 @@ fastFeedback_DBD += devFfDeviceView.dbd
 fastFeedback_DBD += devFfConfig.dbd
 fastFeedback_DBD += evrSupport.dbd #Needed for EVR
 fastFeedback_DBD += devMrfEr.dbd   #Needed for EVR
+fastFeedback_DBD += fcomUtil.dbd
 
 # The system command as part of EPICS BASE is 
 # available for all architectures
@@ -136,6 +137,9 @@ fastFeedback_LIBS += autosave
 fastFeedback_LIBS += seq pv
 fastFeedback_LIBS += evrSupport
 fastFeedback_LIBS += devMrfEr
+fastFeedback_LIBS += fcom fcomIocshSupport fcomUtil
+fastFeedback_LIBS += udpCommBSD
+
 #fastFeedback_LIBS += drvMrf (Migrating to EVRsharing)
 ifeq ($(T_A),linuxRT_glibc-x86_64)
   fastFeedback_LIBS += drvMrf
