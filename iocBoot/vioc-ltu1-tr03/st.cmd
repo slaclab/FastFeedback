@@ -1,5 +1,7 @@
 #
 # st.cmd file for Fast Feedback Controller IOC
+# Note: contains parameters specific to vioc-ltu1-tr03 and
+#       and calls generic st.cmd common to all feedback loops 
 # author: L. Piccoli, A. Babbitt
 ##########################################################
 
@@ -17,7 +19,7 @@ cd ${TOP}
 #=======================================================================
 
 # tag messages with IOC name
-# How to escape the "vioc-b34-fb06" as the PERL program
+# How to escape the "vioc-ltu1-tr03" as the PERL program
 # will try to replace it.
 # So, uncomment the following and remove the backslash
 
@@ -27,21 +29,19 @@ epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
 ## iocAdmin environment variables
 #=====================================================================
 epicsEnvSet("ENGINEER","A.Babbitt")
-epicsEnvSet("LOCATION","cpu-b34-fb01")
+epicsEnvSet("LOCATION","cpu-sys0-fb01")
 
 #========================================================================
 # Fast Feedback Application Specific Environment Variables
 #========================================================================
 
 #System Location:
-#epicsEnvSet("LOCA","B34")
-epicsEnvSet("LOCA","SYS0")
-epicsEnvSet("FB", "FB01")
-epicsEnvSet("LOOP", "TR04")
-epicsEnvSet("CONFIG_NAME", "LaunchLoop14")
-#epicsEnvSet("IOC_TYPE", "VIOC")
-epicsEnvSet("IOC_TYPE", "IOC")
-epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${FB}")
+epicsEnvSet("LOCA","ltu1")
+epicsEnvSet("FB", "${LOCA}")
+epicsEnvSet("LOOP", "TR03")
+epicsEnvSet("CONFIG_NAME", "LaunchLoop3")
+epicsEnvSet("IOC_TYPE", "VIOC")
+epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${FB}:${LOOP}")
 
 #===================================================================
 # Set MACROS for EVRs
@@ -50,9 +50,9 @@ epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${FB}")
 # FAC = SYS1 ==> FACET
 
 epicsEnvSet(FAC,"SYS0")
-epicsEnvSet(UNIT,"${FB}") 
+epicsEnvSet(UNIT,"FB01") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
-epicsEnvSet(VEVR, "vevr5")
+epicsEnvSet(VEVR, "vevr7")
 
 # ========================================================
 # Support Large Arrays/Waveforms; Number in Bytes
