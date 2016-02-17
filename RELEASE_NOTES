@@ -10,6 +10,10 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-5:
+    --- 15-FEB-2016---------------------------------------------
+    Updated development vioc names to match production, configured two additional vioc/vevr's, 
+    and recompiled application with appropriate compiler flags for no actuator inputs on production. 
 
 FastFeedback-R1-0-4:
     --- 15-DEC-2015 --------------------------------------------
