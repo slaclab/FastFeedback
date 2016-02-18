@@ -119,11 +119,7 @@ int ExecConfiguration::reconfigure() {
 int ExecConfiguration::getSlotNames(std::vector<std::string> &slotNames) {
     std::ifstream file;
     std::string fileName;
-#ifdef LINUX // On Linux the st.cmd creates the loops.txt file
     fileName = "/tmp/loops.txt";
-#else // On RTEMS the file is read from the '/data' area
-    fileName = "/data/config/loops.txt";
-#endif
 
     file.open(fileName.c_str(), std::ifstream::in);
 
