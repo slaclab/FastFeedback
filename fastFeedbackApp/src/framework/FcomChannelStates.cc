@@ -3,6 +3,10 @@
  * Author: lpiccoli
  * 
  * Created on April 4, 2011, 3:07 PM
+ * Revision on February 18th, 2016 at 3:20 PM (ababbitt) 
+ * Removing all previous reference to LINUX compiler flag in previous 
+ * linux/RTEMS #ifdef/#else token structure
+ *
  */
 
 #include <iostream>
@@ -18,41 +22,6 @@
 
 USING_FF_NAMESPACE
 
-#ifdef LINUX
-/**
- * The following are the same methods defined above, but compiled for
- * Linux. These methods are all empty because there is no Fcom support
- * for Linux.
- */
-FcomChannelStates::FcomChannelStates(CommunicationChannel::AccessType accessType,
-        std::string name, bool init) throw (Exception) :
-FcomChannel(accessType, name, false) {
-}
-
-FcomChannelStates::~FcomChannelStates() {
-}
-
-int FcomChannelStates::read(double &value, epicsTimeStamp &timestamp) {
-    return -1;
-}
-
-int FcomChannelStates::write() {
-    return -1;
-}
-
-int FcomChannelStates::write(epicsTimeStamp timestamp) {
-    return -1;
-}
-
-int FcomChannelStates::write(float value, int stateIndex) {
-    return -1;
-}
-
-int FcomChannelStates::initialize() {
-    return -1;
-}
-
-#else
 /**
  * Create a FCOM Channel using the specified name as the device name,
  *
@@ -181,4 +150,3 @@ int FcomChannelStates::write(epicsTimeStamp timestamp) {
     return 0;
 }
 
-#endif

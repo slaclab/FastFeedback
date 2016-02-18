@@ -3,6 +3,9 @@
  * Author: lpiccoli
  * 
  * Created on July 2, 2010, 2:47 PM
+ * Revision on February 18th, 2016 1:20 PM - 
+ * Removing all previous reference to LINUX compiler flag in previous 
+ * linux/RTEMS #ifdef/#else token structure
  */
 
 #include <iostream>
@@ -19,44 +22,6 @@
 
 USING_FF_NAMESPACE
 
-#ifdef LINUX
-/**
- * The following are the same methods defined above, but compiled for
- * Linux. These methods are all empty because there is no Fcom support
- * for Linux.
- */
-FcomChannel::FcomChannel(CommunicationChannel::AccessType accessType,
-        std::string name, bool init) throw (Exception) :
-CommunicationChannel(accessType),
-_id(0),
-_name(name),
-_type(ACTUATOR),
-_readCaChannel(NULL) {
-}
-
-FcomChannel::~FcomChannel() {
-  if (_readCaChannel != NULL) {
-    delete _readCaChannel;
-  }
-}
-
-int FcomChannel::read(double &value, epicsTimeStamp &timestamp, double timeout) {
-    return -1;
-}
-
-int FcomChannel::write(double value) {
-    return -1;
-}
-
-int FcomChannel::write(double value, epicsTimeStamp timestamp) {
-    return -1;
-}
-
-int FcomChannel::initialize() {
-    return -1;
-}
-
-#else
 /**
  * Create a FCOM Channel using the specified name as the device name,
  *
@@ -359,4 +324,4 @@ extern "C" {
   }
 }
 
-#endif
+

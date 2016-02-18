@@ -3,6 +3,10 @@
  * Author: lpiccoli
  * 
  * Created on June 7, 2010, 3:29 PM
+ * Revision on February 18th, 2016 at 3:23 PM (ababbitt)
+ * Removing all previous reference to LINUX compiler flag in previous 
+ * linux/RTEMS #ifdef/#else token structure
+ *
  */
 
 #include "Loop.h"
@@ -189,12 +193,10 @@ int Loop::reconfigure(PatternMask patternMask) {
     }
 
     // Select StateDevices
-#ifdef LINUX
-    CommunicationChannel::AccessType accessType = CommunicationChannel::NO_CHANNEL;
-#else
-    // If code is compiled for RTEMS use FCOM channel to output state values
+    // All code now needs to be able to use FCOM channel to output state values
+    // with linux and linuxRT operating systems
     CommunicationChannel::AccessType accessType = CommunicationChannel::WRITE_ONLY;
-#endif
+
     if (selectUsedDevices<StateMap, StateMap::iterator,
 	StateSet, StateSet::iterator >
 	(_states, _configuration->_states, accessType,
