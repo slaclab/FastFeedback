@@ -36,12 +36,12 @@ epicsEnvSet("LOCATION","cpu-sys0-fb01")
 #========================================================================
 
 #System Location:
-epicsEnvSet("LOCA","BSY0")
+epicsEnvSet("LOCA","BSY0") 
 epicsEnvSet("FB", "${LOCA}")
 epicsEnvSet("LOOP", "TR01")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
 epicsEnvSet("IOC_TYPE", "VIOC")
-epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${FB}:${LOOP}")
+epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")
 
 #=====================================================================
 # Set MACROS for EVRs

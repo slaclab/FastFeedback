@@ -12,7 +12,7 @@
 #}
 ######################################
 
-record(longout, "$(IOC):$(LC):$(AREA):TIMERDELAY") {
+record(longout, "$(IOC):$(LC):$(LOOP):TIMERDELAY") {
   field(DESC, "Delay from fiducial")
   field(PINI, "YES")
   field(VAL, "4000")
@@ -27,14 +27,14 @@ record(longout, "$(IOC):$(LC):$(AREA):TIMERDELAY") {
   info(autosaveMon$(AREA), "VAL")
 }
 
-record(waveform, "$(IOC):$(LC):$(AREA):INITFUNCS") {
+record(waveform, "$(IOC):$(LC):$(LOOP):INITFUNCS") {
   field(DESC, "init function names")
   field(PINI, "YES")
   field(NELM, "10")
   field(FTVL, "STRING")
 }
 
-record(waveform, "$(IOC):$(LC):$(AREA):ITERFUNCS") {
+record(waveform, "$(IOC):$(LC):$(LOOP):ITERFUNCS") {
   field(DESC, "iterate function names")
   field(PINI, "YES")
   field(NELM, "10")
@@ -44,21 +44,21 @@ record(waveform, "$(IOC):$(LC):$(AREA):ITERFUNCS") {
   field(SCAN, "10 second")
 }
 
-record(waveform, "$(IOC):$(LC):$(AREA):FMATRIXFUNCS") {
+record(waveform, "$(IOC):$(LC):$(LOOP):FMATRIXFUNCS") {
   field(DESC, "F Matrix function names")
   field(PINI, "YES")
   field(NELM, "10")
   field(FTVL, "STRING")
 }
 
-record(waveform, "$(IOC):$(LC):$(AREA):GMATRIXFUNCS") {
+record(waveform, "$(IOC):$(LC):$(LOOP):GMATRIXFUNCS") {
   field(DESC, "G Matrix function names")
   field(PINI, "YES")
   field(NELM, "10")
   field(FTVL, "STRING")
 }
 
-record(waveform, "$(IOC):$(LC):$(AREA):RECONFIGFUNCS") {
+record(waveform, "$(IOC):$(LC):$(LOOP):RECONFIGFUNCS") {
   field(DESC, "reconfig function names")
   field(PINI, "YES")
   field(NELM, "10")
@@ -67,9 +67,9 @@ record(waveform, "$(IOC):$(LC):$(AREA):RECONFIGFUNCS") {
 
 #! Further lines contain data used by VisualDCT
 #! View(2000,2115,1.0)
-#! Record("$(IOC):$(LC):$(AREA):TIMERDELAY",2060,2231,0,1,"$(IOC):$(LC):$(AREA):TIMERDELAY")
-#! Record("$(IOC):$(LC):$(AREA):INITFUNCS",2240,2228,0,1,"$(IOC):$(LC):$(AREA):INITFUNCS")
-#! Record("$(IOC):$(LC):$(AREA):ITERFUNCS",2440,2228,0,1,"$(IOC):$(LC):$(AREA):ITERFUNCS")
-#! Record("$(IOC):$(LC):$(AREA):FMATRIXFUNCS",2240,2368,0,1,"$(IOC):$(LC):$(AREA):FMATRIXFUNCS")
-#! Record("$(IOC):$(LC):$(AREA):GMATRIXFUNCS",2440,2368,0,1,"$(IOC):$(LC):$(AREA):GMATRIXFUNCS")
-#! Record("$(IOC):$(LC):$(AREA):RECONFIGFUNCS",2640,2228,0,1,"$(IOC):$(LC):$(AREA):RECONFIGFUNCS")
+#! Record("$(IOC):$(LC):$(LOOP):TIMERDELAY",2060,2231,0,1,"$(IOC):$(LC):$(LOOP):TIMERDELAY")
+#! Record("$(IOC):$(LC):$(LOOP):INITFUNCS",2240,2228,0,1,"$(IOC):$(LC):$(LOOP):INITFUNCS")
+#! Record("$(IOC):$(LC):$(LOOP):ITERFUNCS",2440,2228,0,1,"$(IOC):$(LC):$(LOOP):ITERFUNCS")
+#! Record("$(IOC):$(LC):$(LOOP):FMATRIXFUNCS",2240,2368,0,1,"$(IOC):$(LC):$(LOOP):FMATRIXFUNCS")
+#! Record("$(IOC):$(LC):$(LOOP):GMATRIXFUNCS",2440,2368,0,1,"$(IOC):$(LC):$(LOOP):GMATRIXFUNCS")
+#! Record("$(IOC):$(LC):$(LOOP):RECONFIGFUNCS",2640,2228,0,1,"$(IOC):$(LC):$(LOOP):RECONFIGFUNCS")

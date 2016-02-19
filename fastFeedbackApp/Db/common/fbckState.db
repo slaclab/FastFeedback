@@ -85,7 +85,7 @@ record(bo, "FBCK:$(AREA):$(LOOP):CHIRPREADY") {
 record(ao, "FBCK:$(AREA):$(LOOP):CHIRPDES") {
   field(DESC, "Desired chirp value")
   field(DTYP, "FfConfig")
-#  field(DOL, "${IOC}:${LC}:$(AREA):CHIRPDES_IN.VAL")
+#  field(DOL, "$(IOC):$(LC):$(LOOP):CHIRPDES_IN.VAL")
   field(SCAN, "Passive")
   field(EGU, "MeV")
   field(PINI, "YES")
@@ -96,7 +96,7 @@ record(ao, "FBCK:$(AREA):$(LOOP):CHIRPDES") {
   info(autosaveMon$(AREA), "VAL EGU")
 }
 
-#record(ai, "${IOC}:${LC}:$(AREA):CHIRPDES_IN") {
+#record(ai, "$(IOC):$(LC):$(LOOP):CHIRPDES_IN") {
 #  field(DESC, "Desired BC2 chirp")
 #  field(SCAN, "Passive")
 #  field(PINI, "YES")
@@ -157,7 +157,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT") {
   field(PINI, "YES")
   field(PRIO, "LOW")
   field(INPA, "FBCK:$(AREA):$(LOOP):DL1VERNIER")
-  field(INPB, "${IOC}:${LC}:$(AREA):DL1_EREF")
+  field(INPB, "$(IOC):$(LC):$(LOOP):DL1_EREF")
   field(EGU, "MeV")
   field(CALC, "B*1000+A")
   info(autosaveMon$(AREA), "VAL EGU")
@@ -282,7 +282,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT") {
   field(PINI, "YES")
   field(PRIO, "LOW")
   field(INPA, "FBCK:$(AREA):$(LOOP):BC1VERNIER")
-  field(INPB, "${IOC}:${LC}:$(AREA):BC1_EREF")
+  field(INPB, "$(IOC):$(LC):$(LOOP):BC1_EREF")
   field(EGU, "MeV")
   field(CALC, "B*1000+A")
   info(autosaveMon$(AREA), "VAL EGU")
@@ -405,7 +405,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT") {
   field(PRIO, "LOW")
   field(INPA, "FBCK:$(AREA):$(LOOP):BC2VERNIER")
   field(PINI, "YES")
-  field(INPB, "${IOC}:${LC}:$(AREA):BC2_EREF")
+  field(INPB, "$(IOC):$(LC):$(LOOP):BC2_EREF")
   field(EGU, "MeV")
   field(CALC, "B*1000+A")
   info(autosaveMon$(AREA), "VAL EGU")
@@ -529,7 +529,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT") {
   field(PINI, "YES")
   field(PRIO, "LOW")
   field(INPA, "FBCK:$(AREA):$(LOOP):DL2VERNIER")
-  field(INPB, "${IOC}:${LC}:$(AREA):DL2_EREF")
+  field(INPB, "$(IOC):$(LC):$(LOOP):DL2_EREF")
   field(EGU, "MeV")
   field(CALC, "B*1000+A")
   info(autosaveMon$(AREA), "VAL EGU")

@@ -14,6 +14,9 @@ FastFeedback-R1-0-5:
     --- 15-FEB-2016---------------------------------------------
     Updated development vioc names to match production, configured two additional vioc/vevr's, 
     and recompiled application with appropriate compiler flags for no actuator inputs on production. 
+    Santitized application to remove all instances of the DLINUX compiler flag and corresponding #ifdef <token> 
+    structure that was carryover from heritage linux/RTEMS version of the application.
+    Tested with FCOM channels/verify that FCOM channels work on linux architecture
 
 FastFeedback-R1-0-4:
     --- 15-DEC-2015 --------------------------------------------

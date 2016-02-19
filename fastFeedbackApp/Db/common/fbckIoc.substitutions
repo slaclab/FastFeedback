@@ -9,17 +9,20 @@
 # NOTE: This file includes fbck records for the feedback IOCs
 #       These records store function names of functions available on this ioc
 #       modified:
-#   
+# 
+# REVISION: (ababbitt) 2/19/2015 -  Updating the Macro substitution
+#  to match this format  epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")
+#  
 #==============================================================================
 #
 #
 # ioc level config pvs
 file fbckIocConfig.db {
-	pattern { AREA ,    IOC,     LC }
-	        { $(AR), $(IOC),  $(LC) }
+	pattern {   IOC,     LC, LOOP }
+	        { $(IOC),  $(LC), $(LOOP) }
 }
 # ioc level status pvs
 file fbckIocStatus.db {
-	pattern { AREA,    IOC,      LC }
-	        { $(AR)  $(IOC),  $(LC) }  
+	pattern {   IOC,     LC, LOOP }
+	        { $(IOC),  $(LC), $(LOOP) }
 }

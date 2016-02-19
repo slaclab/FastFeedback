@@ -3,25 +3,27 @@
 #! DBD("../../dbd/fbcksimSoft.dbd")
 #! DBDEND
 
+# REVISION: (ababbitt) 2/19/2015 -  Updating the Macro substitution
+# # #  to match this format  epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")     
 
-record(ai, "$(IOC):$(LC):$(AREA):TMITLOW_IN") {
+record(ai, "$(IOC):$(LC):$(LOOP):TMITLOW_IN") {
   field(DESC, "Lowest TMIT")
   field(SCAN, "Passive")
   field(PINI, "YES")
-  field(FLNK, "$(IOC):$(LC):$(AREA):TMITLOW")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):TMITLOW")
   field(VAL, "0")
   field(INP, "S$(IOC):$(LC):FB00:TMITLOW CPP MS")
   field(EGU, "Nel")
   field(PRIO, "LOW")
 }
 
-record(ao, "$(IOC):$(LC):$(AREA):TMITLOW") {
+record(ao, "$(IOC):$(LC):$(LOOP):TMITLOW") {
   field(DESC, "Lowest TMIT")
   field(SCAN, "Passive")
   field(VAL, "0")
   field(DTYP, "FfConfig")
   field(OUT, "@TMITLOW")
-  field(DOL, "$(IOC):$(LC):$(AREA):TMITLOW_IN.VAL")
+  field(DOL, "$(IOC):$(LC):$(LOOP):TMITLOW_IN.VAL")
   field(EGU, "Nel")
   field(OMSL, "closed_loop")
   field(OIF, "Full")
@@ -30,24 +32,24 @@ record(ao, "$(IOC):$(LC):$(AREA):TMITLOW") {
   field(PRIO, "LOW")
 }
 
-record(ai, "$(IOC):$(LC):$(AREA):BY1BDES_IN") {
+record(ai, "$(IOC):$(LC):$(LOOP):BY1BDES_IN") {
   field(DESC, "BY1 BDES")
   field(SCAN, "Passive")
   field(PINI, "YES")
-  field(FLNK, "$(IOC):$(LC):$(AREA):BY1BDES")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):BY1BDES")
   field(VAL, "0")
   field(INP, "BEND:LTU0:125:BDES CPP MS")
   field(EGU, "GeV/c")
   field(PRIO, "LOW")
 }
 
-record(ao, "$(IOC):$(LC):$(AREA):BY1BDES") {
+record(ao, "$(IOC):$(LC):$(LOOP):BY1BDES") {
   field(DESC, "BY1 BDES")
   field(SCAN, "Passive")
   field(VAL, "0")
   field(DTYP, "FfConfig")
   field(OUT, "@BY1BDES")
-  field(DOL, "$(IOC):$(LC):$(AREA):BY1BDES_IN")
+  field(DOL, "$(IOC):$(LC):$(LOOP):BY1BDES_IN")
   field(EGU, "GeV/c")
   field(OMSL, "closed_loop")
   field(OIF, "Full")
@@ -56,24 +58,24 @@ record(ao, "$(IOC):$(LC):$(AREA):BY1BDES") {
   field(PRIO, "LOW")
 }
 
-record(ai, "$(IOC):$(LC):$(AREA):LASER_PWR_READBACK_IN") {
+record(ai, "$(IOC):$(LC):$(LOOP):LASER_PWR_READBACK_IN") {
   field(DESC, "Laser Power")
   field(SCAN, "Passive")
   field(PINI, "YES")
-  field(FLNK, "$(IOC):$(LC):$(AREA):LASER_PWR_READBACK")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):LASER_PWR_READBACK")
   field(VAL, "0")
   field(INP, "IOC:IN20:LS11:LASER_PWR_READBACK CPP MS")
   field(EGU, "percent")
   field(PRIO, "LOW")
 }
 
-record(ao, "$(IOC):$(LC):$(AREA):LASER_PWR_READBACK") {
+record(ao, "$(IOC):$(LC):$(LOOP):LASER_PWR_READBACK") {
   field(DESC, "Laser Power")
   field(SCAN, "Passive")
   field(VAL, "0")
   field(DTYP, "FfConfig")
   field(OUT, "@LASER_PWR_READBACK")
-  field(DOL, "$(IOC):$(LC):$(AREA):LASER_PWR_READBACK_IN")
+  field(DOL, "$(IOC):$(LC):$(LOOP):LASER_PWR_READBACK_IN")
   field(EGU, "percent")
   field(OMSL, "closed_loop")
   field(OIF, "Full")
@@ -86,25 +88,25 @@ record(ao, "$(IOC):$(LC):$(AREA):LASER_PWR_READBACK") {
 # For Longitudinal feedback only (BEGIN)
 #------------------------------------------------------------
 # DL1 Energy Reference
-record(ai, "$(IOC):$(LC):$(AREA):DL1_EREF_IN") {
+record(ai, "$(IOC):$(LC):$(LOOP):DL1_EREF_IN") {
   field(DESC, "DL1 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
-  field(FLNK, "$(IOC):$(LC):$(AREA):DL1_EREF")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):DL1_EREF")
   field(VAL, "0")
 #  field(INP, "SIOC:SYS0:ML00:AO406 CPP MS")
   field(INP, "REFS:IN20:751:EDES CPP MS")
   field(EGU, "GeV/c")
   field(PRIO, "MEDIUM")
 }
-record(ao, "$(IOC):$(LC):$(AREA):DL1_EREF") {
+record(ao, "$(IOC):$(LC):$(LOOP):DL1_EREF") {
   field(DESC, "DL1 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(VAL, "0")
   field(DTYP, "FfConfig")
   field(OUT, "@DL1_EREF")
-  field(DOL, "$(IOC):$(LC):$(AREA):DL1_EREF_IN")
+  field(DOL, "$(IOC):$(LC):$(LOOP):DL1_EREF_IN")
   field(EGU, "GeV/c")
   field(OMSL, "closed_loop")
   field(OIF, "Full")
@@ -115,25 +117,25 @@ record(ao, "$(IOC):$(LC):$(AREA):DL1_EREF") {
 }
 
 # BC1 Energy Reference
-record(ai, "$(IOC):$(LC):$(AREA):BC1_EREF_IN") {
+record(ai, "$(IOC):$(LC):$(LOOP):BC1_EREF_IN") {
   field(DESC, "BC1 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
-  field(FLNK, "$(IOC):$(LC):$(AREA):BC1_EREF")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):BC1_EREF")
   field(VAL, "0")
 #  field(INP, "SIOC:SYS0:ML00:AO407 CPP MS")
   field(INP, "REFS:LI21:231:EDES CPP MS")
   field(EGU, "GeV/c")
   field(PRIO, "MEDIUM")
 }
-record(ao, "$(IOC):$(LC):$(AREA):BC1_EREF") {
+record(ao, "$(IOC):$(LC):$(LOOP):BC1_EREF") {
   field(DESC, "BC1 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(VAL, "0")
   field(DTYP, "FfConfig")
   field(OUT, "@BC1_EREF")
-  field(DOL, "$(IOC):$(LC):$(AREA):BC1_EREF_IN")
+  field(DOL, "$(IOC):$(LC):$(LOOP):BC1_EREF_IN")
   field(EGU, "GeV/c")
   field(OMSL, "closed_loop")
   field(OIF, "Full")
@@ -144,25 +146,25 @@ record(ao, "$(IOC):$(LC):$(AREA):BC1_EREF") {
 }
 
 # BC2 Energy Reference
-record(ai, "$(IOC):$(LC):$(AREA):BC2_EREF_IN") {
+record(ai, "$(IOC):$(LC):$(LOOP):BC2_EREF_IN") {
   field(DESC, "BC2 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
-  field(FLNK, "$(IOC):$(LC):$(AREA):BC2_EREF")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):BC2_EREF")
   field(VAL, "0")
 #  field(INP, "SIOC:SYS0:ML00:AO408 CPP MS")
   field(INP, "REFS:LI24:790:EDES CPP MS")
   field(EGU, "GeV/c")
   field(PRIO, "MEDIUM")
 }
-record(ao, "$(IOC):$(LC):$(AREA):BC2_EREF") {
+record(ao, "$(IOC):$(LC):$(LOOP):BC2_EREF") {
   field(DESC, "BC2 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(VAL, "0")
   field(DTYP, "FfConfig")
   field(OUT, "@BC2_EREF")
-  field(DOL, "$(IOC):$(LC):$(AREA):BC2_EREF_IN")
+  field(DOL, "$(IOC):$(LC):$(LOOP):BC2_EREF_IN")
   field(EGU, "GeV/c")
   field(OMSL, "closed_loop")
   field(OIF, "Full")
@@ -173,25 +175,25 @@ record(ao, "$(IOC):$(LC):$(AREA):BC2_EREF") {
 }
 
 # DL2 Energy Reference
-record(ai, "$(IOC):$(LC):$(AREA):DL2_EREF_IN") {
+record(ai, "$(IOC):$(LC):$(LOOP):DL2_EREF_IN") {
   field(DESC, "DL2 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
-  field(FLNK, "$(IOC):$(LC):$(AREA):DL2_EREF")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):DL2_EREF")
   field(VAL, "0")
 #  field(INP, "SIOC:SYS0:ML00:AO409 CPP MS")
   field(INP, "REFS:DMP1:400:EDES CPP MS")
   field(EGU, "GeV/c")
   field(PRIO, "MEDIUM")
 }
-record(ao, "$(IOC):$(LC):$(AREA):DL2_EREF") {
+record(ao, "$(IOC):$(LC):$(LOOP):DL2_EREF") {
   field(DESC, "DL2 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(VAL, "0")
   field(DTYP, "FfConfig")
   field(OUT, "@DL2_EREF")
-  field(DOL, "$(IOC):$(LC):$(AREA):DL2_EREF_IN")
+  field(DOL, "$(IOC):$(LC):$(LOOP):DL2_EREF_IN")
   field(EGU, "GeV/c")
   field(OMSL, "closed_loop")
   field(OIF, "Full")
@@ -204,24 +206,24 @@ record(ao, "$(IOC):$(LC):$(AREA):DL2_EREF") {
 # For Longitudinal feedback only (END)
 #------------------------------------------------------------
 
-#record(ai, "$(IOC):$(LC):$(AREA):LI21LVPOS_IN") {
+#record(ai, "$(IOC):$(LC):$(LOOP):LI21LVPOS_IN") {
 #  field(DESC, "Dispr. in LI21")
 #  field(SCAN, "Passive")
 #  field(PINI, "YES")
-#  field(FLNK, "$(IOC):$(LC):$(AREA):LI21LVPOS")
+#  field(FLNK, "$(IOC):$(LC):$(LOOP):LI21LVPOS")
 #  field(VAL, "0")
 #  field(INP, "BMLN:LI21:235:LVPOS CPP MS")
 #  field(EGU, "mm")
 #  field(PRIO, "LOW")
 #}
 #
-#record(ao, "$(IOC):$(LC):$(AREA):LI21LVPOS") {
+#record(ao, "$(IOC):$(LC):$(LOOP):LI21LVPOS") {
 #  field(DESC, "dispr. in LI21")
 #  field(SCAN, "Passive")
 #  field(VAL, "0")
 #  field(DTYP, "FfConfig")
 #  field(OUT, "@LI21LVPOS")
-#  field(DOL, "$(IOC):$(LC):$(AREA):LI21LVPOS_IN")
+#  field(DOL, "$(IOC):$(LC):$(LOOP):LI21LVPOS_IN")
 #  field(EGU, "mm")
 #  field(OMSL, "closed_loop")
 #  field(OIF, "Full")
@@ -230,24 +232,24 @@ record(ao, "$(IOC):$(LC):$(AREA):DL2_EREF") {
 #  field(PRIO, "LOW")
 #}
 #
-#record(ai, "$(IOC):$(LC):$(AREA):LI24LVPOS_IN") {
+#record(ai, "$(IOC):$(LC):$(LOOP):LI24LVPOS_IN") {
 #  field(DESC, "dispr. in LI24")
 #  field(SCAN, "Passive")
 #  field(PINI, "YES")
-#  field(FLNK, "$(IOC):$(LC):$(AREA):LI24LVPOS")
+#  field(FLNK, "$(IOC):$(LC):$(LOOP):LI24LVPOS")
 #  field(VAL, "0")
 #  field(INP, "BMLN:LI24:805:LVPOS CPP MS")
 #  field(EGU, "mm")
 #  field(PRIO, "LOW")
 #}
 #
-#record(ao, "$(IOC):$(LC):$(AREA):LI24LVPOS") {
+#record(ao, "$(IOC):$(LC):$(LOOP):LI24LVPOS") {
 #  field(DESC, "dispr. in LI24")
 #  field(SCAN, "Passive")
 #  field(VAL, "0")
 #  field(DTYP, "FfConfig")
 #  field(OUT, "@LI24LVPOS")
-#  field(DOL, "$(IOC):$(LC):$(AREA):LI24LVPOS_IN")
+#  field(DOL, "$(IOC):$(LC):$(LOOP):LI24LVPOS_IN")
 #  field(EGU, "mm")
 #  field(OMSL, "closed_loop")
 #  field(OIF, "Full")
@@ -256,13 +258,13 @@ record(ao, "$(IOC):$(LC):$(AREA):DL2_EREF") {
 #  field(PRIO, "LOW")
 #}
 
-#record(ao, "$(IOC):$(LC):$(AREA):DL2ENLOLO") {
+#record(ao, "$(IOC):$(LC):$(LOOP):DL2ENLOLO") {
 #  field(DESC, "DL2 Energy LOLO")
 #  field(SCAN, "Passive")
 #  field(VAL, "0")
 #  field(DTYP, "FfConfig")
 #  field(OUT, "@DL2ENLOLO")
-#  field(DOL, "$(IOC):$(LC):$(AREA):DL2ENLOLO_IN.VAL")
+#  field(DOL, "$(IOC):$(LC):$(LOOP):DL2ENLOLO_IN.VAL")
 #  field(EGU, "kG-m")
 #  field(OMSL, "closed_loop")
 #  field(OIF, "Full")
@@ -271,13 +273,13 @@ record(ao, "$(IOC):$(LC):$(AREA):DL2_EREF") {
 #  field(PRIO, "LOW")
 #}
 #
-#record(ao, "$(IOC):$(LC):$(AREA):DL2ENHIHI") {
+#record(ao, "$(IOC):$(LC):$(LOOP):DL2ENHIHI") {
 #  field(DESC, "DL2 Energy HIHI")
 #  field(SCAN, "Passive")
 #  field(VAL, "0")
 #  field(DTYP, "FfConfig")
 #  field(OUT, "@DL2ENHIHI")
-#  field(DOL, "$(IOC):$(LC):$(AREA):DL2ENHIHI_IN.VAL")
+#  field(DOL, "$(IOC):$(LC):$(LOOP):DL2ENHIHI_IN.VAL")
 #  field(EGU, "kG-m")
 #  field(OMSL, "closed_loop")
 #  field(OIF, "Full")
@@ -286,22 +288,22 @@ record(ao, "$(IOC):$(LC):$(AREA):DL2_EREF") {
 #  field(PRIO, "LOW")
 #}
 #
-#record(ai, "$(IOC):$(LC):$(AREA):DL2ENHIHI_IN") {
+#record(ai, "$(IOC):$(LC):$(LOOP):DL2ENHIHI_IN") {
 #  field(DESC, "DL2 Energy LOLO")
 #  field(SCAN, "Passive")
 #  field(PINI, "YES")
-#  field(FLNK, "$(IOC):$(LC):$(AREA):DL2ENHIHI")
+#  field(FLNK, "$(IOC):$(LC):$(LOOP):DL2ENHIHI")
 #  field(VAL, "0")
 #  field(INP, "SIOC:SYS0:ML00:CALC281 CPP MS")
 #  field(EGU, "kG-m")
 #  field(PRIO, "LOW")
 #}
 #
-#record(ai, "$(IOC):$(LC):$(AREA):DL2ENLOLO_IN") {
+#record(ai, "$(IOC):$(LC):$(LOOP):DL2ENLOLO_IN") {
 #  field(DESC, "DL2 Energy LOLO")
 #  field(SCAN, "Passive")
 #  field(PINI, "YES")
-#  field(FLNK, "$(IOC):$(LC):$(AREA):DL2ENLOLO")
+#  field(FLNK, "$(IOC):$(LC):$(LOOP):DL2ENLOLO")
 #  field(VAL, "0")
 #  field(INP, "SIOC:SYS0:ML00:CALC280 CPP MS")
 #  field(EGU, "kG-m")
@@ -309,18 +311,18 @@ record(ao, "$(IOC):$(LC):$(AREA):DL2_EREF") {
 #}
 
 # LEM PVs used to calculate the DL2 limits
-record(fanout, "$(IOC):$(LC):$(AREA):L3FANOUT") {
-  field(FLNK, "$(IOC):$(LC):$(AREA):L3AMP_NOFS")
-  field(LNK1, "$(IOC):$(LC):$(AREA):LEM_DL2ENLOLO")
-  field(LNK2, "$(IOC):$(LC):$(AREA):LEM_DL2ENHIHI")
+record(fanout, "$(IOC):$(LC):$(LOOP):L3FANOUT") {
+  field(FLNK, "$(IOC):$(LC):$(LOOP):L3AMP_NOFS")
+  field(LNK1, "$(IOC):$(LC):$(LOOP):LEM_DL2ENLOLO")
+  field(LNK2, "$(IOC):$(LC):$(LOOP):LEM_DL2ENHIHI")
 }
 
-record(ao, "$(IOC):$(LC):$(AREA):L3AMP_NOFS") {
+record(ao, "$(IOC):$(LC):$(LOOP):L3AMP_NOFS") {
   field(DESC, "L3 Amplitude nofb-unfudged")
   field(SCAN, "Passive")
   field(VAL, "0")
-  field(DOL, "$(IOC):$(LC):$(AREA):L3AMP_NOFS_IN.VAL")
-  field(FLNK, "$(IOC):$(LC):$(AREA):L3FANOUT")
+  field(DOL, "$(IOC):$(LC):$(LOOP):L3AMP_NOFS_IN.VAL")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):L3FANOUT")
   field(EGU, "MeV")
   field(OMSL, "closed_loop")
   field(OIF, "Full")
@@ -329,31 +331,31 @@ record(ao, "$(IOC):$(LC):$(AREA):L3AMP_NOFS") {
   field(PRIO, "LOW")
 }
 
-record(ai, "$(IOC):$(LC):$(AREA):L3AMP_NOFS_IN") {
+record(ai, "$(IOC):$(LC):$(LOOP):L3AMP_NOFS_IN") {
   field(DESC, "L3 Amplitude nofb-unfudged")
   field(SCAN, "Passive")
   field(PINI, "YES")
-  field(FLNK, "$(IOC):$(LC):$(AREA):L3AMP_NOFS")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):L3AMP_NOFS")
   field(VAL, "0")
   field(INP, "ACCL:LI25:1:A_NOFS CPP MS")
   field(EGU, "MeV")
   field(PRIO, "LOW")
 }
 
-record(fanout, "$(IOC):$(LC):$(AREA):S29FANOUT") {
-  field(FLNK, "$(IOC):$(LC):$(AREA):S29_ASUM")
-  field(LNK1, "$(IOC):$(LC):$(AREA):LEM_DL2ENLOLO")
-  field(LNK2, "$(IOC):$(LC):$(AREA):LEM_DL2ENHIHI")
+record(fanout, "$(IOC):$(LC):$(LOOP):S29FANOUT") {
+  field(FLNK, "$(IOC):$(LC):$(LOOP):S29_ASUM")
+  field(LNK1, "$(IOC):$(LC):$(LOOP):LEM_DL2ENLOLO")
+  field(LNK2, "$(IOC):$(LC):$(LOOP):LEM_DL2ENHIHI")
 }
 
-record(ao, "$(IOC):$(LC):$(AREA):S29_ASUM") {
+record(ao, "$(IOC):$(LC):$(LOOP):S29_ASUM") {
   field(DESC, "S29 Amplitude-unfudged")
   field(SCAN, "Passive")
   field(VAL, "0")
   field(DTYP, "FfConfig")
   field(OUT, "@S29_ASUM")
-  field(DOL, "$(IOC):$(LC):$(AREA):S29_ASUM_IN.VAL")
-  field(FLNK, "$(IOC):$(LC):$(AREA):S29FANOUT")
+  field(DOL, "$(IOC):$(LC):$(LOOP):S29_ASUM_IN.VAL")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):S29FANOUT")
   field(EGU, "MeV")
   field(OMSL, "closed_loop")
   field(OIF, "Full")
@@ -362,29 +364,29 @@ record(ao, "$(IOC):$(LC):$(AREA):S29_ASUM") {
   field(PRIO, "LOW")
 }
 
-record(ai, "$(IOC):$(LC):$(AREA):S29_ASUM_IN") {
+record(ai, "$(IOC):$(LC):$(LOOP):S29_ASUM_IN") {
   field(DESC, "S29 Amplitude-unfudged")
   field(SCAN, "Passive")
   field(PINI, "YES")
-  field(FLNK, "$(IOC):$(LC):$(AREA):S29_ASUM")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):S29_ASUM")
   field(VAL, "0")
   field(INP, "ACCL:LI29:0:A_SUM CPP MS")
   field(EGU, "MeV")
   field(PRIO, "LOW")
 }
 
-record(fanout, "$(IOC):$(LC):$(AREA):S30FANOUT") {
-  field(FLNK, "$(IOC):$(LC):$(AREA):S30_ASUM")
-  field(LNK1, "$(IOC):$(LC):$(AREA):LEM_DL2ENLOLO")
-  field(LNK2, "$(IOC):$(LC):$(AREA):LEM_DL2ENHIHI")
+record(fanout, "$(IOC):$(LC):$(LOOP):S30FANOUT") {
+  field(FLNK, "$(IOC):$(LC):$(LOOP):S30_ASUM")
+  field(LNK1, "$(IOC):$(LC):$(LOOP):LEM_DL2ENLOLO")
+  field(LNK2, "$(IOC):$(LC):$(LOOP):LEM_DL2ENHIHI")
 }
 
-record(ao, "$(IOC):$(LC):$(AREA):S30_ASUM") {
+record(ao, "$(IOC):$(LC):$(LOOP):S30_ASUM") {
   field(DESC, "S30 AMplitude-unfudged")
   field(SCAN, "Passive")
   field(VAL, "0")
-  field(DOL, "$(IOC):$(LC):$(AREA):S30_ASUM_IN.VAL")
-  field(FLNK, "$(IOC):$(LC):$(AREA):S30FANOUT")
+  field(DOL, "$(IOC):$(LC):$(LOOP):S30_ASUM_IN.VAL")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):S30FANOUT")
   field(EGU, "MeV")
   field(OMSL, "closed_loop")
   field(OIF, "Full")
@@ -393,22 +395,22 @@ record(ao, "$(IOC):$(LC):$(AREA):S30_ASUM") {
   field(PRIO, "LOW")
 }
 
-record(ai, "$(IOC):$(LC):$(AREA):S30_ASUM_IN") {
+record(ai, "$(IOC):$(LC):$(LOOP):S30_ASUM_IN") {
   field(DESC, "S30 Amplitude-unfudged")
   field(SCAN, "Passive")
   field(PINI, "YES")
-  field(FLNK, "$(IOC):$(LC):$(AREA):S30_ASUM")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):S30_ASUM")
   field(VAL, "0")
   field(INP, "ACCL:LI30:0:A_SUM CPP MS")
   field(EGU, "MeV")
   field(PRIO, "LOW")
 }
 
-record(calcout, "$(IOC):$(LC):$(AREA):LEM_DL2ENLOLO") {
+record(calcout, "$(IOC):$(LC):$(LOOP):LEM_DL2ENLOLO") {
   field(PINI, "YES")
-  field(INPA, "$(IOC):$(LC):$(AREA):L3AMP_NOFS")
-  field(INPB, "$(IOC):$(LC):$(AREA):S29_ASUM")
-  field(INPC, "$(IOC):$(LC):$(AREA):S30_ASUM")
+  field(INPA, "$(IOC):$(LC):$(LOOP):L3AMP_NOFS")
+  field(INPB, "$(IOC):$(LC):$(LOOP):S29_ASUM")
+  field(INPC, "$(IOC):$(LC):$(LOOP):S30_ASUM")
   field(DTYP, "FfConfig")
   field(OUT, "@LEM_DL2ENLOLO")
   field(EGU, "MeV")
@@ -417,11 +419,11 @@ record(calcout, "$(IOC):$(LC):$(AREA):LEM_DL2ENLOLO") {
   field(CALC, "A-(B+C)-300")
 }
 
-record(calcout, "$(IOC):$(LC):$(AREA):LEM_DL2ENHIHI") {
+record(calcout, "$(IOC):$(LC):$(LOOP):LEM_DL2ENHIHI") {
   field(PINI, "YES")
-  field(INPA, "$(IOC):$(LC):$(AREA):L3AMP_NOFS")
-  field(INPB, "$(IOC):$(LC):$(AREA):S29_ASUM")
-  field(INPC, "$(IOC):$(LC):$(AREA):S30_ASUM")
+  field(INPA, "$(IOC):$(LC):$(LOOP):L3AMP_NOFS")
+  field(INPB, "$(IOC):$(LC):$(LOOP):S29_ASUM")
+  field(INPC, "$(IOC):$(LC):$(LOOP):S30_ASUM")
   field(EGU, "MeV")
   field(DTYP, "FfConfig")
   field(OUT, "@LEM_DL2ENHIHI")
@@ -434,51 +436,51 @@ record(calcout, "$(IOC):$(LC):$(AREA):LEM_DL2ENHIHI") {
 
 #! Further lines contain data used by VisualDCT
 #! View(2600,1935,1.0)
-#! Record("$(IOC):$(LC):$(AREA):TMITLOW_IN",2100,2126,0,1,"$(IOC):$(LC):$(AREA):TMITLOW_IN")
-#! Field("$(IOC):$(LC):$(AREA):TMITLOW_IN.INP",16777215,1,"$(IOC):$(LC):$(AREA):TMITLOW_IN.INP")
-#! Field("$(IOC):$(LC):$(AREA):TMITLOW_IN.FLNK",16777215,1,"$(IOC):$(LC):$(AREA):TMITLOW_IN.FLNK")
-#! Link("$(IOC):$(LC):$(AREA):TMITLOW_IN.FLNK","$(IOC):$(LC):$(AREA):TMITLOW")
-#! Field("$(IOC):$(LC):$(AREA):TMITLOW_IN.VAL",16777215,1,"$(IOC):$(LC):$(AREA):TMITLOW_IN.VAL")
-#! Record("$(IOC):$(LC):$(AREA):TMITLOW",2380,2257,0,0,"$(IOC):$(LC):$(AREA):TMITLOW")
-#! Field("$(IOC):$(LC):$(AREA):TMITLOW.DOL",16777215,0,"$(IOC):$(LC):$(AREA):TMITLOW.DOL")
-#! Link("$(IOC):$(LC):$(AREA):TMITLOW.DOL","$(IOC):$(LC):$(AREA):TMITLOW_IN.VAL")
-#! Record("$(IOC):$(LC):$(AREA):BY1BDES_IN",2660,2126,0,1,"$(IOC):$(LC):$(AREA):BY1BDES_IN")
-#! Field("$(IOC):$(LC):$(AREA):BY1BDES_IN.FLNK",16777215,1,"$(IOC):$(LC):$(AREA):BY1BDES_IN.FLNK")
-#! Link("$(IOC):$(LC):$(AREA):BY1BDES_IN.FLNK","$(IOC):$(LC):$(AREA):BY1BDES")
-#! Field("$(IOC):$(LC):$(AREA):BY1BDES_IN.INP",16777215,1,"$(IOC):$(LC):$(AREA):BY1BDES_IN.INP")
-#! Field("$(IOC):$(LC):$(AREA):BY1BDES_IN.VAL",16777215,1,"$(IOC):$(LC):$(AREA):BY1BDES_IN.VAL")
-#! Record("$(IOC):$(LC):$(AREA):BY1BDES",2940,2257,0,0,"$(IOC):$(LC):$(AREA):BY1BDES")
-#! Field("$(IOC):$(LC):$(AREA):BY1BDES.DOL",16777215,0,"$(IOC):$(LC):$(AREA):BY1BDES.DOL")
-#! Link("$(IOC):$(LC):$(AREA):BY1BDES.DOL","$(IOC):$(LC):$(AREA):BY1BDES_IN.VAL")
-#! Record("$(IOC):$(LC):$(AREA):LI21LVPOS_IN",2080,2546,0,1,"$(IOC):$(LC):$(AREA):LI21LVPOS_IN")
-#! Field("$(IOC):$(LC):$(AREA):LI21LVPOS_IN.FLNK",16777215,1,"$(IOC):$(LC):$(AREA):LI21LVPOS_IN.FLNK")
-#! Link("$(IOC):$(LC):$(AREA):LI21LVPOS_IN.FLNK","$(IOC):$(LC):$(AREA):LI21LVPOS")
-#! Field("$(IOC):$(LC):$(AREA):LI21LVPOS_IN.VAL",16777215,1,"$(IOC):$(LC):$(AREA):LI21LVPOS_IN.VAL")
-#! Field("$(IOC):$(LC):$(AREA):LI21LVPOS_IN.INP",16777215,1,"$(IOC):$(LC):$(AREA):LI21LVPOS_IN.INP")
-#! Record("$(IOC):$(LC):$(AREA):LI21LVPOS",2360,2677,0,0,"$(IOC):$(LC):$(AREA):LI21LVPOS")
-#! Field("$(IOC):$(LC):$(AREA):LI21LVPOS.DOL",16777215,0,"$(IOC):$(LC):$(AREA):LI21LVPOS.DOL")
-#! Link("$(IOC):$(LC):$(AREA):LI21LVPOS.DOL","$(IOC):$(LC):$(AREA):LI21LVPOS_IN.VAL")
-#! Record("$(IOC):$(LC):$(AREA):LI24LVPOS_IN",2660,2506,0,1,"$(IOC):$(LC):$(AREA):LI24LVPOS_IN")
-#! Field("$(IOC):$(LC):$(AREA):LI24LVPOS_IN.FLNK",16777215,1,"$(IOC):$(LC):$(AREA):LI24LVPOS_IN.FLNK")
-#! Link("$(IOC):$(LC):$(AREA):LI24LVPOS_IN.FLNK","$(IOC):$(LC):$(AREA):LI24LVPOS")
-#! Field("$(IOC):$(LC):$(AREA):LI24LVPOS_IN.VAL",16777215,1,"$(IOC):$(LC):$(AREA):LI24LVPOS_IN.VAL")
-#! Field("$(IOC):$(LC):$(AREA):LI24LVPOS_IN.INP",16777215,1,"$(IOC):$(LC):$(AREA):LI24LVPOS_IN.INP")
-#! Record("$(IOC):$(LC):$(AREA):LI24LVPOS",2940,2637,0,0,"$(IOC):$(LC):$(AREA):LI24LVPOS")
-#! Field("$(IOC):$(LC):$(AREA):LI24LVPOS.DOL",16777215,0,"$(IOC):$(LC):$(AREA):LI24LVPOS.DOL")
-#! Link("$(IOC):$(LC):$(AREA):LI24LVPOS.DOL","$(IOC):$(LC):$(AREA):LI24LVPOS_IN.VAL")
-#! Record("$(IOC):$(LC):$(AREA):DL2ENLOLO",3400,2357,0,1,"$(IOC):$(LC):$(AREA):DL2ENLOLO")
-#! Field("$(IOC):$(LC):$(AREA):DL2ENLOLO.DOL",16777215,0,"$(IOC):$(LC):$(AREA):DL2ENLOLO.DOL")
-#! Link("$(IOC):$(LC):$(AREA):DL2ENLOLO.DOL","$(IOC):$(LC):$(AREA):DL2ENLOLO_IN.VAL")
-#! Record("$(IOC):$(LC):$(AREA):DL2ENHIHI",3900,2357,0,1,"$(IOC):$(LC):$(AREA):DL2ENHIHI")
-#! Field("$(IOC):$(LC):$(AREA):DL2ENHIHI.DOL",16777215,0,"$(IOC):$(LC):$(AREA):DL2ENHIHI.DOL")
-#! Link("$(IOC):$(LC):$(AREA):DL2ENHIHI.DOL","$(IOC):$(LC):$(AREA):DL2ENHIHI_IN.VAL")
-#! Record("$(IOC):$(LC):$(AREA):DL2ENHIHI_IN",3660,2126,0,1,"$(IOC):$(LC):$(AREA):DL2ENHIHI_IN")
-#! Field("$(IOC):$(LC):$(AREA):DL2ENHIHI_IN.FLNK",16777215,1,"$(IOC):$(LC):$(AREA):DL2ENHIHI_IN.FLNK")
-#! Link("$(IOC):$(LC):$(AREA):DL2ENHIHI_IN.FLNK","$(IOC):$(LC):$(AREA):DL2ENHIHI")
-#! Field("$(IOC):$(LC):$(AREA):DL2ENHIHI_IN.INP",16777215,1,"$(IOC):$(LC):$(AREA):DL2ENHIHI_IN.INP")
-#! Field("$(IOC):$(LC):$(AREA):DL2ENHIHI_IN.VAL",16777215,0,"$(IOC):$(LC):$(AREA):DL2ENHIHI_IN.VAL")
-#! Record("$(IOC):$(LC):$(AREA):DL2ENLOLO_IN",3160,2126,0,1,"$(IOC):$(LC):$(AREA):DL2ENLOLO_IN")
-#! Field("$(IOC):$(LC):$(AREA):DL2ENLOLO_IN.INP",16777215,1,"$(IOC):$(LC):$(AREA):DL2ENLOLO_IN.INP")
-#! Field("$(IOC):$(LC):$(AREA):DL2ENLOLO_IN.FLNK",16777215,1,"$(IOC):$(LC):$(AREA):DL2ENLOLO_IN.FLNK")
-#! Link("$(IOC):$(LC):$(AREA):DL2ENLOLO_IN.FLNK","$(IOC):$(LC):$(AREA):DL2ENLOLO")
-#! Field("$(IOC):$(LC):$(AREA):DL2ENLOLO_IN.VAL",16777215,0,"$(IOC):$(LC):$(AREA):DL2ENLOLO_IN.VAL")
+#! Record("$(IOC):$(LC):$(LOOP):TMITLOW_IN",2100,2126,0,1,"$(IOC):$(LC):$(LOOP):TMITLOW_IN")
+#! Field("$(IOC):$(LC):$(LOOP):TMITLOW_IN.INP",16777215,1,"$(IOC):$(LC):$(LOOP):TMITLOW_IN.INP")
+#! Field("$(IOC):$(LC):$(LOOP):TMITLOW_IN.FLNK",16777215,1,"$(IOC):$(LC):$(LOOP):TMITLOW_IN.FLNK")
+#! Link("$(IOC):$(LC):$(LOOP):TMITLOW_IN.FLNK","$(IOC):$(LC):$(LOOP):TMITLOW")
+#! Field("$(IOC):$(LC):$(LOOP):TMITLOW_IN.VAL",16777215,1,"$(IOC):$(LC):$(LOOP):TMITLOW_IN.VAL")
+#! Record("$(IOC):$(LC):$(LOOP):TMITLOW",2380,2257,0,0,"$(IOC):$(LC):$(LOOP):TMITLOW")
+#! Field("$(IOC):$(LC):$(LOOP):TMITLOW.DOL",16777215,0,"$(IOC):$(LC):$(LOOP):TMITLOW.DOL")
+#! Link("$(IOC):$(LC):$(LOOP):TMITLOW.DOL","$(IOC):$(LC):$(LOOP):TMITLOW_IN.VAL")
+#! Record("$(IOC):$(LC):$(LOOP):BY1BDES_IN",2660,2126,0,1,"$(IOC):$(LC):$(LOOP):BY1BDES_IN")
+#! Field("$(IOC):$(LC):$(LOOP):BY1BDES_IN.FLNK",16777215,1,"$(IOC):$(LC):$(LOOP):BY1BDES_IN.FLNK")
+#! Link("$(IOC):$(LC):$(LOOP):BY1BDES_IN.FLNK","$(IOC):$(LC):$(LOOP):BY1BDES")
+#! Field("$(IOC):$(LC):$(LOOP):BY1BDES_IN.INP",16777215,1,"$(IOC):$(LC):$(LOOP):BY1BDES_IN.INP")
+#! Field("$(IOC):$(LC):$(LOOP):BY1BDES_IN.VAL",16777215,1,"$(IOC):$(LC):$(LOOP):BY1BDES_IN.VAL")
+#! Record("$(IOC):$(LC):$(LOOP):BY1BDES",2940,2257,0,0,"$(IOC):$(LC):$(LOOP):BY1BDES")
+#! Field("$(IOC):$(LC):$(LOOP):BY1BDES.DOL",16777215,0,"$(IOC):$(LC):$(LOOP):BY1BDES.DOL")
+#! Link("$(IOC):$(LC):$(LOOP):BY1BDES.DOL","$(IOC):$(LC):$(LOOP):BY1BDES_IN.VAL")
+#! Record("$(IOC):$(LC):$(LOOP):LI21LVPOS_IN",2080,2546,0,1,"$(IOC):$(LC):$(LOOP):LI21LVPOS_IN")
+#! Field("$(IOC):$(LC):$(LOOP):LI21LVPOS_IN.FLNK",16777215,1,"$(IOC):$(LC):$(LOOP):LI21LVPOS_IN.FLNK")
+#! Link("$(IOC):$(LC):$(LOOP):LI21LVPOS_IN.FLNK","$(IOC):$(LC):$(LOOP):LI21LVPOS")
+#! Field("$(IOC):$(LC):$(LOOP):LI21LVPOS_IN.VAL",16777215,1,"$(IOC):$(LC):$(LOOP):LI21LVPOS_IN.VAL")
+#! Field("$(IOC):$(LC):$(LOOP):LI21LVPOS_IN.INP",16777215,1,"$(IOC):$(LC):$(LOOP):LI21LVPOS_IN.INP")
+#! Record("$(IOC):$(LC):$(LOOP):LI21LVPOS",2360,2677,0,0,"$(IOC):$(LC):$(LOOP):LI21LVPOS")
+#! Field("$(IOC):$(LC):$(LOOP):LI21LVPOS.DOL",16777215,0,"$(IOC):$(LC):$(LOOP):LI21LVPOS.DOL")
+#! Link("$(IOC):$(LC):$(LOOP):LI21LVPOS.DOL","$(IOC):$(LC):$(LOOP):LI21LVPOS_IN.VAL")
+#! Record("$(IOC):$(LC):$(LOOP):LI24LVPOS_IN",2660,2506,0,1,"$(IOC):$(LC):$(LOOP):LI24LVPOS_IN")
+#! Field("$(IOC):$(LC):$(LOOP):LI24LVPOS_IN.FLNK",16777215,1,"$(IOC):$(LC):$(LOOP):LI24LVPOS_IN.FLNK")
+#! Link("$(IOC):$(LC):$(LOOP):LI24LVPOS_IN.FLNK","$(IOC):$(LC):$(LOOP):LI24LVPOS")
+#! Field("$(IOC):$(LC):$(LOOP):LI24LVPOS_IN.VAL",16777215,1,"$(IOC):$(LC):$(LOOP):LI24LVPOS_IN.VAL")
+#! Field("$(IOC):$(LC):$(LOOP):LI24LVPOS_IN.INP",16777215,1,"$(IOC):$(LC):$(LOOP):LI24LVPOS_IN.INP")
+#! Record("$(IOC):$(LC):$(LOOP):LI24LVPOS",2940,2637,0,0,"$(IOC):$(LC):$(LOOP):LI24LVPOS")
+#! Field("$(IOC):$(LC):$(LOOP):LI24LVPOS.DOL",16777215,0,"$(IOC):$(LC):$(LOOP):LI24LVPOS.DOL")
+#! Link("$(IOC):$(LC):$(LOOP):LI24LVPOS.DOL","$(IOC):$(LC):$(LOOP):LI24LVPOS_IN.VAL")
+#! Record("$(IOC):$(LC):$(LOOP):DL2ENLOLO",3400,2357,0,1,"$(IOC):$(LC):$(LOOP):DL2ENLOLO")
+#! Field("$(IOC):$(LC):$(LOOP):DL2ENLOLO.DOL",16777215,0,"$(IOC):$(LC):$(LOOP):DL2ENLOLO.DOL")
+#! Link("$(IOC):$(LC):$(LOOP):DL2ENLOLO.DOL","$(IOC):$(LC):$(LOOP):DL2ENLOLO_IN.VAL")
+#! Record("$(IOC):$(LC):$(LOOP):DL2ENHIHI",3900,2357,0,1,"$(IOC):$(LC):$(LOOP):DL2ENHIHI")
+#! Field("$(IOC):$(LC):$(LOOP):DL2ENHIHI.DOL",16777215,0,"$(IOC):$(LC):$(LOOP):DL2ENHIHI.DOL")
+#! Link("$(IOC):$(LC):$(LOOP):DL2ENHIHI.DOL","$(IOC):$(LC):$(LOOP):DL2ENHIHI_IN.VAL")
+#! Record("$(IOC):$(LC):$(LOOP):DL2ENHIHI_IN",3660,2126,0,1,"$(IOC):$(LC):$(LOOP):DL2ENHIHI_IN")
+#! Field("$(IOC):$(LC):$(LOOP):DL2ENHIHI_IN.FLNK",16777215,1,"$(IOC):$(LC):$(LOOP):DL2ENHIHI_IN.FLNK")
+#! Link("$(IOC):$(LC):$(LOOP):DL2ENHIHI_IN.FLNK","$(IOC):$(LC):$(LOOP):DL2ENHIHI")
+#! Field("$(IOC):$(LC):$(LOOP):DL2ENHIHI_IN.INP",16777215,1,"$(IOC):$(LC):$(LOOP):DL2ENHIHI_IN.INP")
+#! Field("$(IOC):$(LC):$(LOOP):DL2ENHIHI_IN.VAL",16777215,0,"$(IOC):$(LC):$(LOOP):DL2ENHIHI_IN.VAL")
+#! Record("$(IOC):$(LC):$(LOOP):DL2ENLOLO_IN",3160,2126,0,1,"$(IOC):$(LC):$(LOOP):DL2ENLOLO_IN")
+#! Field("$(IOC):$(LC):$(LOOP):DL2ENLOLO_IN.INP",16777215,1,"$(IOC):$(LC):$(LOOP):DL2ENLOLO_IN.INP")
+#! Field("$(IOC):$(LC):$(LOOP):DL2ENLOLO_IN.FLNK",16777215,1,"$(IOC):$(LC):$(LOOP):DL2ENLOLO_IN.FLNK")
+#! Link("$(IOC):$(LC):$(LOOP):DL2ENLOLO_IN.FLNK","$(IOC):$(LC):$(LOOP):DL2ENLOLO")
+#! Field("$(IOC):$(LC):$(LOOP):DL2ENLOLO_IN.VAL",16777215,0,"$(IOC):$(LC):$(LOOP):DL2ENLOLO_IN.VAL")

@@ -63,6 +63,7 @@ dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 # ===================================================================
 # Load application specific databases
 # ===================================================================
+# These macros are used in PV generation:
 dbLoadRecords("db/fbck_template.db","IOC=${IOC_TYPE},LC=${LOCA},FB=${FB},LOOP=${LOOP},CONFIG_NAME=${CONFIG_NAME}")
 #########################################################################
 #BEGIN: Setup autosave/restore
@@ -130,7 +131,15 @@ iocshCmd("dbgrep 'FBCK:*:NAME' > /tmp/loops.txt")
 # Set access security filea
 # Load common LCLS Access Configuration File
  < ${ACF_INIT}
-                                                                      
+
+#Debugging Flags 
+ffll 0 5                                                                      
+ffll 1 5                                                                      
+ffll 2 5                                                                      
+ffll 3 5                                                                      
+ffll 4 5
+ffll 5 5 
+ffll 6 5
 ######################################################################
 #========================================================================
 #Start Fast Feedback Threads running

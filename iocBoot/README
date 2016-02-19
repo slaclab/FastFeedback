@@ -12,7 +12,18 @@
 #  Auth: 14-Dec-2015, A. Babbitt      (ababbitt)
 #  Rev:  dd-mmm-yyyy, Reviewer's Name (USERNAME)
 #--------------------------------------------------------------
-#  Current Development vioc's
+#  Current Development Vioc's (these are the vioc's that will run on 
+#  cpu-sys0-fb01 on production)
+#  vioc-bsy0-tr01 => vevr0 
+#  vioc-li21-tr01 => vevr1
+#  vioc-li21-tr02 => vevr2
+#  vioc-li25-tr01 => vevr3
+#  vioc-li28-tr01 => vevr4
+#  vioc-ltu1-tr01 => vevr5
+#  vioc-ltu1-tr02 => vevr6
+#  vioc-ltu1-tr03 => vevr7
+#
+#  Original Development vioc's
 #  vioc-b34-fb01
 #  vioc-b34-fb02
 #  vioc-b34-fb03
@@ -36,7 +47,20 @@
 #                     fbckAct.db    => records with "FBCK:$(AREA):$(LOOP):SOMETHING
 #                     fbckMeas.db   => records with "FBCK:$(AREA):$(LOOP):SOMETHING
 #      iocEnergyChirp.db = > just records (was no IOC:SYS0)
+##
+#Note: Feedback PV names are generated with the following macros:
+#epicsEnvSet("FB", "${LOCA}")
+#epicsEnvSet("LOOP", "TR01")
 #
+#vioc PV names are generated with the following PV names:
+##System Location:
+#epicsEnvSet("LOCA","BSY0")                                                                                              
+#epicsEnvSet("LOOP", "TR01")
+#epicsEnvSet("IOC_TYPE", "VIOC")
+#epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")
+#
+#Current proposed naming scheme has FB = LOCA, but for future flexibility will leave these macros
+#seperate
 #==============================================================
 #
 # Mod: 
@@ -90,4 +114,10 @@
 #    Dec. 15, 2015 A. Babbitt
 #            Generating a new tagged release.  Details can be found in the RELEASE_NOTES folder
 #            Begin development testing
+#
+#    Feb. 19  2016 A. Babbitt
+#            Updated development vioc's to match the vioc's that will run on cpu-sys0-fb01 on production
+#            Updated vevr{0-7} 
+#            Cleaned up macro substitution and fix PV names
+#
 #
