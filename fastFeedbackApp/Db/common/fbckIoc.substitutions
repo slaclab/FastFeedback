@@ -19,10 +19,10 @@
 # ioc level config pvs
 file fbckIocConfig.db {
 	pattern {   IOC,     LC, LOOP }
-	        { $(IOC),  $(LC), $(LOOP) }
+	        { $(IOC),  $(LC), $(LP) }
 }
 # ioc level status pvs
 file fbckIocStatus.db {
-	pattern {   IOC,     LC, LOOP }
-	        { $(IOC),  $(LC), $(LOOP) }
+	pattern {   IOC,     LC,  LOOP,  AREA }
+	        { $(IOC),  $(LC), $(LP), $(AR) }
 }

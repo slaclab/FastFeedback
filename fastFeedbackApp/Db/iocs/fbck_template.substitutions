@@ -22,14 +22,14 @@
 # Each loop will be configured via macros substitutions defined in the st.cmd 
 
 file fbckLoop.db {
-   pattern { AR,         LP,     IOC,    LC,    LN          }
-           { $(FB), $(LOOP),  $(IOC),  $(LC) (CONFIG_NAME)  }
+   pattern { AR,                   LP,     IOC,      LC,         LN    }
+           { $(FEEDBACK), $(LOOP_TYPE),  $(IOC),  $(LC),  $(CON_NAME)  }
 }
 
 
 file fbckIoc.db {
-  pattern { AR,        LP,    IOC,     LC     }
-          {$(FB), $(LOOP), $(IOC),   $(LC)    }
+  pattern { AR,            LP,          IOC,       LC    }
+          {$(FEEDBACK), $(LOOP_TYPE), $(IOC),   $(LC)    }
 }
 
 # This is a necessary additional template file for longitudinal feedbacks            
