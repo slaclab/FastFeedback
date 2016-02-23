@@ -3,8 +3,6 @@
 #! DBD("../../dbd/fbcksimSoft.dbd")
 #! DBDEND
 
-# REVISION: (ababbitt) 2/19/2015 -  Updating the Macro substitution
-# # #  to match this format  epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")     
 
 record(ai, "$(IOC):$(LC):$(LOOP):TMITLOW_IN") {
   field(DESC, "Lowest TMIT")

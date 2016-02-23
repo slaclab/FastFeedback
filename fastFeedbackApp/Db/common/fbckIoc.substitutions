@@ -11,15 +11,15 @@
 #       modified:
 # 
 # REVISION: (ababbitt) 2/19/2015 -  Updating the Macro substitution
-#  to match this format  epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")
+#  to match this format  ("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")
 #  
 #==============================================================================
 #
 #
 # ioc level config pvs
 file fbckIocConfig.db {
-	pattern {   IOC,     LC, LOOP }
-	        { $(IOC),  $(LC), $(LP) }
+	pattern {   IOC,     LC, LOOP, AREA }
+	        { $(IOC),  $(LC), $(LP), $(AR) }
 }
 # ioc level status pvs
 file fbckIocStatus.db {

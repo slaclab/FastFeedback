@@ -23,13 +23,13 @@
 
 file fbckLoop.db {
    pattern { AR,                   LP,     IOC,      LC,         LN    }
-           { $(FEEDBACK), $(LOOP_TYPE),  $(IOC),  $(LC),  $(CON_NAME)  }
+           { $(FEEDBACK), $(LOOP_TYPE),  $(VIOC),  $(LOC),  $(CON_NAME)  }
 }
 
 
 file fbckIoc.db {
   pattern { AR,            LP,          IOC,       LC    }
-          {$(FEEDBACK), $(LOOP_TYPE), $(IOC),   $(LC)    }
+          {$(FEEDBACK), $(LOOP_TYPE), $(VIOC),   $(LOC)    }
 }
 
 # This is a necessary additional template file for longitudinal feedbacks            
