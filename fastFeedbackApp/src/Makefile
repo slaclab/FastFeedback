@@ -63,6 +63,8 @@ fastFeedback_DBD += devFfConfig.dbd
 fastFeedback_DBD += evrSupport.dbd #Needed for EVR
 fastFeedback_DBD += devMrfEr.dbd   #Needed for EVR
 fastFeedback_DBD += fcomUtil.dbd
+fastFeedback_DBD += fcomIocshSupport.dbd
+
 
 # The system command as part of EPICS BASE is 
 # available for all architectures
@@ -254,6 +256,23 @@ ffUnitTest_LIBS += autosave
 ffUnitTest_LIBS += evrSupport
 ffUnitTest_LIBS += devMrfEr
 ffUnitTest_LIBS += drvMrf
+ffUnitTest_LIBS += seq pv
+ffUnitTest_LIBS += fcom fcomIocshSupport fcomUtil
+ffUnitTest_LIBS += udpCommBSD
+
+#fastFeedback_LIBS += drvMrf (Migrating to EVRsharing)
+ifeq ($(T_A),linuxRT_glibc-x86_64)
+  ffUnitTest_LIBS += drvMrf
+  evrma_DIR = $(EVRMA_LIB)
+  ffUnitTest_LIBS += evrma
+endif
+  
+ifeq ($(T_A),linux-x86_64)
+  ffUnitTest_LIBS += drvMrf
+  evrma_DIR = $(EVRMA_LIB)
+  ffUnitTest_LIBS += evrma
+endif
+
 
 ffUnitTest_LIBS += $(EPICS_BASE_IOC_LIBS)
 #=============================================================================

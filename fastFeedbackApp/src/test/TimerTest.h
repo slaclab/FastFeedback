@@ -17,7 +17,8 @@ FF_NAMESPACE_START
 class TimerTest : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(TimerTest);
   CPPUNIT_TEST(testCallback);
-  CPPUNIT_TEST(testRepeatedCallback);
+  CPPUNIT_TEST(testElapsedTime);
+  //  CPPUNIT_TEST(testRepeatedCallback);
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -25,7 +26,8 @@ public:
   void tearDown() {};
 
   void testCallback();
-  void testRepeatedCallback();
+  void testElapsedTime();
+  //  void testRepeatedCallback();
 };
 
 FF_NAMESPACE_END

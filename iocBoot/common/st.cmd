@@ -37,6 +37,11 @@ eevrmaConfigure(0, "/dev/${VEVR}")
 
 # ======= EVR Setup Complete ========================================
 
+# Initialize FCOM
+epicsEnvSet("FCOM_MC_PREFIX", "239.219.8.0", 1)
+fcomInit( ${FCOM_MC_PREFIX}, 1000 )
+
+
 #########################################################################
 #BEGIN: Load the record database
 ######################################################################

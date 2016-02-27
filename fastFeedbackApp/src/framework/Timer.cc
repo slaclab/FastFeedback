@@ -20,7 +20,7 @@ USING_FF_NAMESPACE
  * @author L.Piccoli
  */
 Timer::Timer(CallbackFunction callback) :
-  Thread("Timer", 100), _callback(callback) {
+  Thread("Timer", 99), _callback(callback) {
   _startEvent._type = START_TIMER_EVENT;
 }
 
@@ -30,6 +30,8 @@ Timer::Timer(CallbackFunction callback) :
  * @author L.Piccoli
  */
 Timer::~Timer() {
+  //  stop();
+  exit(0);
 }
 
 /**
@@ -51,18 +53,41 @@ int Timer::go(double delay, bool restart) {
 /**
  */
 int Timer::processEvent(Event& event) {
-  unsigned int delay = ExecConfiguration::getInstance()._timerDelayPv.getValue(); // delay in microseconds
+  unsigned int delay = ExecConfiguration::getInstance()._timerDelayPv.getValue(); // delay in usec 
   struct timespec deadline;
   deadline.tv_sec = 0;
-  deadline.tv_nsec = delay * 1000000; // microsec -> nanosec
+  deadline.tv_nsec = delay * 1000; // usec -> nanosec
+
+#ifdef DEBUG
+  Log::getInstance() << Log::showtime << Log::flagEvent << Log::dpInfo
+		     << "INFO: Timer::processEvent() type=" << (int) event._type
+		     << ", delay=" << (int) delay << " usec" << Log::dp;
+#endif
+
+  timespec ts1, ts2;
+  long nano1, nano2, diff;
   switch (event._type) {
     case START_TIMER_EVENT:
+#ifdef DEBUG
       Log::getInstance() << Log::showtime << Log::flagEvent << Log::dpInfo
 			 << "INFO: Timer::processEvent() starting nanosleep" << Log::dp;
+      clock_gettime(CLOCK_REALTIME, &ts1);
+#endif
       clock_nanosleep(CLOCK_REALTIME, 0, &deadline, NULL);
+#ifdef DEBUG
+      clock_gettime(CLOCK_REALTIME, &ts2);
+      if (ts1.tv_sec < ts2.tv_sec) {
+	nano1 = ts1.tv_nsec;
+	nano2 = ts2.tv_nsec + 1000000000;
+      }
+      else {
+	nano1 = ts1.tv_nsec;
+	nano2 = ts2.tv_nsec;
+      }
+      diff = nano2 - nano1;
       Log::getInstance() << Log::showtime << Log::flagEvent << Log::dpInfo
-			 << "INFO: Timer::processEvent() callback" << Log::dp;
-      
+			 << "INFO: Timer::processEvent() callback ns=" << diff << Log::dp;
+#endif      
       callback();
       return 0;
     default:

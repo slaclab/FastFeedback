@@ -235,7 +235,7 @@ int PatternManager::process(Pattern evrPattern) {
 
     // Start the timer
     _timeBetweenFiducialStats.start();
-    _timer->go(_measurementDelay);    
+    _timer->go();    
 
     // Starts recording the time between this point and the processing of 
     // the timer generated MEASUREMENT_EVENT by the CollectorThread
