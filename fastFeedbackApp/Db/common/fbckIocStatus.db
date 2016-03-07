@@ -10,7 +10,7 @@ record(ai, "$(IOC):$(LC):$(LOOP):TMITLOW_IN") {
   field(PINI, "YES")
   field(FLNK, "$(IOC):$(LC):$(LOOP):TMITLOW")
   field(VAL, "0")
-  field(INP, "S$(IOC):$(LC):FB00:TMITLOW CPP MS")
+  field(INP, "SIOC:SYS0:FB00:TMITLOW CPP MS")
   field(EGU, "Nel")
   field(PRIO, "LOW")
 }
