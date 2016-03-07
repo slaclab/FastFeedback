@@ -138,13 +138,14 @@ iocshCmd("dbgrep 'FBCK:*:NAME' > /tmp/loops.txt")
  < ${ACF_INIT}
 
 #Debugging Flags 
-ffll 0 5                                                                      
-ffll 1 5                                                                      
-ffll 2 5                                                                      
-ffll 3 5                                                                      
-ffll 4 5
-ffll 5 5 
-ffll 6 5
+#ffll 0 5                                                                      
+#ffll 1 5                                                                      
+#ffll 2 5                                                                      
+#ffll 3 5                                                                      
+#ffll 4 5
+#ffll 5 5 
+#ffll 6 5
+
 ######################################################################
 #========================================================================
 #Start Fast Feedback Threads running
