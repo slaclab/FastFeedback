@@ -10,18 +10,23 @@
 #      
 #==============================================================
 #
-FastFeedback-R1-0-7:
+FastFeedback-R1-0-8:
    --- Future Planning -----------------------------------------
    Add all directory structures for cpu-sys0-fb02
    Migrate to new kernel version 
+   Need to fix the alarm and some visability PV's still on the displays based on the new PV names (Use the :FB02:)
+FastFeedback-R1-0-7:
+    --- 09-MAR-2016---------------------------------------------
+    Same as tagged version 6, EXCEPT ACTUATORS ENABLED
 
 FastFeedback-R1-0-6:
-    --- 08-MAR-2016---------------------------------------------
+    --- 09-MAR-2016---------------------------------------------
     Updated timer functionality to fix timer mismatch between BPM measurement's timestamp and application timestamp.
-    Included new directory (display) for all the feedback displays (with new PV names + PV updates in the command 
+    Included new directory (display) for all the feedback displays (with new PV names + *Started* PV updates in the command 
     shell button, which call the java configuration matrix.)
     Fixed type with SIOC:SYS0:FB00:TMITLOW (also double checked other PV's)
     Removed debugging messages.
+    NO ACTUATOR VERSION
 
 FastFeedback-R1-0-5:
     --- 15-FEB-2016---------------------------------------------
