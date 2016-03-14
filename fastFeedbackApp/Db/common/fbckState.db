@@ -190,6 +190,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT1") {
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S1DES1")
   field(SCAN, ".2 second")
+  field(DISA, "$(LOCAL_SETPOINTS)")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINT1HST_S") {
   field(INP, "FBCK:$(AREA):$(LOOP):DL1SETPOINT1")
@@ -211,6 +212,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT2") {
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S1DES2")
   field(SCAN, ".2 second")
+  field(DISA, "$(LOCAL_SETPOINTS)")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINT2HST_S") {
   field(INP, "FBCK:$(AREA):$(LOOP):DL1SETPOINT2")
@@ -231,6 +233,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT3") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S1DES3")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINT3HST_S") {
@@ -252,6 +255,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT4") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S1DES4")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINT4HST_S") {
@@ -312,6 +316,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT1") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S2DES1")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINT1HST_S") {
@@ -333,6 +338,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT2") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S2DES2")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINT2HST_S") {
@@ -354,6 +360,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT3") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S2DES3")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINT3HST_S") {
@@ -375,6 +382,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT4") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S2DES4")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINT4HST_S") {
@@ -436,6 +444,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT1") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S4DES1")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINT1HST_S") {
@@ -457,6 +466,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT2") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S4DES2")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINT2HST_S") {
@@ -478,6 +488,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT3") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S4DES3")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINT3HST_S") {
@@ -499,6 +510,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT4") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S4DES4")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINT4HST_S") {
@@ -559,6 +571,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT1") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S6DES1")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINT1HST_S") {
@@ -580,6 +593,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT2") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S6DES2")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINT2HST_S") {
@@ -601,6 +615,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT3") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S6DES3")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINT3HST_S") {
@@ -622,6 +637,7 @@ record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT4") {
   field(CALC, "A+B")
   field(DTYP, "FfConfig")
   field(OUT, "@$(LOOP) S6DES4")
+  field(DISA, "$(LOCAL_SETPOINTS)")
   field(SCAN, ".2 second")
 }
 record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINT4HST_S") {
