@@ -42,6 +42,7 @@ epicsEnvSet("LOOP", "TR01")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
 epicsEnvSet("IOC_TYPE","VIOC")
 epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")
+epicsEnvSet("LOCAL_SETPOINTS", "1")
 
 #=====================================================================
 # Set MACROS for EVRs
