@@ -1,6 +1,6 @@
 #
 # st.cmd file for Fast Feedback Controller IOC
-# Note: contains parameters specific to vioc-li25-tr01 and
+# Note: contains parameters specific to vioc-li24-tr01 and
 #       and calls generic st.cmd common to all feedback loops 
 # author: L. Piccoli, A. Babbitt
 ##########################################################
@@ -19,7 +19,7 @@ cd ${TOP}
 #=======================================================================
 
 # tag messages with IOC name
-# How to escape the "vioc-li25-tr01" as the PERL program
+# How to escape the "vioc-li24-tr01" as the PERL program
 # will try to repplace it.
 # So, uncomment the following and remove the backslash
 
@@ -36,7 +36,7 @@ epicsEnvSet("LOCATION","cpu-sys0-fb01")
 #========================================================================
 
 #System Location:
-epicsEnvSet("LOCA","LI25")
+epicsEnvSet("LOCA","LI24")
 epicsEnvSet("FB", "${LOCA}")
 epicsEnvSet("LOOP", "TR01")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
