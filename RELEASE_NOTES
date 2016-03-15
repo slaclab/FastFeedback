@@ -19,13 +19,12 @@ FastFeedback-R1-0-9:
    *Fix all the java configration command shell buttons (parameters in input positions 1 and 3 required an update based on PV name change)
 
 FastFeedback-R1-0-8:
-   --- Future Planning -----------------------------------------
-   * <Indicates planned for this release, but still being actively worked on>
-   *Added all directory structures for cpu-sys0-fb02 (under $IOC, $IOC_DATA, and iocBoot directory)
+   --- 15-MAR-2016 -----------------------------------------
+   Added all directory structures for cpu-sys0-fb02 (under $IOC, $IOC_DATA, and iocBoot directory)
    Changed vioc-li25-tr01 to vioc-li24-tr01 to remove any potential confusion and leave the feedback loop under the li24 area versus moving it to li25
    Updated corresponding display and st.cmd files with any reference to li25 => li24
    Need "OLD GLOBAL PAGE..." on fbck_global.edl (to be able to configure MATLAB Bunch Charge feedback loop, which apparently has better performance than the RTEMS one)
-   *Put banner across "lcls-global-old".edl page (only use if configuring MATLAB feedback loop)
+   Put banner across "lcls-global-old".edl page (only use if configuring MATLAB feedback loop)
    Updated PV's in screens (excluding the alarm PV's/Visability PV's - update alarm handler at a later date in time) 
    NO ACTUATOR VERSION
 
