@@ -12,6 +12,15 @@
 #  Auth: 14-Dec-2015, A. Babbitt      (ababbitt)
 #  Rev:  dd-mmm-yyyy, Reviewer's Name (USERNAME)
 #--------------------------------------------------------------
+#  Added Second Batch of Development Vioc's 
+#  (will run on cpu-sys0-fb02 on production)
+#  vioc-in20-tr01 => vevr0
+#  vioc-in20-tr02 => vevr1
+#  vioc-sys0-gn01 => vevr2
+#  vioc-sys0-lg01 => vevr3
+#  vioc-sys0-und1 => vevr4
+#  vioc-sys0-und2 => vevr5
+#
 #  Current Development Vioc's (these are the vioc's that will run on 
 #  cpu-sys0-fb01 on production)
 #  vioc-bsy0-tr01 => vevr0 
