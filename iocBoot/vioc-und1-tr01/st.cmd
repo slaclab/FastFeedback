@@ -51,7 +51,7 @@ epicsEnvSet("LOCAL_SETPOINTS", "1")
 
 epicsEnvSet(FAC,"SYS0")
 epicsEnvSet(UNIT,"FB02") 
-epicsEnvSet(EVR_DEV2,"EVR:${FAC}:${UNIT}")
+epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
 epicsEnvSet(VEVR, "vevr4")
 
 # ========================================================
