@@ -12,6 +12,12 @@
 #  Auth: 14-Dec-2015, A. Babbitt      (ababbitt)
 #  Rev:  dd-mmm-yyyy, Reviewer's Name (USERNAME)
 #--------------------------------------------------------------
+#  3-16-2016 - Required new epicsEnvSet Variable found in each vioc's specific st.cmd
+#  Must be set to zero for Longitudinal feedback loops
+#  epicsEnvSet("LOCAL_SETPOINTS", "0")
+#  Must be set to one for all other types of feedback loops
+#  epicsEnvSet("LOCAL_SETPOINTS", "1")
+#  
 #  Added Second Batch of Development Vioc's 
 #  (will run on cpu-sys0-fb02 on production)
 #  vioc-in20-tr01 => vevr0
