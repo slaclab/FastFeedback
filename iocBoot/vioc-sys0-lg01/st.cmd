@@ -42,7 +42,9 @@ epicsEnvSet("LOOP", "LG01")
 epicsEnvSet("CONFIG_NAME", "Longitudinal")
 epicsEnvSet("IOC_TYPE","VIOC")
 epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")
-epicsEnvSet("LOCAL_SETPOINTS", "1")
+#This parameter must be set to 0 for Longitudinal Feedback loops and 1 
+# for all other types of feedback loops
+epicsEnvSet("LOCAL_SETPOINTS", "0")
 
 #=====================================================================
 # Set MACROS for EVRs
