@@ -14,9 +14,11 @@
 FastFeedback-R1-0-10:
    ---Future Planning -----------------------------------------
    * <Indicates planned for this release, but still being actively worked on>
+   Need to finalize clean-up for slow/mix trajectory loops for deployment
    Migrate to new kernel version 
    Need to fix the alarm and some visability PV's still on the displays based on the new PV names (Use the :FB02:)
-   *Fix all the java configration command shell buttons (parameters in input positions 1 and 3 required an update based on PV name change)
+   *Fixed all the java configration command shell buttons (parameters in input positions 1 and 3 required an update based on PV name change)
+   *Added missing screens for LI28:TR01 (changed PV names, java configuration command shell buttons, etc) 
 
 FastFeedback-R1-0-09:
    --- 23-MAR-2016 -----------------------------------------
