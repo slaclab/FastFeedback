@@ -11,6 +11,11 @@
 #==============================================================
 #
 #
+FastFeedback-R1-0-12:
+   * Tested Longitudinal feedback in development (reading/writing) to files
+   * Fixed missing sequences in st.cmd for Longitudinal feedback 
+   * Missing register calls for limitUpdate.st and chirpUpdate.st
+
 FastFeedback-R1-0-11:
    ---Future Planning -----------------------------------------
    * <Indicates planned for this release, but still being actively worked on>

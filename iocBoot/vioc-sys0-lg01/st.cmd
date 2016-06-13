@@ -77,10 +77,18 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # END: Additional Environment variables
 #=====================================================================
 
-
 # ====================================================================
 ## Load common fast feedback st.cmd
 # ====================================================================
 <iocBoot/common/st.cmd
+
+# ====================================================================
+# Sequencer scripts to keep track of the CHIRP control and DL2 limits
+# ====================================================================
+seq(&chirpControl, "IOC=SYS0,LOOP=LG01")
+seq(&chirpUpdate, "IOC=SYS0,LOOP=LG01")
+seq(&limitUpdate, "IOC=SYS0,LOOP=LG01")
+
+seqShow()
 
 #Done  

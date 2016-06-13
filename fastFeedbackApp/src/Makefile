@@ -101,7 +101,7 @@ CC_FILES = Thread.cc EventReceiver.cc EventGenerator.cc PatternManager.cc \
 ## ======================================================================      
 # <name>_registerRecordDeviceDriver.cpp will be created from <name>.dbd
 
-fastFeedback_SRCS += $(CC_FILES) chirpControl.st
+fastFeedback_SRCS += $(CC_FILES) chirpUpdate.st chirpControl.st limitUpdate.st
 fastFeedback_SRCS += fastFeedback_registerRecordDeviceDriver.cpp
 fastFeedback_SRCS_DEFAULT += fastFeedbackMain.cpp
 # ==================================================================================

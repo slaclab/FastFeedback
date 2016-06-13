@@ -16,5 +16,7 @@ device(stringin, INST_IO, devStringinFfConfig, "FfConfig")
 device(bi, INST_IO, devBiFfConfig, "FfConfig")
 device(ai, INST_IO, devAiFfConfig, "FfConfig")
 
-# Chirp Sequence
+# Chirp and limit update Sequence
 registrar(chirpControlRegistrar)
+registrar(chirpUpdateRegistrar)
+registrar(limitUpdateRegistrar)
