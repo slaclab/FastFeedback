@@ -35,9 +35,9 @@ epicsEnvSet("LOCATION","cpu-sys0-fb02")
 # Fast Feedback Application Specific Environment Variables
 #========================================================================
 #System Location:
-epicsEnvSet("LOCA","UND1")
+epicsEnvSet("LOCA","FB03")
 epicsEnvSet("FB", "${LOCA}")
-epicsEnvSet("LOOP", "TR01")
+epicsEnvSet("LOOP", "TR04")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
 epicsEnvSet("IOC_TYPE", "VIOC")
 epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")
