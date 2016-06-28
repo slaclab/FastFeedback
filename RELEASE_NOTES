@@ -13,8 +13,8 @@
 FastFeedback-R1-0-13:
    ---Future Planning -----------------------------------------
    * <Indicates planned for this release, but still being actively worked on>
-   * Revert back to PV Names
-   * Revert back all the java configration command shell buttons (parameters in input positions 1 and 3 required an update based on PV unname change)
+   * Revert back to original PV Names for feedback loops (keep new vioc names)
+   * Remove display/ directory and all edm displays with new names (revert to old names and keep current displays) 
 
 FastFeedback-R1-0-12:
    * Tested Longitudinal feedback in development (reading/writing) to files
