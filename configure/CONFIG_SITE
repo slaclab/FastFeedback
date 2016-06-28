@@ -56,10 +56,10 @@ BOOSTBINDINGS_PACKAGE_VERSION=1.42.0
 LAPACK_PACKAGE_VERSION=3.2.1
 
 #Define the path to the external package for the host architecture
-CPPUNIT=$(PACKAGE_SITE_TOP)/cppunit/$(CPPUNIT_PACKAGE_VERSION)/linux-x86_64
-BOOST=$(PACKAGE_SITE_TOP)/boost/$(BOOST_PACKAGE_VERSION)/linux-x86_64
+CPPUNIT=$(PACKAGE_SITE_TOP)/cppunit/$(CPPUNIT_PACKAGE_VERSION)/rhel6-x86_64
+BOOST=$(PACKAGE_SITE_TOP)/boost/$(BOOST_PACKAGE_VERSION)/rhel6-x86_64
 BOOSTBINDINGS=$(PACKAGE_SITE_TOP)/boost-numeric-bindings/$(BOOSTBINDINGS_PACKAGE_VERSION)
-LAPACK=$(PACKAGE_SITE_TOP)/lapack/$(LAPACK_PACKAGE_VERSION)/linux-x86_64
+LAPACK=$(PACKAGE_SITE_TOP)/lapack/$(LAPACK_PACKAGE_VERSION)/rhel6-x86_64
 
 #=========================================================
 #EVRSharing - Need to define path to EVRMA header files

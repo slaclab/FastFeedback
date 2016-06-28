@@ -22,11 +22,8 @@ FastFeedback-R1-0-12:
    * Missing register calls for limitUpdate.st and chirpUpdate.st
 
 FastFeedback-R1-0-11:
-   ---Future Planning -----------------------------------------
-   * <Indicates planned for this release, but still being actively worked on>
-   *Need to finalize clean-up for slow/mix trajectory loops for deployment
-   *Migrate to new kernel version 
-   *Also includes fixed sequences for Longitudinal feedbacks
+   Migrate to new kernel version (buildroot-2015.02-x86_64) + epics version R3-14-12-4_1-1 
+   Also includes fixed sequences for Longitudinal feedbacks
 
 FastFeedback-R1-0-10:
    Saved tagged version before kernel migration
