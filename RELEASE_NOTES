@@ -10,7 +10,12 @@
 #      
 #==============================================================
 #
-#
+FastFeedback-R1-0-13:
+   ---Future Planning -----------------------------------------
+   * <Indicates planned for this release, but still being actively worked on>
+   * Revert back to PV Names
+   * Revert back all the java configration command shell buttons (parameters in input positions 1 and 3 required an update based on PV unname change)
+
 FastFeedback-R1-0-12:
    * Tested Longitudinal feedback in development (reading/writing) to files
    * Fixed missing sequences in st.cmd for Longitudinal feedback 
@@ -21,8 +26,8 @@ FastFeedback-R1-0-11:
    * <Indicates planned for this release, but still being actively worked on>
    *Need to finalize clean-up for slow/mix trajectory loops for deployment
    *Migrate to new kernel version 
-   *Need to fix the alarm and some visability PV's still on the displays based on the new PV names (Use the :FB02:)
-   
+   *Also includes fixed sequences for Longitudinal feedbacks
+
 FastFeedback-R1-0-10:
    Saved tagged version before kernel migration
    Fixed all the java configration command shell buttons (parameters in input positions 1 and 3 required an update based on PV name change)
