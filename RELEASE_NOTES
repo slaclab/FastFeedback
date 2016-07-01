@@ -20,6 +20,8 @@ FastFeedback-R1-0-12:
    * Tested Longitudinal feedback in development (reading/writing) to files
    * Fixed missing sequences in st.cmd for Longitudinal feedback 
    * Missing register calls for limitUpdate.st and chirpUpdate.st
+   * Addition of iocBoot/common/st-off.cmd, which is used by the
+     $TOOLS/script/switchFF.sh script
 
 FastFeedback-R1-0-11:
    Migrate to new kernel version (buildroot-2015.02-x86_64) + epics version R3-14-12-4_1-1 
