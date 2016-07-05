@@ -36,7 +36,7 @@ epicsEnvSet("LOCATION","cpu-sys0-fb01")
 #========================================================================
 
 #System Location:
-epicsEnvSet("LOCA","LI24")
+epicsEnvSet("LOCA","FB02")
 epicsEnvSet("FB", "${LOCA}")
 epicsEnvSet("LOOP", "TR01")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop1")

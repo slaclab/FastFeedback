@@ -11,10 +11,9 @@
 #==============================================================
 #
 FastFeedback-R1-0-13:
-   ---Future Planning -----------------------------------------
-   * <Indicates planned for this release, but still being actively worked on>
    * Revert back to original PV Names for feedback loops (keep new vioc names)
    * Remove display/ directory and all edm displays with new names (revert to old names and keep current displays) 
+   * on/off scripts for FB02 feedbacks only
 
 FastFeedback-R1-0-12:
    * Tested Longitudinal feedback in development (reading/writing) to files
