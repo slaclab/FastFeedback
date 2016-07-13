@@ -36,27 +36,27 @@ epicsEnvSet("LOCATION","cpu-sys0-fb02")
 #========================================================================
 
 #System Location:
-epicsEnvSet("LOCA","FB04")
-epicsEnvSet("FB", "${LOCA}")
+epicsEnvSet("FB", "FB04")
 epicsEnvSet("LOOP", "LG01")
 epicsEnvSet("CONFIG_NAME", "Longitudinal")
-epicsEnvSet("IOC_TYPE","VIOC")
-epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")
-#This parameter must be set to 0 for Longitudinal Feedback loops and 1 
-# for all other types of feedback loops
-epicsEnvSet("LOCAL_SETPOINTS", "0")
 
 #=====================================================================
-# Set MACROS for EVRs
+# Set MACROS for EVRs & VIOC
 #====================================================================
 # FAC = SYS0 ==> LCLS1
 # FAC = SYS1 ==> FACET
 
-epicsEnvSet(FAC,"SYS0")
-epicsEnvSet(UNIT,"FB02")
+epicsEnvSet("LOCA","SYS0")
+epicsEnvSet(FAC,"${LOCA}")
+epicsEnvSet(UNIT,"LG01")
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
 epicsEnvSet(VEVR, "vevr3")
 
+epicsEnvSet("IOC_TYPE","VIOC")
+epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")
+#This parameter must be set to 0 for Longitudinal Feedback loops and 1 
+# for all other types of feedback loops
+epicsEnvSet("LOCAL_SETPOINTS", "0")
 # ========================================================
 # Support Large Arrays/Waveforms; Number in Bytes
 # Please calculate the size of the largest waveform
