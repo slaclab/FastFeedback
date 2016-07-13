@@ -34,14 +34,14 @@ fastFeedback_registerRecordDeviceDriver(pdbbase)
 # Here we have an VEVR
 eevrmaConfigure(0, "/dev/${VEVR}")
 
-
 # ======= EVR Setup Complete ========================================
+# ======= FCOM  Setup  ========================================
 
-# Initialize FCOM
-epicsEnvSet("FCOM_MC_PREFIX", "239.219.8.0", 1)
+# Initialize FCOM - Provide FCOM parameters in the kernel-modules.cmd 
+# FCOM parameters are different on production versus development
 fcomInit( ${FCOM_MC_PREFIX}, 1000 )
 
-
+# ======= FCOM  Setup Complete  ========================================
 #########################################################################
 #BEGIN: Load the record database
 ######################################################################
