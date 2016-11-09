@@ -49,7 +49,9 @@ fcomInit( ${FCOM_MC_PREFIX}, 1000 )
 # ===================================================================
 # load evr database
 # ===================================================================
-dbLoadRecords("db/EVR-TEMPLATE.db", "EVR=${EVR_DEV1},IOC=${IOC_NAME}") 
+# EVR database cannot be loaded, there will be conflicts with the VME
+# EVR PVs.
+# dbLoadRecords("db/EVR-TEMPLATE.db", "EVR=${EVR_DEV1},IOC=${IOC_NAME}") 
 
 # ===================================================================
 # Load iocAdmin record instances
