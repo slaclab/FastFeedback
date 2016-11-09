@@ -40,22 +40,21 @@ epicsEnvSet("LOCA","FB01")
 epicsEnvSet("FB", "${LOCA}")
 epicsEnvSet("LOOP", "TR01")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
+epicsEnvSet("IOC_TYPE", "VIOC")
+epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")
+epicsEnvSet("LOCAL_SETPOINTS", "1")
 
 #=====================================================================
-# Set MACROS for EVRs & VIOC
+# Set MACROS for EVRs
 #====================================================================
 # FAC = SYS0 ==> LCLS1
 # FAC = SYS1 ==> FACET
 
-epicsEnvSet("LOCA","IN20") 
-epicsEnvSet(FAC,"${LOCA}")
-epicsEnvSet(UNIT,"TR01") 
+epicsEnvSet(FAC,"SYS0")
+epicsEnvSet(UNIT,"FB02") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
 epicsEnvSet(VEVR, "vevr0")
 
-epicsEnvSet("IOC_TYPE", "VIOC")
-epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")
-epicsEnvSet("LOCAL_SETPOINTS", "1")
 # ========================================================
 # Support Large Arrays/Waveforms; Number in Bytes
 # Please calculate the size of the largest waveform
@@ -81,6 +80,6 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # ====================================================================
 ## Load common fast feedback st.cmd
 # ====================================================================
-<iocBoot/common/st.cmd
+<iocBoot/common/st-off.cmd
 
 #Done

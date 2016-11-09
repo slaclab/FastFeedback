@@ -1,7 +1,7 @@
-#
-# st.cmd file for Fast Feedback Controller IOC vioc-in20-tr01
-# Note: contains parameters specific to vioc-in20-tr01 and
-#       and calls generic st.cmd common to all feedback loops
+
+# st.cmd file for Fast Feedback Controller IOC vioc-in20-tr02
+# Note: contains parameters specific to vioc-in20-tr02 and
+#       and call generic st.cmd common to all feedback loops
 # author: L. Piccoli, A. Babbitt
 ##########################################################
 
@@ -19,7 +19,7 @@ cd ${TOP}
 #=======================================================================
 
 # tag messages with IOC name
-# How to escape the "vioc-in20-tr01" as the PERL program
+# How to escape the "vioc-in20-tr02" as the PERL program
 # will try to replace it.
 # So, uncomment the following and remove the backslash
 
@@ -39,23 +39,22 @@ epicsEnvSet("LOCATION","cpu-sys0-fb02")
 epicsEnvSet("LOCA","FB01")
 epicsEnvSet("FB", "${LOCA}")
 epicsEnvSet("LOOP", "TR01")
-epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
+epicsEnvSet("CONFIG_NAME", "LaunchLoop2")
+epicsEnvSet("IOC_TYPE", "VIOC")
+epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")
+epicsEnvSet("LOCAL_SETPOINTS", "1")
 
 #=====================================================================
-# Set MACROS for EVRs & VIOC
+# Set MACROS for EVRs
 #====================================================================
 # FAC = SYS0 ==> LCLS1
 # FAC = SYS1 ==> FACET
 
-epicsEnvSet("LOCA","IN20") 
-epicsEnvSet(FAC,"${LOCA}")
-epicsEnvSet(UNIT,"TR01") 
+epicsEnvSet(FAC,"SYS0")
+epicsEnvSet(UNIT,"FB02") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
-epicsEnvSet(VEVR, "vevr0")
+epicsEnvSet(VEVR, "vevr1")
 
-epicsEnvSet("IOC_TYPE", "VIOC")
-epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")
-epicsEnvSet("LOCAL_SETPOINTS", "1")
 # ========================================================
 # Support Large Arrays/Waveforms; Number in Bytes
 # Please calculate the size of the largest waveform
