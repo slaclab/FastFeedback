@@ -1,7 +1,7 @@
 #
-# st.cmd file for Fast Feedback Controller IOC vioc-sys0-gn01
-# Note: contains parameters specific to vioc-sys0-gn01 and
-#       and calls generic st.cmd common to all feedback loops
+# st.cmd file for Fast Feedback Controller IOC
+# Note: contains parameters specific to vioc-und1-tr01 and
+#       and calls generic st.cmd common to all feedback loops 
 # author: L. Piccoli, A. Babbitt
 ##########################################################
 
@@ -19,8 +19,8 @@ cd ${TOP}
 #=======================================================================
 
 # tag messages with IOC name
-# How to escape the "vioc-sys0-gn01" as the PERL program
-# will try to replace it.
+# How to escape the "vioc-und1-tr01" as the PERL program
+# will try to repplace it.
 # So, uncomment the following and remove the backslash
 
 epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
@@ -34,25 +34,24 @@ epicsEnvSet("LOCATION","cpu-sys0-fb02")
 #========================================================================
 # Fast Feedback Application Specific Environment Variables
 #========================================================================
-
 #System Location:
-epicsEnvSet("FB", "FB02")
-epicsEnvSet("LOOP", "GN01")
-epicsEnvSet("CONFIG_NAME", "General1")
+epicsEnvSet("FB", "FB03")
+epicsEnvSet("LOOP", "TR04")
+epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
 
-#=====================================================================
+#===================================================================
 # Set MACROS for EVRs & VIOC
-#====================================================================
+#===================================================================
 # FAC = SYS0 ==> LCLS1
 # FAC = SYS1 ==> FACET
 
-epicsEnvSet("LOCA","SYS0")
+epicsEnvSet("LOCA","UND1")
 epicsEnvSet(FAC,"${LOCA}")
-epicsEnvSet(UNIT,"GN01") 
+epicsEnvSet(UNIT,"TR01") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
-epicsEnvSet(VEVR, "vevr2")
+epicsEnvSet(VEVR, "vevr4")
 
-epicsEnvSet("IOC_TYPE", "VIOC") 
+epicsEnvSet("IOC_TYPE", "VIOC")
 epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")
 epicsEnvSet("LOCAL_SETPOINTS", "1")
 # ========================================================
@@ -68,18 +67,17 @@ epicsEnvSet("LOCAL_SETPOINTS", "1")
 epicsEnvSet("EPICS_CA_MAX_ARRAY_BYTES","32000") #Support Large Arrays/Waveforms
 epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 
-# ===================================================================
+# =================================================================
 # User defined environment vars
 # 
-# ===================================================================
+# =================================================================
 
 # END: Additional Environment variables
-# ===================================================================
-
+#=====================================================================
 
 # ====================================================================
 ## Load common fast feedback st.cmd
 # ====================================================================
-<iocBoot/common/st-off.cmd
+<iocBoot/common/st.cmd
 
-#Done
+#Done  

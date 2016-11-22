@@ -50,7 +50,7 @@ epicsEnvSet("LOCA","LI21")
 epicsEnvSet(FAC,"${LOCA}")
 epicsEnvSet(UNIT,"TR01") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
-epicsEnvSet(VEVR, "vevr1")
+epicsEnvSet(VEVR, "vevr01")
 
 epicsEnvSet("IOC_TYPE", "VIOC")
 epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")

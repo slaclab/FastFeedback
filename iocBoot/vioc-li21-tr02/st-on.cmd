@@ -36,25 +36,25 @@ epicsEnvSet("LOCATION","cpu-sys0-fb01")
 #========================================================================
 
 #System Location:
-epicsEnvSet("LOCA","FB01")
-epicsEnvSet("FB", "${LOCA}")
+epicsEnvSet("FB", "FB01")
 epicsEnvSet("LOOP", "TR04")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop2")
-epicsEnvSet("IOC_TYPE", "VIOC")
-epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${LOOP}")
-epicsEnvSet("LOCAL_SETPOINTS", "1")
 
 #=====================================================================
-# Set MACROS for EVRs
+# Set MACROS for EVRs & VIOC
 #====================================================================
 # FAC = SYS0 ==> LCLS1
 # FAC = SYS1 ==> FACET
 
-epicsEnvSet(FAC,"SYS0")
-epicsEnvSet(UNIT,"FB01") 
+epicsEnvSet("LOCA","LI21")
+epicsEnvSet(FAC,"${LOCA}")
+epicsEnvSet(UNIT,"TR02") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
-epicsEnvSet(VEVR, "vevr2")
+epicsEnvSet(VEVR, "vevr02")
 
+epicsEnvSet("IOC_TYPE", "VIOC")
+epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")
+epicsEnvSet("LOCAL_SETPOINTS", "1")
 # ========================================================
 # Support Large Arrays/Waveforms; Number in Bytes
 # Please calculate the size of the largest waveform
