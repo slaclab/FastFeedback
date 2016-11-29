@@ -10,6 +10,10 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-14:
+   Updated st.cmd to take into account EVR-related, unique PV names
+   Updated st-on.cmd and st-off.cmd for same reason
+   Added support for viocs to ntwk_bsy0_main.edl screen
 FastFeedback-R1-0-13:
 
    ---Future Planning -----------------------------------------
