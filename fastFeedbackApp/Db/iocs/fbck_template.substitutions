@@ -42,12 +42,7 @@ file fbckIoc.db {
 #
                    
                     
-#include energy and chirp readback pvs for L2 and L3
-file ../../../../db/iocEnergyChirp.db {
-    pattern { DEV,        RF,      PHASE_LNK,        AMPL_LNK,        DRVH}
-            {    FBCK:LI22:1,   L2,  ACCL:LI22:1:PDES,  ACCL:LI22:1:ADES,   6000}
-            {    FBCK:LI25:1,   L3,  ACCL:LI25:1:PDES,  ACCL:LI25:1:ADES,  16000}
-}
+
 
 
 

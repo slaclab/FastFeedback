@@ -8,8 +8,8 @@
 ## Register all support components
 ######################################################################
 #=======================================================================
-dbLoadDatabase("dbd/fastFeedback.dbd")
-fastFeedback_registerRecordDeviceDriver(pdbbase)
+#dbLoadDatabase("dbd/fastFeedback.dbd")
+#fastFeedback_registerRecordDeviceDriver(pdbbase)
     
 ######################################################################
 #======================================================================    

@@ -13,11 +13,13 @@
 FastFeedback-R1-0-14:
    Updated st.cmd to take into account EVR-related, unique PV names
    Updated st-on.cmd and st-off.cmd for same reason
+   Modified fbck_template.substitutions to remove LG PVs from common file
+      Place generation of those PVs in vioc-sys0-lg01 startup script
    Added support for viocs to ntwk_bsy0_main.edl screen
 FastFeedback-R1-0-13:
 
    ---Future Planning -----------------------------------------
-   * <Indicates planned for this release, but still being actively worked on>
+   * <Indicates planfbck_template.substitutionsned for this release, but still being actively worked on>
    Moved FCOM parameter configuration out of common/st.cmd into kernel-modules.cmd (epics application should be environment agnostic)
    Revert back to original PV Names for feedback loops (keep new vioc names)
    Updated EVR-related PV names to make them unique based on vioc (to avoid PV duplication)
