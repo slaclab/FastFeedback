@@ -82,6 +82,6 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # ====================================================================
 dbLoadDatabase("dbd/fastFeedback.dbd")
 fastFeedback_registerRecordDeviceDriver(pdbbase)
-<iocBoot/common/st.cmd
+<iocBoot/common/st-off.cmd
 
 #Done
