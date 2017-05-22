@@ -1,6 +1,6 @@
 #
-# st.cmd file for Fast Feedback Controller IOC vioc-li21-tr02
-# Note: contains parameters specific to vioc-li21-tr02 and
+# st.cmd file for Fast Feedback Controller IOC
+# Note: contains parameters specific to vioc-bsy0-tr01 and
 #       and calls generic st.cmd common to all feedback loops
 # author: L. Piccoli, A. Babbitt
 ##########################################################
@@ -19,7 +19,7 @@ cd ${TOP}
 #=======================================================================
 
 # tag messages with IOC name
-# How to escape the "vioc-li21-tr02" as the PERL program
+# How to escape the "vioc-bsy0-tr02" as the PERL program
 # will try to replace it.
 # So, uncomment the following and remove the backslash
 
@@ -36,9 +36,9 @@ epicsEnvSet("LOCATION","cpu-sys0-fb01")
 #========================================================================
 
 #System Location:
-epicsEnvSet("FB", "FB01")
-epicsEnvSet("LOOP", "TR04")
-epicsEnvSet("CONFIG_NAME", "LaunchLoop2")
+epicsEnvSet("FB", "FB05")
+epicsEnvSet("LOOP", "TR01")
+epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
 
 #=====================================================================
 # Set MACROS for EVRs & VIOC
@@ -46,11 +46,11 @@ epicsEnvSet("CONFIG_NAME", "LaunchLoop2")
 # FAC = SYS0 ==> LCLS1
 # FAC = SYS1 ==> FACET
 
-epicsEnvSet("LOCA","LI21")
+epicsEnvSet("LOCA","BSY0") 
 epicsEnvSet(FAC,"${LOCA}")
-epicsEnvSet(UNIT,"TR02") 
+epicsEnvSet(UNIT,"TR01") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
-epicsEnvSet(VEVR, "vevr02")
+epicsEnvSet(VEVR, "vevr6")
 
 epicsEnvSet("IOC_TYPE", "VIOC")
 epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")

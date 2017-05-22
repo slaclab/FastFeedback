@@ -10,6 +10,9 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-15 22-May-2017  Jeremy Mock (JMOCK)
+  Add vioc-bsy0-tr02 to accomodate reconfiguration of BSY
+
 FastFeedback-R1-0-14:
    Updated st.cmd to take into account EVR-related, unique PV names
    Updated st-on.cmd and st-off.cmd for same reason
