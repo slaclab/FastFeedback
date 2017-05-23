@@ -37,6 +37,8 @@ eevrmaConfigure(0, "/dev/${VEVR}")
 # ======= EVR Setup Complete ========================================
 # ======= FCOM  Setup  ========================================
 
+epicsEnvSet("FCOM_MC_PREFIX","239.219.8.0")
+
 # Initialize FCOM - Provide FCOM parameters in the kernel-modules.cmd 
 # FCOM parameters are different on production versus development
 fcomInit( ${FCOM_MC_PREFIX}, 1000 )
