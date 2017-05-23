@@ -25,7 +25,7 @@ include $(TOP)/configure/CONFIG
 # * DEBUG_CA_FLAG
 #==============================================================================
 # Flags for release
-USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG -DNO_FBCK_PV
+USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG
 
 # Flags for testing 120Hz Undulator Launch and States on FCOM
 #USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG -DNO_FBCK_PV
