@@ -49,7 +49,7 @@ epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
 
 epicsEnvSet("LOCA","BSY0") 
 epicsEnvSet(FAC,"${LOCA}")
-epicsEnvSet(UNIT,"TR01") 
+epicsEnvSet(UNIT,"TR02") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
 epicsEnvSet(VEVR, "vevr6")
 
