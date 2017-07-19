@@ -29,17 +29,17 @@ program limitUpdate
 
 double l3AmpNofs;
 /*assign l3AmpNofs to "$(IOC):$(LC):{LOOP}:L3AMP_NOFS";*/
-assign l3AmpNofs to "ACCL:LI25:1:A_NOFS_";
+assign l3AmpNofs to "ACCL:LI25:1:A_NOFS";
 monitor l3AmpNofs;
 
 double s29Asum;
 /*assign s29Asum to "$(IOC):$(LC):{LOOP}:S29_ASUM";*/
-assign s29Asum to "ACCL:LI29:0:A_SUM_";
+assign s29Asum to "ACCL:LI29:0:A_SUM";
 monitor s29Asum;
 
 double s30Asum;
 /*assign s30Asum to "$(IOC):$(LC):{LOOP}:S30_ASUM";*/
-assign s30Asum to "ACCL:LI30:0:A_SUM_";
+assign s30Asum to "ACCL:LI30:0:A_SUM";
 monitor s30Asum;
 
 double loloLimit;
@@ -51,11 +51,11 @@ assign hihiLimit to "FBCK:{IOC}:{LOOP}:A6HIHI";
 ss limitUpdate {
   state INIT {
     when() {
-      printf("*** INIT limitUpdate ***\n");
+      errlogPrintf("*** INIT limitUpdate ***\n");
       pvGet(l3AmpNofs, ASYNC);
       pvGet(s29Asum, ASYNC);
       pvGet(s30Asum, ASYNC);
-      /*      printf("Starting limitUpdate sequencer\n");*/
+      errlogPrintf("Starting limitUpdate sequencer\n");
     } state LIMIT_UPDATE
   }
 
@@ -69,18 +69,17 @@ ss limitUpdate {
     when(delay(1.)) {
       /* LOLO = A-(B+C)-300 */
       /* HIHI = A+(B+C)+500 */
-
-      loloLimit = l3AmpNofs - (s29Asum + s30Asum) - 500;
+/* These limits are for production */
+      loloLimit = l3AmpNofs - (s29Asum + s30Asum) - 500; 
       hihiLimit = l3AmpNofs + (s29Asum + s30Asum) + 1000;
 
 /* These limits are for testing on DEV only */
-/*       loloLimit = l3AmpNofs - (s29Asum + s30Asum) - 50000; */
+/*       loloLimit = l3AmpNofs - (s29Asum + s30Asum) - 50000;  */
 /*       hihiLimit = l3AmpNofs + (s29Asum + s30Asum) + 100000; */
 
       pvPut(loloLimit, SYNC);
       pvPut(hihiLimit, SYNC);
-
-      /*      printf("LIMIT_UPDATE: %f ... %f\n", loloLimit, hihiLimit);*/
+//      errlogPrintf("LIMIT_UPDATE: %f ... %f\n", loloLimit, hihiLimit);
     } state LIMIT_UPDATE
 
     exit {

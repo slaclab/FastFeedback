@@ -89,9 +89,9 @@ dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI25:1,RF=L3,PHASE_LNK=$ACCL:LI25
 # ====================================================================
 # Sequencer scripts to keep track of the CHIRP control and DL2 limits
 # ====================================================================
-seq(&chirpControl, "IOC=SYS0,LOOP=LG01")
-seq(&chirpUpdate, "IOC=SYS0,LOOP=LG01")
-seq(&limitUpdate, "IOC=SYS0,LOOP=LG01")
+seq(&chirpControl, "IOC=FB04,LOOP=LG01")
+seq(&chirpUpdate, "IOC=FB04,LOOP=LG01")
+seq(&limitUpdate, "IOC=FB04,LOOP=LG01")
 
 seqShow()
 

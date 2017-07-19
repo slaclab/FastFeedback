@@ -87,9 +87,9 @@ fastFeedback_registerRecordDeviceDriver(pdbbase)
 # ====================================================================
 # Sequencer scripts to keep track of the CHIRP control and DL2 limits
 # ====================================================================
-seq(&chirpControl, "IOC=SYS0,LOOP=LG01")
-seq(&chirpUpdate, "IOC=SYS0,LOOP=LG01")
-seq(&limitUpdate, "IOC=SYS0,LOOP=LG01")
+#seq(&chirpControl, "IOC=SYS0,LOOP=LG01")
+#seq(&chirpUpdate, "IOC=SYS0,LOOP=LG01")
+#seq(&limitUpdate, "IOC=SYS0,LOOP=LG01")
 
 seqShow()
 
