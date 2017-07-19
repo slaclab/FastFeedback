@@ -10,6 +10,13 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-16 19-Jul-2017  Jeremy Mock (JMOCK)
+  Fix vioc-sys0-lg01/st.cmd invocation of 3 state functions:
+      Passing the the wrong macros causing the sequences to run incorrectly
+  Fix common/st.cmd to include a macro "LOCA_NAME" which was needed to run
+      LoopConfiguration.cc correctly - causing seg faults in vioc-und1-tr02
+  Change to seq version R2.2.4-1.0 which dumps any issues while running
+
 FastFeedback-R1-0-15 22-May-2017  Jeremy Mock (JMOCK)
   Add vioc-bsy0-tr02 to accomodate reconfiguration of BSY
 
