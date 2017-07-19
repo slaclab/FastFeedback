@@ -36,7 +36,10 @@ eevrmaConfigure(0, "/dev/${VEVR}")
 
 
 # ======= EVR Setup Complete ========================================
-
+# Each feedback needs the LOCA_NAME macro for LoopConfiguration.cc
+epicsEnvSet("LOCA_NAME","${FB}")
+epicsEnvSet("LOCA2_NAME", "${FB}", 1)
+#
 # Initialize FCOM
 epicsEnvSet("FCOM_MC_PREFIX", "239.219.8.0", 1)
 fcomInit( ${FCOM_MC_PREFIX}, 1000 )
