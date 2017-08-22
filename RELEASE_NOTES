@@ -10,6 +10,9 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-17 22-Aug-2017  Jeremy Mock (JMOCK)
+  Fix vioc-sys0-lgo1/st-on.cmd broken link in PHASE_LNK
+
 FastFeedback-R1-0-16 19-Jul-2017  Jeremy Mock (JMOCK)
   Fix vioc-sys0-lg01/st.cmd invocation of 3 state functions:
       Passing the the wrong macros causing the sequences to run incorrectly
