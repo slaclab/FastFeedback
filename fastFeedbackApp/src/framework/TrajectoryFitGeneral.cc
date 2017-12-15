@@ -470,9 +470,7 @@ int TrajectoryFitGeneral::updateActuators(Vector& actuatorDelta) throw (Exceptio
     // Fill in the current time and pulseId
     epicsTimeStamp timestamp;
     epicsTimeGetCurrent(&timestamp);
-#ifdef RTEMS
     evrTimePutPulseID(&timestamp, _loopConfiguration->_pulseIdPv.getValue());
-#endif
 
     for (ActuatorSet::iterator it = _actuators->begin();
             it != _actuators->end(); ++it, ++i) {
@@ -515,9 +513,7 @@ int TrajectoryFitGeneral::updateStates(Vector &states) throw (Exception) {
     // Fill in the current time and pulseId
     epicsTimeStamp timestamp;
     epicsTimeGetCurrent(&timestamp);
-#ifdef RTEMS
     evrTimePutPulseID(&timestamp, _loopConfiguration->_pulseIdPv.getValue());
-#endif
 
     Vector::iterator stateIt = states.begin();
     for (StateSet::iterator it = _states->begin();

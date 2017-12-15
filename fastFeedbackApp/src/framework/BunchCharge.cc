@@ -336,9 +336,7 @@ void BunchCharge::updateActuator(double newValue) {
     // Fill in the current time and pulseId
     epicsTimeStamp timestamp;
     epicsTimeGetCurrent(&timestamp);
-#ifdef RTEMS
     evrTimePutPulseID(&timestamp, _loopConfiguration->_pulseIdPv.getValue());
-#endif
 
     // Change the actuator value only if MODE PV is ENABLE (true), otherwise set to
     // same previous value
@@ -356,9 +354,7 @@ void BunchCharge::updateState(double newValue) {
     // Fill in the current time and pulseId
     epicsTimeStamp timestamp;
     epicsTimeGetCurrent(&timestamp);
-#ifdef RTEMS
     evrTimePutPulseID(&timestamp, _loopConfiguration->_pulseIdPv.getValue());
-#endif
 
     if (_s1->set(newValue, timestamp) != 0) {
       throw Exception(exceptionMessage, Exception::STATE_LIMIT);

@@ -307,9 +307,7 @@ void LongitudinalChirp::resetActuators() {
   // Fill in the current time and pulseId
   epicsTimeStamp timestamp;
   epicsTimeGetCurrent(&timestamp);
-#ifdef RTEMS
   evrTimePutPulseID(&timestamp, _loopConfiguration->_pulseIdPv.getValue());
-#endif
 
   double bc2Amplitude = 0;
   double bc2Phase = 0;
@@ -370,9 +368,7 @@ int LongitudinalChirp::calculateInitialStates() {
   // Fill in the current time and pulseId
   epicsTimeStamp timestamp;
   epicsTimeGetCurrent(&timestamp);
-#ifdef RTEMS
   evrTimePutPulseID(&timestamp, _loopConfiguration->_pulseIdPv.getValue());
-#endif
 
   // DL - Must make sure the initial actiator setting is valid, so read
   // the latest from its reference. That is done for all actuators.
@@ -452,9 +448,7 @@ int LongitudinalChirp::updateActuators() throw (Exception) {
   // Fill in the current time and pulseId
   epicsTimeStamp timestamp;
   epicsTimeGetCurrent(&timestamp);
-#ifdef RTEMS
   evrTimePutPulseID(&timestamp, _loopConfiguration->_pulseIdPv.getValue());
-#endif
 
   // Update actuators
   bool actuatorLimit = false;

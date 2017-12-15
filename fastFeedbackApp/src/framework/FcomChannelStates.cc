@@ -19,6 +19,7 @@
 #include "CaChannel.h"
 #include "Log.h"
 #include "Exception.h"
+#include "evrTime.h"
 
 USING_FF_NAMESPACE
 
@@ -91,7 +92,6 @@ int FcomChannelStates::write(float value, int stateIndex) {
     if (stateIndex < 1 || stateIndex > MAX_STATES) {
         return -1;
     }
-
     _blobData[stateIndex - 1] = value;
 
     return 0;
@@ -122,6 +122,7 @@ int FcomChannelStates::write() {
  * @author L.Piccoli
  */
 int FcomChannelStates::write(epicsTimeStamp timestamp) {
+    
     // Code common for Fcom channel instances
     _blob.fc_vers = FCOM_PROTO_VERSION;
     _blob.fc_tsHi = timestamp.secPastEpoch;
@@ -135,7 +136,6 @@ int FcomChannelStates::write(epicsTimeStamp timestamp) {
     // Code for this specific channel
     _blob.fc_idnt = _id;
     _blob.fc_flt = _blobData;
-
     int status = fcomPutBlob(&_blob);
     if (status != 0) {
         Log::getInstance() << "ERROR: " << fcomStrerror(status) << " "

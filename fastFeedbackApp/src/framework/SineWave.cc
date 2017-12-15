@@ -210,9 +210,7 @@ int SineWave::calculateMode4(LoopConfiguration &configuration,
 
         // Fill in the current time and pulseId
         epicsTimeGetCurrent(&timestamp);
-#ifdef RTEMS
         evrTimePutPulseID(&timestamp, _loopConfiguration->_pulseIdPv.getValue());
-#endif
 
         ActuatorDevice *actuator = (*actuatorIt);
         actuator->set(value, timestamp);

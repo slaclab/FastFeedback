@@ -705,7 +705,7 @@ int Loop::setDevices(bool skip) {
 
     // Check if PulseId is current (RTEMS only)
     ActuatorSet::iterator actIt;
-#ifdef RTEMS
+//#ifdef RTEMS
     bool pulseMismatch = false;
     for (actIt = _actuators.begin();
             actIt != _actuators.end(); ++actIt) {
@@ -727,7 +727,7 @@ int Loop::setDevices(bool skip) {
         send = false;
         _actuatorMismatchCount++;
     }
-#endif
+//#endif
 
     epicsTimeStamp timestamp;
     epicsTimeGetCurrent(&timestamp);
@@ -770,9 +770,7 @@ int Loop::setDevices(bool skip) {
     stateIt = _states.begin();
 
     epicsTimeGetCurrent(&timestamp);
-#ifdef RTEMS
     evrTimePutPulseID(&timestamp, _configuration->_pulseIdPv.getValue());
-#endif
     (*stateIt)->writeFcom(timestamp);
 
     // If actuators were set, then clear stale status message (after 5 seconds)

@@ -89,9 +89,7 @@ void Algorithm::setActuatorsReference() {
   // Fill in the current time and pulseId
   epicsTimeStamp timestamp;
   epicsTimeGetCurrent(&timestamp);
-#ifdef RTEMS
   evrTimePutPulseID(&timestamp, _loopConfiguration->_pulseIdPv.getValue());
-#endif
 
     ActuatorSet::iterator it;
     bool setActuatorWithNoBeam = true;

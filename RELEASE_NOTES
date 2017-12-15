@@ -10,6 +10,17 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-18 22-Aug-2017  Jeremy Mock (JMOCK)
+  Fix fastFeedBackApp/src/framework/Loop.cc (and many other places)
+    The function call to "evrTimePutPulseID" was not applied in all
+    cases for linux builds (only applied with #ifdef for RTEMS builds).
+    When the code was written, linux support for evr was not available,
+    so when running on linux, the pulse ID was not applied to the
+    end of the timestamp.  The BLD IOC was checking for the pulse ID, not
+    finding the correct one, and rejecting the data from the FBCK:FB05:TR05
+    (fast Undulator).  This #ifdef condition has been removed from everywhere
+    it appeared. 
+
 FastFeedback-R1-0-17 22-Aug-2017  Jeremy Mock (JMOCK)
   Fix vioc-sys0-lgo1/st-on.cmd broken link in PHASE_LNK
 

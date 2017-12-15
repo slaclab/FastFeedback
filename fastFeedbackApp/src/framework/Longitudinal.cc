@@ -1755,9 +1755,7 @@ int Longitudinal::updateActuators() throw (Exception) {
     // Fill in the current time and pulseId
     epicsTimeStamp timestamp;
     epicsTimeGetCurrent(&timestamp);
-#ifdef RTEMS
     evrTimePutPulseID(&timestamp, _loopConfiguration->_pulseIdPv.getValue());
-#endif
 
     // Update actuators
     bool actuatorLimit = false;
@@ -1864,9 +1862,7 @@ void Longitudinal::setActuatorsReference() {
   // Fill in the current time and pulseId
   epicsTimeStamp timestamp;
   epicsTimeGetCurrent(&timestamp);
-#ifdef RTEMS
   evrTimePutPulseID(&timestamp, _loopConfiguration->_pulseIdPv.getValue());
-#endif
 
   bool setActuatorWithNoBeam = true;
   StateSet::iterator sIt = _states->begin();

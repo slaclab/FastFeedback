@@ -374,7 +374,7 @@ int LoopConfiguration::configure() {
         statesChannelName += ":STATES";
         _statesFcomChannel = new FcomChannelStates(CommunicationChannel::WRITE_ONLY,
 						   statesChannelName);
-	std::cout<< "Created _statesFcomChannel" << std::endl;
+	std::cout<< "Created _statesFcomChannel " << statesChannelName << std::endl;
       } catch (Exception &e) {
 	_logger << "ERROR: Failed to create FcomChannel for states ("
 		<< e.what() << ")" << Log::cout;
