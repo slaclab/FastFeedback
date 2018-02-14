@@ -1772,6 +1772,7 @@ int Longitudinal::updateActuators() throw (Exception) {
             if (_loopConfiguration->_mode == true) {
                 value -= _delta[i];
             }
+      value += (*stateIt)->getOffset();
 	    values[i] = value;
 	    if (_loopConfiguration->_mode == true) { 
 	      if (actuator->set(value, timestamp) != 0) {

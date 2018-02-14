@@ -7,9 +7,15 @@
 #
 #  Auth: 19-May-2015, L. Piccoli         (lpiccoli)
 #        18-Nov-2015, A. Babbitt         (ababbitt)
+#               2017, J. Mock            (jmock)
 #      
 #==============================================================
 #
+FastFeedback-R1-0-19 13-Feb-2018  Jeremy Mock (JMOCK)
+  Change Longitudinal::updateActuator() so that the offset PV is
+  directly applied to the actuator value sent on fcom.  This will
+  allow users to put in offsets for different patterns.
+
 FastFeedback-R1-0-18 22-Aug-2017  Jeremy Mock (JMOCK)
   Fix fastFeedBackApp/src/framework/Loop.cc (and many other places)
     The function call to "evrTimePutPulseID" was not applied in all
