@@ -1,0 +1,26 @@
+#==============================================================================
+#
+# Abs:  Template for feedback settled status
+#
+# Name: fbckSettled.substitutions
+#       
+#
+# Note: Must follow the LCLS naming conventions.
+#
+#
+#==============================================================================
+
+
+file fbckSettled.template {
+        pattern { LOOP, NUM }
+                { $(LP), 1  }
+                { $(LP), 2  }
+                { $(LP), 3  }
+                { $(LP), 4  }
+                { $(LP), 5  }
+                { $(LP), 6  }
+                { $(LP), 7  }
+                { $(LP), 8  }
+                { $(LP), 9  }
+                { $(LP), 10 }
+}

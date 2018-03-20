@@ -1,4 +1,4 @@
-#
+#!iocSpecificRelease/bin/linuxRT_glibc-x86_64/fastFeedback
 # st.cmd file for Fast Feedback Controller IOC
 # Note: contains parameters specific to vioc-bsy0-tr01 and
 #       and calls generic st.cmd common to all feedback loops
@@ -82,6 +82,6 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # ====================================================================
 dbLoadDatabase("dbd/fastFeedback.dbd")
 fastFeedback_registerRecordDeviceDriver(pdbbase)
-<iocBoot/common/st-off.cmd
+<iocBoot/common/st.cmd
 
 #Done

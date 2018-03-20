@@ -21,6 +21,7 @@ DB += fbckConfig.db
 DB += fbckStatus.db
 DB += fbckIocConfig.db
 DB += fbckIocStatus.db
+DB += fbckSettled.db
 
 # Loop substitutions records per loop
 DB += fbckLoop.db
