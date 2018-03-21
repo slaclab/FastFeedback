@@ -56,7 +56,7 @@ record(ai, "$(LOOP):S$(NUM):DBSTPNT") {
 # Compares current running average to deadband to determine SETTLED or NOT_SETTLED
 # VAL = 1 if SETTLED, 0 if NOT_SETTLED
 record(calc, "$(LOOP):S$(NUM):STL") {
-  field(DESC, "Compares running average to deadband setpoint")
+  field(DESC, "Compares avg to setpoint")
   field(CALC, "A > B ? 1:0")
   field(INPA, "$(LOOP):S$(NUM):DBSTPNT")
   field(INPB, "$(LOOP):S$(NUM):DAVG")
