@@ -1,4 +1,4 @@
-#!../../bin/linuxRT_glibc-x86_64/fastFeedback
+#!../../bin/linux-x86_64/fastFeedback
 
 ## You may have to change fastFeedback to something else
 ## everywhere it appears in this file
@@ -19,7 +19,7 @@ cd ${TOP}
 # will try to replace it.
 # So, uncomment the following and remove the backslash
 
-epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
+epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${IOC}")
 
 #======================================================================
 ## iocAdmin environment variables
@@ -51,7 +51,7 @@ epicsEnvSet("LOCAL_SETPOINTS", "1")
 # ========================================================
 
 epicsEnvSet("EPICS_CA_MAX_ARRAY_BYTES","32000") #Support Large Arrays/Waveforms
-epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
+epicsEnvSet("IOCSH_PS1","epics@${IOC}>")
 
 # ===================================================================
 # User defined environment vars
@@ -128,12 +128,12 @@ save_restoreSet_DatedBackupFiles(0)
 #======================================================================
 #Where to find the list of PVs to save
 #======================================================================
-set_requestfile_path("/data/${VIOC}/autosave-req")
+set_requestfile_path("/data/${IOC}/autosave-req")
 
 #======================================================================
 #Where to write the save files that will be used to restore
 #======================================================================
-set_savefile_path("/data/${VIOC}/autosave")
+set_savefile_path("/data/${IOC}/autosave")
 
 # ==========================================================
 # Prefix that is use to update save/restore status database
@@ -192,9 +192,9 @@ iocInit()
 
 #########################################################################
 ## Start saving datasets
-cd("/data/${VIOC}/autosave-req")
+cd("/data/${IOC}/autosave-req")
 
-cd("/data/${VIOC}/autosave-req")
+cd("/data/${IOC}/autosave-req")
 iocshCmd("makeAutosaveFiles")
  
 # Start the save_restore task
