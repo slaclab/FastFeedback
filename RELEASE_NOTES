@@ -12,9 +12,14 @@
 #==============================================================
 #
 
+FastFeedback-R1-0-20 11-Apr-2018  James Luong (ajluong)
+  Revision of sioc-sys0-fb01 for convergence functionality.
+  CATER: 138128
+
 FastFeedback-R1-0-20 20-Mar-2018  James Luong (ajluong)
   Add sioc-sys0-fb01 for convergence functionality.
   CATER: 138128
+  *DO NOT USE THIS TAG
 
 FastFeedback-R1-0-19 13-Feb-2018  Jeremy Mock (JMOCK)
   Change Longitudinal::updateActuator() so that the offset PV is
