@@ -11,6 +11,9 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-22 24-Apr-2018  James Luong (ajluong)
+  Revision of FastFeedback-R1-0-21.
+  Modify st.cmd for sioc-sys0-fb01
 
 FastFeedback-R1-0-21 11-Apr-2018  James Luong (ajluong)
   Revision of sioc-sys0-fb01 for convergence functionality.

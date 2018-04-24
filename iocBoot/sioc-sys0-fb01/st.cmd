@@ -128,12 +128,12 @@ save_restoreSet_DatedBackupFiles(0)
 #======================================================================
 #Where to find the list of PVs to save
 #======================================================================
-set_requestfile_path("/data/${IOC}/autosave-req")
+set_requestfile_path("${IOC_DATA}/${IOC}/autosave-req")
 
 #======================================================================
 #Where to write the save files that will be used to restore
 #======================================================================
-set_savefile_path("/data/${IOC}/autosave")
+set_savefile_path("${IOC_DATA}/${IOC}/autosave")
 
 # ==========================================================
 # Prefix that is use to update save/restore status database
@@ -192,9 +192,7 @@ iocInit()
 
 #########################################################################
 ## Start saving datasets
-cd("/data/${IOC}/autosave-req")
-
-cd("/data/${IOC}/autosave-req")
+cd("${IOC_DATA}/${IOC}/autosave-req")
 iocshCmd("makeAutosaveFiles")
  
 # Start the save_restore task
