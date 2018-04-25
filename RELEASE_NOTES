@@ -11,6 +11,9 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-23 24-Apr-2018  Jeremy Mock (jmock)
+  Modify feedback convergence PVs to comply with naming standards
+
 FastFeedback-R1-0-22 24-Apr-2018  James Luong (ajluong)
   Revision of FastFeedback-R1-0-21.
   Modify st.cmd for sioc-sys0-fb01

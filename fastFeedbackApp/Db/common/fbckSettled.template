@@ -14,39 +14,39 @@
 #
 #==============================================================================
 # Calculates difference between state and setpoint
-record(calc, "$(LOOP):S$(NUM):DIFF") {
+record(calc, "$(LOOP):S$(NUM)DIFF") {
   field(DESC, "Abs of diff between state and setpoint")
   field(SCAN, "Passive")
   field(CALC, "ABS(A-B)")
   field(INPA, "$(LOOP):S$(NUM) CPP")
   field(INPB, "$(LOOP):S$(NUM)DES")
-  field(FLNK, "$(LOOP):S$(NUM):DBUFF")
+  field(FLNK, "$(LOOP):S$(NUM)DBUFF")
 }
 
 # Stores difference between state and setpoint
 # NSAM is the sample size of the buffer for calculating the moving average
 # VAL is an array
-record(compress, "$(LOOP):S$(NUM):DBUFF") {
+record(compress, "$(LOOP):S$(NUM)DBUFF") {
   field(DESC, "Buffer for difference values")
-  field(INP, "$(LOOP):S$(NUM):DIFF")
+  field(INP, "$(LOOP):S$(NUM)DIFF")
   field(ALG, "Circular Buffer")
   field(NSAM, "300")
   field(SCAN, "Passive")
-  field(FLNK, "$(LOOP):S$(NUM):DAVG")
+  field(FLNK, "$(LOOP):S$(NUM)DAVG")
 }
 
 # Computes the avg of array input
 # N should equal NSAM to compress to one average value
-record(compress, "$(LOOP):S$(NUM):DAVG") {
+record(compress, "$(LOOP):S$(NUM)DAVG") {
   field(DESC, "Computes Average of current sample")
   field(ALG, "N to 1 Average")
-  field(INP, "$(LOOP):S$(NUM):DBUFF.VAL")
+  field(INP, "$(LOOP):S$(NUM)DBUFF.VAL")
   field(N, "300")
   field(SCAN, "Passive")
-  field(FLNK, "$(LOOP):S$(NUM):STL")
+  field(FLNK, "$(LOOP):S$(NUM)STL")
 }
 
-record(ai, "$(LOOP):S$(NUM):DBSTPNT") {
+record(ai, "$(LOOP):S$(NUM)DBSTPNT") {
   field(DESC, "Deadband setpoint")
   field(VAL, "0")
   info(autosaveFields, "VAL")
@@ -55,18 +55,18 @@ record(ai, "$(LOOP):S$(NUM):DBSTPNT") {
 
 # Compares current running average to deadband to determine SETTLED or NOT_SETTLED
 # VAL = 1 if SETTLED, 0 if NOT_SETTLED
-record(calc, "$(LOOP):S$(NUM):STL") {
+record(calc, "$(LOOP):S$(NUM)STL") {
   field(DESC, "Compares avg to setpoint")
   field(CALC, "A > B ? 1:0")
-  field(INPA, "$(LOOP):S$(NUM):DBSTPNT")
-  field(INPB, "$(LOOP):S$(NUM):DAVG")
+  field(INPA, "$(LOOP):S$(NUM)DBSTPNT")
+  field(INPB, "$(LOOP):S$(NUM)DAVG")
   field(SCAN, "Passive")
-  field(FLNK, "$(LOOP):S$(NUM):STLSTAT")
+  field(FLNK, "$(LOOP):S$(NUM)STLSTAT")
 }
 
-record(bi, "$(LOOP):S$(NUM):STLSTAT") {
+record(bi, "$(LOOP):S$(NUM)STLSTAT") {
   field(DESC, "Updates status of SETTLED or NOT_SETTLED")
-  field(INP, "$(LOOP):S$(NUM):STL")
+  field(INP, "$(LOOP):S$(NUM)STL")
   field(ZSV, "MAJOR")
   field(OSV, "NO_ALARM")
   field(ZNAM, "NOT_SETTLED")
