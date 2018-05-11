@@ -91,7 +91,7 @@ CPPUNIT_INCLUDE = $(CPPUNIT_TOP)/$(PKG_ARCH)/include
 # Support for BOOST
 # ===========================================================================
 BOOST_PACKAGE_NAME=boost
-BOOST_VERSION=1.42.0
+BOOST_VERSION=1.63.0
 BOOST_TOP=$(PACKAGE_SITE_TOP)/$(BOOST_PACKAGE_NAME)/$(BOOST_VERSION)
 BOOST_LIB = $(BOOST_TOP)/$(PKG_ARCH)/lib
 BOOST_INCLUDE = $(BOOST_TOP)/$(PKG_ARCH)/include
@@ -101,7 +101,7 @@ BOOST_INCLUDE = $(BOOST_TOP)/$(PKG_ARCH)/include
 # Support for BOOST Numeric Bindings (Headers)
 # ============================================================================================
 BOOSTBINDINGS_PACKAGE_NAME=boost-numeric-bindings
-BOOSTBINDINGS_VERSION=1.42.0
+BOOSTBINDINGS_VERSION=1.63.0
 BOOSTBINDINGS_TOP=$(PACKAGE_SITE_TOP)/$(BOOSTBINDINGS_PACKAGE_NAME)/$(BOOSTBINDINGS_VERSION)
 BOOSTBINDINGS_INCLUDE = $(BOOSTBINDINGS_TOP)/include
 # ============================================================================================
