@@ -13,70 +13,125 @@
 # Normally CHECK_RELEASE should be set to YES.
 # Set CHECK_RELEASE to NO to disable checking completely.
 # Set CHECK_RELEASE to WARN to perform consistency checking but
-#   continue building anyway if conflicts are found.
+#   continue building even if conflicts are found.
 CHECK_RELEASE = YES
 
 # Set this when you only want to compile this application
 #   for a subset of the cross-compiled target architectures
 #   that Base is built for.
-#CROSS_COMPILER_TARGET_ARCHS = vxWorks-mpc8540 vxWorks-ppc604_long vxWorks-ppc604_altivec
-#CROSS_COMPILER_TARGET_ARCHS = RTEMS-beatnik RTEMS-mvme3100 RTEMS-uC5282 linuxRT-x86
-
-# If you only want to build for the host then uncomment the line below and no cross targets
-# will be built.  Remember EPICS will build for the HOST ARCH by default.
-CROSS_COMPILER_TARGET_ARCHS =  linuxRT_glibc-x86_64
-BUILD_FOR_HOST_ARCH=""
+CROSS_COMPILER_TARGET_ARCHS = linuxRT-x86_64
 
 # To install files into a location other than $(TOP) define
 #   INSTALL_LOCATION here.
-#INSTALL_LOCATION=</path/name/to/install/top>
+#INSTALL_LOCATION=</absolute/path/to/install/top>
 
-# Set this when your IOC and the host use different paths
-#   to access the application. This will be needed to boot
-#   from a Microsoft FTP server or with some NFS mounts.
-# You must rebuild in the iocBoot directory for this to
-#   take effect.
-#IOCS_APPL_TOP = </IOC/path/to/application/top>
-IOCS_APPL_TOP  = $(INSTALL_LOCATION)
-
+# Set this when the IOC and build host use different paths
+#   to the install location. This may be needed to boot from
+#   a Microsoft FTP server say, or on some NFS configurations.
+#IOCS_APPL_TOP = </IOC's/absolute/path/to/install/top>
+#
+# =======================================================
+# Let's install our IOC boot products:
+# envPaths and st.cmd
+# =======================================================
 INSTALL_LOCATION_STARTUP += $(INSTALL_LOCATION)/startup
 DIRECTORY_TARGETS += $(INSTALL_LOCATION_STARTUP)
 
-# Let's reference some external packages needed by our build:
-
-# =============================================
-# Define the version of external  packages needed by this                      
-# IOC Application
-# =============================================
-include $(TOP)/RELEASE_SITE
-#Define the external package version number to be used
-CPPUNIT_PACKAGE_VERSION=1.12.1
-BOOST_PACKAGE_VERSION=1.42.0
-BOOSTBINDINGS_PACKAGE_VERSION=1.42.0
-LAPACK_PACKAGE_VERSION=3.2.1
-
-#Define the path to the external package for the host architecture
-CPPUNIT=$(PACKAGE_SITE_TOP)/cppunit/$(CPPUNIT_PACKAGE_VERSION)/rhel6-x86_64
-BOOST=$(PACKAGE_SITE_TOP)/boost/$(BOOST_PACKAGE_VERSION)/rhel6-x86_64
-BOOSTBINDINGS=$(PACKAGE_SITE_TOP)/boost-numeric-bindings/$(BOOSTBINDINGS_PACKAGE_VERSION)
-LAPACK=$(PACKAGE_SITE_TOP)/lapack/$(LAPACK_PACKAGE_VERSION)/rhel6-x86_64
-
-#=========================================================
-#EVRSharing - Need to define path to EVRMA header files
-# For Build Type: x86_64-glibc-linux                                                            
-#=========================================================
-
-EVRMA_PACKAGE_VERSION=evrma-R1-0-p4
-
-### NOTE: SETTABLE_CONFIG
-KERNEL_MODULE_EVRMA=$(PACKAGE_SITE_TOP)/linuxKernel_Modules/evrmaDriver/$(EVRMA_PACKAGE_VERSION)
-### NOTE: SETTABLE_CONFIG
-EVRMA=$(PACKAGE_SITE_TOP)/evrma/$(EVRMA_PACKAGE_VERSION)/rhel6-linux-x86_64
-
-EVRMA_LIB = $(EVRMA)/lib
-EVRMA_INCLUDE = -I$(EVRMA)/include
-KERNEL_MODULE_EVRMA_INCLUDE = -I$(KERNEL_MODULE_EVRMA)/src
-
-
-# Build this IOC App statically
+# =============================
+# Build Application Statically
+# =============================
+SHARED_LIBRARIES=NO
 STATIC_BUILD=YES
+
+# =============================
+# Define the archiecture versions
+# =============================
+LINUXRT_BUILDROOT_VERSION=buildroot-2016.11.1
+LINUX_VERSION=rhel6
+
+
+# ======================================================
+# Linux Kernel Modules Top
+# =====================================================
+KERNEL_MOD_TOP=$(PACKAGE_SITE_TOP)/linuxKernel_Modules
+# =====================================================
+
+# =============================================================================================================
+# Support for EVRMA Kernel Module (evrma.ko)
+# =============================================================================================================
+KERNEL_MODULE_EVRMA_PACKAGE_NAME=evrmaDriver
+KERNEL_MODULE_EVRMA_VERSION=R1.0.8
+KERNEL_MODULE_EVRMA_TOP=$(KERNEL_MOD_TOP)/$(KERNEL_MODULE_EVRMA_PACKAGE_NAME)/$(KERNEL_MODULE_EVRMA_VERSION)
+KERNEL_MODULE_EVRMA_KO = $(KERNEL_MODULE_EVRMA_TOP)/$(PKG_ARCH)
+KERNEL_MODULE_EVRMA_INCLUDE = $(KERNEL_MODULE_EVRMA_TOP)/$(PKG_ARCH)/include
+# =============================================================================================================
+
+# ===========================================================================
+# Support for EVRMA
+# ===========================================================================
+EVRMA_PACKAGE_NAME=evrma
+EVRMA_VERSION=R1.0.8
+EVRMA_TOP=$(PACKAGE_SITE_TOP)/$(EVRMA_PACKAGE_NAME)/$(EVRMA_VERSION)
+EVRMA_LIB = $(EVRMA_TOP)/$(PKG_ARCH)/lib
+EVRMA_INCLUDE = $(EVRMA_TOP)/$(PKG_ARCH)/include
+# ===========================================================================
+
+
+# ===========================================================================
+# Support for CPPUNIT
+# ===========================================================================
+CPPUNIT_PACKAGE_NAME=cppunit
+CPPUNIT_VERSION=1.12.1
+CPPUNIT_TOP=$(PACKAGE_SITE_TOP)/$(CPPUNIT_PACKAGE_NAME)/$(CPPUNIT_VERSION)
+CPPUNIT_LIB = $(CPPUNIT_TOP)/$(PKG_ARCH)/lib
+CPPUNIT_INCLUDE = $(CPPUNIT_TOP)/$(PKG_ARCH)/include
+# ===========================================================================
+
+# ===========================================================================
+# Support for BOOST
+# ===========================================================================
+BOOST_PACKAGE_NAME=boost
+BOOST_VERSION=1.42.0
+BOOST_TOP=$(PACKAGE_SITE_TOP)/$(BOOST_PACKAGE_NAME)/$(BOOST_VERSION)
+BOOST_LIB = $(BOOST_TOP)/$(PKG_ARCH)/lib
+BOOST_INCLUDE = $(BOOST_TOP)/$(PKG_ARCH)/include
+# ===========================================================================
+
+# ============================================================================================
+# Support for BOOST Numeric Bindings (Headers)
+# ============================================================================================
+BOOSTBINDINGS_PACKAGE_NAME=boost-numeric-bindings
+BOOSTBINDINGS_VERSION=1.42.0
+BOOSTBINDINGS_TOP=$(PACKAGE_SITE_TOP)/$(BOOSTBINDINGS_PACKAGE_NAME)/$(BOOSTBINDINGS_VERSION)
+BOOSTBINDINGS_INCLUDE = $(BOOSTBINDINGS_TOP)/include
+# ============================================================================================
+
+
+# ===========================================================================
+# Support for LAPACK
+# ===========================================================================
+LAPACK_PACKAGE_NAME=lapack
+LAPACK_VERSION=3.2.1
+LAPACK_TOP=$(PACKAGE_SITE_TOP)/$(LAPACK_PACKAGE_NAME)/$(LAPACK_VERSION)
+LAPACK_LIB = $(LAPACK_TOP)/$(PKG_ARCH)/lib
+LAPACK_INCLUDE = $(LAPACK_TOP)/$(PKG_ARCH)/include
+# ===========================================================================
+
+# ===========================================================================
+# GNU Fortran support in Buildroot (linuxRT)
+# ===========================================================================
+# Define the location of the gfortran
+# # So only need to define location of libs and headers
+BUILDROOT_HOME=/afs/slac/package/linuxRT/buildroot-2016.11.1
+STAGE_X86=$(BUILDROOT_HOME)/buildroot-2016.11.1-x86_64/output/staging
+#
+GFORT_LIB     = $(STAGE_X86)/usr/lib64
+GFORT_INCLUDE = $(STAGE_X86)/usr/include
+#
+DL_LIB       = $(STAGE_X86)/usr/lib64
+DL_INCLUDE   = $(STAGE_X86)/usr/include
+#
+QUADMATH_LIB       = $(STAGE_X86)/usr/lib64
+QUADMATH_INCLUDE   = $(STAGE_X86)/usr/include
+# ============================================================================
+

@@ -32,31 +32,37 @@
 # =============================================================
 include $(TOP)/RELEASE_SITE
 
-# =============================================================
-# Define location of the modules tree
-# =============================================================
-EPICS_MODULES=$(MODULES_SITE_TOP)
 
-
-# ==============================================================
-# Define the cvs module version of EPICS BASE that you will use
-# =============================================================
-BASE_MODULE_VERSION=$(EPICS_BASE_VER)
 
 # =============================================================
 # Define the version of modules needed by
 # IOC apps or other Support apps - this section for development
 # =============================================================
-SEQ_MODULE_VERSION=seq-R2-1-6_1-3
-AUTOSAVE_MODULE_VERSION=autosave-R5-5_0-0
-CAPUTLOG_MODULE_VERSION=caPutLog-R3-4_1-0
-IOCADMIN_MODULE_VERSION=iocAdmin-R3-1-12_1-1
-MISCUTILS_MODULE_VERSION=miscUtils-R2-2-2
-CEXP_MODULE_VERSION=cexpsh-R1-0-0
-EVENT_MODULE_VERSION=evrClient-R1-0-p4
-UDPCOMM_MODULE_VERSION=udpComm-R2-6-2
-FCOM_MODULE_VERSION=fcom-R1-3-31
-FCOMUTIL_MODULE_VERSION=fcomUtil-R1-1-34
+SEQ_MODULE_VERSION=R2.2.4-1.0
+AUTOSAVE_MODULE_VERSION=R5.8-1.0.0
+CAPUTLOG_MODULE_VERSION=R3.5-0.1.0
+IOCADMIN_MODULE_VERSION=R3.1.15-1.0.0
+MISCUTILS_MODULE_VERSION=R2.2.5
+CEXP_MODULE_VERSION=R1.0.1
+EVENT_MODULE_VERSION=R1.4.1
+UDPCOMM_MODULE_VERSION=R2.20.1
+FCOM_MODULE_VERSION=R1.9.4
+FCOMUTIL_MODULE_VERSION= R1.9.4
+
+# ==========================================
+# If we want to use the new BsaCore module:
+# ==========================================
+TIMINGAPI_MODULE_VERSION=R0.6
+BSACORE_MODULE_VERSION=R1.3.3
+
+# ====================================================
+# EPICS V4: Qsrv ==> Version
+# ====================================================
+PVACCESSCPP_MODULE_VERSION      = pvAccessCPP-master
+PVDATACPP_MODULE_VERSION        = pvDataCPP-master
+PVA2PVA_MODULE_VERSION          = pva2pva-master
+# ====================================================
+
 
 # ============================================================
 # Support module locations
@@ -66,11 +72,22 @@ AUTOSAVE=$(EPICS_MODULES)/autosave/$(AUTOSAVE_MODULE_VERSION)
 CAPUTLOG=$(EPICS_MODULES)/caPutLog/$(CAPUTLOG_MODULE_VERSION)
 IOCADMIN=$(EPICS_MODULES)/iocAdmin/$(IOCADMIN_MODULE_VERSION)
 MISCUTILS=$(EPICS_MODULES)/miscUtils/$(MISCUTILS_MODULE_VERSION)
-CEXP_MODULE_VERSION=cexpsh-R1-0-0
-EVENT=$(EPICS_MODULES)/evrClient/$(EVENT_MODULE_VERSION)
+CEXP=$(EPICS_MODULES)/cexpsh/$(CEXP_MODULE_VERSION)
 UDPCOMM=$(EPICS_MODULES)/udpComm/$(UDPCOMM_MODULE_VERSION)
 FCOM=$(EPICS_MODULES)/fcom/$(FCOM_MODULE_VERSION)
 FCOMUTIL=$(EPICS_MODULES)/fcomUtil/$(FCOMUTIL_MODULE_VERSION)
+TIMINGAPI=$(EPICS_MODULES)/timingApi/$(TIMINGAPI_MODULE_VERSION)
+BSACORE=$(EPICS_MODULES)/BsaCore/$(BSACORE_MODULE_VERSION)
+EVENT=$(EPICS_MODULES)/evrClient/$(EVENT_MODULE_VERSION)
+
+# =========================================================================
+# EPICS V4: Qsrv ==> Location
+# =========================================================================
+PVACCESSCPP =   $(EPICS_MODULES)/pvAccessCPP/$(PVACCESSCPP_MODULE_VERSION)
+PVDATACPP   =   $(EPICS_MODULES)/pvDataCPP/$(PVDATACPP_MODULE_VERSION)
+PVA2PVA     =   $(EPICS_MODULES)/pva2pva/$(PVA2PVA_MODULE_VERSION)
+# =========================================================================
+
 
 # Location of Linux Kernel Modules:
 LINUX_KERNEL_MODULES=$(PACKAGE_SITE_TOP)/linuxKernel_Modules
