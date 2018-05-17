@@ -1,3 +1,4 @@
+#!../../bin/linuxRT-x86_64/fastFeedback
 #
 # st.cmd file for Fast Feedback Controller IOC
 # Note: contains parameters specific to vioc-sys0-lg01 and
@@ -82,14 +83,16 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # ====================================================================
 dbLoadDatabase("dbd/fastFeedback.dbd")
 fastFeedback_registerRecordDeviceDriver(pdbbase)
-<iocBoot/common/st-off.cmd
+dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI22:1,RF=L2,PHASE_LNK=ACCL:LI22:1:PDES,AMPL_LNK=ACCL:LI22:1:ADES,DRVH=6000")
+dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI25:1,RF=L3,PHASE_LNK=ACCL:LI25:1:PDES,AMPL_LNK=ACCL:LI25:1:ADES,DRVH=16000")
+<iocBoot/common/st.cmd
 
 # ====================================================================
 # Sequencer scripts to keep track of the CHIRP control and DL2 limits
 # ====================================================================
-#seq(&chirpControl, "IOC=SYS0,LOOP=LG01")
-#seq(&chirpUpdate, "IOC=SYS0,LOOP=LG01")
-#seq(&limitUpdate, "IOC=SYS0,LOOP=LG01")
+seq(&chirpControl, "IOC=FB04,LOOP=LG01")
+seq(&chirpUpdate, "IOC=FB04,LOOP=LG01")
+seq(&limitUpdate, "IOC=FB04,LOOP=LG01")
 
 seqShow()
 
