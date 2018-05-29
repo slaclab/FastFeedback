@@ -41,11 +41,12 @@ epicsEnvSet("LOCA2_NAME", "${FB}", 1)
 #
 # ======= FCOM  Setup  ========================================
 
-epicsEnvSet("FCOM_MC_PREFIX","239.219.8.0")
+#epicsEnvSet("FCOM_MC_PREFIX","239.219.8.0")
+epicsEnvSet("FCOM_MC_PREFIX","239.219.248.0")
 
 # Initialize FCOM - Provide FCOM parameters in the kernel-modules.cmd 
 # FCOM parameters are different on production versus development
-fcomInit( ${FCOM_MC_PREFIX}, 1000 )
+fcomInit("${FCOM_MC_PREFIX}", "1000" )
 
 # ======= FCOM  Setup Complete  ========================================
 #########################################################################
@@ -141,7 +142,9 @@ iocshCmd("dbgrep 'FBCK:*:NAME' > /tmp/loops.txt")
 # This is required if you use caPutLog.
 # Set access security filea
 # Load common LCLS Access Configuration File
- < ${ACF_INIT}
+
+# Looks like Kristi may have removed this.
+# < ${ACF_INIT}
 
 #Debugging Flags 
 #ffll 0 5                                                                      
@@ -179,6 +182,13 @@ ffStart()
 #=======================================================================
 cd iocBoot/${VIOC} 
 system("/bin/su root -c `pwd`/rtPrioritySetup.${VEVR}.cmd")
+
+
+# =====================================================================
+# Use FCOM for the following PV instead of the file based:
+# BLEN:LI21:265:AIMAX
+# =====================================================================
+dbpf("FBCK:FB04:LG01:M4DEVNAME", "BLEN:LI21:265:AIMAX")
 
 ########################################################################
 #========================================================================
