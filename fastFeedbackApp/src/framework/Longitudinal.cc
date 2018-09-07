@@ -530,7 +530,7 @@ double Longitudinal::calculateEnergyDl1(MeasurementDevice *m1, MeasurementDevice
     // Joe's algorithm
     //    double energy = measurement->peek() * (s1->getSetpoint()/dispersion);
     double refEnergy = ExecConfiguration::getInstance()._dl1ErefPv.getValue() * 1000;
-    double setpoint = refEnergy + _loopConfiguration->_dl1EnergyVernierPv.getValue();
+    double setpoint = refEnergy +_loopConfiguration->_dl1EnergyVernierPv.getValue() + s1->getOffset();
     //    double energy = measurement->peek() * (refEnergy/dispersion) + setpoint;
     //    double energy = measurement->peek() * (refEnergy/dispersion) + refEnergy - s1->getSetpoint();
     double energy = measurement->peek() * (refEnergy/dispersion) + refEnergy - setpoint;
@@ -576,7 +576,7 @@ double Longitudinal::calculateEnergyBc1(MeasurementDevice* m3, StateDevice* s2) 
     // Joe's algorithm
     //    double energy = m3->peek() * (s2->getSetpoint()/_loopConfiguration->_dispersions[M3]);
     double refEnergy = ExecConfiguration::getInstance()._bc1ErefPv.getValue() * 1000;
-    double setpoint = refEnergy + _loopConfiguration->_bc1EnergyVernierPv.getValue();
+    double setpoint = refEnergy + _loopConfiguration->_bc1EnergyVernierPv.getValue() + s2->getOffset();
     //    double energy = m3->peek() * (refEnergy/_loopConfiguration->_dispersions[M3]) + setpoint;
     //    double energy = m3->peek() * (refEnergy/_loopConfiguration->_dispersions[M3]) +
     //      refEnergy - s2->getSetpoint();
@@ -621,7 +621,7 @@ double Longitudinal::calculateCurrentBc1(StateDevice *s3) {
     }
 
     double sign = 0;
-    double setpoint = s3->getSetpoint();
+    double setpoint = s3->getSetpoint() + s3->getOffset();
     if (setpoint > 0) {
         sign = 1;
     } else if (setpoint < 0) {
@@ -674,7 +674,7 @@ double Longitudinal::calculateEnergyBc2(MeasurementDevice* m5, StateDevice* s4) 
     // Joe's algorithm
     //    double energy = m5->peek() * (s4->getSetpoint()/_loopConfiguration->_dispersions[M5]);
     double refEnergy = ExecConfiguration::getInstance()._bc2ErefPv.getValue() * 1000;
-    double setpoint = refEnergy + _loopConfiguration->_bc2EnergyVernierPv.getValue();
+    double setpoint = refEnergy + _loopConfiguration->_bc2EnergyVernierPv.getValue() + s4->getOffset();
     //    double energy = m5->peek() * (refEnergy/_loopConfiguration->_dispersions[M5]) + setpoint;
     //    double energy = m5->peek() * (refEnergy/_loopConfiguration->_dispersions[M5]) +
     //      refEnergy - s4->getSetpoint();
@@ -717,7 +717,7 @@ double Longitudinal::calculateCurrentBc2(StateDevice *s5) {
     }
 
     double sign = 0;
-    double setpoint = s5->getSetpoint();
+    double setpoint = s5->getSetpoint() + s5->getOffset();
     if (setpoint > 0) {
         sign = 1;
     } else if (setpoint < 0) {
@@ -770,7 +770,7 @@ double Longitudinal::calculateEnergyDl2(MeasurementDevice* m7,
     //    double by1Bdes = ExecConfiguration::getInstance()._by1BdesPv.getValue();
     //    by1Bdes *= 1000;
     double refEnergy = ExecConfiguration::getInstance()._dl2ErefPv.getValue() * 1000;
-    double setpoint = refEnergy + _loopConfiguration->_dl2EnergyVernierPv.getValue();
+    double setpoint = refEnergy + _loopConfiguration->_dl2EnergyVernierPv.getValue() + s6->getOffset();
 
     // Beam is going through BSY
     if (_measurementStatus[M7] == VALID) {
@@ -965,7 +965,7 @@ int Longitudinal::calculateCurrentState(StateDevice *state, double latestValue) 
 int Longitudinal::calculateEnergyState(StateDevice *state, double latestValue,
 				       double vernier) {
     if (state->getUsedBy()) {
-      double stateValue = state->getSetpoint() + vernier + latestValue;
+      double stateValue = state->getSetpoint() + latestValue + state->getOffset() ;
         if (state->set(stateValue) != 0) {
             return -1;
         }
@@ -1772,7 +1772,6 @@ int Longitudinal::updateActuators() throw (Exception) {
             if (_loopConfiguration->_mode == true) {
                 value -= _delta[i];
             }
-      value += (*stateIt)->getOffset();
 	    values[i] = value;
 	    if (_loopConfiguration->_mode == true) { 
 	      if (actuator->set(value, timestamp) != 0) {

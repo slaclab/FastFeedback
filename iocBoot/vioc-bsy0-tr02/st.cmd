@@ -29,7 +29,7 @@ epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
 #======================================================================
 ## iocAdmin environment variables
 #=====================================================================
-epicsEnvSet("ENGINEER","A.Babbitt")
+epicsEnvSet("ENGINEER","J.Mock")
 epicsEnvSet("LOCATION","cpu-sys0-fb02")
 
 #========================================================================
@@ -83,6 +83,6 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # ====================================================================
 dbLoadDatabase("dbd/fastFeedback.dbd")
 fastFeedback_registerRecordDeviceDriver(pdbbase)
-<iocBoot/common/st-off.cmd
+<iocBoot/common/st.cmd
 
 #Done

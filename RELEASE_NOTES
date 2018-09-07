@@ -11,6 +11,11 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-24 07-Sept-2018  Jeremy Mock (jmock)
+  Modify Longitudinal loop to streat pattern offsets the same
+    as vernier offsets
+  Modify all st.cmd to be st-on.cmd by default
+
 FastFeedback-R1-0-23 24-Apr-2018  Jeremy Mock (jmock)
   Modify feedback convergence PVs to comply with naming standards
 

@@ -461,7 +461,7 @@ int LongitudinalChirp::updateActuators() throw (Exception) {
     if ((*stateIt)->getUsedBy()) {
       // Change the actuator value only if MODE PV is ENABLE (true)
       if (_loopConfiguration->_mode == true) {
-	value = _actuatorValue[i] + (*stateIt)->getOffset();
+	value = _actuatorValue[i];
 	values[i] = value;
 	if (actuator->set(value, timestamp) != 0) {
 	  limitFlag |= (0x01 << i);
