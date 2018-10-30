@@ -1,0 +1,35 @@
+# For each state, $(LOOP):S$(NUM)STL = 0 if the data has converged
+# CALC used to check if all the states have converged
+
+record(CALC, "$(LOOP):CVGCALC") {
+	field(DESC, "Checks if used states have converged")
+	field(SCAN, "Passive")
+
+	field(CALC, "A && B && C && D && E && F && G && H && I && J")
+
+	field(INPA, "$(LOOP):S1INCL")
+	field(INPB, "$(LOOP):S2INCL")
+	field(INPC, "$(LOOP):S3INCL")
+	field(INPD, "$(LOOP):S4INCL")
+	field(INPE, "$(LOOP):S5INCL")
+	field(INPF, "$(LOOP):S6INCL")
+	field(INPG, "$(LOOP):S7INCL")
+	field(INPH, "$(LOOP):S8INCL")
+	field(INPI, "$(LOOP):S9INCL")
+	field(INPJ, "$(LOOP):S10INCL")
+
+	field(FLNK, "$(LOOP):CVGSUMM")
+
+
+}
+
+record(bi, "$(LOOP):CVGSUMM") {
+  field(DESC, "Convergence status of used states")
+  field(INP, "$(LOOP):CVGCALC")
+  field(ZSV, "MAJOR")
+  field(OSV, "NO_ALARM")
+  field(ZNAM, "NOT_SETTLED")
+  field(ONAM, "SETTLED")
+  field(SCAN, "Passive")
+
+}	
