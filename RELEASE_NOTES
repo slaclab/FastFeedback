@@ -11,6 +11,15 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-25 31-Oct-2018  James Luong (ajluong)
+  CATER: 140419 
+  Add status PV to monitor convergence status of all states for 
+  each loop. If a state is not "used", it will not affect the status.
+  Files added:      fbckSettledStatus.template
+  
+  Files modified:   fbckSettled.substitutions
+                    fbckSettled.template
+                    
 FastFeedback-R1-0-24 07-Sept-2018  Jeremy Mock (jmock)
   Modify Longitudinal loop to streat pattern offsets the same
     as vernier offsets
