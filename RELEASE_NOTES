@@ -11,6 +11,21 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-26 1-Nov-2018  Jeremy Mock (jmock)
+  Add three new feedback loops
+  Files modified:
+                    iocBoot/vioc-in20-tr03/Makefile
+                    iocBoot/vioc-in20-tr03/st.cmd
+                    iocBoot/vioc-in20-tr03/st.cmd.ex
+                    iocBoot/vioc-in20-tr04/Makefile
+                    iocBoot/vioc-in20-tr04/st.cmd
+                    iocBoot/vioc-in20-tr05/Makefile
+                    iocBoot/vioc-in20-tr05/st.cmd        
+                    tools/InjectorLaunch1-FB02-TR05.conf 
+                    tools/InjectorLaunch2-FB03-TR02.conf 
+                    tools/InjectorLaunch3-FB03-TR03.conf
+  
+
 FastFeedback-R1-0-25 31-Oct-2018  James Luong (ajluong)
   CATER: 140419 
   Add status PV to monitor convergence status of all states for 
