@@ -24,3 +24,9 @@ file fbckSettled.template {
                 { $(LP), 9  }
                 { $(LP), 10 }
 }
+
+file fbckSettledStatus.template {
+        
+        pattern { LOOP }
+                { $(LP)}
+}
