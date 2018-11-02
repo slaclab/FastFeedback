@@ -1,5 +1,4 @@
-
-record(CALC, "$(LOOP):CVGCALC") {
+record(calc, "$(LOOP):CVGCALC") {
 	field(DESC, "Checks if used states have converged")
 	field(SCAN, "Passive")
 
