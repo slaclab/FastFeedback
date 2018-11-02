@@ -11,7 +11,7 @@
 #==============================================================================
 
 
-file fbckSettled.template {
+file fbckSettledGen.template {
         pattern { LOOP, NUM }
                 { $(LP), 1  }
                 { $(LP), 2  }
@@ -26,7 +26,6 @@ file fbckSettled.template {
 }
 
 file fbckSettledStatus.template {
-        
         pattern { LOOP }
                 { $(LP)}
 }
