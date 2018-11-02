@@ -62,6 +62,7 @@ record(calc, "$(LOOP):S$(NUM)STL") {
   field(INPB, "$(LOOP):S$(NUM)DAVG")
   field(SCAN, "Passive")
   field(FLNK, "$(LOOP):S$(NUM)STLSTAT")
+  field(PINI, "Yes")
 }
 
 record(bi, "$(LOOP):S$(NUM)STLSTAT") {
@@ -72,7 +73,6 @@ record(bi, "$(LOOP):S$(NUM)STLSTAT") {
   field(ZNAM, "NOT_SETTLED")
   field(ONAM, "SETTLED")
   field(SCAN, "Passive")
-
   field(FLNK, "$(LOOP):S$(NUM)INCL")
 }
 
@@ -83,7 +83,6 @@ record(calc, "$(LOOP):S$(NUM)INCL"){
   field(INPA, "$(LOOP):S$(NUM)USED.RVAL")
   field(INPB, "$(LOOP):S$(NUM)STL")
   field(FLNK, "$(LOOP):CVGCALC.PROC")
-
 }
 
 
