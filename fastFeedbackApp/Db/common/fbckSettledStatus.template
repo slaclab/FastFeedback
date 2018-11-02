@@ -1,5 +1,3 @@
-# For each state, $(LOOP):S$(NUM)STL = 0 if the data has converged
-# CALC used to check if all the states have converged
 
 record(CALC, "$(LOOP):CVGCALC") {
 	field(DESC, "Checks if used states have converged")
