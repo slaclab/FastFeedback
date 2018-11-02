@@ -82,7 +82,7 @@ record(calc, "$(LOOP):S$(NUM)INCL"){
   field(CALC, "A = 0 ? 1:(A && B)")
   field(INPA, "$(LOOP):S$(NUM)USED.RVAL")
   field(INPB, "$(LOOP):S$(NUM)STL")
-  field(FLNK, "$(LOOP):CVGCALC")
+  field(FLNK, "$(LOOP):CVGCALC.PROC")
 
 }
 
