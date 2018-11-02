@@ -1,0 +1,4 @@
+file fbckSettledStatus.template {
+        pattern { LOOP }
+                { $(LP)}
+}
