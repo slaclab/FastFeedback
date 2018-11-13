@@ -1,5 +1,4 @@
-### FBCK:IN20:TR01:STATE
-### FBCK:IN20:TR01:MODE
+### STATE
 
 record(calcout, "$(INJ):LP1STCALC") {
   field(SCAN, "Passive")
@@ -34,7 +33,7 @@ record(fanout, "$(INJ):STATEFANOUT") {
   field(LNK3, "$(INJ):LP3STCALC")
 }
 
-### This BI will be the PV under the button will call dfanout "turnON"
+
 record(bi, "$(INJ):STATE") {
   field(DESC, "State for 3 injector loops")
   field(SCAN, "Passive")
@@ -81,7 +80,6 @@ record(fanout, "$(INJ):MODEFANOUT") {
   field(LNK3, "$(INJ):LP3MCALC")
 }
 
-### This BI will be the PV under the button will call dfanout "turnON"
 record(bi, "$(INJ):MODE") {
   field(DESC, "Mode for 3 injector loops")
   field(SCAN, "Passive")
