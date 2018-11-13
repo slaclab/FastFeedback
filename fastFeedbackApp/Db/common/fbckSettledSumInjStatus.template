@@ -1,0 +1,20 @@
+record(CALC, "$(INJ):CVGCALC") {
+	field(DESC, "Convergence state of inj loops")
+	field(SCAN, "Passive")
+	field(CALC, "A && B && C")
+	field(INPA, "$(LP1):CVGSUMM.RVAL")
+	field(INPB, "$(LP2):CVGSUMM.RVAL")
+	field(INPC, "$(LP3):CVGSUMM.RVAL")
+
+	field(FLNK, "$(INJ):CVGSUMM")
+}
+
+record(bi, "$(INJ):CVGSUMM") {
+  field(DESC, "Convergence status of inj loops")
+  field(INP, "$(INJ):CVGCALC")
+  field(ZSV, "MAJOR")
+  field(OSV, "NO_ALARM")
+  field(ZNAM, "NOT_SETTLED")
+  field(ONAM, "SETTLED")
+  field(SCAN, "Passive")	
+}

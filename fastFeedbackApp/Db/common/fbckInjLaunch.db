@@ -1,0 +1,94 @@
+### FBCK:IN20:TR01:STATE
+### FBCK:IN20:TR01:MODE
+
+record(calcout, "$(INJ):LP1STCALC") {
+  field(SCAN, "Passive")
+  field(CALC, "A")
+  field(OUT, "$(LP1):STATE")
+  field(INPA, "$(INJ):STATE")
+  field(FLNK, "$(LP1):STATE")
+}
+
+record(calcout, "$(INJ):LP2STCALC") {
+  field(SCAN, "Passive")
+  field(CALC, "A")
+  field(OUT, "$(LP2):STATE")
+  field(INPA, "$(INJ):STATE")
+  field(FLNK, "$(LP2):STATE")
+}
+
+record(calcout, "$(INJ):LP3STCALC") {
+  field(SCAN, "Passive")
+  field(CALC, "A")
+  field(OUT, "$(LP3):STATE")
+  field(INPA, "$(INJ):STATE")
+  field(FLNK, "$(LP3):STATE")
+}
+
+
+record(fanout, "$(INJ):STATEFANOUT") {
+  field(PINI, "YES")
+  field(SCAN, "Passive")
+  field(LNK1, "$(INJ):LP1STCALC")
+  field(LNK2, "$(INJ):LP2STCALC")
+  field(LNK3, "$(INJ):LP3STCALC")
+}
+
+### This BI will be the PV under the button will call dfanout "turnON"
+record(bi, "$(INJ):STATE") {
+  field(DESC, "State for 3 injector loops")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(VAL, "0")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON") 
+  field(FLNK, "$(INJ):STATEFANOUT") 
+  
+}
+
+### MODE
+
+record(calcout, "$(INJ):LP1MCALC") {
+  field(SCAN, "Passive")
+  field(CALC, "A")
+  field(OUT, "$(LP1):MODE")
+  field(INPA, "$(INJ):MODE")
+  field(FLNK, "$(LP1):MODE")
+}
+
+record(calcout, "$(INJ):LP2MCALC") {
+  field(SCAN, "Passive")
+  field(CALC, "A")
+  field(OUT, "$(LP2):MODE")
+  field(INPA, "$(INJ):MODE")
+  field(FLNK, "$(LP2):MODE")
+}
+
+record(calcout, "$(INJ):LP3MCALC") {
+  field(SCAN, "Passive")
+  field(CALC, "A")
+  field(OUT, "$(LP3):MODE")
+  field(INPA, "$(INJ):MODE")
+  field(FLNK, "$(LP3):MODE")
+}
+
+
+record(fanout, "$(INJ):MODEFANOUT") {
+  field(PINI, "YES")
+  field(SCAN, "Passive")
+  field(LNK1, "$(INJ):LP1MCALC")
+  field(LNK2, "$(INJ):LP2MCALC")
+  field(LNK3, "$(INJ):LP3MCALC")
+}
+
+### This BI will be the PV under the button will call dfanout "turnON"
+record(bi, "$(INJ):MODE") {
+  field(DESC, "Mode for 3 injector loops")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(VAL, "0")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON") 
+  field(FLNK, "$(INJ):MODEFANOUT") 
+  
+}

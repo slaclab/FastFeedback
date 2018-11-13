@@ -1,0 +1,4 @@
+file fbckSettledInjStatus.template {
+        pattern { LOOP, INJ}
+                { $(LP), "FBCK:IN20:TR01:CVGCALC"}
+}

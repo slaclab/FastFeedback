@@ -123,11 +123,9 @@ dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB02:TR01")
 dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB02:TR02")
 dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB02:TR03")
 dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB02:TR04")
-dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB02:TR05")
+
 
 dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB03:TR01")
-dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB04:TR04")
-dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB03:TR03")
 dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB03:TR04")
 
 dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB04:LG01")
@@ -135,6 +133,16 @@ dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB02:GN01")
 
 dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB05:TR01")
 dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB05:TR05")
+
+
+### Injector Feedback Loops Convergence Summary
+dbLoadRecords("db/fbckSettledSumInj.db","LP=FBCK:FB02:TR05")
+dbLoadRecords("db/fbckSettledSumInj.db","LP=FBCK:FB04:TR04")
+dbLoadRecords("db/fbckSettledSumInj.db","LP=FBCK:FB03:TR03")
+dbLoadRecords("db/fbckSettledSumInjStatus.db", "LP1=FBCK:FB03:TR03, LP2=FBCK:FB04:TR04, LP3=FBCK:FB02:TR05, INJ=FBCK:IN20:TR01")
+
+### Injector Feedback STATE and MODE 
+dbLoadRecords("db/fbckInjLaunch.db", "LP1=FBCK:FB03:TR03, LP2=FBCK:FB04:TR04, LP3=FBCK:FB02:TR05, INJ=FBCK:IN20:TR01")
 
 #########################################################################
 #BEGIN: Setup autosave/restore
