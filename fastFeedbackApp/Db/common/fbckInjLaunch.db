@@ -85,8 +85,8 @@ record(bi, "$(INJ):MODE") {
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(VAL, "0")
-  field(ZNAM, "OFF")
-  field(ONAM, "ON") 
+  field(ZNAM, "COMPUTE")
+  field(ONAM, "ENABLE") 
   field(FLNK, "$(INJ):MODEFANOUT") 
   
 }
