@@ -1,5 +1,25 @@
 ### STATE
 
+record(calc, "$(INJ):STATUS") {
+  field(SCAN, "Passive")
+  field(CALC, "A+B+C")
+  field(INPA, "$(LP1) CPP")
+  field(INPB, "$(LP2) CPP")
+  field(INPC, "$(LP3) CPP")
+  field(HOPR, "6")
+  field(LOPR, "0")
+  field(HIHI, "6")
+  field(LOLO, "0")
+  field(HIGH, "6")
+  field(LOW, "3")
+  field(HHSV, "NO_ALARM")
+  field(LLSV, "MAJOR")
+  field(HSV, "NO_ALARM")
+  field(LSV, "MAJOR")
+  field(PINI, "YES")
+  field(VAL, "0")
+}
+
 record(calcout, "$(INJ):LP1STCALC") {
   field(SCAN, "Passive")
   field(CALC, "A")
