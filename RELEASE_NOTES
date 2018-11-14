@@ -11,6 +11,13 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-27 1-Nov-2018  Jeremy Mock (jmock)
+  Add PVs to control Start/Stop, Compute/Enable, and Status for 3 injector loops
+  Files Added:
+                    fbckInjLaunch.db
+                    fbckSettledSumInj.substitutions
+                    fbckSettledSumInjStatus.template
+                    fbckSettledSumInjStatus.template
 FastFeedback-R1-0-26 1-Nov-2018  Jeremy Mock (jmock)
   Add three new feedback loops
   Files modified:
