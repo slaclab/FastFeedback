@@ -2,7 +2,7 @@
 
 record(calc, "$(INJ):STATUS") {
   field(SCAN, "Passive")
-  field(CALC, "A+B+C")
+  field(CALC, "(A=0 || B=0 || C=0) ? 0:A+B+C")
   field(INPA, "$(LP1):STATUS CPP")
   field(INPB, "$(LP2):STATUS CPP")
   field(INPC, "$(LP3):STATUS CPP")
