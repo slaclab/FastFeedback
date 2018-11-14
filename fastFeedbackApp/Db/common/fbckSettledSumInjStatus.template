@@ -1,4 +1,4 @@
-record(CALC, "$(INJ):CVGCALC") {
+record(calc, "$(INJ):CVGCALC") {
 	field(DESC, "Convergence state of inj loops")
 	field(SCAN, "Passive")
 	field(CALC, "A && B && C")
