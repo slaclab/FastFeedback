@@ -2,9 +2,11 @@ record(calc, "$(INJ):CVGCALC") {
 	field(DESC, "Convergence state of inj loops")
 	field(SCAN, "Passive")
 	field(CALC, "A && B && C")
-	field(INPA, "$(LP1):CVGSUMM.RVAL")
-	field(INPB, "$(LP2):CVGSUMM.RVAL")
-	field(INPC, "$(LP3):CVGSUMM.RVAL")
+	field(INPA, "$(LP1):CVGCALC")
+	field(INPB, "$(LP2):CVGCALC")
+	field(INPC, "$(LP3):CVGCALC")
+
+	### Change the INPUT links to $(LP1):CVGCALC
 
 	field(FLNK, "$(INJ):CVGSUMM")
 }
