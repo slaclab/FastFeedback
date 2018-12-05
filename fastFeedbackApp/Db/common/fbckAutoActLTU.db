@@ -10,6 +10,7 @@ record(waveform, "$(LP):AUTOACTREF") {
   field(DTYP, "Soft Channel")
   field(NELM, "10")
   field(FTVL, "DOUBLE")
+  field(FLNK, "$(LP):AUTOACTREFTS")
 }
 
 record(aSub, "$(LP):AUTOACTSAVE") {
@@ -31,7 +32,7 @@ record(aSub, "$(LP):AUTOACTSAVE") {
   field(FTA, "USHORT")
   field(OUTA, "$(LP):AUTOACTREF")
   field(NOVA, "10")
-  field(FLNK, "$(LP):AUTOACTREFTS")
+  field(FLNK, "$(LP):AUTOACTREF")
 }
 
 record(stringin, "$(LP):AUTOACTREFTS") {
@@ -44,7 +45,7 @@ record(stringin, "$(LP):AUTOACTREFTS") {
 
 record(aSub, "$(LP):AUTOACTOFFSET") {
   field(DESC, "autosave of act offsets")
-  field(FLNK, "$(LP):AUTOACTOFFSETSTS")
+  field(FLNK, "$(LP):AUTOACTOFFSETS")
   field(SNAM, "AutoActOffSave")
   field(INPA, "$(LP):CVGSUMM CA")
   field(INPB, "XCOR:LTU1:488:BCTRL:OFFSET_0 CA")
@@ -92,6 +93,7 @@ record(waveform, "$(LP):AUTOACTOFFSETS") {
   field(NELM, "40")
   field(FTVL, "DOUBLE")
   field(PINI, "YES")
+  field(FLNK, "$(LP):AUTOACTOFFSETSTS")
 }
 
 record(stringin, "$(LP):AUTOACTOFFSETSTS") {
