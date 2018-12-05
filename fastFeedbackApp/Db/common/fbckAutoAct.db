@@ -32,6 +32,7 @@ record(aSub, "$(LP):AUTOACTSAVE") {
   field(FTA, "USHORT")
   field(OUTA, "$(LP):AUTOACTREF")
   field(NOVA, "10")
+  field(FLNK, "$(LP):AUTOACTREFTS")
 }
 
 record(stringin, "$(LP):AUTOACTREFTS") {
