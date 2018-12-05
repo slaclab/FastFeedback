@@ -26,6 +26,9 @@ DB += fbckSettledSum.db
 DB += fbckSettledSumInj.db
 DB += fbckSettledSumInjStatus.db
 DB += fbckInjLaunch.db
+DB += fbckAutoAct.db
+DB += fbckAutoActLong.db
+DB += fbckAutoActLTU.db
 
 # Loop substitutions records per loop
 DB += fbckLoop.db

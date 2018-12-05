@@ -11,6 +11,9 @@
 #      
 #==============================================================
 #
+FastFeedback-R1-0-28 1-Nov-2018  Jeremy Mock (jmock)
+  Add automatic save of ACTREF and ACTOFFSETS into sioc-sys0-fb01
+
 FastFeedback-R1-0-27 1-Nov-2018  Jeremy Mock (jmock)
   Add PVs to control Start/Stop, Compute/Enable, and Status for 3 injector loops
   Files Added:

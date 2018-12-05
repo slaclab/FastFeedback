@@ -64,6 +64,7 @@ fastFeedback_DBD += evrSupport.dbd #Needed for EVR
 fastFeedback_DBD += devMrfEr.dbd   #Needed for EVR
 fastFeedback_DBD += fcomUtil.dbd
 fastFeedback_DBD += fcomIocshSupport.dbd
+fastFeedback_DBD += AutoActRef.dbd
 
 
 # The system command as part of EPICS BASE is 
@@ -102,6 +103,7 @@ CC_FILES = Thread.cc EventReceiver.cc EventGenerator.cc PatternManager.cc \
 # <name>_registerRecordDeviceDriver.cpp will be created from <name>.dbd
 
 fastFeedback_SRCS += $(CC_FILES) chirpUpdate.st chirpControl.st limitUpdate.st
+fastFeedback_SRCS += AutoActRef.c
 fastFeedback_SRCS += fastFeedback_registerRecordDeviceDriver.cpp
 fastFeedback_SRCS_DEFAULT += fastFeedbackMain.cpp
 # ==================================================================================

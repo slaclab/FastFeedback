@@ -68,6 +68,8 @@ epicsEnvSet("IOCSH_PS1","epics@${IOC}>")
 dbLoadDatabase "dbd/fastFeedback.dbd"
 fastFeedback_registerRecordDeviceDriver pdbbase
 
+
+
 ## Load record instances
 
 
@@ -143,6 +145,31 @@ dbLoadRecords("db/fbckSettledSumInjStatus.db", "LP1=FBCK:FB03:TR03, LP2=FBCK:FB0
 
 ### Injector Feedback STATE and MODE 
 dbLoadRecords("db/fbckInjLaunch.db", "LP1=FBCK:FB03:TR03, LP2=FBCK:FB04:TR04, LP3=FBCK:FB02:TR05, INJ=FBCK:IN20:TR01")
+
+### Auto Actuator Save Data
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB01:TR01")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB01:TR02")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB01:TR03")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB01:TR04")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB01:TR05")
+
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB02:TR01")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB02:TR02")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB02:TR03")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB02:TR04")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB02:TR05")
+
+dbLoadRecords("db/fbckAutoActLTU.db","LP=FBCK:FB03:TR01")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB04:TR04")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB03:TR03")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB03:TR04")
+
+dbLoadRecords("db/fbckAutoActLong.db","LP=FBCK:FB04:LG01")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB02:GN01")
+
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB05:TR01")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB05:TR05")
+
 
 #########################################################################
 #BEGIN: Setup autosave/restore
@@ -236,3 +263,7 @@ iocshCmd("makeAutosaveFiles")
 # Note: the last arg cannot be set to 0
 create_monitor_set("info_positions.req", 5 )
 create_monitor_set("info_settings.req" , 30 )
+
+cd(${TOP}/iocBoot/${IOC})
+system("./init_cvg.sh")
+cd(${TOP})

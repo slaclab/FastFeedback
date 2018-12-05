@@ -14,10 +14,7 @@ record(calc, "$(LOOP):CVGCALC") {
 	field(INPH, "$(LOOP):S8INCL")
 	field(INPI, "$(LOOP):S9INCL")
 	field(INPJ, "$(LOOP):S10INCL")
-
 	field(FLNK, "$(LOOP):CVGSUMM")
-
-
 }
 
 record(bi, "$(LOOP):CVGSUMM") {
@@ -28,5 +25,5 @@ record(bi, "$(LOOP):CVGSUMM") {
   field(ZNAM, "NOT_SETTLED")
   field(ONAM, "SETTLED")
   field(SCAN, "Passive")
-
+  field(DTYP, "Raw Soft Channel")
 }	
