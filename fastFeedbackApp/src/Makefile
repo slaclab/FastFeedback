@@ -36,10 +36,13 @@ USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS
 # Flags for Unit Testing
 #USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCONTROL_ACTUATORS -DLOG -DNO_FBCK_PV 
 
-USR_CPPFLAGS += -I$(BOOSTBINDINGS)/include/boost-numeric-bindings
-USR_CPPFLAGS += -I$(BOOST)/include
-USR_CPPFLAGS += -I$(CPPUNIT)/include
-USR_CPPFLAGS += -I$(LAPACK)/include
+# ==================================================================
+# Path to "NON EPICS" External PACKAGES: USER INCLUDES
+# =================================================================
+USR_CPPFLAGS += -I$(BOOSTBINDINGS_INCLUDE)/boost-numeric-bindings
+USR_CPPFLAGS += -I$(BOOST_INCLUDE)
+USR_CPPFLAGS += -I$(CPPUNIT_INCLUDE)
+USR_CPPFLAGS += -I$(LAPACK_INCLUDE)
 USR_CPPFLAGS += -I$(GFORT_INCLUDE)
 USR_CPPFLAGS += -I$(QUADMATH_INCLUDE)
 USR_CPPFLAGS += -I$(DL_INCLUDE)
@@ -47,7 +50,7 @@ USR_CPPFLAGS += -I$(DL_INCLUDE)
 # ========================================================
 # Let's build the Following IOC Application:
 # ========================================================
-#ifeq ($(T_A),linuxRT_glibc-x86_64)
+#ifeq ($(T_A),linuxRT-x86_64)
 PROD_IOC = fastFeedback
 #endif
 
@@ -55,7 +58,7 @@ DBD = fastFeedback.dbd
 fastFeedback_DBD += base.dbd
 fastFeedback_DBD += iocAdmin.dbd
 fastFeedback_DBD += devIocStats.dbd #Part of the iocAdmin module
-fastFeedback_DBD += autosaveSupport.dbd
+fastFeedback_DBD += asSupport.dbd
 fastFeedback_DBD += caPutLog.dbd
 fastFeedback_DBD += ffRecord.dbd
 fastFeedback_DBD += devFfDeviceView.dbd
@@ -71,6 +74,16 @@ fastFeedback_DBD += AutoActRef.dbd
 # available for all architectures
 fastFeedback_DBD += system.dbd
 
+# New BSA
+fastFeedback_DBD += bsaCore.dbd
+
+
+# ========================================
+# Required for Qsrv
+# ========================================
+fastFeedback_DBD += PVAServerRegister.dbd
+fastFeedback_DBD += qsrv.dbd
+# ========================================
 
 # =======================================================
 
@@ -114,13 +127,13 @@ fastFeedback_SRCS_DEFAULT += fastFeedbackMain.cpp
 # System library must be reference like so;
 # <IOCAPP>_SYS_LIB
 # ========================================================
-lapack_DIR             =  $(LAPACK)/lib
+lapack_DIR             =  $(LAPACK_LIB)
 fastFeedback_LIBS      += lapack
 
-blas_DIR               =  $(LAPACK)/lib
+blas_DIR               =  $(LAPACK_LIB)
 fastFeedback_LIBS      += blas
 
-ifeq ($(T_A),linuxRT_glibc-x86_64)
+ifeq ($(T_A),linuxRT-x86_64)
 gfortran_DIR=$(GFORT_LIB)
 quadmath_DIR = $(QUADMATH_LIB)
 
@@ -133,6 +146,19 @@ endif
 # ========================================================
 # Link in EPICS MODULES and BASE
 # =======================================================
+
+# ================================================
+# Adding Support for EPICS V4 (i.e. EPICS PVA)
+# ================================================
+# Link in the code from qsrv
+fastFeedback_LIBS += qsrv
+
+# ================================================
+# EPICS_BASE_PVA_CORE_LIBS comes from pvAccessCPP 
+# and is defined at <>/cfg/CONFIG_PVACCESS_MODULE
+# ================================================
+fastFeedback_LIBS += $(EPICS_BASE_PVA_CORE_LIBS)
+
 fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
 fastFeedback_LIBS += miscUtils
 fastFeedback_LIBS += devIocStats
@@ -145,17 +171,21 @@ fastFeedback_LIBS += fcom fcomIocshSupport fcomUtil
 fastFeedback_LIBS += udpCommBSD
 
 #fastFeedback_LIBS += drvMrf (Migrating to EVRsharing)
-ifeq ($(T_A),linuxRT_glibc-x86_64)
+ifeq ($(T_A),linuxRT-x86_64)
   fastFeedback_LIBS += drvMrf
   evrma_DIR = $(EVRMA_LIB)
   fastFeedback_LIBS += evrma
 endif
   
-ifeq ($(T_A),linux-x86_64)
+ifeq ($(T_A),rhel6-x86_64)
   fastFeedback_LIBS += drvMrf
   evrma_DIR = $(EVRMA_LIB)
   fastFeedback_LIBS += evrma
 endif
+
+# Link in New BSA Support
+fastFeedback_LIBS += eventBsaSupport
+fastFeedback_LIBS += BsaCore
 
 #Link in Library for perfMeasure (new)
 #fastFeedback_LIBS += perfMeasure
@@ -170,7 +200,7 @@ endif
 DBD              += ffUnitTest.dbd
 ffUnitTest_DBD   += base.dbd
 ffUnitTest_DBD   += iocAdmin.dbd
-ffUnitTest_DBD   += autosaveSupport.dbd
+ffUnitTest_DBD   += asSupport.dbd
 ffUnitTest_DBD   += caPutLog.dbd
 ffUnitTest_DBD   += evrSupport.dbd
 ffUnitTest_DBD   += devMrfEr.dbd
@@ -178,6 +208,16 @@ ffUnitTest_DBD   += devMrfEr.dbd
 # The system command as part of EPICS BASE is 
 # available for all architectures
 ffUnitTest_DBD += system.dbd
+
+# New BSA
+ffUnitTest_DBD += bsaCore.dbd
+
+# ========================================
+# Required for Qsrv
+# ========================================
+ffUnitTest_DBD += PVAServerRegister.dbd
+ffUnitTest_DBD += qsrv.dbd
+
 
 
 # ========================================================================
@@ -211,18 +251,18 @@ ffUnitTest_SRCS_DEFAULT += ffUnitTest.cc
 # System library must be reference like so;
 # <IOCAPP>_SYS_LIB
 # =========================================================================
-cppunit_DIR             =  $(CPPUNIT)/lib
+cppunit_DIR             =  $(CPPUNIT_LIB)
 ffUnitTest_LIBS         += cppunit
 
 # we have already defined this library location above but will
 # redefine for decoupling and clarity
-lapack_DIR              =  $(LAPACK)/lib
+lapack_DIR              =  $(LAPACK_LIB)
 ffUnitTest_LIBS         += lapack
 
-blas_DIR                =  $(LAPACK)/lib
+blas_DIR                =  $(LAPACK_LIB)
 ffUnitTest_LIBS         += blas
 
-ifeq ($(T_A),linuxRT_glibc-x86_64)
+ifeq ($(T_A),linuxRT-x86_64)
 gfortran_DIR = $(GFORT_LIB)
 dl_DIR = $(DL_LIB)
 quadmath_DIR = $(QUADMATH_LIB)
@@ -235,13 +275,13 @@ ffUnitTest_SYS_LIBS     += dl
 ffUnitTest_SYS_LIBS     += gfortran
 endif
 
-ifeq ($(T_A),linuxRT_glibc-x86_64)
+ifeq ($(T_A),linuxRT-x86_64)
    evrClientLab_LIBS += drvMrf
    evrma_DIR = $(EVRMA_LIB)
    evrClientLab_LIBS += evrma
 endif
   
-ifeq ($(T_A),linux-x86_64)
+ifeq ($(T_A),rhel6-x86_64)
    evrClientLab_LIBS += drvMrf
    evrma_DIR = $(EVRMA_LIB)
    evrClientLab_LIBS += evrma
@@ -263,17 +303,33 @@ ffUnitTest_LIBS += fcom fcomIocshSupport fcomUtil
 ffUnitTest_LIBS += udpCommBSD
 
 #fastFeedback_LIBS += drvMrf (Migrating to EVRsharing)
-ifeq ($(T_A),linuxRT_glibc-x86_64)
+ifeq ($(T_A),linuxRT-x86_64)
   ffUnitTest_LIBS += drvMrf
   evrma_DIR = $(EVRMA_LIB)
   ffUnitTest_LIBS += evrma
 endif
   
-ifeq ($(T_A),linux-x86_64)
+ifeq ($(T_A),rhel6-x86_64)
   ffUnitTest_LIBS += drvMrf
   evrma_DIR = $(EVRMA_LIB)
   ffUnitTest_LIBS += evrma
 endif
+
+# Link in New BSA Support
+ffUnitTest_LIBS += eventBsaSupport
+ffUnitTest_LIBS += BsaCore
+
+# ================================================
+# Adding Support for EPICS V4 (i.e. EPICS PVA)
+# ================================================
+# Link in the code from qsrv
+ffUnitTest_LIBS += qsrv
+
+# ================================================
+# EPICS_BASE_PVA_CORE_LIBS comes from pvAccessCPP 
+# and is defined at <>/cfg/CONFIG_PVACCESS_MODULE
+# ================================================
+ffUnitTest_LIBS += $(EPICS_BASE_PVA_CORE_LIBS)
 
 
 ffUnitTest_LIBS += $(EPICS_BASE_IOC_LIBS)

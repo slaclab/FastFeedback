@@ -8,9 +8,12 @@
 #  Auth: 19-May-2015, L. Piccoli         (lpiccoli)
 #        18-Nov-2015, A. Babbitt         (ababbitt)
 #               2017, J. Mock            (jmock)
+#               2018, W. Williams        (ernesto)
 #      
 #==============================================================
-#
+R2.0.0:  Migrating to EPICS BASE R3.15.5  Ernest Williams (ernesto)
+         Move up to BsaCore R1.4.0
+
 FastFeedback-R1-0-28 1-Nov-2018  Jeremy Mock (jmock)
   Add automatic save of ACTREF and ACTOFFSETS into sioc-sys0-fb01
 

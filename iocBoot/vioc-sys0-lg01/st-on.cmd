@@ -1,3 +1,4 @@
+#!../../bin/linuxRT-x86_64/fastFeedback
 #
 # st.cmd file for Fast Feedback Controller IOC
 # Note: contains parameters specific to vioc-sys0-lg01 and
