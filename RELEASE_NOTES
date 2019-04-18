@@ -11,8 +11,9 @@
 #               2018, W. Williams        (ernesto)
 #      
 #==============================================================
-R2.0.0:  Migrating to EPICS BASE R3.15.5  Ernest Williams (ernesto)
-         Move up to BsaCore R1.4.0
+R2.0.0:   18-April-2019 Ernest Williams (ernesto) 
+          Migrating to EPICS BASE R3.15.5
+          Move up to BsaCore R1.4.0
 
 FastFeedback-R1-0-28 1-Nov-2018  Jeremy Mock (jmock)
   Add automatic save of ACTREF and ACTOFFSETS into sioc-sys0-fb01

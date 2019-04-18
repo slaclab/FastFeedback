@@ -1,4 +1,4 @@
-#!iocSpecificRelease/bin/linuxRT_glibc-x86_64/fastFeedback
+#!../../bin/linuxRT-x86_64/fastFeedback
 # st.cmd file for Fast Feedback Controller IOC vioc-li21-tr02
 # Note: contains parameters specific to vioc-li21-tr02 and
 #       and calls generic st.cmd common to all feedback loops
