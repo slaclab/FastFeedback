@@ -40,9 +40,11 @@ epicsEnvSet("LOCA_NAME","${FB}")
 epicsEnvSet("LOCA2_NAME", "${FB}", 1)
 #
 # ======= FCOM  Setup  ========================================
+# FCOM PREFIX FOR PROD
+epicsEnvSet("FCOM_MC_PREFIX","239.219.8.0")
 
-#epicsEnvSet("FCOM_MC_PREFIX","239.219.8.0")
-epicsEnvSet("FCOM_MC_PREFIX","239.219.248.0")
+# FCOM PREFIX FOR DEV
+#epicsEnvSet("FCOM_MC_PREFIX","239.219.248.0")
 
 # Initialize FCOM - Provide FCOM parameters in the kernel-modules.cmd 
 # FCOM parameters are different on production versus development
