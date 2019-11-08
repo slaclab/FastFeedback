@@ -53,7 +53,7 @@ epicsEnvSet(UNIT,"TR01")
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
 epicsEnvSet(VEVR, "vevr0")
 
-epicsEnvSet("IOC_TYPE", "VIOC")
+epicsEnvSet("IOC_TYPE", "SIOC")
 epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")
 epicsEnvSet("LOCAL_SETPOINTS", "1")
 # ========================================================

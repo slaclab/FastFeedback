@@ -19,7 +19,7 @@ cd ${TOP}
 #=======================================================================
 
 # tag messages with IOC name
-# How to escape the "vioc-in20-tr02" as the PERL program
+# How to escape the "sioc-in20-tr02" as the PERL program
 # will try to replace it.
 # So, uncomment the following and remove the backslash
 
@@ -52,7 +52,7 @@ epicsEnvSet(UNIT,"TR02")
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
 epicsEnvSet(VEVR, "vevr1")
 
-epicsEnvSet("IOC_TYPE", "VIOC")
+epicsEnvSet("IOC_TYPE", "SIOC")
 epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")
 epicsEnvSet("LOCAL_SETPOINTS", "1")
 # ========================================================
