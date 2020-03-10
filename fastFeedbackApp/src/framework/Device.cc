@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <stdlib.h>
 #include "Device.h"
 #include "FileChannel.h"
 #include "CaChannel.h"
