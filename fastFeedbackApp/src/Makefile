@@ -77,15 +77,18 @@ fastFeedback_DBD += system.dbd
 # New BSA
 fastFeedback_DBD += bsaCore.dbd
 
-
-# ========================================
+# ============================================
 # Required for Qsrv
-# ========================================
-fastFeedback_DBD += PVAServerRegister.dbd
-fastFeedback_DBD += qsrv.dbd
-# ========================================
+# ============================================
+# Link QSRV (pvAccess Server) if available
+ifdef EPICS_QSRV_MAJOR_VERSION
+    fastFeedback_LIBS += qsrv
+    fastFeedback_LIBS += $(EPICS_BASE_PVA_CORE_LIBS)
+    fastFeedback_DBD  += PVAServerRegister.dbd
+    fastFeedback_DBD  += qsrv.dbd
+endif
+# =============================================
 
-# =======================================================
 
 # ========================================================================
 # Source code for fastFeedback IOC Application
@@ -147,19 +150,6 @@ endif
 # Link in EPICS MODULES and BASE
 # =======================================================
 
-# ================================================
-# Adding Support for EPICS V4 (i.e. EPICS PVA)
-# ================================================
-# Link in the code from qsrv
-fastFeedback_LIBS += qsrv
-
-# ================================================
-# EPICS_BASE_PVA_CORE_LIBS comes from pvAccessCPP 
-# and is defined at <>/cfg/CONFIG_PVACCESS_MODULE
-# ================================================
-fastFeedback_LIBS += $(EPICS_BASE_PVA_CORE_LIBS)
-
-fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
 fastFeedback_LIBS += miscUtils
 fastFeedback_LIBS += devIocStats
 fastFeedback_LIBS += caPutLog
@@ -190,6 +180,7 @@ fastFeedback_LIBS += BsaCore
 #Link in Library for perfMeasure (new)
 #fastFeedback_LIBS += perfMeasure
 
+fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 # ========================================================================
 # CPPUNIT Tests IOC Application
@@ -211,13 +202,6 @@ ffUnitTest_DBD += system.dbd
 
 # New BSA
 ffUnitTest_DBD += bsaCore.dbd
-
-# ========================================
-# Required for Qsrv
-# ========================================
-ffUnitTest_DBD += PVAServerRegister.dbd
-ffUnitTest_DBD += qsrv.dbd
-
 
 
 # ========================================================================
@@ -325,15 +309,23 @@ ffUnitTest_LIBS += BsaCore
 # Link in the code from qsrv
 ffUnitTest_LIBS += qsrv
 
-# ================================================
-# EPICS_BASE_PVA_CORE_LIBS comes from pvAccessCPP 
-# and is defined at <>/cfg/CONFIG_PVACCESS_MODULE
-# ================================================
-ffUnitTest_LIBS += $(EPICS_BASE_PVA_CORE_LIBS)
+# ============================================
+# Required for Qsrv
+# ============================================
+# Link QSRV (pvAccess Server) if available
+ifdef EPICS_QSRV_MAJOR_VERSION
+    ffUnitTest_LIBS += qsrv
+    ffUnitTest_LIBS += $(EPICS_BASE_PVA_CORE_LIBS)
+    ffUnitTest_DBD  += PVAServerRegister.dbd
+    ffUnitTest_DBD  += qsrv.dbd
+endif
+# =============================================
 
 
+# Link in EPICS BASE LIBS
 ffUnitTest_LIBS += $(EPICS_BASE_IOC_LIBS)
-#=============================================================================
+
+
 
 
 include $(TOP)/configure/RULES

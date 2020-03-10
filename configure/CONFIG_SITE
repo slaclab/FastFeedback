@@ -46,7 +46,7 @@ STATIC_BUILD=YES
 # =============================
 # Define the archiecture versions
 # =============================
-LINUXRT_BUILDROOT_VERSION=buildroot-2016.11.1
+LINUXRT_BUILDROOT_VERSION=buildroot-2019.08
 LINUX_VERSION=rhel6
 
 
@@ -60,7 +60,7 @@ KERNEL_MOD_TOP=$(PACKAGE_SITE_TOP)/linuxKernel_Modules
 # Support for EVRMA Kernel Module (evrma.ko)
 # =============================================================================================================
 KERNEL_MODULE_EVRMA_PACKAGE_NAME=evrmaDriver
-KERNEL_MODULE_EVRMA_VERSION=R1.0.8
+KERNEL_MODULE_EVRMA_VERSION=R1.0.9
 KERNEL_MODULE_EVRMA_TOP=$(KERNEL_MOD_TOP)/$(KERNEL_MODULE_EVRMA_PACKAGE_NAME)/$(KERNEL_MODULE_EVRMA_VERSION)
 KERNEL_MODULE_EVRMA_KO = $(KERNEL_MODULE_EVRMA_TOP)/$(PKG_ARCH)
 KERNEL_MODULE_EVRMA_INCLUDE = $(KERNEL_MODULE_EVRMA_TOP)/$(PKG_ARCH)/include
@@ -70,7 +70,7 @@ KERNEL_MODULE_EVRMA_INCLUDE = $(KERNEL_MODULE_EVRMA_TOP)/$(PKG_ARCH)/include
 # Support for EVRMA
 # ===========================================================================
 EVRMA_PACKAGE_NAME=evrma
-EVRMA_VERSION=R1.0.8
+EVRMA_VERSION=R1.0.9
 EVRMA_TOP=$(PACKAGE_SITE_TOP)/$(EVRMA_PACKAGE_NAME)/$(EVRMA_VERSION)
 EVRMA_LIB = $(EVRMA_TOP)/$(PKG_ARCH)/lib
 EVRMA_INCLUDE = $(EVRMA_TOP)/$(PKG_ARCH)/include
@@ -122,8 +122,8 @@ LAPACK_INCLUDE = $(LAPACK_TOP)/$(PKG_ARCH)/include
 # ===========================================================================
 # Define the location of the gfortran
 # # So only need to define location of libs and headers
-BUILDROOT_HOME=/afs/slac/package/linuxRT/buildroot-2016.11.1
-STAGE_X86=$(BUILDROOT_HOME)/buildroot-2016.11.1-x86_64/output/staging
+BUILDROOT_HOME=/afs/slac/package/linuxRT/buildroot-2019.08
+STAGE_X86=$(BUILDROOT_HOME)/buildroot-2019.08-x86_64/output/staging
 #
 GFORT_LIB     = $(STAGE_X86)/usr/lib64
 GFORT_INCLUDE = $(STAGE_X86)/usr/include
