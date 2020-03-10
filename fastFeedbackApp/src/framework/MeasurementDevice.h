@@ -78,7 +78,18 @@ public:
         return _tmit;
     }
 
-    static const double LOW_TMIT = 1e7;
+/* Since float and double are not of integral or enumeration type, 
+ * such members must either be constexpr, or non-static in order 
+ * for the initializer in the class definition to be permitted.
+ */
+
+#if __GNUC__ > 5
+ #define GNU_CONST_STATIC_FLOAT_DECLARATION constexpr
+#else
+ #define GNU_CONST_STATIC_FLOAT_DECLARATION const
+#endif
+
+   GNU_CONST_STATIC_FLOAT_DECLARATION static double LOW_TMIT = 1e7;
 
     /** Unsupported method */
     virtual int set(double value) {

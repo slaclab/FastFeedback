@@ -109,7 +109,19 @@ public:
     CaChannel *_laserPowerReadbackChannel;
 
     static const unsigned MAX_GOOD_MEASUREMENTS = 10;
-    static const double ACTUATOR_DEADBAND = 0.005;
+
+/* Since float and double are not of integral or enumeration type,
+ * such members must either be constexpr, or non-static in order
+ * for the initializer in the class definition to be permitted.
+ */
+#if __GNUC__ > 5
+ #define GNU_CONST_STATIC_FLOAT_DECLARATION constexpr
+#else
+ #define GNU_CONST_STATIC_FLOAT_DECLARATION const
+#endif
+
+    GNU_CONST_STATIC_FLOAT_DECLARATION static double ACTUATOR_DEADBAND = 0.005;
+    
     static const unsigned MAX_ACTUATOR_SKIP = 10;
     static const unsigned MAX_MISMATCHED_PULSEID_MEASUREMENTS = 20;
 
