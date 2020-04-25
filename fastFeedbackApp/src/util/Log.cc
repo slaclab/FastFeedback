@@ -22,10 +22,6 @@ int DEBUG_BUFFER_FLAG = 0;
 
 USING_FF_NAMESPACE
 
-/**
- * Log singleton initialization
- */
-Log Log::_instance;
 bool Log::_allLogToConsole = false;
 
 /**
@@ -329,6 +325,7 @@ void Log::setDebugLevel(int flag, int level) {
  * @author L.Piccoli
  */
 Log &Log::getInstance() {
+    static Log _instance;
     return _instance;
 }
 

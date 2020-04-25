@@ -158,8 +158,6 @@ private:
     /** String that holds the converted epicsTimeStamp */
     char _timeString[256];
 
-    /** System wide Log instance */
-    static Log _instance;
 
     /** Time is seconds of the last alarm set */
     time_t _alarmTime;
