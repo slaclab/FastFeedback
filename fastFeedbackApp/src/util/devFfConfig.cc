@@ -887,7 +887,7 @@ static long devWoFfConfig_init_record(waveformRecord *precord) {
 
     std::string pvName = precord->inp.value.instio.string;
 
-    if (precord->ftvl == DBR_STS_SHORT) {//DBF_DOUBLE) {
+    if (precord->ftvl == 10) {//DBR_STS_SHORT DBF_DOUBLE) {
         PvMapDoubleWaveform::iterator it;
         switch (precord->inp.type) {
             case INST_IO:
@@ -978,7 +978,7 @@ static long devWoFfConfig_write_waveform(waveformRecord *precord) {
         return 0;
     }
 
-    if (precord->ftvl == DBR_STS_SHORT) { //DBF_DOUBLE) {
+    if (precord->ftvl == 10) { //DBF_DOUBLE DBR_STS_SHORT) {
         std::vector<PvDataDoubleWaveform *> *vector =
                 reinterpret_cast<std::vector<PvDataDoubleWaveform *> *> (precord->dpvt);
         try {
