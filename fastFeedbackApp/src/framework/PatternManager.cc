@@ -69,11 +69,6 @@ void PatternManagerFiducialCallback(void *arg) {
     }
 }
 
-/**
- * PatternManager singleton initialization
- */
-PatternManager PatternManager::_instance;
-
 PatternManager::PatternManager() :
 _fiducialCallbackCount(0),
 _patternsNotFoundCount(0),
@@ -404,6 +399,7 @@ int PatternManager::remove(PatternMask patternMask, EventReceiver &receiver) {
  * @author L.Piccoli
  */
 PatternManager &PatternManager::getInstance() {
+    static PatternManager _instance;
     return _instance;
 }
 

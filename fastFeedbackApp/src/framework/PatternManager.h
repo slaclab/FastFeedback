@@ -152,9 +152,6 @@ private:
     /** Time between fiducial and measurement */
     TimeAverage _delayStats;
 
-    /** There is only one PatternManager instance */
-    static PatternManager _instance;
-
     /** Statistics about the fiducial callback processing time */
     TimeAverage _fiducialStats;
     TimeAverage _fiducialMatchStats;

@@ -84,9 +84,6 @@ private:
 
     /** Indicates whether the PatternGenerator is on or off */
     bool _enabled;
-
-    /** There is only one PatternGenerator instance */
-    static PatternGenerator _instance;
 };
 
 FF_NAMESPACE_END

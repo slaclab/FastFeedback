@@ -118,9 +118,6 @@ private:
 
     /** Stats about the MEASUREMENT_EVENT processing time */
     TimeAverage _measurementStats;
-
-    /** There is only one CollectorThread instance */
-    static CollectorThread _instance;
 };
 
 FF_NAMESPACE_END

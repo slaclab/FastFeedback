@@ -17,11 +17,6 @@
 USING_FF_NAMESPACE
 
 /**
- * MeasurementCollector singleton initialization
- */
-MeasurementCollector MeasurementCollector::_instance;
-
-/**
  * Updates every MeasurementDevice for a specific pattern. This method is called
  * by the CollectorThread once the timer (of approximatelly 2.5 ms) started after
  * the fiducial is received and there is a pattern match.
@@ -226,6 +221,7 @@ bool MeasurementCollector::hasPatternMask(PatternMask patternMask) {
  * @author L.Piccoli
  */
 MeasurementCollector &MeasurementCollector::getInstance() {
+    static MeasurementCollector _instance;
     return _instance;
 }
 

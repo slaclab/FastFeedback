@@ -14,11 +14,6 @@
 USING_FF_NAMESPACE
 
 /**
- * CollectorThread singleton initialization
- */
-CollectorThread CollectorThread::_instance;
-
-/**
  * Class constructor. Thread name is set to "Collector".
  *
  * @author L.Piccoli
@@ -177,6 +172,7 @@ int CollectorThread::remove(EventReceiver &receiver) {
  * @author L.Piccoli
  */
 CollectorThread &CollectorThread::getInstance() {
+    static CollectorThread _instance;
     return _instance;
 }
 

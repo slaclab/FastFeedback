@@ -25,11 +25,6 @@ void PatternGeneratorCallback(void *arg) {
 }
 
 /**
- * PatternGenerator singleton initialization
- */
-PatternGenerator PatternGenerator::_instance;
-
-/**
  * PatternGenerator constructor, initializes the timer
  *
  * @author L.Piccoli
@@ -117,6 +112,7 @@ void PatternGenerator::stop() {
  * @author L.Piccoli
  */
 PatternGenerator &PatternGenerator::getInstance() {
+    static PatternGenerator _instance;
     return _instance;
 }
 

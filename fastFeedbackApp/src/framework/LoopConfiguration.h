@@ -11,6 +11,7 @@
 #include <map>
 #include <set>
 #include <vector>
+#include <iterator>
 #include <string>
 #include <sstream>
 #include <dbScan.h>

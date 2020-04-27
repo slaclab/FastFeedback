@@ -110,9 +110,6 @@ private:
      */
     CollectorMeasurementMap _measurements;
 
-    /** There is only one MeasurementCollector instance */
-    static MeasurementCollector _instance;
-
     /** Count the number of devices being collected */
     int _measurementCount;
 

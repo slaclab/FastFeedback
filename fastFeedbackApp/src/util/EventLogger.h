@@ -73,9 +73,6 @@ private:
     bool _full;
 
     char _auxString[4];
-
-    /** System wide EventLog instance */
-    static EventLogger _instance;
 };
 
 FF_NAMESPACE_END

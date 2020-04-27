@@ -12,10 +12,6 @@
 
 USING_FF_NAMESPACE
 
-/**
- * EventLogger singleton initialization
- */
-EventLogger EventLogger::_instance;
 
 #define CIRCULAR_INCREMENT(X) (X + 1) % _size
 #define CIRCULAR_DECREMENT(X) (_size + X - 1) % _size
@@ -139,5 +135,6 @@ void EventLogger::setSamples(int samples) {
  * @author L.Piccoli
  */
 EventLogger &EventLogger::getInstance() {
+    static EventLogger _instance;
     return _instance;
 }

@@ -474,7 +474,6 @@ int LoopConfiguration::countUsedDevices(DeviceSet *deviceSet) {
 int LoopConfiguration::configureReferenceOrbit() {
     int used = 0;
     _refOrbit.clear();
-
     std::vector<double>::iterator refIt = _refOrbitPv.getValueAddress()->begin();
     MeasurementSet *measurementsFirstPattern = _measurements.begin()->second;
     for (MeasurementSet::iterator it = measurementsFirstPattern->begin();
@@ -516,6 +515,7 @@ int LoopConfiguration::configureActuatorEnergy() {
 	      << ") is larger than the number of energy values ("
 	      << (int) _actEnergyPv.getValueAddress()->size()
 	      << ")" << Log::flush;
+
       return -1;
     }
     std::vector<double>::iterator actIt = _actEnergyPv.getValueAddress()->begin();
