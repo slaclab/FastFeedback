@@ -15,6 +15,7 @@
 #include <longoutRecord.h>
 #include <calcoutRecord.h>
 #include <epicsExport.h>
+#include <menuFtype.h>
 
 #include "Defs.h"
 #include "PatternManager.h"
@@ -887,7 +888,7 @@ static long devWoFfConfig_init_record(waveformRecord *precord) {
 
     std::string pvName = precord->inp.value.instio.string;
 
-    if (precord->ftvl == 10) {//DBR_STS_SHORT DBF_DOUBLE) {
+    if (precord->ftvl == menuFtypeDOUBLE) {//DBR_STS_SHORT DBF_DOUBLE) {
         PvMapDoubleWaveform::iterator it;
         switch (precord->inp.type) {
             case INST_IO:
@@ -918,7 +919,7 @@ static long devWoFfConfig_init_record(waveformRecord *precord) {
             default:
                 precord->val = 0;
         }
-    } else if (precord->ftvl == 4) {//DBR_SHORT) {
+    } else if (precord->ftvl == menuFtypeUSHORT) {//DBR_SHORT) {
         PvMapUShortWaveform::iterator it;
         switch (precord->inp.type) {
             case INST_IO:
@@ -978,7 +979,7 @@ static long devWoFfConfig_write_waveform(waveformRecord *precord) {
         return 0;
     }
 
-    if (precord->ftvl == 10) { //DBF_DOUBLE DBR_STS_SHORT) {
+    if (precord->ftvl == menuFtypeDOUBLE) { //DBF_DOUBLE DBR_STS_SHORT 10) {
         std::vector<PvDataDoubleWaveform *> *vector =
                 reinterpret_cast<std::vector<PvDataDoubleWaveform *> *> (precord->dpvt);
         try {
@@ -993,7 +994,7 @@ static long devWoFfConfig_write_waveform(waveformRecord *precord) {
             std::cerr << "ERROR: " << e.what() << std::endl;
             return -1;
         }
-    } else if (precord->ftvl == 4) {//DBR_SHORT) {
+    } else if (precord->ftvl == menuFtypeUSHORT) {//DBR_SHORT 4) {
         std::vector<PvDataUShortWaveform *> *vector =
                 reinterpret_cast<std::vector<PvDataUShortWaveform *> *> (precord->dpvt);
         try {
@@ -1056,7 +1057,7 @@ static long devWiFfConfig_init_record(waveformRecord *precord) {
 
     std::string pvName = precord->inp.value.instio.string;
 
-    if (precord->ftvl == DBF_STRING) {
+    if (precord->ftvl == menuFtypeSTRING) { //DBF_STRING
         PvMapStringWaveform::iterator it;
         switch (precord->inp.type) {
             case INST_IO:
@@ -1087,7 +1088,7 @@ static long devWiFfConfig_init_record(waveformRecord *precord) {
             default:
                 precord->val = 0;
         }
-    } else if (precord->ftvl == 1) { //DBF_CHAR) {
+    } else if (precord->ftvl == menuFtypeCHAR) { //DBF_CHAR 1) {
         PvMapCharWaveform::iterator it;
         switch (precord->inp.type) {
             case INST_IO:
@@ -1198,7 +1199,7 @@ static long devWiFfConfig_read_waveform(waveformRecord *precord) {
 
     precord->nord = 0;
 
-    if (precord->ftvl == DBF_STRING) {
+    if (precord->ftvl == menuFtypeSTRING) {//DBF_STRING
         std::vector<PvDataStringWaveform *> *vector =
                 reinterpret_cast<std::vector<PvDataStringWaveform *> *> (precord->dpvt);
 
@@ -1223,7 +1224,7 @@ static long devWiFfConfig_read_waveform(waveformRecord *precord) {
             std::cerr << "ERROR: " << e.what() << std::endl;
             return -1;
         }
-    } else if (precord->ftvl == 1) {//DBF_CHAR) {
+    } else if (precord->ftvl == menuFtypeCHAR) {  //DBF_CHAR 1
         std::vector<PvDataCharWaveform *> *vector =
                 reinterpret_cast<std::vector<PvDataCharWaveform *> *> (precord->dpvt);
         try {
