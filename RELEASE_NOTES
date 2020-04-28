@@ -11,6 +11,14 @@
 #               2018, W. Williams        (ernesto)
 #      
 #==============================================================
+R3.0.0:   28-April-2020 J. Mock (jmock)
+    * upgrade to EPICS R7.0.3 and buildroot-2019.08 (and to c++11)
+    * Change the way singleton classes are handled to be compatible with c++11
+    * Upgrade evrClient, fcom fcomUtil, udpComm, bsaCore, timingApi to be compatible with
+      CLTS EVG timing changes
+    * Remove st-on.cmd and st-off.cmd from all iocBoot directories.  These are depricated scripts.
+          
+
 R2.0.0:   18-April-2019 Ernest Williams (ernesto) 
           Migrating to EPICS BASE R3.15.5
           Move up to BsaCore R1.4.0
