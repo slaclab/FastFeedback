@@ -180,7 +180,7 @@ record(ai, "$(IOC):$(LC):$(LOOP):DL2_EREF_IN") {
   field(FLNK, "$(IOC):$(LC):$(LOOP):DL2_EREF")
   field(VAL, "0")
 #  field(INP, "SIOC:SYS0:ML00:AO409 CPP MS")
-  field(INP, "REFS:DMP1:400:EDES CPP MS")
+  field(INP, "REFS:DMPH:400:EDES CPP MS")
   field(EGU, "GeV/c")
   field(PRIO, "MEDIUM")
 }

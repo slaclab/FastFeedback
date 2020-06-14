@@ -191,6 +191,7 @@ system("/bin/su root -c `pwd`/rtPrioritySetup.${VEVR}.cmd")
 # BLEN:LI21:265:AIMAX
 # =====================================================================
 dbpf("FBCK:FB04:LG01:M4DEVNAME", "BLEN:LI21:265:AIMAX")
+dbpf("FBCK:FB01:LG01:M4DEVNAME", "BLEN:LI21:265:AIMAX")
 
 ########################################################################
 #========================================================================
@@ -217,6 +218,6 @@ makeAutosaveFileFromDbInfo("info_mon_${FB}.req", "autosaveMon${FB}")
 create_monitor_set("info_mon_${FB}.req",60,"")
 
 makeAutosaveFileFromDbInfo("info_config_${LOOP}.req", "autosaveConfig${LOOP}")
-create_triggered_set("info_config_${LOOP}.req","FBCK:${FB}:${LOOP}:SAVE","")
+create_monitor_set("info_config_${LOOP}.req",60,"")
 
 #Done

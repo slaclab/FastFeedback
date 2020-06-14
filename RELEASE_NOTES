@@ -11,6 +11,10 @@
 #               2018, W. Williams        (ernesto)
 #      
 #==============================================================
+R3.0.1:   28-April-2020 J. Mock (jmock)
+    * Change create_triggered_set to create_monitored_set for autosave of loop config
+    * Change LEM PV from DMP1 to DMPH for long feedback
+
 R3.0.0:   28-April-2020 J. Mock (jmock)
     * upgrade to EPICS R7.0.3 and buildroot-2019.08 (and to c++11)
     * Change the way singleton classes are handled to be compatible with c++11
