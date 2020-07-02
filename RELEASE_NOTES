@@ -11,6 +11,9 @@
 #               2018, W. Williams        (ernesto)
 #      
 #==============================================================
+R3.0.2:   2-July-2020 J. Mock (jmock)
+    * Fix LTU0 hard coded PV inputs to LTUH
+
 R3.0.1:   28-April-2020 J. Mock (jmock)
     * Change create_triggered_set to create_monitored_set for autosave of loop config
     * Change LEM PV from DMP1 to DMPH for long feedback

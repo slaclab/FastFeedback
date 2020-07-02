@@ -36,7 +36,7 @@ record(ai, "$(IOC):$(LC):$(LOOP):BY1BDES_IN") {
   field(PINI, "YES")
   field(FLNK, "$(IOC):$(LC):$(LOOP):BY1BDES")
   field(VAL, "0")
-  field(INP, "BEND:LTU0:125:BDES CPP MS")
+  field(INP, "BEND:LTUH:125:BDES CPP MS")
   field(EGU, "GeV/c")
   field(PRIO, "LOW")
 }

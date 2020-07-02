@@ -5,7 +5,7 @@
 
 ######################################
 # THIS IS TO KEEP THE BLD HAPPY -- ON DEV ONLY
-#record(ao, "BEND:LTU0:125:BDES") {
+#record(ao, "BEND:LTUH:125:BDES") {
 #  field(DESC, "Fake PV for the BLD")
 #  field(VAL, 1)
 #  field(PINI, "YES")
