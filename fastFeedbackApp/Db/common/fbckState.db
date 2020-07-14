@@ -835,6 +835,14 @@ record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)P1HST") {
   field(FLNK, "FBCK:$(AREA):$(LOOP):S$(SNUM)DES1HST")
 }
 
+record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)P1AVG") {
+  field(INP, "FBCK:$(AREA):$(LOOP):S$(SNUM)P1HST")
+  field(ALG, "N to 1 Average")
+  field(N, "10")
+  field(EGU, "$(EGU)")
+  field(PREC, "4")
+}
+
 record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)P1HST_S") {
   field(INP, "FBCK:$(AREA):$(LOOP):S$(SNUM)P1")
   field(ALG, "Circular Buffer")
