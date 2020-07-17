@@ -836,7 +836,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)P1HST") {
 }
 
 record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)P1AVG") {
-  field(INP, "FBCK:$(AREA):$(LOOP):S$(SNUM)P1HST")
+  field(INP, "FBCK:$(AREA):$(LOOP):S$(SNUM)P1 CP")
   field(ALG, "N to 1 Average")
   field(N, "10")
   field(EGU, "$(EGU)")
