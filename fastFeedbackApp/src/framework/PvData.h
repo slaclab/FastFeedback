@@ -479,30 +479,19 @@ private:
     epicsMutex *_mutex;
 
     /**
-     * Insert a new PvData in the proper Map
+     * Insert this if not already in the map and not created by Devices
      *
      * @author L.Piccoli
+     * @author R.Reno
      */
     void insert() {
-      // This code is to avoid the insertion of PvDatas created by Devices
-      // used for seachingn only (see LoopConfiguration::getDevice())
-      size_t position = _pvName.find("XX00");
-      if (position != std::string::npos && position == 0) {
-	return;
-      }
-      
-        // First check if there is a PV with the same name, and then append it
-        // to the end of the vector
-        std::vector<PvData<Type> *> *vector;
-        typename std::map<std::string, std::vector<PvData<Type> *> *>::iterator it;
-        it = _pvMap.find(_pvName);
-        if (it == _pvMap.end()) {
-            vector = new std::vector<PvData<Type> *>();
-            _pvMap.insert(std::pair<std::string, std::vector<PvData<Type> *> *>(_pvName, vector));
-        } else {
-            vector = it->second;
-        }
-        vector->push_back(this);
+        // Do not insert if created by Devices
+        auto position = _pvName.find("XX00");
+        if (position != std::string::npos && position == 0)
+            return;
+     
+        auto *vec = new std::vector<decltype(this)> { this };
+        _pvMap.emplace(_pvName, vec);
     }
 
     /**
