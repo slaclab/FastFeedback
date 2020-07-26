@@ -8,8 +8,8 @@
 #ifndef _LOOPTEST_H
 #define	_LOOPTEST_H
 
-#include "cppunit/extensions/HelperMacros.h"
-#include "cppunit/TestFixture.h"
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 #include "Defs.h"
 
 FF_NAMESPACE_START

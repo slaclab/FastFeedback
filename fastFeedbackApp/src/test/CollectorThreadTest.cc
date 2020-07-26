@@ -94,7 +94,7 @@ void FF::CollectorThreadTest::testProcessPattern() {
 
     // Check if pattern stored with collector is the same one sent before
     if (!(patternEvent._pattern == collector._pattern)) {
-        CPPUNIT_ASSERT_MESSAGE(false, "Patterns are different!");
+        CPPUNIT_ASSERT_MESSAGE("Patterns are different!", false);
         // NOTE: If this test fails, the CollectorThread exits without
         // calling epicsThreadExit, which does generate some complaints by EPICS
     }

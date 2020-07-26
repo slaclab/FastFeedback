@@ -8,8 +8,8 @@
 #ifndef _PVDATATEST_H
 #define	_PVDATATEST_H
 
-#include "cppunit/extensions/HelperMacros.h"
-#include "cppunit/TestFixture.h"
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 
 class PvDataTest : public CppUnit::TestFixture {
     CPPUNIT_TEST_SUITE(PvDataTest);

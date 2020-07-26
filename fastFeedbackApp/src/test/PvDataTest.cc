@@ -122,7 +122,7 @@ void PvDataTest::testWrite() {
 void PvDataTest::testReadExternal() {
     std::string aString = "hi";
     PvDataString myString;
-    myString.setExternalValue(&aString);
+    myString.setExternalValuePtr(&aString);
 
     std::string readBack = "xxx";
     myString.read(&readBack);
@@ -133,7 +133,7 @@ void PvDataTest::testReadExternal() {
 void PvDataTest::testWriteExternal() {
     long val = -10;
     PvDataLong myLong;
-    myLong.setExternalValue(&val);
+    myLong.setExternalValuePtr(&val);
 
     long newVal = 22;
     myLong.write(&newVal);

@@ -8,8 +8,8 @@
 #ifndef _EXECTHREADTEST_H
 #define	_EXECTHREADTEST_H
 
-#include "cppunit/extensions/HelperMacros.h"
-#include "cppunit/TestFixture.h"
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 #include "Defs.h"
 
 FF_NAMESPACE_START

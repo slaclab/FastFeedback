@@ -8,8 +8,8 @@
 #ifndef _PATTERNMANAGERTEST_H
 #define	_PATTERNMANAGERTEST_H
 
-#include "cppunit/extensions/HelperMacros.h"
-#include "cppunit/TestFixture.h"
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 #include "PatternMask.h"
 #include "Defs.h"
 

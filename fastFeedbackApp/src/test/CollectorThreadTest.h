@@ -8,8 +8,8 @@
 #ifndef _COLLECTORTHREADTEST_H
 #define	_COLLECTORTHREADTEST_H
 
-#include "cppunit/extensions/HelperMacros.h"
-#include "cppunit/TestFixture.h"
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 
 #include "Pattern.h"
 #include "PatternMask.h"

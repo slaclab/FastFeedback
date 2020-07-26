@@ -8,8 +8,8 @@
 #ifndef _DEVICETEST_H
 #define	_DEVICETEST_H
 
-#include "cppunit/extensions/HelperMacros.h"
-#include "cppunit/TestFixture.h"
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 #include "Defs.h"
 
 FF_NAMESPACE_START

@@ -1,8 +1,8 @@
 #ifndef __FFXYTRAJFITTEST_H__
 #define __FFXYTRAJFITTEST_H__
 
-#include "cppunit/extensions/HelperMacros.h"
-#include "cppunit/TestFixture.h"
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 
 #include <iostream>
 #include <string>

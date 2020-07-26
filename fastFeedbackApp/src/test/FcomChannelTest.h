@@ -8,8 +8,8 @@
 #ifndef _FCOMCHANNELTEST_H
 #define	_FCOMCHANNELTEST_H
 
-#include "cppunit/extensions/HelperMacros.h"
-#include "cppunit/TestFixture.h"
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 
 #include "Defs.h"
 #include "FcomChannel.h"

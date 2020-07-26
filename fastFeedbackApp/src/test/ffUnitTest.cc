@@ -9,6 +9,8 @@
 #include <cppunit/Exception.h>
 #include "CaChannel.h"
 
+extern int PvDataTest_force_ld;
+
 int main(int argc, char* argv[]) {
     // Command line argument is the test path. Defaults to "", which resolves to the
     // top level suite
