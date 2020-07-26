@@ -11,6 +11,9 @@
 #               2018, W. Williams        (ernesto)
 #      
 #==============================================================
+R3.0.3:   29-July-2020 R.Reno (rreno)
+    * Add ability to snap state setpoints to average of last 10 calculated states for P1.
+
 R3.0.2:   2-July-2020 J. Mock (jmock)
     * Fix LTU0 hard coded PV inputs to LTUH
 
