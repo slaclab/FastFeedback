@@ -173,8 +173,8 @@ fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
 # CPPUNIT Tests IOC Application
 # ========================================================================
 # Let's build the Following IOC Application
-TESTPROD_IOC_linuxRT-x86_64 += ffUnitTest
-TESTPROD_IOC = $(TESTPROD_IOC_$(T_A))
+PROD_linuxRT-x86_64 += ffUnitTest
+PROD += $(PROD_$(T_A))
 
 DBD              += ffUnitTest.dbd
 ffUnitTest_DBD   += base.dbd
