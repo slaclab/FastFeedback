@@ -227,15 +227,16 @@ public:
       return *this;
     }
 
-    bool operator==(const PvData &other) {
-        return _value == other._value;
+    template <typename U>
+    bool operator==(const PvData<U> &other) {
+        return _value == other.getValue();
     }
 
     bool operator==(const Type &value) {
         return value == _value;
     }
 
-    bool operator!=(const PvData &other) {
+    bool operator!=(const PvData<Type> &other) {
         return !(*this == other);
     }
 
@@ -245,6 +246,12 @@ public:
 
     bool operator<(const Type &value) {
         return _value < value;
+    }
+
+    // Conversion of PvData<Type> to Type.
+    // Allows us to use something like 1 == a where a is a PvData<int>
+    operator auto() const {
+        return _value;
     }
 
     static std::map<std::string, std::vector<PvData<Type> *> *> &getPvMap() {
@@ -260,7 +267,7 @@ public:
         }
     }
 
-    Type getValue() {
+    Type getValue() const {
     	Type val;
     	if (_mutex != NULL) {
 	  _mutex->lock();
@@ -475,8 +482,9 @@ private:
      */
     aiRecord *_record;
 
-    // one mutex per PV, protects any reads/writes with the PV no matter what the type
-    epicsMutex *_mutex;
+    // one mutex per PV, protects any reads/writes with the PV no matter what the type.
+    // Declared `mutable` to allow use in `const` members.
+    mutable epicsMutex *_mutex;
 
     /**
      * Insert a new PvData in the proper Map
