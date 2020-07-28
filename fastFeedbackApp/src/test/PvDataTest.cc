@@ -26,8 +26,7 @@ void PvDataTest::testAssign() {
     a = 1;
     b = 1;
     CPPUNIT_ASSERT(a == 1);
-    // This does not compile, is there a way to call operator== of a in this case?
-    // CPPUNIT_ASSERT(1 == a);
+    CPPUNIT_ASSERT(1 == a);
     CPPUNIT_ASSERT(a == b);
     CPPUNIT_ASSERT(b == a);
     CPPUNIT_ASSERT(a == a);
@@ -35,8 +34,7 @@ void PvDataTest::testAssign() {
     CPPUNIT_ASSERT(a == b);
     CPPUNIT_ASSERT(b == a);
     c = 1;
-    // This does not compile ;)
-    // CPPUNIT_ASSERT(c == a);
+    CPPUNIT_ASSERT(c == a);
     d = 2;
     CPPUNIT_ASSERT(a != d);
     CPPUNIT_ASSERT(d != b);
@@ -74,7 +72,6 @@ void PvDataTest::testCheckMap() {
  * @author L.Piccoli
  */
 void PvDataTest::testDeviceSupport() {
-    /* TODO: rewrite or remove this test
    // Create the PvDatas...
     PvData<int> _measurementDelay("TIMERDELAY");
     PvData<double> _a1Hihi("A1HIHI");
@@ -91,7 +88,7 @@ void PvDataTest::testDeviceSupport() {
     PvMapDouble::iterator it = PvDataDouble::getPvMap().find(pvName);
     CPPUNIT_ASSERT(it != PvDataDouble::getPvMap().end());
 
-    void *dpvt = it->second->getValueAddress();
+    void *dpvt = it->second->at(0)->getValueAddress();
 
     // If data is being set to the PV then just copy it to dpvt.
     // The types will match because the precord->val has the same
@@ -107,7 +104,6 @@ void PvDataTest::testDeviceSupport() {
     readBack = -1;
     readBack = *(double *) dpvt;
     CPPUNIT_ASSERT(_a1Hihi == readBack);
-     * */
 }
 
 void PvDataTest::testWrite() {
@@ -132,8 +128,9 @@ void PvDataTest::testReadExternal() {
 
 void PvDataTest::testWriteExternal() {
     long val = -10;
-    PvDataLong myLong;
+    PvDataLong myLong("myLong");
     myLong.setExternalValuePtr(&val);
+    CPPUNIT_ASSERT(myLong.getValue() == val);
 
     long newVal = 22;
     myLong.write(&newVal);
