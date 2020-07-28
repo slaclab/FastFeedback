@@ -149,37 +149,21 @@ void FF::MeasurementCollectorTest::testUpdate() {
     int updateP3 = 98;
 
     for (int i = 0; i < updateP1; ++i) {
-        collector.update(p1);
+        CPPUNIT_ASSERT_EQUAL(0, collector.update(p1));
     }
 
     for (int i = 0; i < updateP2; ++i) {
-        collector.update(p2);
+        CPPUNIT_ASSERT_EQUAL(0, collector.update(p2));
     }
 
     for (int i = 0; i < updateP3; ++i) {
-        collector.update(p3);
+        CPPUNIT_ASSERT_EQUAL(0, collector.update(p3));
     }
 
-    // Check if measurements from devices are what we expect (a counting value)
-    // The call to get() returns the latest value read by the
-    // measurement device
-    double value = -1;
-    epicsTimeStamp timestamp;
-
-    CPPUNIT_ASSERT_EQUAL(0, m1->get(value, timestamp));
-    CPPUNIT_ASSERT_EQUAL(updateP1 - 1.0, value);
-
-    CPPUNIT_ASSERT_EQUAL(0, m2->get(value, timestamp));
-    CPPUNIT_ASSERT_EQUAL(updateP2 - 1.0, value);
-
-    CPPUNIT_ASSERT_EQUAL(0, m3->get(value, timestamp));
-    CPPUNIT_ASSERT_EQUAL(updateP3 - 1.0, value);
-
-    CPPUNIT_ASSERT_EQUAL(0, m4->get(value, timestamp));
-    CPPUNIT_ASSERT_EQUAL(updateP1 - 1.0, value);
-
-    CPPUNIT_ASSERT_EQUAL(0, m5->get(value, timestamp));
-    CPPUNIT_ASSERT_EQUAL(updateP1 - 1.0, value);
+    // We should not have any unmatched patterns
+    CPPUNIT_ASSERT_EQUAL(0, static_cast<int>(collector._patternNotMatchedCount));
+    // We should have matched all the patterns plus m5 matched p1 twice
+    CPPUNIT_ASSERT_EQUAL(static_cast<long>(2 * updateP1 + updateP2 + updateP3), collector._patternMatchCount);
 }
 
 /**
