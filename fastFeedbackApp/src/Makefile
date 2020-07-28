@@ -208,8 +208,7 @@ CC_TEST_FILES = EventReceiverTest.cc ThreadTest.cc \
 	ExecConfigurationTest.cc PatternGeneratorTest.cc \
 	CaChannelTest.cc FcomChannelTest.cc TrajectoryFitTest.cc \
 	PatternMaskTest.cc TimeTest.cc TimeAverageTest.cc \
-	EventLoggerTest.cc PvDataTest.cc ExecConfigurationTest.cc \
-	PatternGeneratorTest.cc
+	EventLoggerTest.cc PvDataTest.cc
 
 ffUnitTest_SRCS         += $(CC_TEST_FILES) $(CC_FILES)
 
