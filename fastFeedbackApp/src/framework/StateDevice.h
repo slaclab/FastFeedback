@@ -41,10 +41,10 @@ public:
     virtual int set(double value, epicsTimeStamp timestamp);
     virtual int write();
     int writeFcom(epicsTimeStamp timestamp);
-    virtual int getInitialSetting() throw (Exception);
+    virtual int getInitialSetting();
     virtual void show();
     virtual int configure(CommunicationChannel::AccessType accessType,
-            int patternIndex = -1) throw (Exception);
+            int patternIndex = -1);
 
     double getSetpoint();
 

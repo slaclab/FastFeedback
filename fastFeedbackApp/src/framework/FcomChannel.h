@@ -43,7 +43,7 @@ class FcomChannel : public CommunicationChannel {
 public:
 
     FcomChannel(CommunicationChannel::AccessType accessType, std::string name,
-            bool init = true) throw (Exception);
+            bool init = true);
 
     FcomChannel(FcomChannel &c) : CommunicationChannel(CommunicationChannel::READ_ONLY){
       std::cout << "Copy constructor for " << c._name << std::endl;

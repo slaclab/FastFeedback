@@ -977,7 +977,7 @@ void Loop::resetMeasurements() {
  * @return 0
  * @author L.Piccoli
  */
-int Loop::resetActuators() throw (Exception) {
+int Loop::resetActuators() {
     ActuatorSet::iterator it;
     int status = 0;
     for (ActuatorSet::iterator it = _actuators.begin();

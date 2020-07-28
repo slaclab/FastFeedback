@@ -40,7 +40,7 @@ TrajectoryFitPinv::~TrajectoryFitPinv() {
 int TrajectoryFitPinv::calculate(LoopConfiguration &configuration,
 				 MeasurementSet &measurements,
 				 ActuatorSet &actuators,
-				 StateSet &states) throw (Exception) {
+				 StateSet &states) {
   //configuration._mutex->lock();
   try {
     return TrajectoryFitStatic::calculate(configuration, measurements,actuators, states);
@@ -52,7 +52,7 @@ int TrajectoryFitPinv::calculate(LoopConfiguration &configuration,
   return -1;
 }
 
-int TrajectoryFitPinv::calculate() throw (Exception) {
+int TrajectoryFitPinv::calculate() {
   //_loopConfiguration->_mutex->lock();
   try {
     return TrajectoryFitStatic::calculate();
@@ -71,7 +71,7 @@ int TrajectoryFitPinv::calculate() throw (Exception) {
  */
 int TrajectoryFitPinv::configure(LoopConfiguration *configuration,
         MeasurementSet *measurements, ActuatorSet *actuators,
-        StateSet *states) throw (Exception) {
+        StateSet *states) {
   _loopConfiguration = configuration;
   _measurements = measurements;
   _actuators = actuators;

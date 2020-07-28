@@ -65,7 +65,7 @@ using namespace boost::numeric::bindings::lapack;
  */
 int TrajectoryFitGeneral::configure(LoopConfiguration *configuration,
         MeasurementSet *measurements, ActuatorSet *actuators,
-        StateSet *states) throw (Exception) {
+        StateSet *states) {
   _loopConfiguration = configuration;
   _allMeasurements = measurements;
   _allActuators = actuators;
@@ -173,7 +173,7 @@ int TrajectoryFitGeneral::reset() {
 int TrajectoryFitGeneral::calculate(LoopConfiguration &configuration,
         MeasurementSet &measurements,
         ActuatorSet &actuators,
-        StateSet &states) throw (Exception) {
+        StateSet &states) {
     return calculate();
 };
 
@@ -185,7 +185,7 @@ int TrajectoryFitGeneral::calculate(LoopConfiguration &configuration,
  * exceeds the hihi/lolo actuator limits
  * @author L.Piccoli
  */
-int TrajectoryFitGeneral::calculate() throw (Exception) {
+int TrajectoryFitGeneral::calculate() {
   checkConfig();
 
     _getMeasStats.start();
@@ -462,7 +462,7 @@ int TrajectoryFitGeneral::getCorrectorKicks(Vector &states, Vector &setpoints,
  * one of the values is outside the limits
  * @author L.Piccoli
  */
-int TrajectoryFitGeneral::updateActuators(Vector& actuatorDelta) throw (Exception) {
+int TrajectoryFitGeneral::updateActuators(Vector& actuatorDelta) {
     bool actuatorLimit = false;
     int i = 0;
     _exceptionMessage = "Actuator(s) out of range:";
@@ -503,7 +503,7 @@ int TrajectoryFitGeneral::updateActuators(Vector& actuatorDelta) throw (Exceptio
  * limits
  * @author L.Piccoli
  */
-int TrajectoryFitGeneral::updateStates(Vector &states) throw (Exception) {
+int TrajectoryFitGeneral::updateStates(Vector &states) {
   //    std::cout << &_states << std::endl;
 
     bool stateLimit = false;

@@ -32,7 +32,7 @@ FF_NAMESPACE_START
 class FileChannel : public CommunicationChannel {
 public:
     FileChannel(CommunicationChannel::AccessType accessType,
-                std::string fileName, bool wrapAround = false) throw (Exception);
+                std::string fileName, bool wrapAround = false);
     virtual ~FileChannel();
 
     virtual int read(double &value, epicsTimeStamp &timestamp, double timeout = 3.0);

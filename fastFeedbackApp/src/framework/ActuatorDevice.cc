@@ -327,7 +327,7 @@ DataPoint::Status ActuatorDevice::peekStatus() {
  * @author L.Piccoli
  */
 int ActuatorDevice::configure(CommunicationChannel::AccessType accessType,
-															int patternIndex) throw (Exception) {
+															int patternIndex) {
 	std::string deviceName = _devNamePv.getValue();
 
 	// If actuator is the Laser IOC, disable the FBCK Pv.
@@ -407,7 +407,7 @@ void ActuatorDevice::setInitialChannel(PvDataDouble *initialChannel) {
  *
  * @author L.Piccoli
  */
-int ActuatorDevice::getInitialSetting() throw (Exception) {
+int ActuatorDevice::getInitialSetting() {
     clear();
     std::string name = _devNamePv.getValue();
 

@@ -9,15 +9,16 @@
 
 USING_FF_NAMESPACE
 
-CommunicationChannel::CommunicationChannel(AccessType accessType) throw (Exception) :
+CommunicationChannel::CommunicationChannel(AccessType accessType) :
 _accessType(accessType),
 _readCount(0),
 _writeCount(0),
 _readErrorCount(0),
 _writeErrorCount(0),
-_lastValue(0) {
+_lastValue(0) 
+{
 }
 
-CommunicationChannel::~CommunicationChannel() {
+CommunicationChannel::~CommunicationChannel() 
+{
 }
-

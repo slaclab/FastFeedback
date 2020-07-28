@@ -35,11 +35,8 @@ USING_FF_NAMESPACE
  * @author L.Piccoli
  */
 FcomChannelStates::FcomChannelStates(CommunicationChannel::AccessType accessType,
-        std::string name, bool init) throw (Exception) :
-FcomChannel(accessType, name, false) {
-    if (init) {
-        initialize();
-    }
+        std::string name, bool init) : FcomChannel(accessType, name, false) {
+    if (init) initialize();
 }
 
 /**

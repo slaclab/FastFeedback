@@ -166,7 +166,7 @@ void StateDevice::setSetpointDevice(SetpointDevice *setpoint) {
  * @return always 0
  * @author L.Piccoli
  */
-int StateDevice::getInitialSetting() throw (Exception) {
+int StateDevice::getInitialSetting() {
     return 0;
 }
 
@@ -219,7 +219,7 @@ void StateDevice::show() {
  * @author L.Piccoli
  */
 int StateDevice::configure(FastFeedback::CommunicationChannel::AccessType accessType,
-        int patternIndex) throw (Exception) {
+        int patternIndex) {
     int status = 0;
 
     Log::getInstance() << Log::flagConfig << Log::dpInfo << Log::showtime

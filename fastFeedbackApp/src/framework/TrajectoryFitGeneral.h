@@ -40,13 +40,13 @@ public:
 
     virtual int configure(LoopConfiguration *configuration,
             MeasurementSet *measurements, ActuatorSet *actuators,
-            StateSet *states) throw (Exception);
+            StateSet *states);
 
     virtual int calculate(LoopConfiguration &configuration,
             MeasurementSet &measurements,
             ActuatorSet &actuators,
-            StateSet &states) throw (Exception);
-    virtual int calculate() throw (Exception);
+            StateSet &states);
+    virtual int calculate();
     virtual void show();
     virtual void showDebug();
     virtual int reset();
@@ -59,8 +59,8 @@ protected:
 
     int fit(Vector &fitX, Vector &fitY, Vector &states);
     virtual int getCorrectorKicks(Vector &states, Vector &setpoints, Vector &theta);
-    int updateActuators(Vector &actuatorDelta) throw (Exception);
-    int updateStates(Vector &states) throw (Exception);
+    int updateActuators(Vector &actuatorDelta);
+    int updateStates(Vector &states);
 
     /** Contains all measurement devices, only selected ones are used */
     MeasurementSet *_allMeasurements;

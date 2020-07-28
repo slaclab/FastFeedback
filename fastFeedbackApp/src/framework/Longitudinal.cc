@@ -88,7 +88,7 @@ using namespace boost::numeric::ublas;
  */
 int Longitudinal::configure(LoopConfiguration *configuration,
         MeasurementSet *measurements, ActuatorSet *actuators,
-        StateSet *states) throw (Exception) {
+        StateSet *states) {
     _loopConfiguration = configuration;
     _measurements = measurements;
     _actuators = actuators;
@@ -279,7 +279,7 @@ int Longitudinal::setFeedbackDevices(bool measurements, bool actuators) {
 int Longitudinal::calculate(LoopConfiguration &configuration,
         MeasurementSet &measurements,
         ActuatorSet &actuators,
-        StateSet &states) throw (Exception) {
+        StateSet &states) {
     return calculate();
 };
 
@@ -297,7 +297,7 @@ int Longitudinal::calculate(LoopConfiguration &configuration,
  * @return 0 on success, -1 on failure
  * @author L.Piccoli
  */
-int Longitudinal::calculate() throw (Exception) {
+int Longitudinal::calculate() {
 	// Save state of actuators FBCK PV on the first call to calculate()
 	if (_firstCalculate) {
 		int i = 0;
@@ -369,7 +369,7 @@ int Longitudinal::calculate() throw (Exception) {
  * @return 0 on success, -1 on failure
  * @author L.Piccoli
  */
-int Longitudinal::checkConfiguration() throw (Exception) {
+int Longitudinal::checkConfiguration() {
     // Check which measurements are valid
     _checkMeasurementsStats.start();
     if (checkMeasurementStatus() != 0) {
@@ -829,7 +829,7 @@ double Longitudinal::calculateEnergyDl2(MeasurementDevice* m7,
  * @return always 0
  * @author L.Piccoli
  */
-int Longitudinal::updateStates() throw (Exception) {
+int Longitudinal::updateStates() {
     StateSet::iterator stateIt = _states->begin();
     bool stateLimit = false;
     //    std::string exceptionMessage = "State(s) out of range:";
@@ -1076,7 +1076,7 @@ int Longitudinal::checkMeasurementStatus() {
  * configuration (e.g. TMIT of M7 and M8 are above TMITLOW PV)
  * @author L.Piccoli
  */
-int Longitudinal::selectStates() throw (Exception) {
+int Longitudinal::selectStates() {
 	setActuatorFeedbackPvs();
 
 	StateSet::iterator it = _states->begin();
@@ -1745,7 +1745,7 @@ int Longitudinal::updateActuatorsDelta() {
  * one of the values is outside the limits
  * @author L.Piccoli
  */
-int Longitudinal::updateActuators() throw (Exception) {
+int Longitudinal::updateActuators() {
   unsigned int limitFlag = 0;
   double values[10];
 

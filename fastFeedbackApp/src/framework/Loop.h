@@ -50,7 +50,7 @@ public:
         _patternMask = patternMask;
     };
     int reconfigure(PatternMask patternMask);
-    int resetActuators() throw (Exception);
+    int resetActuators();
     int resetActuatorOffsets();
     int resetAlgorithm();
     void show();

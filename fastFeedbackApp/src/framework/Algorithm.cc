@@ -20,7 +20,7 @@ Algorithm::~Algorithm() {
 
 int Algorithm::configure(LoopConfiguration *configuration,
         MeasurementSet *measurements, ActuatorSet *actuators,
-        StateSet *states) throw (Exception) {
+        StateSet *states) {
     _loopConfiguration = configuration;
     _measurements = measurements;
     _actuators = actuators;

@@ -65,7 +65,7 @@ using namespace boost::numeric::bindings::lapack;
  */
 int TrajectoryFit::configure(LoopConfiguration *configuration,
         MeasurementSet *measurements, ActuatorSet *actuators,
-        StateSet *states) throw (Exception) {
+        StateSet *states) {
     _loopConfiguration = configuration;
     _measurements = measurements;
     _actuators = actuators;
@@ -132,7 +132,7 @@ int TrajectoryFit::configure(LoopConfiguration *configuration,
 int TrajectoryFit::calculate(LoopConfiguration &configuration,
         MeasurementSet &measurements,
         ActuatorSet &actuators,
-        StateSet &states) throw (Exception) {
+        StateSet &states) {
     return calculate();
 };
 
@@ -144,7 +144,7 @@ int TrajectoryFit::calculate(LoopConfiguration &configuration,
  * exceeds the hihi/lolo actuator limits
  * @author L.Piccoli
  */
-int TrajectoryFit::calculate() throw (Exception) {
+int TrajectoryFit::calculate() {
     _getMeasStats.start();
     int numBpms = getMeasurements();
 
@@ -393,7 +393,7 @@ int TrajectoryFit::getCorrectorKicks(Vector &states, Vector &setpoints,
  * one of the values is outside the limits
  * @author L.Piccoli
  */
-int TrajectoryFit::updateActuators(Vector& actuatorDelta) throw (Exception) {
+int TrajectoryFit::updateActuators(Vector& actuatorDelta) {
     bool actuatorLimit = false;
     int i = 0;
     std::string exceptionMessage = "Actuator(s) out of range:";
@@ -435,7 +435,7 @@ int TrajectoryFit::updateActuators(Vector& actuatorDelta) throw (Exception) {
  * limits
  * @author L.Piccoli
  */
-int TrajectoryFit::updateStates(Vector &states) throw (Exception) {
+int TrajectoryFit::updateStates(Vector &states) {
     bool stateLimit = false;
     int i = 0;
     std::string exceptionMessage = "State(s) out of range:";

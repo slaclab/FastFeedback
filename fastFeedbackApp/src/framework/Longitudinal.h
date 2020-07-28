@@ -151,13 +151,13 @@ public:
 
     virtual int configure(LoopConfiguration *configuration,
             MeasurementSet *measurements, ActuatorSet *actuators,
-            StateSet *states) throw (Exception);
+            StateSet *states);
 
     virtual int calculate(LoopConfiguration &configuration,
             MeasurementSet &measurements,
             ActuatorSet &actuators,
-            StateSet &states) throw (Exception);
-    virtual int calculate() throw (Exception);
+            StateSet &states);
+    virtual int calculate();
     int setFeedbackDevices(bool measurements, bool actuators);
     virtual void show();
     virtual void showDebug();
@@ -166,20 +166,20 @@ public:
 
 protected:
     void checkActuatorLimits();
-    int checkConfiguration() throw (Exception);
+    int checkConfiguration();
     virtual int checkMeasurementStatus();
-    //    virtual int selectStatesSAVE() throw (Exception);
-    virtual int selectStates() throw (Exception);
+    //    virtual int selectStatesSAVE();
+    virtual int selectStates();
     //    void setMeasurementUsedBy();
     void setActuatorFeedbackPvs();
     void setPaths();
     void configureMatrix();
     int calculateEnergiesAndCurrents();
-    virtual int updateStates() throw (Exception);
+    virtual int updateStates();
     int calculateCurrentState(StateDevice *state, double latestValue);
     int calculateEnergyState(StateDevice *state, double latestValue, double vernier);
     int updateActuatorsDelta();
-    virtual int updateActuators() throw (Exception);
+    virtual int updateActuators();
     int connectA6Limits();
 
     double calculateEnergyDl1(MeasurementDevice *m1, MeasurementDevice *m2,
