@@ -199,7 +199,7 @@ SRC_DIRS += $(TOP)/fastFeedbackApp/src/test
 # Test Source Files
 CC_TEST_FILES = EventReceiverTest.cc ThreadTest.cc \
 	EventGeneratorTest.cc PatternTest.cc PatternManagerTest.cc \
-	TimerTest.cc DeviceTest.cc FileChannelTest.cc \
+	DeviceTest.cc FileChannelTest.cc \
 	ActuatorDeviceTest.cc MeasurementDeviceTest.cc \
 	StateDeviceTest.cc MeasurementCollectorTest.cc \
 	DeviceViewTest.cc CollectorThreadTest.cc \
@@ -208,8 +208,7 @@ CC_TEST_FILES = EventReceiverTest.cc ThreadTest.cc \
 	ExecConfigurationTest.cc PatternGeneratorTest.cc \
 	CaChannelTest.cc FcomChannelTest.cc TrajectoryFitTest.cc \
 	PatternMaskTest.cc TimeTest.cc TimeAverageTest.cc \
-	EventLoggerTest.cc PvDataTest.cc 
-#ExecConfigurationTest.cc \
+	EventLoggerTest.cc PvDataTest.cc ExecConfigurationTest.cc \
 	PatternGeneratorTest.cc
 
 ffUnitTest_SRCS         += $(CC_TEST_FILES) $(CC_FILES)
