@@ -11,6 +11,8 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestFixture.h>
 
+FF_NAMESPACE_START
+
 class PvDataTest : public CppUnit::TestFixture {
     CPPUNIT_TEST_SUITE(PvDataTest);
     CPPUNIT_TEST(testAssign);
@@ -35,5 +37,6 @@ public:
     void testWriteExternal();
 };
 
-#endif	/* _PVDATATEST_H */
+FF_NAMESPACE_END
 
+#endif	/* _PVDATATEST_H */
