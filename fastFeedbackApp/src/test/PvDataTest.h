@@ -11,6 +11,8 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestFixture.h>
 
+#include "../framework/Defs.h"
+
 FF_NAMESPACE_START
 
 class PvDataTest : public CppUnit::TestFixture {

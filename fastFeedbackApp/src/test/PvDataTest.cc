@@ -2,12 +2,12 @@
 #include "PvData.h"
 #include <iostream>
 
-CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(PvDataTest, "FeedbackUnitTest");
+CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::PvDataTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-void PvDataTest::setUp() {
+void FF::PvDataTest::setUp() {
     PvDataChar::getPvMap().clear();
     PvDataUChar::getPvMap().clear();
     PvDataInt::getPvMap().clear();
@@ -17,7 +17,7 @@ void PvDataTest::setUp() {
 /**
  * @author L.Piccoli
  */
-void PvDataTest::testAssign() {
+void FF::PvDataTest::testAssign() {
     PvData<int> a("FF1");
     PvData<int> b("FF2");
     PvData<short> c("FF3");
@@ -43,7 +43,7 @@ void PvDataTest::testAssign() {
 /**
  * @author L.Piccoli
  */
-void PvDataTest::testCheckMap() {
+void FF::PvDataTest::testCheckMap() {
     PvData<char> a("char");
     PvData<unsigned char> b("uchar");
     PvData<int> c("int");
@@ -71,7 +71,7 @@ void PvDataTest::testCheckMap() {
  *
  * @author L.Piccoli
  */
-void PvDataTest::testDeviceSupport() {
+void FF::PvDataTest::testDeviceSupport() {
    // Create the PvDatas...
     PvData<int> _measurementDelay("TIMERDELAY");
     PvData<double> _a1Hihi("A1HIHI");
@@ -106,7 +106,7 @@ void PvDataTest::testDeviceSupport() {
     CPPUNIT_ASSERT(_a1Hihi == readBack);
 }
 
-void PvDataTest::testWrite() {
+void FF::PvDataTest::testWrite() {
     std::string aString = "hi";
     PvDataString myString("str", aString);
     CPPUNIT_ASSERT(myString == aString);
@@ -115,7 +115,7 @@ void PvDataTest::testWrite() {
     CPPUNIT_ASSERT(myString == otherString);
 }
 
-void PvDataTest::testReadExternal() {
+void FF::PvDataTest::testReadExternal() {
     std::string aString = "hi";
     PvDataString myString;
     myString.setExternalValuePtr(&aString);
@@ -126,7 +126,7 @@ void PvDataTest::testReadExternal() {
     CPPUNIT_ASSERT(readBack == "hi");
 }
 
-void PvDataTest::testWriteExternal() {
+void FF::PvDataTest::testWriteExternal() {
     long val = -10;
     PvDataLong myLong("myLong");
     myLong.setExternalValuePtr(&val);
