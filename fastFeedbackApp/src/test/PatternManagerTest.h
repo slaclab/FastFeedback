@@ -22,8 +22,6 @@ class PatternManagerTest : public CppUnit::TestFixture {
     CPPUNIT_TEST(testRemovePattern);
     CPPUNIT_TEST(testRemovePatternReceiver);
     CPPUNIT_TEST(testProcess);
-//    CPPUNIT_TEST(testGetPatterns);
-    //CPPUNIT_TEST(testGetPatternIndex);
     CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -37,8 +35,6 @@ public:
     void testRemovePattern();
     void testRemovePatternReceiver();
     void testProcess();
-//    void testGetPatterns();
-    //void testGetPatternIndex();
 
 private:
     PatternMask p1;
