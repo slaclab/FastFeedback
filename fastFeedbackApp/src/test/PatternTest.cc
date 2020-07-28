@@ -11,7 +11,6 @@ USING_FF_NAMESPACE
 
 void FF::PatternTest::testConstructor() {
     Log l;
-    //    l.logToConsole();
     l << "Test message number=" << 1 << " double=" << 3.1415 << Log::flush;
 
     l << "Another message PI=" << 3.1415 << Log::flush;
@@ -139,7 +138,6 @@ void FF::PatternTest::testMatch() {
         m1._exclusionMask[i] = 0;
     }
     m1._inclusionMask[1] = 0x1000000;
-    //m1._inclusionMask[2] = 0x80000;
 
     CPPUNIT_ASSERT_EQUAL(true, p1.match(m1));
 
