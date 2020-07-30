@@ -8,12 +8,6 @@ CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-#ifdef RTEMS
-#define TEST_DIR "/boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/"
-#else
-#define TEST_DIR "/afs/slac/g/lcls/epics/iocTop/FFController/Development/test/"
-#endif
-
 void FF::LoopThreadTest::setUp() {
     for (int i = 0; i < 6; ++i) {
         p1._inclusionMask[i] = i;
@@ -21,6 +15,8 @@ void FF::LoopThreadTest::setUp() {
         p3._inclusionMask[i] = i + 50;
     }
     config = new LoopConfiguration("TESTSLOT");
+    // if this is false we can't process events
+    config->_configured = true;
 }
 
 void FF::LoopThreadTest::tearDown() {
@@ -39,10 +35,12 @@ void FF::LoopThreadTest::testProcessPattern() {
     LoopThread loopThread("MyLoop", config);
 
     Event event;
-    event._type = PATTERN_EVENT;
+    event._type = HEARTBEAT_EVENT;
     event._pattern = p1;
+    CPPUNIT_ASSERT_EQUAL(0, loopThread.processEvent(event));
 
     loopThread._state = LoopThread::WAITING_PATTERN;
+    event._type = PATTERN_EVENT;
 
     // At this point the LoopThread is in WAITING_PATTERN state, so sending
     // a PATTERN_EVENT should work
