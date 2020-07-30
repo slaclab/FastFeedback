@@ -12,6 +12,7 @@
 #include <cppunit/TestFixture.h>
 
 #include "PatternMask.h"
+#include "Defs.h"
 
 FF_NAMESPACE_START
 
