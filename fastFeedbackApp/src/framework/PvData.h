@@ -236,6 +236,12 @@ public:
         return value == _value;
     }
 
+    // do a comparison with implicit conversion
+    template <typename U>
+    bool operator==(const U &value) {
+        return value == _value; 
+    }
+
     bool operator!=(const PvData<Type> &other) {
         return !(*this == other);
     }
@@ -251,7 +257,7 @@ public:
     // Conversion of PvData<Type> to Type.
     // Allows us to use something like 1 == a where a is a PvData<int>
     operator auto() const {
-        return _value;
+        return getValue();
     }
 
     static std::map<std::string, std::vector<PvData<Type> *> *> &getPvMap() {
@@ -262,7 +268,7 @@ public:
         if (_externalValuePtr == NULL) {
             return &_value;
         } else {
-            std::cerr << ">>> RETURN EXTERNAL ADDRESS" << std::endl;
+            std::cerr << ">>> RETURN EXTERNAL ADDRESS\n";
             return _externalValuePtr;
         }
     }
@@ -291,23 +297,10 @@ public:
     /**
      * Create the mutex to protect the value of the PvData - this must be done by the
      * device support init routine since the mutex cannot exist before the init
+     *
+     * TODO (rreno): implement this?
      */
-    void createMutex() {
-      /*
-      if (_mutex == NULL) {
-	_mutex = new epicsMutex();
-
-	size_t state_position = _pvName.find(" STATE");
-	size_t mode_position = _pvName.find(" MODE");
-
-	if (state_position != std::string::npos ||
-	    mode_position != std::string::npos) {
-	  std::cout << "Mutex info for " << _pvName << std::endl;
-	  _mutex->show(4);
-	}
-      }
-      */
-    }
+    void createMutex() {  }
 
     /**
      * This allows values to be read from/written to an area external to the
@@ -323,8 +316,6 @@ public:
      */
     void setExternalValuePtr(Type *externalValuePtr) {
         _externalValuePtr = externalValuePtr;
-        //std::cerr << ">>> SET EXTERNAL VALUE PTR("
-	    //  << _pvName << ")" << std::endl;
     }
 
     std::string getPvName() {
