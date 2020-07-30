@@ -6,22 +6,14 @@
 #include "PatternGenerator.h"
 #include <iomanip>
 #include <math.h>
-#ifdef RTEMS
-#include <sched.h>
-#endif
 
 CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(FF::ExecThreadTest, "FeedbackUnitTest");
 CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-#ifdef RTEMS
-#define TEST_DIR "/boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/"
-#define SIMPLE_TEST_DIR "/boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/simple/"
-#else
 #define TEST_DIR "/afs/slac/g/lcls/epics/iocTop/FFController/Development/test/"
 #define SIMPLE_TEST_DIR "/afs/slac/g/lcls/epics/iocTop/FFController/Development/test/simple/"
-#endif
 
 /**
  * Check if the ExecThread creates all LoopThreads and initializes all elements
@@ -43,12 +35,7 @@ void FF::ExecThreadTest::testRun() {
     ExecThread et;
     std::ifstream file;
     std::string fileName = SIMPLE_TEST_DIR;
-#ifdef RTEMS
-    fileName += "ExecConfigSimpleRTEMS.dat";
-    return;
-#else
     fileName += "ExecConfigSimple.dat";
-#endif
 
     // Drops previous configuration - memory leak here
     ExecConfiguration::getInstance().clear();
@@ -68,15 +55,7 @@ void FF::ExecThreadTest::testRun() {
     // Quit ExecThread
     Event e(QUIT_EVENT);
     CPPUNIT_ASSERT_EQUAL(et.send(e), 0);
-#ifdef RTEMS
-    sleep(1);
-    sched_yield();
-#endif
     while(et.getPendingEvents() != 0); // wait for QUIT_EVENT to be consumed
-#ifdef RTEMS
-    sleep(1);
-    sched_yield();
-#endif
     CPPUNIT_ASSERT_EQUAL(et.join(), 0);
 
     // Make sure the actuator settings are correct, i.e. sin(counter)
