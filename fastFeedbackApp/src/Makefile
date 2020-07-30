@@ -203,7 +203,7 @@ CC_TEST_FILES = EventReceiverTest.cc ThreadTest.cc \
 	ActuatorDeviceTest.cc MeasurementDeviceTest.cc \
 	StateDeviceTest.cc MeasurementCollectorTest.cc \
 	DeviceViewTest.cc CollectorThreadTest.cc \
-	LoopConfigurationTest.cc LoopThreadTest.cc LoopTest.cc \
+	LoopConfigurationTest.cc LoopThreadTest.cc \
 	AlgorithmTest.cc SineWaveTest.cc ExecThreadTest.cc \
 	ExecConfigurationTest.cc PatternGeneratorTest.cc \
 	CaChannelTest.cc FcomChannelTest.cc TrajectoryFitTest.cc \
