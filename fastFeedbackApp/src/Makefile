@@ -204,8 +204,7 @@ CC_TEST_FILES = EventReceiverTest.cc ThreadTest.cc \
 	StateDeviceTest.cc MeasurementCollectorTest.cc \
 	DeviceViewTest.cc CollectorThreadTest.cc \
 	LoopConfigurationTest.cc LoopThreadTest.cc \
-	SineWaveTest.cc ExecThreadTest.cc \
-	ExecConfigurationTest.cc PatternGeneratorTest.cc \
+	SineWaveTest.cc PatternGeneratorTest.cc \
 	CaChannelTest.cc TrajectoryFitTest.cc \
 	PatternMaskTest.cc TimeTest.cc TimeAverageTest.cc \
 	EventLoggerTest.cc PvDataTest.cc
