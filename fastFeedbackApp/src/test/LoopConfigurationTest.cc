@@ -149,7 +149,7 @@ void FF::LoopConfigurationTest::testReconfigureDevices() {
     s = map[p1];
     CPPUNIT_ASSERT(s == NULL);
 
-    CPPUNIT_ASSERT_EQUAL(4, (int) lc._measurements  .size());
+    CPPUNIT_ASSERT_EQUAL(4, static_cast<int>(lc._measurements.size()));
 }
 
 void FF::LoopConfigurationTest::testConfigurePatterns() {
@@ -173,9 +173,7 @@ void FF::LoopConfigurationTest::testConfigurePatterns() {
     lc._totalPoiPv = 1;
 
     CPPUNIT_ASSERT_EQUAL(0, lc.configurePatterns());
-    CPPUNIT_ASSERT_EQUAL(4, (int) lc._measurements.size());
-    MeasurementMap::iterator it = lc._measurements.find(p1);
-    CPPUNIT_ASSERT(it != lc._measurements.end());
+    CPPUNIT_ASSERT(p1 == lc._patternMasks[0]);
 }
 
 void FF::LoopConfigurationTest::testConfigureFMatrix() {
