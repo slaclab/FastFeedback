@@ -25,7 +25,9 @@ include $(TOP)/configure/CONFIG
 # * DEBUG_CA_FLAG
 #========================================================================================================
 # Flags for release
-USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG -fno-ipa-cp-clone
+USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG -fno-ipa-cp-clone -Wextra -Wpedantic
+
+# Flags for Unit Testing
 
 # Flags for testing 120Hz Undulator Launch and States on FCOM
 #USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG -DNO_FBCK_PV
@@ -33,7 +35,6 @@ USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS
 # Flags for testing on production - with no actuators 
 #USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DLOG -DnoDEBUG_EVENT -DNDEBUG -DnCHECK_BEAM -DnCONTROL_ACTUATORS
 
-# Flags for Unit Testing
 #USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCONTROL_ACTUATORS -DLOG -DNO_FBCK_PV 
 
 # ==================================================================
@@ -175,6 +176,8 @@ fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
 # Let's build the Following IOC Application
 PROD_linuxRT-x86_64 += ffUnitTest
 PROD += $(PROD_$(T_A))
+
+ffUnitTest_CPPFLAGS += -O0 -g3
 
 DBD              += ffUnitTest.dbd
 ffUnitTest_DBD   += base.dbd
