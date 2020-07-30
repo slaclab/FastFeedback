@@ -17,7 +17,7 @@ FF_NAMESPACE_START
 
 class TimeTest : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(TimeTest);
-  //CPPUNIT_TEST(testDifference);
+  CPPUNIT_TEST(testDifference);
   CPPUNIT_TEST(test1HzDifference);
   CPPUNIT_TEST_SUITE_END();
 
