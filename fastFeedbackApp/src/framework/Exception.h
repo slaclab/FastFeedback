@@ -37,14 +37,14 @@ public:
       _code(code) {
     }
 
-    virtual ~Exception() throw() {
+    virtual ~Exception() noexcept {
     }
 
-    virtual const char* what() const throw() {
+    virtual const char* what() noexcept {
         return _message.c_str();
     }
 
-    Code getCode() {
+    Code getCode() noexcept {
       return _code;
     }
 

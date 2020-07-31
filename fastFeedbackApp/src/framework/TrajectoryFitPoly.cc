@@ -140,7 +140,7 @@ void TrajectoryFitPoly::calculateFMatrix() {
  */
 int TrajectoryFitPoly::configure(LoopConfiguration *configuration,
         MeasurementSet *measurements, ActuatorSet *actuators,
-        StateSet *states) throw (Exception) {
+        StateSet *states) {
   _loopConfiguration = configuration;
   _measurements = measurements;
   _actuators = actuators;

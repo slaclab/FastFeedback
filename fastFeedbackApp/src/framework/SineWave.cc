@@ -24,7 +24,7 @@ USING_FF_NAMESPACE
 int SineWave::calculate(LoopConfiguration &configuration,
         MeasurementSet &measurements,
         ActuatorSet &actuators,
-        StateSet &states) throw (Exception) {
+        StateSet &states) {
     switch (_mode) {
         case COUNTER_MODE:
             return calculateCounter(configuration, measurements,

@@ -48,7 +48,7 @@ InjectorLaunch::~InjectorLaunch() {
  */
 int InjectorLaunch::configure(LoopConfiguration *configuration,
         MeasurementSet *measurements, ActuatorSet *actuators,
-        StateSet *states) throw (Exception) {
+        StateSet *states) {
     _loopConfiguration = configuration;
     _measurements = measurements;
     _actuators = actuators;
@@ -145,7 +145,7 @@ int InjectorLaunch::checkConfig() {
  * @return returns status of TrajectoryFitGeneral::calculates()
  * @author L.Piccoli
  */
-int InjectorLaunch::calculate() throw (Exception) {
+int InjectorLaunch::calculate() {
   int result = TrajectoryFitGeneral::calculate();
 
   *_measurements = _allMeasurements;

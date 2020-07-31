@@ -272,7 +272,7 @@ void Device::disconnect() {
  * @author L.Piccoli
  */
 int Device::configure(CommunicationChannel::AccessType accessType,
-        int patternIndex) throw (Exception) {
+        int patternIndex) {
     if (_communicationChannel != NULL) {
         disconnect();
     }
@@ -438,7 +438,7 @@ int Device::createFbckPv(CommunicationChannel::AccessType accessType) {
  * @author L.Piccoli
  */
 int Device::createFileChannel(std::string name, int patternIndex,
-        CommunicationChannel::AccessType accessType) throw (Exception) {
+        CommunicationChannel::AccessType accessType) {
     std::string fileName = name.substr(5, name.npos);
     if (patternIndex > 0) {
         fileName = getFileChannelName(fileName, patternIndex);

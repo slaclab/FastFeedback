@@ -29,16 +29,16 @@ public:
 
     virtual int configure(LoopConfiguration *configuration,
             MeasurementSet *measurements, ActuatorSet *actuators,
-            StateSet *states) throw (Exception);
+            StateSet *states);
 
     virtual int calculate(LoopConfiguration &configuration,
             MeasurementSet &measurements,
             ActuatorSet &actuators,
-            StateSet &states) throw (Exception);
-    virtual int calculate() throw (Exception);
+            StateSet &states);
+    virtual int calculate();
 
 protected:
-    void connect() throw (Exception);
+    void connect();
     void disconnect();
 
     /** Vector of Channel Access connections to the actuators EACT values */

@@ -60,7 +60,7 @@ LongitudinalChirp::~LongitudinalChirp() {
 int LongitudinalChirp::configure(LoopConfiguration *configuration,
 				 MeasurementSet *measurements,
 				 ActuatorSet *actuators, StateSet *states)
-  throw (Exception) {
+  {
   _firstCalculate = true;
 
   if (Longitudinal::configure(configuration, measurements, actuators, states)
@@ -89,7 +89,7 @@ int LongitudinalChirp::configure(LoopConfiguration *configuration,
  * Must override this method in order to have the bc2State USEDBYLOOP Pv
  * set if the chirp is ON!
  */
-int LongitudinalChirp::selectStates() throw (Exception) {
+int LongitudinalChirp::selectStates() {
   bool rethrow = false;
   Exception except("");
   int val = 0;
@@ -148,7 +148,7 @@ int LongitudinalChirp::selectStates() throw (Exception) {
  * @return 0 on success, -1 on failure
  * @author L.Piccoli
  */
-int LongitudinalChirp::calculate() throw (Exception) {
+int LongitudinalChirp::calculate() {
   checkChirpControl();
 
   // Calculate initial Energy/Chirp from the initial actuator
@@ -434,7 +434,7 @@ int LongitudinalChirp::calculateInitialStates() {
  * one of the values is outside the limits
  * @author L.Piccoli
  */
-int LongitudinalChirp::updateActuators() throw (Exception) {
+int LongitudinalChirp::updateActuators() {
   unsigned int limitFlag = 0;
   double values[10];
 

@@ -42,13 +42,13 @@ public:
 
     virtual int configure(LoopConfiguration *configuration,
             MeasurementSet *measurements, ActuatorSet *actuators,
-            StateSet *states) throw (Exception);
+            StateSet *states);
 
     virtual int calculate(LoopConfiguration &configuration,
             MeasurementSet &measurements,
             ActuatorSet &actuators,
-            StateSet &states) throw (Exception);
-    virtual int calculate() throw (Exception);
+            StateSet &states);
+    virtual int calculate();
     virtual void show();
     virtual void showDebug();
 
@@ -61,8 +61,8 @@ private:
     int getMeasurements();
     int fit(Vector &fitX, Vector &fitY, Vector &states);
     int getCorrectorKicks(Vector &states, Vector &setpoints, Vector &theta);
-    int updateActuators(Vector &actuatorDelta) throw (Exception);
-    int updateStates(Vector &states) throw (Exception);
+    int updateActuators(Vector &actuatorDelta);
+    int updateStates(Vector &states);
 
     /**
      * Vector of X measurements, updated on every iteration from the

@@ -29,15 +29,15 @@ public:
 
     virtual int configure(LoopConfiguration *configuration,
             MeasurementSet *measurements, ActuatorSet *actuators,
-            StateSet *states) throw (Exception);
+            StateSet *states);
     virtual void show();
     virtual int reset();
 
     virtual int calculate(LoopConfiguration &configuration,
             MeasurementSet &measurements,
             ActuatorSet &actuators,
-            StateSet &states) throw (Exception);
-    virtual int calculate() throw (Exception);
+            StateSet &states);
+    virtual int calculate();
 
 protected:
     /** New G Matrix used to calculate the corrector magnets */

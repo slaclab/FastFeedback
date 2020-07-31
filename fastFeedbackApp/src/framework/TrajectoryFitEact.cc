@@ -30,7 +30,7 @@ TrajectoryFitEact::~TrajectoryFitEact() {
  */
 int TrajectoryFitEact::configure(LoopConfiguration *configuration,
         MeasurementSet *measurements, ActuatorSet *actuators,
-        StateSet *states) throw (Exception) {
+        StateSet *states) {
   _loopConfiguration = configuration;
   _measurements = measurements;
   _actuators = actuators;
@@ -41,7 +41,7 @@ int TrajectoryFitEact::configure(LoopConfiguration *configuration,
   return reallyConfig();
 }
 
-void TrajectoryFitEact::connect() throw (Exception) {
+void TrajectoryFitEact::connect() {
   if (_actuators == NULL) {
     throw Exception("There are no Actuators defined");
   }
@@ -106,7 +106,7 @@ int TrajectoryFitEact::reset() {
 int TrajectoryFitEact::calculate(LoopConfiguration &configuration,
 				 MeasurementSet &measurements,
 				 ActuatorSet &actuators,
-				 StateSet &states) throw (Exception) {
+				 StateSet &states) {
   //configuration._mutex->lock();
   try {
     return TrajectoryFitStatic::calculate(configuration, measurements,
@@ -124,7 +124,7 @@ int TrajectoryFitEact::calculate(LoopConfiguration &configuration,
  * race conditions when the feedback mode changes from compute 
  * to enable.
  */
-int TrajectoryFitEact::calculate() throw (Exception) {
+int TrajectoryFitEact::calculate() {
   //_loopConfiguration->_mutex->lock();
   try {
     return TrajectoryFitStatic::calculate();

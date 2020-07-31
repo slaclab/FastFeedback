@@ -78,7 +78,7 @@ BunchCharge::~BunchCharge() {
  */
 int BunchCharge::configure(LoopConfiguration *configuration,
         MeasurementSet *measurements, ActuatorSet *actuators,
-        StateSet *states) throw (Exception) {
+        StateSet *states) {
 
   Algorithm::configure(configuration, measurements, actuators, states);
 
@@ -184,7 +184,7 @@ int BunchCharge::getMeasurements() {
 int BunchCharge::calculate(LoopConfiguration &configuration,
         MeasurementSet &measurements,
         ActuatorSet &actuators,
-        StateSet &states) throw (Exception) {
+        StateSet &states) {
   if (!doneMoving()) {
     _loopConfiguration->_logger << Log::showtime << "Starting average again (waveplates moved)"
 				<< Log::flushpvonlynoalarm;
@@ -254,7 +254,7 @@ int BunchCharge::calculate(LoopConfiguration &configuration,
  * throws Exception if one of the conditions is not met
  * @author L.Piccoli
  */
-bool BunchCharge::checkWaveplate() throw (Exception) {
+bool BunchCharge::checkWaveplate() {
   double laserMoving = 1;
   double laserDoneMoving = 0;
   double cameraMoving = 1;

@@ -62,8 +62,8 @@ public:
     virtual epicsUInt32 peekPulseId();
     virtual DataPoint::Status peekStatus();
     virtual int configure(CommunicationChannel::AccessType accessType,
-            int patternIndex = -1) throw (Exception);
-    virtual int getInitialSetting() throw (Exception);
+            int patternIndex = -1);
+    virtual int getInitialSetting();
     virtual void show();
     void getInitialSettingFromReference(bool writeValue, epicsTimeStamp timestamp);
     void setInitialOffset();

@@ -173,7 +173,7 @@ public:
     bool isFcom();
     bool isNull();
     virtual int configure(CommunicationChannel::AccessType accessType,
-            int patternIndex = -1) throw (Exception);
+            int patternIndex = -1);
     virtual void disconnect();
 
     void setCommunicationChannel(CommunicationChannel *newChannel);
@@ -364,7 +364,7 @@ protected:
     bool _isFile;
 
     int createFileChannel(std::string name, int patternIndex,
-			  CommunicationChannel::AccessType accessType) throw (Exception);
+			  CommunicationChannel::AccessType accessType);
     std::string getFileChannelName(std::string fileName, int patternIndex);
     int createFbckPv(CommunicationChannel::AccessType accessType);
 };

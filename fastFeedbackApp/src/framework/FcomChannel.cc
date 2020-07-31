@@ -34,7 +34,7 @@ USING_FF_NAMESPACE
  * @author L.Piccoli
  */
 FcomChannel::FcomChannel(CommunicationChannel::AccessType accessType,
-        std::string name, bool init) throw (Exception) :
+        std::string name, bool init) :
   CommunicationChannel(accessType),
   _name(name),
   _id(0),

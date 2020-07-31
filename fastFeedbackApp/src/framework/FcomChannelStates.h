@@ -31,7 +31,7 @@ class FcomChannelStates : public FcomChannel {
 public:
 
     FcomChannelStates(CommunicationChannel::AccessType accessType, std::string name,
-            bool init = true) throw (Exception);
+            bool init = true);
 
     virtual ~FcomChannelStates();
 
