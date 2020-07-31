@@ -55,24 +55,6 @@ void FF::DeviceViewTest::setUp() {
 }
 
 void FF::DeviceViewTest::tearDown() {
-  /*
-    delete a1;
-    delete a2;
-    delete s1;
-    delete s2;
-    delete m1;
-    delete m2;
-    delete sp1;
-    delete sp2;
-    delete fc1;
-    delete fc2;
-    delete fc3;
-    delete fc4;
-    delete nc1;
-    delete nc2;
-    delete nc3;
-    delete nc4;
-  */
 }
 
 /**

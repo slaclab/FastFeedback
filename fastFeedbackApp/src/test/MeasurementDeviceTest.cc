@@ -61,6 +61,7 @@ void FF::MeasurementDeviceTest::testFileChannel() {
 
     // Try reading one more from the file should fail because
     // EOF will be reached
+    std::cout << "Expect EOF:\n";
     CPPUNIT_ASSERT_EQUAL(-1, m.read());
 }
 
@@ -150,12 +151,6 @@ void FF::MeasurementDeviceTest::testPeek() {
       value = i;
     }
 
-    // Get half of the values out using get(), which moves the cursor
-    /*
-    for (int i = 0; i < size / 2; ++i) {
-        CPPUNIT_ASSERT_EQUAL(0, m.get(value, timestamp));
-    }
-    */
     // Peek a few times at the last measurement returned by get()
     CPPUNIT_ASSERT_EQUAL(value, m.peek());
     CPPUNIT_ASSERT_EQUAL(value, m.peek());

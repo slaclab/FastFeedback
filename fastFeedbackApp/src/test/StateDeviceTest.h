@@ -8,8 +8,8 @@
 #ifndef _STATEDEVICETEST_H
 #define	_STATEDEVICETEST_H
 
-#include "cppunit/extensions/HelperMacros.h"
-#include "cppunit/TestFixture.h"
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 
 #include "SetpointDevice.h"
 #include "Defs.h"

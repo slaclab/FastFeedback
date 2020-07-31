@@ -12,11 +12,7 @@ CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 USING_FF_NAMESPACE
 
 #define TMP_TEST_DIR "/tmp/"
-#ifdef RTEMS
-#define TEST_DIR "/boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/"
-#else
-#define TEST_DIR "./test/"
-#endif
+#define TEST_DIR "/data/cpu-b34-fb01/fftest/"
 #define TEST_FILE_IN TEST_DIR"TestDevice.in"
 #define TEST_FILE_OUT TEST_DIR"TestDevice.out"
 #define TEST_FILE_IN_PERM TEST_DIR"TestDevice.in.nopermission"
@@ -27,8 +23,6 @@ USING_FF_NAMESPACE
 #define TMP_TEST_FILE_OUT_PERM TMP_TEST_DIR"TestDevice.out.nopermission"
 
 void FF::FileChannelTest::testConstructor() {
-/** Do not run this test on RTEMS */
-#ifndef RTEMS
     try {
         FileChannel fr(CommunicationChannel::READ_ONLY, "/tmp/non_existing_file");
     } catch (std::exception &e) {
@@ -92,19 +86,13 @@ void FF::FileChannelTest::testConstructor() {
     s.seekp(0);
     s << "chmod u+rw,g+rw,o+r " << TEST_FILE_OUT_PERM << "\0";
     system(s.str().c_str());
-#endif
 }
 
 void FF::FileChannelTest::testRead() {
     // Write known values to input file first
     int numMeas = 10;
     std::ofstream testFile;
-    std::string testFileName;
-#ifdef RTEMS
-    testFileName = TMP_TEST_FILE_IN;
-#else
-    testFileName = TEST_FILE_IN;
-#endif
+    std::string testFileName = TEST_FILE_IN;
     testFile.open(testFileName.c_str(), std::ifstream::trunc);
 
     for (int i = 0; i < numMeas; ++i) {
@@ -140,12 +128,7 @@ void FF::FileChannelTest::testReadBadFile() {
     // Write known values to input file first
 
     std::ofstream testFile;
-    std::string testFileName;
-#ifdef RTEMS
-    testFileName = TMP_TEST_FILE_IN;
-#else
-    testFileName = TEST_FILE_IN;
-#endif
+    std::string testFileName = TEST_FILE_IN;
 
     try {
         testFile.open(testFileName.c_str(), std::ifstream::trunc);
@@ -175,12 +158,7 @@ void FF::FileChannelTest::testReadWrap() {
     // Write known values to input file first
     int numMeas = 10;
     std::ofstream testFile;
-    std::string testFileName;
-#ifdef RTEMS
-    testFileName = TMP_TEST_FILE_IN;
-#else
-    testFileName = TEST_FILE_IN;
-#endif
+    std::string testFileName = TEST_FILE_IN;
 
     testFile.open(testFileName.c_str(), std::ifstream::trunc);
     for (int i = 0; i < numMeas; ++i) {
@@ -213,12 +191,7 @@ void FF::FileChannelTest::testReadWrap() {
 
 void FF::FileChannelTest::testWrite() {
     int numMeas = 10;
-    std::string testFileName;
-#ifdef RTEMS
-    testFileName = TMP_TEST_FILE_OUT;
-#else
-    testFileName = TEST_FILE_OUT;
-#endif
+    std::string testFileName = TEST_FILE_OUT;
 
     try {
         FileChannel fw(CommunicationChannel::WRITE_ONLY, testFileName);

@@ -25,7 +25,9 @@ include $(TOP)/configure/CONFIG
 # * DEBUG_CA_FLAG
 #========================================================================================================
 # Flags for release
-USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG -fno-ipa-cp-clone
+USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG -fno-ipa-cp-clone -Wextra -Wpedantic
+
+# Flags for Unit Testing
 
 # Flags for testing 120Hz Undulator Launch and States on FCOM
 #USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG -DNO_FBCK_PV
@@ -33,7 +35,6 @@ USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS
 # Flags for testing on production - with no actuators 
 #USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DLOG -DnoDEBUG_EVENT -DNDEBUG -DnCHECK_BEAM -DnCONTROL_ACTUATORS
 
-# Flags for Unit Testing
 #USR_CPPFLAGS += -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCONTROL_ACTUATORS -DLOG -DNO_FBCK_PV 
 
 # ==================================================================
@@ -50,9 +51,8 @@ USR_CPPFLAGS += -I$(DL_INCLUDE)
 # ========================================================
 # Let's build the Following IOC Application:
 # ========================================================
-#ifeq ($(T_A),linuxRT-x86_64)
-PROD_IOC = fastFeedback
-#endif
+PROD_IOC_linuxRT-x86_64 = fastFeedback
+PROD_IOC = $(PROD_IOC_$(T_A))
 
 DBD = fastFeedback.dbd
 fastFeedback_DBD += base.dbd
@@ -136,15 +136,11 @@ fastFeedback_LIBS      += lapack
 blas_DIR               =  $(LAPACK_LIB)
 fastFeedback_LIBS      += blas
 
-ifeq ($(T_A),linuxRT-x86_64)
 gfortran_DIR=$(GFORT_LIB)
 quadmath_DIR = $(QUADMATH_LIB)
 
 fastFeedback_LIBS  += gfortran
 fastFeedback_LIBS  += quadmath
-else
-fastFeedback_SYS_LIBS  += gfortran
-endif
 
 # ========================================================
 # Link in EPICS MODULES and BASE
@@ -161,17 +157,9 @@ fastFeedback_LIBS += fcom fcomIocshSupport fcomUtil
 fastFeedback_LIBS += udpCommBSD
 
 #fastFeedback_LIBS += drvMrf (Migrating to EVRsharing)
-ifeq ($(T_A),linuxRT-x86_64)
-  fastFeedback_LIBS += drvMrf
-  evrma_DIR = $(EVRMA_LIB)
-  fastFeedback_LIBS += evrma
-endif
-  
-ifeq ($(T_A),rhel6-x86_64)
-  fastFeedback_LIBS += drvMrf
-  evrma_DIR = $(EVRMA_LIB)
-  fastFeedback_LIBS += evrma
-endif
+fastFeedback_LIBS += drvMrf
+evrma_DIR = $(EVRMA_LIB)
+fastFeedback_LIBS += evrma
 
 # Link in New BSA Support
 fastFeedback_LIBS += eventBsaSupport
@@ -186,7 +174,10 @@ fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
 # CPPUNIT Tests IOC Application
 # ========================================================================
 # Let's build the Following IOC Application
-#PROD_IOC         +=  ffUnitTest
+PROD_linuxRT-x86_64 += ffUnitTest
+PROD += $(PROD_$(T_A))
+
+ffUnitTest_CPPFLAGS += -O0 -g3
 
 DBD              += ffUnitTest.dbd
 ffUnitTest_DBD   += base.dbd
@@ -211,21 +202,19 @@ SRC_DIRS += $(TOP)/fastFeedbackApp/src/test
 # Test Source Files
 CC_TEST_FILES = EventReceiverTest.cc ThreadTest.cc \
 	EventGeneratorTest.cc PatternTest.cc PatternManagerTest.cc \
-	TimerTest.cc DeviceTest.cc FileChannelTest.cc \
+	DeviceTest.cc FileChannelTest.cc \
 	ActuatorDeviceTest.cc MeasurementDeviceTest.cc \
 	StateDeviceTest.cc MeasurementCollectorTest.cc \
 	DeviceViewTest.cc CollectorThreadTest.cc \
-	LoopConfigurationTest.cc LoopThreadTest.cc LoopTest.cc \
-	AlgorithmTest.cc SineWaveTest.cc ExecThreadTest.cc \
-	ExecConfigurationTest.cc PatternGeneratorTest.cc \
-	CaChannelTest.cc FcomChannelTest.cc TrajectoryFitTest.cc \
+	LoopConfigurationTest.cc LoopThreadTest.cc \
+	SineWaveTest.cc PatternGeneratorTest.cc \
+	CaChannelTest.cc TrajectoryFitTest.cc \
 	PatternMaskTest.cc TimeTest.cc TimeAverageTest.cc \
-	EventLoggerTest.cc
-
-#	PvDataTest.cc ExecConfigurationTest.cc PatternGeneratorTest.cc \
+	EventLoggerTest.cc PvDataTest.cc
 
 ffUnitTest_SRCS         += $(CC_TEST_FILES) $(CC_FILES)
 
+ffUnitTest_SRCS += ffUnitTest_registerRecordDeviceDriver.cpp
 # Where is your Main IOC App? Did you break the convention?
 ffUnitTest_SRCS_DEFAULT += ffUnitTest.cc
 
@@ -235,6 +224,7 @@ ffUnitTest_SRCS_DEFAULT += ffUnitTest.cc
 # System library must be reference like so;
 # <IOCAPP>_SYS_LIB
 # =========================================================================
+
 cppunit_DIR             =  $(CPPUNIT_LIB)
 ffUnitTest_LIBS         += cppunit
 
@@ -246,7 +236,6 @@ ffUnitTest_LIBS         += lapack
 blas_DIR                =  $(LAPACK_LIB)
 ffUnitTest_LIBS         += blas
 
-ifeq ($(T_A),linuxRT-x86_64)
 gfortran_DIR = $(GFORT_LIB)
 dl_DIR = $(DL_LIB)
 quadmath_DIR = $(QUADMATH_LIB)
@@ -254,22 +243,10 @@ quadmath_DIR = $(QUADMATH_LIB)
 ffUnitTest_LIBS     += dl 
 ffUnitTest_LIBS     += gfortran
 ffUnitTest_LIBS     += quadmath
-else
-ffUnitTest_SYS_LIBS     += dl
-ffUnitTest_SYS_LIBS     += gfortran
-endif
 
-ifeq ($(T_A),linuxRT-x86_64)
-   evrClientLab_LIBS += drvMrf
-   evrma_DIR = $(EVRMA_LIB)
-   evrClientLab_LIBS += evrma
-endif
-  
-ifeq ($(T_A),rhel6-x86_64)
-   evrClientLab_LIBS += drvMrf
-   evrma_DIR = $(EVRMA_LIB)
-   evrClientLab_LIBS += evrma
-endif 
+evrClientLab_LIBS += drvMrf
+evrma_DIR = $(EVRMA_LIB)
+evrClientLab_LIBS += evrma
 
 
 # ========================================================
@@ -286,18 +263,9 @@ ffUnitTest_LIBS += seq pv
 ffUnitTest_LIBS += fcom fcomIocshSupport fcomUtil
 ffUnitTest_LIBS += udpCommBSD
 
-#fastFeedback_LIBS += drvMrf (Migrating to EVRsharing)
-ifeq ($(T_A),linuxRT-x86_64)
-  ffUnitTest_LIBS += drvMrf
-  evrma_DIR = $(EVRMA_LIB)
-  ffUnitTest_LIBS += evrma
-endif
-  
-ifeq ($(T_A),rhel6-x86_64)
-  ffUnitTest_LIBS += drvMrf
-  evrma_DIR = $(EVRMA_LIB)
-  ffUnitTest_LIBS += evrma
-endif
+ffUnitTest_LIBS += drvMrf
+evrma_DIR = $(EVRMA_LIB)
+ffUnitTest_LIBS += evrma
 
 # Link in New BSA Support
 ffUnitTest_LIBS += eventBsaSupport
@@ -321,12 +289,8 @@ ifdef EPICS_QSRV_MAJOR_VERSION
 endif
 # =============================================
 
-
 # Link in EPICS BASE LIBS
 ffUnitTest_LIBS += $(EPICS_BASE_IOC_LIBS)
-
-
-
 
 include $(TOP)/configure/RULES
 #----------------------------------------
