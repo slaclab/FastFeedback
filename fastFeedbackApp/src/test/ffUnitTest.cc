@@ -19,15 +19,15 @@ int main(int argc, char* argv[]) {
         CppUnit::Test *suite = registry.makeTest();
 
         int testCount = suite->getChildTestCount();
-	std::cout << "Usage: " << argv[0] << " [test]" << std::endl;
+        std::cout << "Usage: " << argv[0] << " [test]\n";
 
-        std::cout << "There are " << testCount << " test units:" << std::endl;
+        std::cout << "There are " << testCount << " test units:\n";
         for (int i = 0; i < testCount; ++i) {
             CppUnit::Test *t = suite->getChildTestAt(i);
             std::cout << "  " << t->getName() << "\n";
         }
 
-	std::cout << "If no test is specified the command " << argv[0] << " runs all of them." << std::endl;
+        std::cout << "If no test is specified the command " << argv[0] << " runs all of them.\n";
 
         return 0;
     }
@@ -43,16 +43,16 @@ int main(int argc, char* argv[]) {
 
     try {
       if (testPath == "") {
-        std::cout << "Running all tests (please expect some error/warning messages)" << std::endl;
+        std::cout << "Running all tests (please expect some error/warning messages)\n";
       }
       else {
-        std::cout << "Running " << testPath.c_str() << std::endl;
+        std::cout << "Running " << testPath.c_str() << "\n";
       }
         runner.run(controller, testPath);
         CppUnit::TextOutputter outputter(&result, std::cout);
         outputter.write();
     } catch (std::invalid_argument &e) {
-        std::cerr << std::endl << "ERROR: " << e.what() << std::endl;
+        std::cerr << std::endl << "ERROR: " << e.what() << "\n";
         return 1;
     }
 

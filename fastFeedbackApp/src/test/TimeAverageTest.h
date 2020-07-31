@@ -8,8 +8,8 @@
 #ifndef _TIMEAVERAGETEST_H
 #define	_TIMEAVERAGETEST_H
 
-#include "cppunit/extensions/HelperMacros.h"
-#include "cppunit/TestFixture.h"
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 
 #include "Defs.h"
 

@@ -20,14 +20,26 @@ void FF::TimeTest::testDifference() {
     CPPUNIT_ASSERT(difference._time.secPastEpoch < 5);
     CPPUNIT_ASSERT(difference._time.secPastEpoch > 1);
 
-    start._time.secPastEpoch = 0;
-    start._time.nsec = 100000;
-    end._time.secPastEpoch = 0;
-    epicsUInt32 nanodiff = 1e9;
-    end._time.nsec = start._time.nsec + 1e9;
 
-    difference = start - end;
+    start._time.secPastEpoch = 0;
+    start._time.nsec = 1e6;
+    end._time.secPastEpoch = 0;
+    end._time.nsec = 1e6;
+
+    difference = end - start;
+    CPPUNIT_ASSERT_EQUAL(static_cast<epicsUInt32>(0), difference._time.nsec);
+
+    start._time.secPastEpoch = 1;
+    start._time.nsec = 1e8;
+    end._time.secPastEpoch = 1;
+    end._time.nsec = 3e8;
+
+    difference = end - start;
+    epicsUInt32 nanodiff = 2e8;
+
+
     CPPUNIT_ASSERT_EQUAL(nanodiff, difference._time.nsec);
+    CPPUNIT_ASSERT_EQUAL(static_cast<epicsUInt32>(0), difference._time.secPastEpoch);
 
     long expectedMillisdiff = nanodiff * 1e-6;
     long millisdiff = difference.toMillis();
@@ -51,18 +63,4 @@ void FF::TimeTest::test1HzDifference() {
     std::cout << "Diff: " << millis << std::endl;
     CPPUNIT_ASSERT(millis > 990);
     CPPUNIT_ASSERT(millis < 1100);
-    /*
-    start._time.secPastEpoch = 654469939;
-    start._time.nsec = 663814143;
-
-    end._time.secPastEpoch = 654469939;
-    end._time.nsec = 672158529;
-
-    difference = end - start;
-
-    millis = difference.toMillis();
-    std::cout << "Diff: " << millis << std::endl;
-    CPPUNIT_ASSERT(millis > 990);
-    CPPUNIT_ASSERT(millis < 1100);
-    */
 }

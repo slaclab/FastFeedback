@@ -8,8 +8,8 @@
 #ifndef _ACTUATORDEVICETEST_H
 #define	_ACTUATORDEVICETEST_H
 
-#include "cppunit/extensions/HelperMacros.h"
-#include "cppunit/TestFixture.h"
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 #include "Defs.h"
 
 FF_NAMESPACE_START
@@ -17,7 +17,6 @@ FF_NAMESPACE_START
 class ActuatorDeviceTest : public CppUnit::TestFixture {
     CPPUNIT_TEST_SUITE(ActuatorDeviceTest);
     CPPUNIT_TEST(testDropPoints);
-    CPPUNIT_TEST(testWriteTooMuch);
     CPPUNIT_TEST(testFailGetRead);
     CPPUNIT_TEST(testFileChannel);
     CPPUNIT_TEST(testPeek);
@@ -33,7 +32,6 @@ public:
     };
 
     void testDropPoints();
-    void testWriteTooMuch();
     void testFailGetRead();
     void testFileChannel();
     void testPeek();

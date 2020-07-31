@@ -7,11 +7,6 @@ CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-#ifdef RTEMS
-#define TEST_DIR "/boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/"
-#else
-#define TEST_DIR "/afs/slac/g/lcls/epics/iocTop/FFController/Development/test/"
-#endif
 
 void FF::PatternGeneratorTest::setUp() {
     for (int i = 0; i < 6; ++i) {
