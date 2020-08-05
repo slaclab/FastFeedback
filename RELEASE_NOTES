@@ -11,6 +11,14 @@
 #               2018, W. Williams        (ernesto)
 #      
 #==============================================================
+R3.1.0:   05-August-2020 R.Reno (rreno)
+    * Add 2 new transverse feedbacks for SXR (sioc-ltus-tr01 sioc-unds-tr01)
+    * Codebase changes:
+        - Build targets only linuxRT buildroot2019 (C++14 by default)
+        - Got old unit tests up and running
+        - Remove dynamic exception specifications. 
+            Removed all instances of `throw(Exception)` and replaced `throw()` with `noexcept`
+
 R3.0.3:   29-July-2020 R.Reno (rreno)
     * Add ability to snap state setpoints to average of last 10 calculated states for P1.
 
