@@ -24,104 +24,51 @@ class LoopConfigurationTest;
 
 template <class Type> class PvData;
 
+
 /**
  * Definition of templates for all used data types
  */
 
-/** PvData definition for CHAR PV */
-typedef PvData<char> PvDataChar;
+using PvDataChar     = PvData<char>;
+using PvDataUChar    = PvData<unsigned char>;
+using PvDataInt      = PvData<int>;
+using PvDataUInt     = PvData<unsigned int>;
+using PvDataLong     = PvData<long>;
+using PvDataULong    = PvData<unsigned long>;
+using PvDataDouble   = PvData<double>;
+using PvDataShort    = PvData<short>;
+using PvDataUShort   = PvData<unsigned short>;
+using PvDataString   = PvData<std::string>;
+using PvDataBool     = PvData<bool>;
 
-/** PvData definition for UCHAR PV */
-typedef PvData<unsigned char> PvDataUChar;
-
-/** PvData definition for INT PV */
-typedef PvData<int> PvDataInt;
-
-/** PvData definition for UINT PV */
-typedef PvData<unsigned int> PvDataUInt;
-
-/** PvData definition for LONG PV */
-typedef PvData<long> PvDataLong;
-
-/** PvData definition for ULONG PV */
-typedef PvData<unsigned long> PvDataULong;
-
-/** PvData definition for DOUBLE PV */
-typedef PvData<double> PvDataDouble;
-
-/** PvData definition for SHORT PV */
-typedef PvData<short> PvDataShort;
-
-/** PvData definition for USHORT PV */
-typedef PvData<unsigned short> PvDataUShort;
-
-/** PvData definition for STRING PV */
-typedef PvData<std::string> PvDataString;
-
-/** PvData definition for BOOL PV */
-typedef PvData<bool> PvDataBool;
-
-/** PvData definition for DOUBLE waveform PV */
-typedef PvData<std::vector<double> > PvDataDoubleWaveform;
-
-/** PvData definition for USHORT waveform PV */
-typedef PvData<std::vector<unsigned short> > PvDataUShortWaveform;
-
-/** PvData definition for STRING waveform PV */
-typedef PvData<std::vector<std::string> > PvDataStringWaveform;
-
-/** PvData definition for CHAR waveform PV */
-typedef PvData<std::string> PvDataCharWaveform;
+/* Waveforms */
+using PvDataDoubleWaveform     = PvData<std::vector<double> >;
+using PvDataUShortWaveform     = PvData<std::vector<unsigned short> >;
+using PvDataStringWaveform     = PvData<std::vector<std::string> >;
+using PvDataCharWaveform       = PvData<std::string>;
 
 /**
  * Definition of template maps for the different types of PvData.
  * See comment on PvData::_pvMap bellow.
  */
 
-/** Map of PvDataChar */
-typedef std::map<std::string, std::vector<PvDataChar*>*> PvMapChar;
+using PvMapChar      = std::map<std::string, std::vector<PvDataChar*>*>;
+using PvMapUChar     = std::map<std::string, std::vector<PvDataUChar*>*>;
+using PvMapInt       = std::map<std::string, std::vector<PvDataInt*>*>;
+using PvMapUInt      = std::map<std::string, std::vector<PvDataUInt*>*>;
+using PvMapLong      = std::map<std::string, std::vector<PvDataLong*>*>;
+using PvMapULong     = std::map<std::string, std::vector<PvDataULong*>*>;
+using PvMapDouble    = std::map<std::string, std::vector<PvDataDouble*>*>;
+using PvMapShort     = std::map<std::string, std::vector<PvDataShort*>*>;
+using PvMapUShort    = std::map<std::string, std::vector<PvDataUShort*>*>;
+using PvMapString    = std::map<std::string, std::vector<PvDataString*>*>;
+using PvMapBool      = std::map<std::string, std::vector<PvDataBool*>*>;    
 
-/** Map of PvDataUChar */
-typedef std::map<std::string, std::vector<PvDataUChar*>*> PvMapUChar;
-
-/** Map of PvDataInt */
-typedef std::map<std::string, std::vector<PvDataInt*>*> PvMapInt;
-
-/** Map of PvDataUInt */
-typedef std::map<std::string, std::vector<PvDataUInt*>*> PvMapUInt;
-
-/** Map of PvDataLong */
-typedef std::map<std::string, std::vector<PvDataLong*>*> PvMapLong;
-
-/** Map of PvDataULong */
-typedef std::map<std::string, std::vector<PvDataULong*>*> PvMapULong;
-
-/** Map of PvDataDouble */
-typedef std::map<std::string, std::vector<PvDataDouble*>*> PvMapDouble;
-
-/** Map of PvDataShort */
-typedef std::map<std::string, std::vector<PvDataShort*>*> PvMapShort;
-
-/** Map of PvDataUShort */
-typedef std::map<std::string, std::vector<PvDataUShort*>*> PvMapUShort;
-
-/** Map of PvDataString */
-typedef std::map<std::string, std::vector<PvDataString*>*> PvMapString;
-
-/** Map of PvDataBool */
-typedef std::map<std::string, std::vector<PvDataBool*>*> PvMapBool;
-
-/** Map of PvDataDoubleWaveform */
-typedef std::map<std::string, std::vector<PvDataDoubleWaveform*>*> PvMapDoubleWaveform;
-
-/** Map of PvDataUShortWaveform */
-typedef std::map<std::string, std::vector<PvDataUShortWaveform*>*> PvMapUShortWaveform;
-
-/** Map of PvDataStringWaveform */
-typedef std::map<std::string, std::vector<PvDataStringWaveform*>*> PvMapStringWaveform;
-
-/** Map of PvDataCharWaveform */
-typedef std::map<std::string, std::vector<PvDataCharWaveform*>*> PvMapCharWaveform;
+/* Waveforms */
+using PvMapDoubleWaveform      = std::map<std::string, std::vector<PvDataDoubleWaveform*>*>;
+using PvMapUShortWaveform      = std::map<std::string, std::vector<PvDataUShortWaveform*>*>;
+using PvMapStringWaveform      = std::map<std::string, std::vector<PvDataStringWaveform*>*>;
+using PvMapCharWaveform        = std::map<std::string, std::vector<PvDataCharWaveform*>*>;
 
 /**
  * This is a template class used for connecting object attributes to PV Device
@@ -154,104 +101,92 @@ public:
      * @author L.Piccoli
      */
     PvData(std::string pvName) :
-      _externalValuePtr(NULL),
+      _externalValuePtr(nullptr),
       _pvName(pvName),
-      _scanlist(NULL),
-      _record(NULL),
-      _mutex(NULL) {
+      _scanlist(nullptr),
+      _record(nullptr),
+      _mutex(nullptr) {
         insert();
    };
 
     PvData() :
-    _externalValuePtr(NULL),
+    _externalValuePtr(nullptr),
       _pvName("ERROR"),
-      _scanlist(NULL),
-      _record(NULL),
-      _mutex(NULL) {
+      _scanlist(nullptr),
+      _record(nullptr),
+      _mutex(nullptr) {
     };
 
     PvData(std::string pvName, Type value) :
       _value(value),
-      _externalValuePtr(NULL),
+      _externalValuePtr(nullptr),
       _pvName(pvName),
-      _scanlist(NULL),
-      _record(NULL),
-      _mutex(NULL) {
+      _scanlist(nullptr),
+      _record(nullptr),
+      _mutex(nullptr) {
         insert();
     }
 
-    /**
-     * Empty constructor, used only to instantiate classes in
-     * order to initialize the _pvMap static variable.
-     *
-     * This constructor must *not* be used for other purposes besides
-     * initializing the maps.
-     *
-     * @author L.Piccoli
-     */
-    PvData(bool clear, int a) :
-      _externalValuePtr(NULL),
-      _pvName("INVALID"),
-      _mutex(NULL) {
-    	if (clear) {
-    	  _pvMap.clear();
-    	}
-    }
-
     virtual ~PvData() {
-      if (_mutex != NULL) {
+      if (_mutex != nullptr) {
      	  delete _mutex;
       }
     };
-    /*
-    PvData & operator=(const PvData &) {
-        return *this;
-    };
-    */
 
     /* used by threads to set the value of the data, must
      * lock so that pv records don't read while a thread
      * is setting this data
      */
     PvData & operator=(const Type &value) {
-      if (_mutex != NULL) {
-	_mutex->lock();
-      }
+        lock();
+        _value = value;
+        unlock();
 
-      _value = value;
-
-      if (_mutex != NULL) {
-	_mutex->unlock();
-      }
-
-      return *this;
+        return *this;
     }
 
     template <typename U>
-    bool operator==(const PvData<U> &other) {
-        return _value == other.getValue();
+    bool operator==(const PvData<U> &other) const {
+        lock();
+        auto res =  _value == other.getValue();
+        unlock();
+
+        return res;
+        
     }
 
-    bool operator==(const Type &value) {
-        return value == _value;
+    bool operator==(const Type &value) const {
+        lock();
+        auto res = value == _value;
+        unlock();
+
+        return res;
     }
 
     // do a comparison with implicit conversion
     template <typename U>
-    bool operator==(const U &value) {
-        return value == _value; 
+    bool operator==(const U &value) const {
+        lock();
+        auto res = value == _value; 
+        unlock();
+
+        return res;
     }
 
-    bool operator!=(const PvData<Type> &other) {
+    bool operator!=(const PvData<Type> &other) const {
         return !(*this == other);
     }
 
-    bool operator!=(const Type &value) {
+    bool operator!=(const Type &value) const {
         return !(*this == value);
     }
 
-    bool operator<(const Type &value) {
-        return _value < value;
+    bool operator<(const Type &value) const {
+        lock();
+        auto res =  _value < value;
+        unlock();
+
+        return res;
     }
 
     // Conversion of PvData<Type> to Type.
@@ -260,14 +195,14 @@ public:
         return getValue();
     }
 
-    static std::map<std::string, std::vector<PvData<Type> *> *> &getPvMap() {
+    static auto& getPvMap() {
         return _pvMap;
     }
 
-    Type *getValueAddress() {
-        if (_externalValuePtr == NULL) {
+    Type* getValueAddress() {
+        if (_externalValuePtr == nullptr)
             return &_value;
-        } else {
+        else {
             std::cerr << ">>> RETURN EXTERNAL ADDRESS\n";
             return _externalValuePtr;
         }
@@ -275,21 +210,17 @@ public:
 
     Type getValue() const {
     	Type val;
-    	if (_mutex != NULL) {
-	  _mutex->lock();
-	}
+        lock();
 
-        if (_externalValuePtr == NULL) {
+        if (_externalValuePtr == nullptr)
             val = _value;
-        } else {
+        else {
             std::cerr << ">>> RETURN EXTERNAL VALUE ("
 		      << _pvName << ")" << std::endl;
             val = *_externalValuePtr;
         }
 
-       	if (_mutex != NULL) {
-	  _mutex->unlock();
-	}
+        unlock();
 
         return val;
     }
@@ -318,7 +249,7 @@ public:
         _externalValuePtr = externalValuePtr;
     }
 
-    std::string getPvName() {
+    std::string getPvName() const {
         return _pvName;
     }
 
@@ -339,20 +270,15 @@ public:
      * @author L.Piccoli
      */
     virtual int write(Type *val, int size = 1) {
-      if (_mutex != NULL) {
-	_mutex->lock();
-      }
+        lock();
 
-      _value = *val;
-      if (_externalValuePtr != NULL) {
-    	  *_externalValuePtr = *val;
-      }
+        _value = *val;
+        if (_externalValuePtr != nullptr)
+            *_externalValuePtr = *val;
 
-      if (_mutex != NULL) {
-	_mutex->unlock();
-      }
+        unlock();
 
-      return 0;
+        return 0;
     }
 
     /**
@@ -372,21 +298,16 @@ public:
      * @author L.Piccoli
      */
     int read(Type *val, int size = 1) {
-      if (_mutex != NULL) {
-	_mutex->lock();
-      }
+        lock();
 
-      if (_externalValuePtr == NULL) {
-	*val = _value;
-      } else {
-	*val = *_externalValuePtr;
-      }
-      
-      if (_mutex != NULL) {
-	_mutex->unlock();
-      }
+        if (_externalValuePtr == nullptr)
+            *val = _value;
+        else 
+            *val = *_externalValuePtr;
 
-      return 0;
+        unlock();
+
+        return 0;
     }
 
     IOSCANPVT getScanList() {
@@ -398,58 +319,52 @@ public:
     }
 
     void scanIoRequest() {
-      if (_scanlist != NULL) {
-	::scanIoRequest(_scanlist);
-      }
+        if (_scanlist != nullptr)
+            ::scanIoRequest(_scanlist);
     }
 
     void setRecord(void *precord) {
-      _record = reinterpret_cast<aiRecord *>(precord);
+        _record = reinterpret_cast<aiRecord *>(precord);
     }
 
     void setAlarm(bool set = true) {
-      if (_record != NULL) {
-	if (set) {
-	  _record -> nsev = MAJOR_ALARM;
-	  _record -> nsta = HIHI_ALARM;
-	}
-	else {
-	  _record -> nsev = NO_ALARM;
-	  _record -> nsta = NO_ALARM;
-	}
-      }
+        if (_record != nullptr) {
+            if (set) {
+                _record -> nsev = MAJOR_ALARM;
+                _record -> nsta = HIHI_ALARM;
+            }
+            else {
+                _record -> nsev = NO_ALARM;
+                _record -> nsta = NO_ALARM;
+            }
+        }
     }
 
     void show() {
-      std::cout << _pvName << "\t";
-      if (_record != NULL) {
-	std::cout << _record -> name;
-      }
-      else {
-	std::cout << "NULL";
-      }
+        std::cout << _pvName << "\t";
+        if (_record != nullptr)
+	        std::cout << _record -> name;
+        else
+            std::cout << "NULL";
     }
 
     void lock() {
-      if (_mutex != NULL) {
-	_mutex->lock();
-      }
+        if (_mutex != nullptr)
+            _mutex->lock();
     }
 
     void unlock() {
-      if (_mutex != NULL) {
-	_mutex->unlock();
-      }
+        if (_mutex != nullptr)
+            _mutex->unlock();
+    }
+
+
+    static void showMap() {
+        for (const auto& item : _pvMap)
+            std::cout << item->first << ": " << item->second->size() << '\n';
     }
 
     friend class LoopConfigurationTest; // For unit tests
-
-    static void showMap() {
-      typename std::map<std::string, std::vector<PvData<Type> *> *>::iterator it;
-      for (it = _pvMap.begin(); it != _pvMap.end(); ++it) {
-	std::cout << it->first << ": " << it->second->size() << std::endl;
-      }
-    }
 
 protected:
     /** Actual value */
@@ -512,7 +427,7 @@ private:
      * The assignment to precord->dpvt is performed in the device support code
      * (see file devFfConfig.cc)
      */
-    static std::map<std::string, std::vector<PvData<Type> *> *> _pvMap;
+    inline static std::map<std::string, std::vector<PvData<Type> *> *> _pvMap;
 
 };
 
