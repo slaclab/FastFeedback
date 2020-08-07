@@ -21,54 +21,13 @@
 FF_NAMESPACE_START
 
 class LoopConfigurationTest;
-
 template <class Type> class PvData;
 
+template <class T>
+using PvDataWaveform = PvData<std::vector<T>>;
 
-/**
- * Definition of templates for all used data types
- */
-
-using PvDataChar     = PvData<char>;
-using PvDataUChar    = PvData<unsigned char>;
-using PvDataInt      = PvData<int>;
-using PvDataUInt     = PvData<unsigned int>;
-using PvDataLong     = PvData<long>;
-using PvDataULong    = PvData<unsigned long>;
-using PvDataDouble   = PvData<double>;
-using PvDataShort    = PvData<short>;
-using PvDataUShort   = PvData<unsigned short>;
-using PvDataString   = PvData<std::string>;
-using PvDataBool     = PvData<bool>;
-
-/* Waveforms */
-using PvDataDoubleWaveform     = PvData<std::vector<double> >;
-using PvDataUShortWaveform     = PvData<std::vector<unsigned short> >;
-using PvDataStringWaveform     = PvData<std::vector<std::string> >;
-using PvDataCharWaveform       = PvData<std::string>;
-
-/**
- * Definition of template maps for the different types of PvData.
- * See comment on PvData::_pvMap bellow.
- */
-
-using PvMapChar      = std::map<std::string, std::vector<PvDataChar*>*>;
-using PvMapUChar     = std::map<std::string, std::vector<PvDataUChar*>*>;
-using PvMapInt       = std::map<std::string, std::vector<PvDataInt*>*>;
-using PvMapUInt      = std::map<std::string, std::vector<PvDataUInt*>*>;
-using PvMapLong      = std::map<std::string, std::vector<PvDataLong*>*>;
-using PvMapULong     = std::map<std::string, std::vector<PvDataULong*>*>;
-using PvMapDouble    = std::map<std::string, std::vector<PvDataDouble*>*>;
-using PvMapShort     = std::map<std::string, std::vector<PvDataShort*>*>;
-using PvMapUShort    = std::map<std::string, std::vector<PvDataUShort*>*>;
-using PvMapString    = std::map<std::string, std::vector<PvDataString*>*>;
-using PvMapBool      = std::map<std::string, std::vector<PvDataBool*>*>;    
-
-/* Waveforms */
-using PvMapDoubleWaveform      = std::map<std::string, std::vector<PvDataDoubleWaveform*>*>;
-using PvMapUShortWaveform      = std::map<std::string, std::vector<PvDataUShortWaveform*>*>;
-using PvMapStringWaveform      = std::map<std::string, std::vector<PvDataStringWaveform*>*>;
-using PvMapCharWaveform        = std::map<std::string, std::vector<PvDataCharWaveform*>*>;
+template <typename T>
+using PvMap = std::map<std::string, std::vector<PvData<T>*>*>;
 
 /**
  * This is a template class used for connecting object attributes to PV Device
@@ -427,7 +386,7 @@ private:
      * The assignment to precord->dpvt is performed in the device support code
      * (see file devFfConfig.cc)
      */
-    inline static std::map<std::string, std::vector<PvData<Type> *> *> _pvMap;
+    inline static PvMap<Type> _pvMap;
 
 };
 
