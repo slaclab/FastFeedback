@@ -28,8 +28,7 @@ class CaChannelTest;
 class CaChannel : public CommunicationChannel {
 public:
 
-    CaChannel(CommunicationChannel::AccessType accessType, std::string name)
-            throw (Exception);
+    CaChannel(CommunicationChannel::AccessType accessType, std::string name);
 
     virtual ~CaChannel();
 

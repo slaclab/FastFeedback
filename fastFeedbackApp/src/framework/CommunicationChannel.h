@@ -34,7 +34,7 @@ public:
         NO_CHANNEL = 30
     };
 
-    CommunicationChannel(AccessType accessType) throw (Exception);
+    CommunicationChannel(AccessType accessType);
     virtual ~CommunicationChannel();
 
     virtual int read(double &value, epicsTimeStamp &timestamp, double timeout = 3.0) = 0;

@@ -113,7 +113,6 @@ int LoopThread::createLoops() {
  * @author L.Piccoli
  */
 int LoopThread::processEvent(Event& event) {
-  PvData<int> pvData;
   int value = 0;
     switch (event._type) {
     case HEARTBEAT_EVENT:

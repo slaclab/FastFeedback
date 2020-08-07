@@ -18,7 +18,7 @@ USING_FF_NAMESPACE
  * @author L.Piccoli
  */
 Time::Time() {
-    // now();
+    now();
 }
 
 /**
@@ -70,7 +70,7 @@ Time Time::operator-(Time other) {
     epicsUInt32 secDiff = 0;
 
     secDiff = _time.secPastEpoch - other._time.secPastEpoch;
-    if (other._time.nsec < _time.nsec) {
+    if (other._time.nsec <= _time.nsec) {
         temp._time.nsec = _time.nsec - other._time.nsec;
     } else {
         secDiff--;
@@ -78,34 +78,6 @@ Time Time::operator-(Time other) {
     }
     temp._time.secPastEpoch = secDiff;
     return temp;
-
-    /*
-
-        if (other._time.secPastEpoch > _time.secPastEpoch) {
-            secDiff = other._time.secPastEpoch - _time.secPastEpoch;
-        } else {
-            secDiff = _time.secPastEpoch - other._time.secPastEpoch;
-        }
-
-        if (secDiff == 0) {
-            if (other._time.nsec > _time.nsec) {
-                temp._time.nsec = other._time.nsec - _time.nsec;
-            } else {
-                temp._time.nsec = _time.nsec - other._time.nsec;
-            }
-        } else {
-
-
-            if ((other._time.nsec - _time.nsec) < 0) {
-                secDiff--;
-                temp._time.nsec = 1000000000 + other._time.nsec - _time.nsec;
-            } else {
-                temp._time.nsec = other._time.nsec - _time.nsec;
-            }
-        }
-        temp._time.secPastEpoch = secDiff;
-     */
-    //    return temp;
 }
 
 long Time::toMillis() {

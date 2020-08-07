@@ -33,12 +33,12 @@ public:
   
   virtual int configure(LoopConfiguration *configuration,
 			MeasurementSet *measurements, ActuatorSet *actuators,
-			StateSet *states) throw (Exception);
+			StateSet *states);
   
   virtual int calculate(LoopConfiguration &configuration,
 			MeasurementSet &measurements,
 			ActuatorSet &actuators,
-			StateSet &states) throw (Exception);
+			StateSet &states);
 
  protected:
     virtual int getMeasurements();
@@ -128,7 +128,7 @@ public:
     double calculateActuator();
     void updateActuator(double newValue);
     void updateState(double newValue);
-    bool checkWaveplate() throw (Exception);
+    bool checkWaveplate();
     bool doneMoving();
 };
 

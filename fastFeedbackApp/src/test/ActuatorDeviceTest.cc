@@ -44,42 +44,6 @@ void FF::ActuatorDeviceTest::testDropPoints() {
     CPPUNIT_ASSERT_EQUAL(1.0, a._buffer[a._nextWrite]._value);
 }
 
-/**
- * Test invoking write() more times than set(), which means the user is trying
- * to send data that was not previously added to the internal buffer using
- * set().
- *
- * REMOVED: this test has been removed because the write() function writes out
- * the latest set value, if there are queue set values they are skipped.
- * 
- * @author L.Piccoli
- */
-void FF::ActuatorDeviceTest::testWriteTooMuch() {
-  /*
-    int size = 10;
-    ActuatorDevice a("XX00", "MyMagnet", size);
-
-    NullChannel *nc = new NullChannel(CommunicationChannel::WRITE_ONLY);
-    a.setCommunicationChannel(nc);
-
-    a._hihiPv = 1000;
-    a._loloPv = -1000;
-
-    for (int i = 0; i < size; ++i) {
-        double value = i;
-        CPPUNIT_ASSERT_EQUAL(0, a.set(value));
-    }
-
-    for (int i = 0; i < size; ++i) {
-        double value = i;
-
-        CPPUNIT_ASSERT_EQUAL(value, a._buffer[a._nextWrite]._value);
-	int ret = a.write();
-        CPPUNIT_ASSERT_EQUAL(0, ret);
-    }
-    CPPUNIT_ASSERT_EQUAL(-1, a.write());
-  */
-}
 
 /**
  * Make sure the ActuatorDevice class does not provide methods to get data.

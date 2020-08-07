@@ -52,7 +52,7 @@ public:
     virtual int read();
     virtual void clear();
     virtual int configure(CommunicationChannel::AccessType accessType,
-            int patternIndex = -1) throw (Exception);
+            int patternIndex = -1);
     virtual void disconnect();
 
     virtual double peek();

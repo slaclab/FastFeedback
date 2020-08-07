@@ -26,7 +26,7 @@ USING_FF_NAMESPACE
  * @author L.Piccoli
  */
 CaChannel::CaChannel(CommunicationChannel::AccessType accessType,
-        std::string name) throw (Exception) :
+        std::string name) :
   CommunicationChannel(accessType),
   _name(name),
   _readStats(50, "CA Read Stats") {

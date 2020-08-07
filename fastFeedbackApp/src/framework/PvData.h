@@ -227,15 +227,22 @@ public:
       return *this;
     }
 
-    bool operator==(const PvData &other) {
-        return _value == other._value;
+    template <typename U>
+    bool operator==(const PvData<U> &other) {
+        return _value == other.getValue();
     }
 
     bool operator==(const Type &value) {
         return value == _value;
     }
 
-    bool operator!=(const PvData &other) {
+    // do a comparison with implicit conversion
+    template <typename U>
+    bool operator==(const U &value) {
+        return value == _value; 
+    }
+
+    bool operator!=(const PvData<Type> &other) {
         return !(*this == other);
     }
 
@@ -247,6 +254,12 @@ public:
         return _value < value;
     }
 
+    // Conversion of PvData<Type> to Type.
+    // Allows us to use something like 1 == a where a is a PvData<int>
+    operator auto() const {
+        return getValue();
+    }
+
     static std::map<std::string, std::vector<PvData<Type> *> *> &getPvMap() {
         return _pvMap;
     }
@@ -255,12 +268,12 @@ public:
         if (_externalValuePtr == NULL) {
             return &_value;
         } else {
-            std::cerr << ">>> RETURN EXTERNAL ADDRESS" << std::endl;
+            std::cerr << ">>> RETURN EXTERNAL ADDRESS\n";
             return _externalValuePtr;
         }
     }
 
-    Type getValue() {
+    Type getValue() const {
     	Type val;
     	if (_mutex != NULL) {
 	  _mutex->lock();
@@ -284,23 +297,10 @@ public:
     /**
      * Create the mutex to protect the value of the PvData - this must be done by the
      * device support init routine since the mutex cannot exist before the init
+     *
+     * TODO (rreno): implement this?
      */
-    void createMutex() {
-      /*
-      if (_mutex == NULL) {
-	_mutex = new epicsMutex();
-
-	size_t state_position = _pvName.find(" STATE");
-	size_t mode_position = _pvName.find(" MODE");
-
-	if (state_position != std::string::npos ||
-	    mode_position != std::string::npos) {
-	  std::cout << "Mutex info for " << _pvName << std::endl;
-	  _mutex->show(4);
-	}
-      }
-      */
-    }
+    void createMutex() {  }
 
     /**
      * This allows values to be read from/written to an area external to the
@@ -316,8 +316,6 @@ public:
      */
     void setExternalValuePtr(Type *externalValuePtr) {
         _externalValuePtr = externalValuePtr;
-        //std::cerr << ">>> SET EXTERNAL VALUE PTR("
-	    //  << _pvName << ")" << std::endl;
     }
 
     std::string getPvName() {
@@ -475,8 +473,9 @@ private:
      */
     aiRecord *_record;
 
-    // one mutex per PV, protects any reads/writes with the PV no matter what the type
-    epicsMutex *_mutex;
+    // one mutex per PV, protects any reads/writes with the PV no matter what the type.
+    // Declared `mutable` to allow use in `const` members.
+    mutable epicsMutex *_mutex;
 
     /**
      * Insert this if not already in the map and not created by Devices

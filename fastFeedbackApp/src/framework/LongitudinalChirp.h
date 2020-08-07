@@ -24,11 +24,11 @@ class LongitudinalChirp : public Longitudinal {
   LongitudinalChirp(std::string algorithmName = "LongitudinalChirp");
   virtual ~LongitudinalChirp();
 
-  virtual int calculate() throw (Exception);
+  virtual int calculate();
 
   virtual int configure(LoopConfiguration *configuration,
 			MeasurementSet *measurements, ActuatorSet *actuators,
-			StateSet *states) throw (Exception);
+			StateSet *states);
   virtual int reset();
 
  protected:
@@ -48,8 +48,8 @@ class LongitudinalChirp : public Longitudinal {
   int calculateInitialStates();
   int checkChirpControl();
   virtual int checkMeasurementStatus();
-  virtual int updateActuators() throw (Exception);
-  virtual int selectStates() throw (Exception);
+  virtual int updateActuators();
+  virtual int selectStates();
   int calculateAmplitudeAndPhase();
   void getInitialValues();
   void resetActuators();

@@ -57,7 +57,7 @@ public:
     virtual int calculate(LoopConfiguration &configuration,
             MeasurementSet &measurements,
             ActuatorSet &actuators,
-            StateSet &states) throw (Exception);
+            StateSet &states);
 
     friend class SineWaveTest;
 

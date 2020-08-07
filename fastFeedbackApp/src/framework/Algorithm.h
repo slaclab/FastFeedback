@@ -65,14 +65,14 @@ public:
 
     virtual int configure(LoopConfiguration *configuration,
             MeasurementSet *measurements, ActuatorSet *actuators,
-            StateSet *states) throw (Exception);
+            StateSet *states);
 
     virtual int calculate(LoopConfiguration &configuration,
             MeasurementSet &measurements,
             ActuatorSet &actuators,
-            StateSet & states) throw (Exception) = 0;
+            StateSet & states) = 0;
 
-    virtual int calculate() throw (Exception) {
+    virtual int calculate() {
         return -1;
     }
 

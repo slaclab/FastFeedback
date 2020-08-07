@@ -31,7 +31,7 @@ USING_FF_NAMESPACE
  * @author L.Piccoli
  */
 FileChannel::FileChannel(CommunicationChannel::AccessType accessType,
-        std::string fileName, bool wrapAround) throw (Exception) :
+        std::string fileName, bool wrapAround) :
 CommunicationChannel(accessType),
 _fileName(fileName),
 _wrapAround(wrapAround) {

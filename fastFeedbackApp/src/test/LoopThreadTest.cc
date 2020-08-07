@@ -8,22 +8,19 @@ CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-#ifdef RTEMS
-#define TEST_DIR "/boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/"
-#else
-#define TEST_DIR "/afs/slac/g/lcls/epics/iocTop/FFController/Development/test/"
-#endif
-
 void FF::LoopThreadTest::setUp() {
     for (int i = 0; i < 6; ++i) {
         p1._inclusionMask[i] = i;
         p2._inclusionMask[i] = i + 10;
         p3._inclusionMask[i] = i + 50;
     }
-    config = NULL;
+    config = new LoopConfiguration("TESTSLOT");
+    // if this is false we can't process events
+    config->_configured = true;
 }
 
 void FF::LoopThreadTest::tearDown() {
+    delete config;
 }
 
 /**
@@ -35,24 +32,15 @@ void FF::LoopThreadTest::tearDown() {
  * @author L.Piccoli
  */
 void FF::LoopThreadTest::testProcessPattern() {
-    if (config == NULL) {
-        return;
-    }
-    /*
     LoopThread loopThread("MyLoop", config);
 
-    // The configuration file defines two patterns, so there must be two Loops
-    CPPUNIT_ASSERT_EQUAL(2, (int) loopThread._loops.size());
-
-    // Copy the patterns from the configuration
-    p1 = loopThread._configuration->_patternMasks[0];
-    p2 = loopThread._configuration->_patternMasks[1];
-
     Event event;
-    event._type = PATTERN_EVENT;
+    event._type = HEARTBEAT_EVENT;
     event._pattern = p1;
+    CPPUNIT_ASSERT_EQUAL(0, loopThread.processEvent(event));
 
     loopThread._state = LoopThread::WAITING_PATTERN;
+    event._type = PATTERN_EVENT;
 
     // At this point the LoopThread is in WAITING_PATTERN state, so sending
     // a PATTERN_EVENT should work
@@ -62,7 +50,7 @@ void FF::LoopThreadTest::testProcessPattern() {
     CPPUNIT_ASSERT_EQUAL(LoopThread::WAITING_MEASUREMENT, loopThread._state);
 
     // Check that the pattern event counter was increased
-    long long expectedValue = 1;
+    decltype(loopThread._patternCount) expectedValue = 1;
     CPPUNIT_ASSERT_EQUAL(expectedValue, loopThread._patternCount);
 
     // Try processing a PATTERN_EVENT while in WAITING_MEASUREMENT state
@@ -114,7 +102,6 @@ void FF::LoopThreadTest::testProcessPattern() {
     CPPUNIT_ASSERT_EQUAL(expectedValue, loopThread._unexpectedPatternCount);
     CPPUNIT_ASSERT_EQUAL(expectedValue, loopThread._unknownPatternCount);
 
-     */
 }
 
 /**
@@ -125,15 +112,7 @@ void FF::LoopThreadTest::testProcessPattern() {
  * @author L.Piccoli
  */
 void FF::LoopThreadTest::testProcessMeasurement() {
-/*
     LoopThread loopThread("MyLoop", config);
-
-    // The configuration file defines two patterns, so there must be two Loops
-    CPPUNIT_ASSERT_EQUAL(2, (int) loopThread._loops.size());
-
-    // Copy the patterns from the configuration
-    p1 = loopThread._configuration->_patterns[0];
-    p2 = loopThread._configuration->_patterns[1];
 
     Event event;
     event._type = PATTERN_EVENT;
@@ -147,8 +126,10 @@ void FF::LoopThreadTest::testProcessMeasurement() {
     // Send a MEASUREMENT_EVENT for p1
     event._type = MEASUREMENT_EVENT;
     CPPUNIT_ASSERT_EQUAL(0, loopThread.processEvent(event));
-    long long expectedValue = 1;
+
+    decltype(loopThread._measurementCount) expectedValue = 1;
     CPPUNIT_ASSERT_EQUAL(expectedValue, loopThread._measurementCount);
+
     expectedValue = 0;
     CPPUNIT_ASSERT_EQUAL(expectedValue, loopThread._unexpectedMeasurementCount);
     CPPUNIT_ASSERT_EQUAL(expectedValue, loopThread._unexpectedMeasurementPatternCount);
@@ -159,9 +140,11 @@ void FF::LoopThreadTest::testProcessMeasurement() {
     loopThread._state = LoopThread::WAITING_MEASUREMENT;
     event._pattern = p2;
     CPPUNIT_ASSERT_EQUAL(-1, loopThread.processEvent(event));
+
     expectedValue = 1;
     CPPUNIT_ASSERT_EQUAL(expectedValue, loopThread._measurementCount);
     CPPUNIT_ASSERT_EQUAL(expectedValue, loopThread._unexpectedMeasurementPatternCount);
+
     expectedValue = 0;
     CPPUNIT_ASSERT_EQUAL(expectedValue, loopThread._unexpectedMeasurementCount);
 
@@ -169,12 +152,12 @@ void FF::LoopThreadTest::testProcessMeasurement() {
     // measurement is received.
     CPPUNIT_ASSERT_EQUAL(LoopThread::WAITING_PATTERN, loopThread._state);
     CPPUNIT_ASSERT_EQUAL(-1, loopThread.processEvent(event));
+
     expectedValue = 1;
     CPPUNIT_ASSERT_EQUAL(expectedValue, loopThread._measurementCount);
     CPPUNIT_ASSERT_EQUAL(expectedValue, loopThread._unexpectedMeasurementPatternCount);
     CPPUNIT_ASSERT_EQUAL(expectedValue, loopThread._unexpectedMeasurementCount);
 
- */
 }
 
 /**
@@ -185,23 +168,7 @@ void FF::LoopThreadTest::testProcessMeasurement() {
  * @author L.Piccoli
  */
 void FF::LoopThreadTest::testCreateLoops() {
-/*
-    LoopThread loopThread;
-
-    loopThread._configuration = config;
+    LoopThread loopThread("MyLoop", config);
 
     CPPUNIT_ASSERT_EQUAL(0, loopThread.createLoops());
-
-    // The configuration file defines two patterns, so there must be two Loops
-    CPPUNIT_ASSERT_EQUAL(2, (int) loopThread._loops.size());
-
-    // The first loop responds for the first pattern in the configuration
-    Pattern expectedPattern = config->_patterns[0];
-    CPPUNIT_ASSERT(expectedPattern == loopThread._loops[0]->getPattern());
-
-    // Second loop has the second pattern from the configuration
-    expectedPattern = config->_patterns[1];
-    CPPUNIT_ASSERT(expectedPattern == loopThread._loops[1]->getPattern());
-
- */
 }

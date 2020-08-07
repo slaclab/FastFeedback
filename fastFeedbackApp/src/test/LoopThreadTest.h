@@ -8,8 +8,8 @@
 #ifndef _LOOPTHREADTEST_H
 #define	_LOOPTHREADTEST_H
 
-#include "cppunit/extensions/HelperMacros.h"
-#include "cppunit/TestFixture.h"
+#include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/TestFixture.h>
 
 #include <iostream>
 #include "Pattern.h"

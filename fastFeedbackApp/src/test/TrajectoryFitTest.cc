@@ -18,13 +18,8 @@ CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 
 USING_FF_NAMESPACE
 
-#ifdef RTEMS
-#define TEST_DIR "/boot/g/lcls/vol8/epics/iocTop/FFController/Development/test/"
-#else
-#define TEST_DIR "/afs/slac/g/lcls/epics/iocTop/FFController/Development/test/"
-#endif
 
-        using namespace boost::numeric::ublas;
+using namespace boost::numeric::ublas;
 using namespace boost::numeric::bindings::traits;
 using namespace boost::numeric::bindings::lapack;
 
@@ -319,7 +314,6 @@ void TrajectoryFitTest::testGelsTime() {
     int status = gels('N', fitMatrix, states, workspace(w));
     after.now();
     difference = after - before;
-    //    std::cout << "status=" << status << " time=" << difference.toMicros() << std::endl;
     long elapsed = difference.toMicros();
     long expected = 3000;
     CPPUNIT_ASSERT(elapsed < expected);
@@ -358,11 +352,9 @@ void TrajectoryFitTest::testGelsTime() {
     result[9] = 0.0353734;
 
     before.now();
-    //    status = gels('N', fitMatrix, states, optimal_workspace());
     status = gels('N', fitMatrix, states, workspace(w));
     after.now();
     difference = after - before;
-    //    std::cout << "status=" << status << " time=" << difference.toMicros() << std::endl;
     elapsed = difference.toMicros();
     expected = 3000;
     CPPUNIT_ASSERT(elapsed < expected);

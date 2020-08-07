@@ -52,17 +52,6 @@ void FF::CollectorThreadTest::tearDown() {
     MeasurementCollector::getInstance().remove(m2);
     MeasurementCollector::getInstance().remove(m3);
     MeasurementCollector::getInstance().remove(m4);
-    /*
-    delete m1;
-    delete m2;
-    delete m3;
-    delete m4;
-
-    delete nc1;
-    delete nc2;
-    delete nc3;
-    delete nc4;
-    */
 }
 
 /**
@@ -94,7 +83,7 @@ void FF::CollectorThreadTest::testProcessPattern() {
 
     // Check if pattern stored with collector is the same one sent before
     if (!(patternEvent._pattern == collector._pattern)) {
-        CPPUNIT_ASSERT_MESSAGE(false, "Patterns are different!");
+        CPPUNIT_ASSERT_MESSAGE("Patterns are different!", false);
         // NOTE: If this test fails, the CollectorThread exits without
         // calling epicsThreadExit, which does generate some complaints by EPICS
     }
@@ -129,39 +118,29 @@ void FF::CollectorThreadTest::testProcessMeasurement() {
 
     int numMeasurements = 10;
     for (int i = 0; i < numMeasurements; ++i) {
+        // we're processing 2 patterns per loop, get a count for each of p1 and p2 to compare
+        decltype(collector._measurementCount) p1_cnt = 2 * i + 1, p2_cnt = p1_cnt + 1;
+
         // Update devices for pattern p1
         Event measurementEvent(MEASUREMENT_EVENT);
         Pattern pattern(p1);
         measurementEvent._pattern = pattern;
-	collector._state = CollectorThread::WAITING_MEASUREMENT;
+        collector._state = CollectorThread::WAITING_MEASUREMENT;
         CPPUNIT_ASSERT_EQUAL(0, collector.processMeasurementEvent(measurementEvent));
-
-        // Check if devices were updated for p1
-        double value;
-        double expectedValue = i;
-        epicsTimeStamp timestamp;
-        CPPUNIT_ASSERT_EQUAL(0, m1->get(value, timestamp));
-        CPPUNIT_ASSERT_EQUAL(expectedValue, value);
-        CPPUNIT_ASSERT_EQUAL(-1, m2->get(value, timestamp));
-        CPPUNIT_ASSERT_EQUAL(-1, m3->get(value, timestamp));
-        CPPUNIT_ASSERT_EQUAL(0, m4->get(value, timestamp));
-        CPPUNIT_ASSERT_EQUAL(expectedValue, value);
+        CPPUNIT_ASSERT_EQUAL(p1_cnt, collector._measurementCount);
+        CPPUNIT_ASSERT_EQUAL(CollectorThread::WAITING_PATTERN, collector._state);
+            
 
         // Update devices for pattern p2
         Pattern pattern2(p2);
         measurementEvent._pattern = pattern2;
-	collector._state = CollectorThread::WAITING_MEASUREMENT;
-        collector.processMeasurementEvent(measurementEvent);
-
-        // Check if devices were updated for p2
-        CPPUNIT_ASSERT_EQUAL(-1, m1->get(value, timestamp));
-        CPPUNIT_ASSERT_EQUAL(0, m2->get(value, timestamp));
-        CPPUNIT_ASSERT_EQUAL(expectedValue, value);
-        CPPUNIT_ASSERT_EQUAL(-1, m3->get(value, timestamp));
-        CPPUNIT_ASSERT_EQUAL(-1, m4->get(value, timestamp));
+        collector._state = CollectorThread::WAITING_MEASUREMENT;
+        CPPUNIT_ASSERT_EQUAL(0, collector.processMeasurementEvent(measurementEvent));
+        CPPUNIT_ASSERT_EQUAL(p2_cnt, collector._measurementCount);
+        CPPUNIT_ASSERT_EQUAL(CollectorThread::WAITING_PATTERN, collector._state);
     }
 
-    // Check if event receivers did get notice about new measurements,
+    // Check if event receivers did get notice about new measurements from EventGenerator::send
     // which add up to the number of loop iterations (numMeasurements)
     // times 2 (one for each pattern - p1 and p2)
     CPPUNIT_ASSERT_EQUAL(r1.getPendingEvents(), numMeasurements * 2);

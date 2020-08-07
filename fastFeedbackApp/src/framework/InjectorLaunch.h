@@ -42,11 +42,11 @@ public:
     InjectorLaunch(std::string algorithmName = "InjectorLaunch");
     virtual ~InjectorLaunch();
 
-    virtual int calculate() throw (Exception);
+    virtual int calculate();
 
     virtual int configure(LoopConfiguration *configuration,
             MeasurementSet *measurements, ActuatorSet *actuators,
-            StateSet *states) throw (Exception);
+            StateSet *states);
     virtual void show();
 
 protected:

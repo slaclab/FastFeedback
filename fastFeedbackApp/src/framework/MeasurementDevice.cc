@@ -336,7 +336,7 @@ bool MeasurementDevice::hasStringInName(std::string str) {
  * @author L.Piccoli
  */
 int MeasurementDevice::configure(CommunicationChannel::AccessType accessType,
-        int patternIndex) throw (Exception) {
+        int patternIndex) {
     // Check if the device name indicates this is a BPM or BLEN
     _isBpm = hasBpmName();
     _isBlen = hasBlenName();
