@@ -8,6 +8,10 @@ CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 USING_FF_NAMESPACE
 
 void FF::PvDataTest::setUp() {
+    PvData<char>::getPvMap().clear();
+    PvData<unsigned char>::getPvMap().clear();
+    PvData<int>::getPvMap().clear();
+    PvData<unsigned int>::getPvMap().clear();
 }
 
 /**
