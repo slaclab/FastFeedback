@@ -23,11 +23,14 @@ FF_NAMESPACE_START
 class LoopConfigurationTest;
 template <class Type> class PvData;
 
-template <class T>
+template <typename T>
 using PvDataWaveform = PvData<std::vector<T>>;
 
 template <typename T>
 using PvMap = std::map<std::string, std::vector<PvData<T>*>*>;
+
+template <typename T>
+using PvMapWaveform = std::map<std::string, std::vector<PvDataWaveform<T>*>*>;
 
 /**
  * This is a template class used for connecting object attributes to PV Device
@@ -299,7 +302,7 @@ public:
         }
     }
 
-    void show() {
+    void show() const {
         std::cout << _pvName << "\t";
         if (_record != nullptr)
 	        std::cout << _record -> name;
@@ -307,12 +310,12 @@ public:
             std::cout << "NULL";
     }
 
-    void lock() {
+    void lock() const {
         if (_mutex != nullptr)
             _mutex->lock();
     }
 
-    void unlock() {
+    void unlock() const {
         if (_mutex != nullptr)
             _mutex->unlock();
     }
@@ -320,7 +323,7 @@ public:
 
     static void showMap() {
         for (const auto& item : _pvMap)
-            std::cout << item->first << ": " << item->second->size() << '\n';
+            std::cout << item.first << ": " << item.second->size() << '\n';
     }
 
     friend class LoopConfigurationTest; // For unit tests
