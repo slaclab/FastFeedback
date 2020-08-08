@@ -71,10 +71,10 @@ epicsExportAddress(dset, devBoFfConfig);
 
 /**
  * Initialize the Binary Output (BO) record. The precord->dpvt pointer
- * is set to the memory location of the controlled PvDataBool. The correct
- * PvDataBool is found based on the INST_IO string defined for the PV in the
+ * is set to the memory location of the controlled PvData<bool>. The correct
+ * PvData<bool> is found based on the INST_IO string defined for the PV in the
  * database. The string (following the @ sign) must be the same string used
- * to initialize the PvDataBool (e.g. "TR01 MODE" -> for the enabling/disabling
+ * to initialize the PvData<bool> (e.g. "TR01 MODE" -> for the enabling/disabling
  * the TR01 loop).
  *
  * @param precord pointer to the record being initialized
@@ -84,12 +84,12 @@ static long devBoFfConfig_init_record(boRecord *precord) {
     long status = -1;
 
     std::string pvName;
-    PvMapBool::iterator it;
+    PvMap<bool>::iterator it;
     switch (precord->out.type) {
         case INST_IO:
             pvName = precord->out.value.instio.string;
-            it = PvDataBool::getPvMap().find(pvName);
-            if (it == PvDataBool::getPvMap().end()) {
+            it = PvData<bool>::getPvMap().find(pvName);
+            if (it == PvData<bool>::getPvMap().end()) {
                 std::cout << "PvData: \"" << pvName;
                 std::cout << "\" not found." << std::endl;
                 status = -1;
@@ -98,8 +98,8 @@ static long devBoFfConfig_init_record(boRecord *precord) {
                 precord->dpvt = it->second;
                 // now create the mutex for this pvData
                 // BO records have mutex to protect state and mode PVs
-                std::vector<PvDataBool *> *vector =
-                        reinterpret_cast<std::vector<PvDataBool *> *> (precord->dpvt);
+                std::vector<PvData<bool> *> *vector =
+                        reinterpret_cast<std::vector<PvData<bool> *> *> (precord->dpvt);
                 try {
                   for (int i = 0; i < (int) vector->size(); ++i) {
                     vector->at(i)->createMutex();
@@ -138,8 +138,8 @@ static long devBoFfConfig_write_bo(boRecord *precord) {
         return 0;
     }
 
-    std::vector<PvDataBool *> *vector =
-            reinterpret_cast<std::vector<PvDataBool *> *> (precord->dpvt);
+    std::vector<PvData<bool> *> *vector =
+            reinterpret_cast<std::vector<PvData<bool> *> *> (precord->dpvt);
     try {
         for (int i = 0; i < (int) vector->size(); ++i) {
             bool newValue = false; // false is equivalent to 0
@@ -192,10 +192,10 @@ epicsExportAddress(dset, devAiFfConfig);
 
 /**
  * Initialize the Analog Input (AI) record. The precord->dpvt pointer
- * is set to the memory location of a double attribute the controlled PvDataDouble.
- * The correct PvDataDouble instance is found based on the INST_IO string
+ * is set to the memory location of a double attribute the controlled PvData<double>.
+ * The correct PvData<double> instance is found based on the INST_IO string
  * defined for the PV in the database. The string (following the @ sign) must
- * be the same string used to initialize the PvDataDouble (e.g.
+ * be the same string used to initialize the PvData<double> (e.g.
  * "LG01 A1HIHIIN" -> for setting the HIHI alarm limit for A1).
  *
  * @param precord pointer to the record being initialized
@@ -205,19 +205,19 @@ static long devAiFfConfig_init_record(aiRecord *precord) {
     long status = -1;
 
     std::string pvName;
-    PvMapDouble::iterator it;
+    PvMap<double>::iterator it;
     switch (precord->inp.type) {
         case INST_IO:
 	        pvName = precord->inp.value.instio.string;
-            it = PvDataDouble::getPvMap().find(pvName);
-            if (it == PvDataDouble::getPvMap().end()) {
+            it = PvData<double>::getPvMap().find(pvName);
+            if (it == PvData<double>::getPvMap().end()) {
                 std::cout << "PvData: \"" << pvName;
                 std::cout << "\" not found (ai)." << std::endl;
                 status = -1;
             } else {
                 precord->udf = FALSE;
                 precord->dpvt = it->second;
-                std::vector<PvDataDouble *> *doubles = it->second;
+                std::vector<PvData<double> *> *doubles = it->second;
                 precord->dpvt = doubles->at(0);
                 if (doubles->size() > 0) {
                     doubles->at(0)->initScanList();
@@ -253,7 +253,7 @@ static long devAiFfConfig_init_record(aiRecord *precord) {
  */
 static long devAiFfConfig_get_ioint_info(int cmd, struct dbCommon *precord,
         IOSCANPVT *pvt_ps) {
-    PvDataDouble *pvDataDouble = reinterpret_cast<PvDataDouble *> (precord->dpvt);
+    PvData<double> *pvDataDouble = reinterpret_cast<PvData<double> *> (precord->dpvt);
 
     if (pvDataDouble != NULL) {
         IOSCANPVT scanlist = pvDataDouble->getScanList();
@@ -272,7 +272,7 @@ static long devAiFfConfig_get_ioint_info(int cmd, struct dbCommon *precord,
  * @author L.Piccoli
  */
 static long devAiFfConfig_read_ai(aiRecord *precord) {
-	PvDataDouble *pvDataDouble = reinterpret_cast<PvDataDouble *> (precord->dpvt);
+	PvData<double> *pvDataDouble = reinterpret_cast<PvData<double> *> (precord->dpvt);
 
     if (pvDataDouble != NULL) {
       precord->val = pvDataDouble->getValue();
@@ -317,10 +317,10 @@ epicsExportAddress(dset, devAoFfConfig);
 
 /**
  * Initialize the Analog Output (ao) record. The precord->dpvt pointer
- * is set to the memory location of the controlled PvDataDouble. The correct
- * PvDataDouble is found based on the INST_IO string defined for the PV in the
+ * is set to the memory location of the controlled PvData<double>. The correct
+ * PvData<double> is found based on the INST_IO string defined for the PV in the
  * database. The string (following the @ sign) must be the same string used
- * to initialize the PvDataDouble (e.g. "TR01 A1HIHI" -> for setting the
+ * to initialize the PvData<double> (e.g. "TR01 A1HIHI" -> for setting the
  * high alarm limit for A1).
  *
  * @param precord pointer to the record being initialized
@@ -330,12 +330,12 @@ static long devAoFfConfig_init_record(aoRecord *precord) {
     long status = -1;
 
     std::string pvName;
-    PvMapDouble::iterator it;
+    PvMap<double>::iterator it;
     switch (precord->out.type) {
         case INST_IO:
             pvName = precord->out.value.instio.string;
-            it = PvDataDouble::getPvMap().find(pvName);
-            if (it == PvDataDouble::getPvMap().end()) {
+            it = PvData<double>::getPvMap().find(pvName);
+            if (it == PvData<double>::getPvMap().end()) {
                 std::cout << "PvData: \"" << pvName;
                 std::cout << "\" not found." << std::endl;
                 status = -1;
@@ -372,8 +372,8 @@ static long devAoFfConfig_write_ao(aoRecord *precord) {
         return 0;
     }
 
-    std::vector<PvDataDouble *> *vector =
-            reinterpret_cast<std::vector<PvDataDouble *> *> (precord->dpvt);
+    std::vector<PvData<double> *> *vector =
+            reinterpret_cast<std::vector<PvData<double> *> *> (precord->dpvt);
     try {
         for (int i = 0; i < (int) vector->size(); ++i) {
             vector->at(i)->write(&precord->val);
@@ -421,10 +421,10 @@ epicsExportAddress(dset, devCalcoutFfConfig);
 
 /**
  * Initialize the Calcout record. The precord->dpvt pointer
- * is set to the memory location of the controlled PvDataDouble. The correct
- * PvDataDouble is found based on the INST_IO string defined for the PV in the
+ * is set to the memory location of the controlled PvData<double>. The correct
+ * PvData<double> is found based on the INST_IO string defined for the PV in the
  * database. The string (following the @ sign) must be the same string used
- * to initialize the PvDataDouble (e.g. "TR01 A1HIHI" -> for setting the
+ * to initialize the PvData<double> (e.g. "TR01 A1HIHI" -> for setting the
  * high alarm limit for A1).
  *
  * @param precord pointer to the calc record being initialized
@@ -434,12 +434,12 @@ static long devCalcoutFfConfig_init_record(calcoutRecord *precord) {
     long status = -1;
 
     std::string pvName;
-    PvMapDouble::iterator it;
+    PvMap<double>::iterator it;
     switch (precord->out.type) {
         case INST_IO:
             pvName = precord->out.value.instio.string;
-            it = PvDataDouble::getPvMap().find(pvName);
-            if (it == PvDataDouble::getPvMap().end()) {
+            it = PvData<double>::getPvMap().find(pvName);
+            if (it == PvData<double>::getPvMap().end()) {
                 std::cout << "PvData: \"" << pvName;
                 std::cout << "\" not found for calcout." << std::endl;
                 status = -1;
@@ -476,8 +476,8 @@ static long devCalcoutFfConfig_write_calcout(calcoutRecord *precord) {
         return 0;
     }
 
-    std::vector<PvDataDouble *> *vector =
-            reinterpret_cast<std::vector<PvDataDouble *> *> (precord->dpvt);
+    std::vector<PvData<double> *> *vector =
+            reinterpret_cast<std::vector<PvData<double> *> *> (precord->dpvt);
     try {
         for (int i = 0; i < (int) vector->size(); ++i) {
             vector->at(i)->write(&precord->val);
@@ -525,10 +525,10 @@ epicsExportAddress(dset, devStringoutFfConfig);
 
 /**
  * Initialize the String Output (Stringout) record. The precord->dpvt pointer
- * is set to the memory location of a std::string the controlled PvDataString.
- * The correct PvDataString instance is found based on the INST_IO string
+ * is set to the memory location of a std::string the controlled PvData<std::string>.
+ * The correct PvData<std::string> instance is found based on the INST_IO string
  * defined for the PV in the database. The string (following the @ sign) must
- * be the same string used to initialize the PvDataString (e.g. "TR01 NAME" ->
+ * be the same string used to initialize the PvData<std::string> (e.g. "TR01 NAME" ->
  * for assignind a name for the TR01 loop).
  *
  * @param precord pointer to the record being initialized
@@ -538,12 +538,12 @@ static long devStringoutFfConfig_init_record(stringoutRecord *precord) {
     long status = -1;
 
     std::string pvName;
-    PvMapString::iterator it;
+    PvMap<std::string>::iterator it;
     switch (precord->out.type) {
         case INST_IO:
             pvName = precord->out.value.instio.string;
-            it = PvDataString::getPvMap().find(pvName);
-            if (it == PvDataString::getPvMap().end()) {
+            it = PvData<std::string>::getPvMap().find(pvName);
+            if (it == PvData<std::string>::getPvMap().end()) {
                 std::cout << "PvData: \"" << pvName;
                 std::cout << "\" not found." << std::endl;
                 status = -1;
@@ -579,8 +579,8 @@ static long devStringoutFfConfig_write_stringout(stringoutRecord *precord) {
         return 0;
     }
 
-    std::vector<PvDataString *> *vector =
-            reinterpret_cast<std::vector<PvDataString *> *> (precord->dpvt);
+    std::vector<PvData<std::string> *> *vector =
+            reinterpret_cast<std::vector<PvData<std::string> *> *> (precord->dpvt);
     try {
         for (int i = 0; i < (int) vector->size(); ++i) {
             std::string newValue = precord->val;
@@ -628,10 +628,10 @@ epicsExportAddress(dset, devStringinFfConfig);
 
 /**
  * Initialize the String Output (Stringin) record. The precord->dpvt pointer
- * is set to the memory location of a std::string the controlled PvDataString.
- * The correct PvDataString instance is found based on the INST_IO string
+ * is set to the memory location of a std::string the controlled PvData<std::string>.
+ * The correct PvData<std::string> instance is found based on the INST_IO string
  * defined for the PV in the database. The string (following the @ sign) must
- * be the same string used to initialize the PvDataString (e.g. "TR01 NAME" ->
+ * be the same string used to initialize the PvData<std::string> (e.g. "TR01 NAME" ->
  * for assignind a name for the TR01 loop).
  *
  * @param precord pointer to the record being initialized
@@ -642,22 +642,22 @@ static long devStringinFfConfig_init_record(stringinRecord *precord) {
 
     std::string pvName = precord->inp.value.instio.string;
 
-    PvMapString::iterator it;
+    PvMap<std::string>::iterator it;
     switch (precord->inp.type) {
         case INST_IO:
             //pvName = precord->inp.value.instio.string;
-            it = PvDataString::getPvMap().find(pvName);
-            if (it == PvDataString::getPvMap().end()) {
+            it = PvData<std::string>::getPvMap().find(pvName);
+            if (it == PvData<std::string>::getPvMap().end()) {
                 std::cout << "PvData: \"" << pvName;
                 std::cout << "\" not found (si)." << std::endl;
-                std::cout << "There are " << PvDataString::getPvMap().size()
+                std::cout << "There are " << PvData<std::string>::getPvMap().size()
                         << " registered PvData(s)" << std::endl;
                 status = -1;
             } else {
                 std::cout << "PvData: \"" << pvName;
                 std::cout << "\" found." << std::endl;
                 precord->udf = FALSE;
-                std::vector<PvDataString *> *strings = it->second;
+                std::vector<PvData<std::string> *> *strings = it->second;
                  precord->dpvt = strings->at(0);
 
                 // Initialize the device support scan list
@@ -683,7 +683,7 @@ static long devStringinFfConfig_init_record(stringinRecord *precord) {
 }
 
 /**
- * Return the scanlist (saved in the PvDataString object) for the specified
+ * Return the scanlist (saved in the PvData<std::string> object) for the specified
  * record.
  *
  * @param cmd (not used)
@@ -694,7 +694,7 @@ static long devStringinFfConfig_init_record(stringinRecord *precord) {
  */
 static long devStringinFfConfig_get_ioint_info(int cmd, struct dbCommon *precord,
         IOSCANPVT *pvt_ps) {
-    PvDataString *pvDataString = reinterpret_cast<PvDataString *> (precord->dpvt);
+    PvData<std::string> *pvDataString = reinterpret_cast<PvData<std::string> *> (precord->dpvt);
 
     if (pvDataString != NULL) {
         IOSCANPVT scanlist = pvDataString->getScanList();
@@ -713,7 +713,7 @@ static long devStringinFfConfig_get_ioint_info(int cmd, struct dbCommon *precord
  * @author L.Piccoli
  */
 static long devStringinFfConfig_read_stringin(stringinRecord *precord) {
-    PvDataString *pvDataString = reinterpret_cast<PvDataString *> (precord->dpvt);
+    PvData<std::string> *pvDataString = reinterpret_cast<PvData<std::string> *> (precord->dpvt);
 
     if (pvDataString != NULL) {
         std::string stringin = pvDataString->getValue();
@@ -758,10 +758,10 @@ epicsExportAddress(dset, devBiFfConfig);
 
 /**
  * Initialize the Binari Input (Bi) record. The precord->dpvt pointer
- * is set to the memory location of a bool controlled by a PvDataBool.
- * The correct PvDataBool instance is found based on the INST_IO string
+ * is set to the memory location of a bool controlled by a PvData<bool>.
+ * The correct PvData<bool> instance is found based on the INST_IO string
  * defined for the PV in the database. The string (following the @ sign) must
- * be the same string used to initialize the PvDataBool.
+ * be the same string used to initialize the PvData<bool>.
  *
  * @param precord pointer to the record being initialized
  * @author L.Piccoli
@@ -771,19 +771,19 @@ static long devBiFfConfig_init_record(biRecord *precord) {
 
     std::string pvName = precord->inp.value.instio.string;
 
-    PvMapBool::iterator it;
+    PvMap<bool>::iterator it;
     switch (precord->inp.type) {
         case INST_IO:
-            it = PvDataBool::getPvMap().find(pvName);
-            if (it == PvDataBool::getPvMap().end()) {
+            it = PvData<bool>::getPvMap().find(pvName);
+            if (it == PvData<bool>::getPvMap().end()) {
                 std::cout << "PvData: \"" << pvName;
                 std::cout << "\" not found (bi)." << std::endl;
-                std::cout << "There are " << PvDataBool::getPvMap().size()
+                std::cout << "There are " << PvData<bool>::getPvMap().size()
                         << " registered PvData(s)" << std::endl;
                 status = -1;
             } else {
                 precord->udf = FALSE;
-                std::vector<PvDataBool *> *bools = it->second;
+                std::vector<PvData<bool> *> *bools = it->second;
                 precord->dpvt = bools->at(0);
 
                 // Initialize the device support scan list
@@ -809,7 +809,7 @@ static long devBiFfConfig_init_record(biRecord *precord) {
 }
 
 /**
- * Return the scanlist (saved in the PvDataBool object) for the specified
+ * Return the scanlist (saved in the PvData<bool> object) for the specified
  * record.
  *
  * @param cmd (not used)
@@ -820,7 +820,7 @@ static long devBiFfConfig_init_record(biRecord *precord) {
  */
 static long devBiFfConfig_get_ioint_info(int cmd, struct dbCommon *precord,
         IOSCANPVT *pvt_ps) {
-    PvDataBool *pvDataBool = reinterpret_cast<PvDataBool *> (precord->dpvt);
+    PvData<bool> *pvDataBool = reinterpret_cast<PvData<bool> *> (precord->dpvt);
 
     if (pvDataBool != NULL) {
         IOSCANPVT scanlist = pvDataBool->getScanList();
@@ -839,7 +839,7 @@ static long devBiFfConfig_get_ioint_info(int cmd, struct dbCommon *precord,
  * @author L.Piccoli
  */
 static long devBiFfConfig_read_bi(biRecord *precord) {
-    PvDataBool *pvDataBool = reinterpret_cast<PvDataBool *> (precord->dpvt);
+    PvData<bool> *pvDataBool = reinterpret_cast<PvData<bool> *> (precord->dpvt);
 
     if (pvDataBool != NULL) {
       precord->val = pvDataBool->getValue();
@@ -889,11 +889,11 @@ static long devWoFfConfig_init_record(waveformRecord *precord) {
     std::string pvName = precord->inp.value.instio.string;
 
     if (precord->ftvl == menuFtypeDOUBLE) {//DBR_STS_SHORT DBF_DOUBLE) {
-        PvMapDoubleWaveform::iterator it;
+        PvMapWaveform<double>::iterator it;
         switch (precord->inp.type) {
             case INST_IO:
-                it = PvDataDoubleWaveform::getPvMap().find(pvName);
-                if (it == PvDataDoubleWaveform::getPvMap().end()) {
+                it = PvDataWaveform<double>::getPvMap().find(pvName);
+                if (it == PvDataWaveform<double>::getPvMap().end()) {
                     std::cout << "PvData: \"" << pvName;
                     std::cout << "\" not found." << std::endl;
                     status = -1;
@@ -902,8 +902,8 @@ static long devWoFfConfig_init_record(waveformRecord *precord) {
                     precord->dpvt = it->second;
                     // now create the mutex for this pvData
                     // waveform out records have mutex to protect multi-byte PVs
-                    std::vector<PvDataDoubleWaveform *> *vector =
-                            reinterpret_cast<std::vector<PvDataDoubleWaveform *> *> (precord->dpvt);
+                    std::vector<PvDataWaveform<double> *> *vector =
+                            reinterpret_cast<std::vector<PvDataWaveform<double> *> *> (precord->dpvt);
                     try {
                       for (int i = 0; i < (int) vector->size(); ++i) {
                         vector->at(i)->createMutex();
@@ -920,11 +920,11 @@ static long devWoFfConfig_init_record(waveformRecord *precord) {
                 precord->val = 0;
         }
     } else if (precord->ftvl == menuFtypeUSHORT) {//DBR_SHORT) {
-        PvMapUShortWaveform::iterator it;
+        PvMapWaveform<unsigned short>::iterator it;
         switch (precord->inp.type) {
             case INST_IO:
-                it = PvDataUShortWaveform::getPvMap().find(pvName);
-                if (it == PvDataUShortWaveform::getPvMap().end()) {
+                it = PvDataWaveform<unsigned short>::getPvMap().find(pvName);
+                if (it == PvDataWaveform<unsigned short>::getPvMap().end()) {
                     std::cout << "PvData: \"" << pvName;
                     std::cout << "\" not found." << std::endl;
                     status = -1;
@@ -932,8 +932,8 @@ static long devWoFfConfig_init_record(waveformRecord *precord) {
                     precord->udf = FALSE;
                     precord->dpvt = it->second;
                     // waveform out records have mutex to protect multi-byte PVs
-                    std::vector<PvDataUShortWaveform *> *vector =
-                            reinterpret_cast<std::vector<PvDataUShortWaveform *> *> (precord->dpvt);
+                    std::vector<PvDataWaveform<unsigned short> *> *vector =
+                            reinterpret_cast<std::vector<PvDataWaveform<unsigned short> *> *> (precord->dpvt);
                     try {
                       for (int i = 0; i < (int) vector->size(); ++i) {
                         vector->at(i)->createMutex();
@@ -980,13 +980,13 @@ static long devWoFfConfig_write_waveform(waveformRecord *precord) {
     }
 
     if (precord->ftvl == menuFtypeDOUBLE) { //DBF_DOUBLE DBR_STS_SHORT 10) {
-        std::vector<PvDataDoubleWaveform *> *vector =
-                reinterpret_cast<std::vector<PvDataDoubleWaveform *> *> (precord->dpvt);
+        std::vector<PvDataWaveform<double> *> *vector =
+                reinterpret_cast<std::vector<PvDataWaveform<double> *> *> (precord->dpvt);
         try {
             for (int i = 0; i < (int) vector->size(); ++i) {
                 // vector->at(i)->write(newValue); // TODO: Need to override the write() method in a subclass
                 double *data = reinterpret_cast<double *> (precord->bptr);
-                PvDataDoubleWaveform *waveform = vector->at(i);
+                PvDataWaveform<double> *waveform = vector->at(i);
                 std::vector<double> *waveformVector = waveform->getValueAddress();
                 waveformVector->assign(data, data + precord->nord);
             }
@@ -995,12 +995,12 @@ static long devWoFfConfig_write_waveform(waveformRecord *precord) {
             return -1;
         }
     } else if (precord->ftvl == menuFtypeUSHORT) {//DBR_SHORT 4) {
-        std::vector<PvDataUShortWaveform *> *vector =
-                reinterpret_cast<std::vector<PvDataUShortWaveform *> *> (precord->dpvt);
+        std::vector<PvDataWaveform<unsigned short> *> *vector =
+                reinterpret_cast<std::vector<PvDataWaveform<unsigned short> *> *> (precord->dpvt);
         try {
             for (int i = 0; i < (int) vector->size(); ++i) {
                 unsigned short *data = reinterpret_cast<unsigned short *> (precord->bptr);
-                PvDataUShortWaveform *waveform = vector->at(i);
+                PvDataWaveform<unsigned short> *waveform = vector->at(i);
                 std::vector<unsigned short> *waveformVector = waveform->getValueAddress();
                 waveformVector->assign(data, data + precord->nord);
             }
@@ -1058,15 +1058,15 @@ static long devWiFfConfig_init_record(waveformRecord *precord) {
     std::string pvName = precord->inp.value.instio.string;
 
     if (precord->ftvl == menuFtypeSTRING) { //DBF_STRING
-        PvMapStringWaveform::iterator it;
+        PvMapWaveform<std::string>::iterator it;
         switch (precord->inp.type) {
             case INST_IO:
                 //pvName = precord->inp.value.instio.string;
-                it = PvDataStringWaveform::getPvMap().find(pvName);
-                if (it == PvDataStringWaveform::getPvMap().end()) {
+                it = PvDataWaveform<std::string>::getPvMap().find(pvName);
+                if (it == PvDataWaveform<std::string>::getPvMap().end()) {
                     std::cout << "PvData: \"" << pvName;
                     std::cout << "\" not found (wi)." << std::endl;
-                    std::cout << "There are " << PvDataStringWaveform::getPvMap().size()
+                    std::cout << "There are " << PvDataWaveform<std::string>::getPvMap().size()
                             << " registered PvData(s)" << std::endl;
                     status = -1;
                 } else {
@@ -1074,7 +1074,7 @@ static long devWiFfConfig_init_record(waveformRecord *precord) {
                     std::cout << "\" found." << std::endl;
                     precord->udf = FALSE;
                     precord->dpvt = it->second;
-                    std::vector<PvDataStringWaveform *> *strWf = it->second;
+                    std::vector<PvDataWaveform<std::string> *> *strWf = it->second;
                      // Init scan list for the waveform
                     if (strWf->size() > 0) {
                     	strWf->at(0)->initScanList();
@@ -1089,21 +1089,21 @@ static long devWiFfConfig_init_record(waveformRecord *precord) {
                 precord->val = 0;
         }
     } else if (precord->ftvl == menuFtypeCHAR) { //DBF_CHAR 1) {
-        PvMapCharWaveform::iterator it;
+        PvMap<std::string>::iterator it;
         switch (precord->inp.type) {
             case INST_IO:
-              it = PvDataCharWaveform::getPvMap().find(pvName);
-              if (it == PvDataCharWaveform::getPvMap().end()) {
+              it = PvData<std::string>::getPvMap().find(pvName);
+              if (it == PvData<std::string>::getPvMap().end()) {
                 std::cout << "PvData: \"" << pvName;
                 std::cout << "\" not found (wi)." << std::endl;
-                std::cout << "There are " << PvDataCharWaveform::getPvMap().size()
+                std::cout << "There are " << PvData<std::string>::getPvMap().size()
                             << " registered PvData(s)" << std::endl;
                 status = -1;
               } else {
                 precord->udf = FALSE;
                 precord->dpvt = it->second;
                 status = 0;
-                std::vector<PvDataCharWaveform *> *charWf = it->second;
+                std::vector<PvData<std::string> *> *charWf = it->second;
                 // Init scan list for the waveform
                 if (charWf->size() > 0) {
                      charWf->at(0)->initScanList();
@@ -1134,7 +1134,7 @@ static long devWiFfConfig_init_record(waveformRecord *precord) {
 }
 
 /**
- * Return the scanlist (saved in the PvDataString object) for the specified
+ * Return the scanlist (saved in the PvData<std::string> object) for the specified
  * record. The waveform is updated with values from the first PvChar instance.
  *
  * @param cmd (not used)
@@ -1149,12 +1149,12 @@ static long devWiFfConfig_get_ioint_info(int cmd, struct dbCommon *precord,
   waveformRecord *pwaveform = reinterpret_cast<waveformRecord *>(precord);
 
     if (pwaveform->ftvl == DBF_STRING) {
-      std::vector<PvDataStringWaveform *> *vector =
-	reinterpret_cast<std::vector<PvDataStringWaveform *> *> (precord->dpvt);
+      std::vector<PvDataWaveform<std::string> *> *vector =
+	reinterpret_cast<std::vector<PvDataWaveform<std::string> *> *> (precord->dpvt);
       
       if (vector != NULL) {
 	if (vector->size() > 0) {
-	  PvDataStringWaveform *waveform = vector->at(0);
+	  PvDataWaveform<std::string> *waveform = vector->at(0);
 	  IOSCANPVT scanlist = waveform->getScanList();
 	  *pvt_ps = scanlist;
 	  std::cout << ">>> SCANLIST FOR STRING <<<" << std::endl;
@@ -1162,12 +1162,12 @@ static long devWiFfConfig_get_ioint_info(int cmd, struct dbCommon *precord,
       }
     }
     else if (pwaveform->ftvl == 1) { //DBF_CHAR) {
-      std::vector<PvDataCharWaveform *> *vector =
-	reinterpret_cast<std::vector<PvDataCharWaveform *> *> (precord->dpvt);
+      std::vector<PvData<std::string> *> *vector =
+	reinterpret_cast<std::vector<PvData<std::string> *> *> (precord->dpvt);
       
       if (vector != NULL) {
 	if (vector->size() > 0) {
-	  PvDataCharWaveform *waveform = vector->at(0);
+	  PvData<std::string> *waveform = vector->at(0);
 	  IOSCANPVT scanlist = waveform->getScanList();
 	  *pvt_ps = scanlist;
 	}
@@ -1200,12 +1200,12 @@ static long devWiFfConfig_read_waveform(waveformRecord *precord) {
     precord->nord = 0;
 
     if (precord->ftvl == menuFtypeSTRING) {//DBF_STRING
-        std::vector<PvDataStringWaveform *> *vector =
-                reinterpret_cast<std::vector<PvDataStringWaveform *> *> (precord->dpvt);
+        std::vector<PvDataWaveform<std::string> *> *vector =
+                reinterpret_cast<std::vector<PvDataWaveform<std::string> *> *> (precord->dpvt);
 
         try {
             // Update the PV using values from the first waveform
-            PvDataStringWaveform *waveform = vector->at(0);
+            PvDataWaveform<std::string> *waveform = vector->at(0);
 	    //	    waveform->lock();
             std::vector<std::string>::iterator it;
             unsigned int i = 0;
@@ -1225,11 +1225,11 @@ static long devWiFfConfig_read_waveform(waveformRecord *precord) {
             return -1;
         }
     } else if (precord->ftvl == menuFtypeCHAR) {  //DBF_CHAR 1
-        std::vector<PvDataCharWaveform *> *vector =
-                reinterpret_cast<std::vector<PvDataCharWaveform *> *> (precord->dpvt);
+        std::vector<PvData<std::string> *> *vector =
+                reinterpret_cast<std::vector<PvData<std::string> *> *> (precord->dpvt);
         try {
             // Update the PV using values from the first waveform
-            PvDataCharWaveform *waveform = vector->at(0);
+            PvData<std::string> *waveform = vector->at(0);
 	    //	    waveform->lock();
             char *str = reinterpret_cast<char *> (precord->bptr);
             memset(str, ' ', precord->nelm);
@@ -1287,10 +1287,10 @@ epicsExportAddress(dset, devLonginFfConfig);
 
 /**
  * Initialize the Long Input (Longin) record. The precord->dpvt pointer
- * is set to the memory location of a long attribute the controlled PvDataLong.
- * The correct PvDataLong instance is found based on the INST_IO string
+ * is set to the memory location of a long attribute the controlled PvData<long>.
+ * The correct PvData<long> instance is found based on the INST_IO string
  * defined for the PV in the database. The string (following the @ sign) must
- * be the same string used to initialize the PvDataLong (e.g.
+ * be the same string used to initialize the PvData<long> (e.g.
  * "TR01 MUSEDCNT" -> for reading the number of measurement devices in
  * use by the TR01 loop).
  *
@@ -1300,13 +1300,13 @@ epicsExportAddress(dset, devLonginFfConfig);
 static long devLonginFfConfig_init_record(longinRecord *precord) {
 	long status = -1;
 	std::string pvName;
-	PvMapLong::iterator it;
+	PvMap<long>::iterator it;
 
 	switch (precord->inp.type) {
 		case INST_IO:
 		  pvName = precord->inp.value.instio.string;
-		  it = PvDataLong::getPvMap().find(pvName);
-		  if (it == PvDataLong::getPvMap().end()) {
+		  it = PvData<long>::getPvMap().find(pvName);
+		  if (it == PvData<long>::getPvMap().end()) {
 			std::cout << "PvData: \"" << pvName;
 			std::cout << "\" not found." << std::endl; status = -1;
 		  } else {
@@ -1344,8 +1344,8 @@ static long devLonginFfConfig_get_ioint_info(int cmd, struct dbCommon *precord,
     if (precord->dpvt == NULL) {
         return 0;
     }
-    std::vector<PvDataLong *> *vector = reinterpret_cast<std::vector<PvDataLong *> *> (precord->dpvt);
-    PvDataLong *pvData = NULL;
+    std::vector<PvData<long> *> *vector = reinterpret_cast<std::vector<PvData<long> *> *> (precord->dpvt);
+    PvData<long> *pvData = NULL;
     try {
     	pvData = vector->at(0);
     } catch (std::out_of_range& e) {
@@ -1388,7 +1388,7 @@ static long devLonginFfConfig_read_longin(longinRecord *precord) {
 		return 0;
 	}
 	try {
-		std::vector<PvDataLong *> *vector = reinterpret_cast<std::vector<PvDataLong *> *> (precord->dpvt);
+		std::vector<PvData<long> *> *vector = reinterpret_cast<std::vector<PvData<long> *> *> (precord->dpvt);
 		vector->at(0)->read(reinterpret_cast<long int *> (&precord->val));
 	} catch (std::out_of_range& e) {
 		std::cerr << "ERROR: " << e.what() << std::endl;
@@ -1433,10 +1433,10 @@ epicsExportAddress(dset, devLongoutFfConfig);
 
 /**
  * Initialize the Long Output (Longout) record. The precord->dpvt pointer
- * is set to the memory location of the controlled PvDataLong. The correct
- * PvDataLong is found based on the INST_IO string defined for the PV in the
+ * is set to the memory location of the controlled PvData<long>. The correct
+ * PvData<long> is found based on the INST_IO string defined for the PV in the
  * database. The string (following the @ sign) must be the same string used
- * to initialize the PvDataLong (e.g. "TR01 TOTALPOI" -> for setting the
+ * to initialize the PvData<long> (e.g. "TR01 TOTALPOI" -> for setting the
  * number of patterns used by the TR01 loop).
  *
  * @param precord pointer to the record being initialized
@@ -1446,16 +1446,16 @@ static long devLongoutFfConfig_init_record(longoutRecord *precord) {
     long status = -1;
 
     std::string pvName;
-    PvMapLong::iterator it;
+    PvMap<long>::iterator it;
     switch (precord->out.type) {
         case INST_IO:
             pvName = precord->out.value.instio.string;
-            it = PvDataLong::getPvMap().find(pvName);
-            if (it == PvDataLong::getPvMap().end()) {
+            it = PvData<long>::getPvMap().find(pvName);
+            if (it == PvData<long>::getPvMap().end()) {
                 std::cout << "PvData: \"" << pvName;
                 std::cout << "\" not found (longout)." << std::endl;
-                std::cout << "There are " << PvDataLong::getPvMap().size()
-                        << " PvDataLong registered PvData(s)" << std::endl;
+                std::cout << "There are " << PvData<long>::getPvMap().size()
+                        << " PvData<long> registered PvData(s)" << std::endl;
               status = -1;
             } else {
                 precord->udf = FALSE;
@@ -1490,8 +1490,8 @@ static long devLongoutFfConfig_write_longout(longoutRecord *precord) {
     }
 
     try {
-        std::vector<PvDataLong *> *vector =
-                reinterpret_cast<std::vector<PvDataLong *> *> (precord->dpvt);
+        std::vector<PvData<long> *> *vector =
+                reinterpret_cast<std::vector<PvData<long> *> *> (precord->dpvt);
         for (int i = 0; i < (int) vector->size(); ++i) {
             vector->at(i)->write(reinterpret_cast<long *> (&precord->val));
         }

@@ -64,7 +64,7 @@ private:
      * This is the source of the setpoint values. It attaches to
      * the $(LOOP) SxxDES<POI> PVs
      */
-    PvDataDouble _setpointPv;
+    PvData<double> _setpointPv;
 };
 
 FF_NAMESPACE_END

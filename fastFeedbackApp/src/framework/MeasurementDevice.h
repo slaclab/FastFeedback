@@ -147,7 +147,7 @@ private:
      * Used to keep the number of timestamp mismatchs if data is received
      * using an FcomChannel.
      */
-    PvDataLong _timestampMismatchCountPv;
+    PvData<long> _timestampMismatchCountPv;
 
     /** Counter of how many times checkPulseId couldn't check because of wrong data status */
     unsigned long _checkFailCount;

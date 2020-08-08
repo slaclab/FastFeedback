@@ -244,16 +244,16 @@ public:
     std::vector<PatternMask> _patternMasks;
 
     /** PV for pattern of interest 1 waveform */
-    PvDataUShortWaveform _poi1Pv;
+    PvDataWaveform<unsigned short> _poi1Pv;
 
     /** PV for pattern of interest 2 waveform */
-    PvDataUShortWaveform _poi2Pv;
+    PvDataWaveform<unsigned short> _poi2Pv;
 
     /** PV for pattern of interest 3 waveform */
-    PvDataUShortWaveform _poi3Pv;
+    PvDataWaveform<unsigned short> _poi3Pv;
 
     /** PV for pattern of interest 4 waveform */
-    PvDataUShortWaveform _poi4Pv;
+    PvDataWaveform<unsigned short> _poi4Pv;
 
     /** Map of MeasurementDevice sets, there is one set per pattern */
     MeasurementMap _measurements;
@@ -306,13 +306,13 @@ public:
      * Defines the user given name for this loop.
      * This attribute maps into the $(LOOP):NAME PV.
      */
-    PvDataString _loopNamePv;
+    PvData<std::string> _loopNamePv;
 
     /**
      * Defines the algorithm used for this loop.
      * This attribute maps to the $(LOOP):ITERATEFUNC PV
      */
-    PvDataString _algorithmNamePv;
+    PvData<std::string> _algorithmNamePv;
 
     /**
      * Defines whether the Loop is configured or not. This attribute in 
@@ -328,7 +328,7 @@ public:
      *
      * This attribute maps to the $(LOOP):FMATRIX PV.
      */
-    PvDataDoubleWaveform _fMatrixPv;
+    PvDataWaveform<double> _fMatrixPv;
 
     /**
      * Defines a std::vector<double> that contains the double waveform
@@ -336,7 +336,7 @@ public:
      *
      * This attribute maps to the $(LOOP):GMATRIX PV.
      */
-    PvDataDoubleWaveform _gMatrixPv;
+    PvDataWaveform<double> _gMatrixPv;
 
     /**
      * Defines a std::vector<double> that contains the dispersion of all
@@ -345,7 +345,7 @@ public:
      *
      * This attribute maps to the $(LOOP):MEASDSPR PV.
      */
-    PvDataDoubleWaveform _measDsprPv;
+    PvDataWaveform<double> _measDsprPv;
 
     /**
      * Defines a std::vector<double> that contains the reference orbit for
@@ -353,7 +353,7 @@ public:
      *
      * This attribute maps to the $(LOOP):REFORBIT PV.
      */
-    PvDataDoubleWaveform _refOrbitPv;
+    PvDataWaveform<double> _refOrbitPv;
 
     /**
      * Defines a std::vector<double> that contains the energies for the Actuator
@@ -361,7 +361,7 @@ public:
      *
      * This attribute maps to the $(LOOP):ACTENERGY PV.
      */
-    PvDataDoubleWaveform _actEnergyPv;
+    PvDataWaveform<double> _actEnergyPv;
 
     /**
      * This attribute holds the number of actuators that can be used
@@ -369,7 +369,7 @@ public:
      *
      * This attribute maps to the $(LOOP):ACTNUM PV.
      */
-    PvDataLong _actNumPv;
+    PvData<long> _actNumPv;
 
     /**
      * This attribute holds the number of measurements that can be used
@@ -377,7 +377,7 @@ public:
      *
      * This attribute maps to the $(LOOP):MEASNUM PV.
      */
-    PvDataLong _measNumPv;
+    PvData<long> _measNumPv;
 
     /**
      * This attribute holds the number of states that can be used
@@ -385,7 +385,7 @@ public:
      *
      * This attribute maps to the $(LOOP):STATENUM PV.
      */
-    PvDataLong _stateNumPv;
+    PvData<long> _stateNumPv;
 
     /**
      * Contains the count of how many Actuators are in use by the Loop.
@@ -393,7 +393,7 @@ public:
      *
      * This attribute is mapped to the $(LOOP):ACTUSEDNUM PV.
      */
-    PvDataLong _actuatorsUsedPv;
+    PvData<long> _actuatorsUsedPv;
 
     /**
      * Contains the count of how many Measurements are in use by the Loop.
@@ -401,7 +401,7 @@ public:
      *
      * This attribute is mapped to the $(LOOP):MEASUSEDNUM PV.
      */
-    PvDataLong _measurementsUsedPv;
+    PvData<long> _measurementsUsedPv;
 
     /**
      * Contains the count of how many States are in use by the Loop.
@@ -409,7 +409,7 @@ public:
      *
      * This attribute is mapped to the $(LOOP):STATEUSEDNUM PV.
      */
-    PvDataLong _statesUsedPv;
+    PvData<long> _statesUsedPv;
 
     /**
      * Contains the number of patterns used by the Loop. Usually a Loop
@@ -418,7 +418,7 @@ public:
      *
      * This attribute is mapped to the $(LOOP):TOTALPOI PV.
      */
-    PvDataLong _totalPoiPv;
+    PvData<long> _totalPoiPv;
 
     /**
      * This attribute is set by the Java config app and tells the loop that 
@@ -427,34 +427,34 @@ public:
      *
      * This attribute is mapped to the $(LOOP):INSTALLED PV.
      */
-    PvDataBool _installedPv;
+    PvData<bool> _installedPv;
 
     /**
      * Proportional gain for the Loop.
      *
      * This attribute is mapped to the $(LOOP):PGAIN PV.
      */
-    PvDataDouble _pGainPv;
+    PvData<double> _pGainPv;
 
     /**
      * Integral gain for the Loop.
      *
      * This attribute is mapped to the $(LOOP):IGAIN PV.
      */
-    PvDataDouble _iGainPv;
+    PvData<double> _iGainPv;
 
     /**
      * This attribute is mapped to the $(LOOP):PULSEID PV.
      * It is set by the LoopThread when a new Pattern is received.
      */
-    PvDataLong _pulseIdPv;
+    PvData<long> _pulseIdPv;
 
     /**
      * Count the number of successfull feedback iterations.
      * This maps to the $(LOOP):COUNTER PV, which is monitored
      * by an external watchdog application.
      */
-    PvDataLong _loopCounter;
+    PvData<long> _loopCounter;
 
     /**
      * String containing general status messages.
@@ -462,9 +462,9 @@ public:
      * TODO: Turn this attribute into a PV
      */
     std::ostringstream _statusMessage;
-    PvDataCharWaveform _statusstrPv;
+    PvData<std::string> _statusstrPv;
 
-    PvDataCharWaveform _actuatorLastUpdatePv;
+    PvData<std::string> _actuatorLastUpdatePv;
 
     /**
      * Each loop has its own Logger.
@@ -492,16 +492,16 @@ public:
     bool _fakeBeam;
 
     /** Longitudinal: Control whether the BC2 Chirp is enabled or not */
-    PvDataBool _chirpControlPv;
+    PvData<bool> _chirpControlPv;
 
     /**
      * Longitudinal: Contains the current chirp control value. It depends
      * on the S4USED (BC2 Energy) and S5USED (BC2 Bunch) states configuration
      */
-    PvDataBool _chirpStatePv;
+    PvData<bool> _chirpStatePv;
 
     /** Longitudinal: User provided BC2 Chirp value */
-    PvDataDouble _bc2ChirpPv;
+    PvData<double> _bc2ChirpPv;
 
     /**
      * Defines if all devices (measurements/actuators/states) should be
@@ -514,7 +514,7 @@ public:
      *
      * This attribute is mapped to the $(LOOP):SELECTALLDEVICES PV.
      */
-    PvDataBool _selectAllDevicesPv;
+    PvData<bool> _selectAllDevicesPv;
 
     /**
      * FcomChannel used to send out calculated states. There is only a single
@@ -528,7 +528,7 @@ public:
      *
      * This attribute maps to the $(LOOP):POLYVALS PV.
      */
-    PvDataDoubleWaveform _polyvalsPv;
+    PvDataWaveform<double> _polyvalsPv;
 
     /** Mutex to control access to configuration data */
     epicsMutex *_mutex;
@@ -553,25 +553,25 @@ public:
      * Used by the Longitudinal feedback to start acting after the CHIRPDES
      * is set by the sequencer (ChirpControl.st)
      */
-    PvDataBool _chirpReadyPv;
+    PvData<bool> _chirpReadyPv;
 
     /** DL1 Energy Vernier PV - Used by the Longitutinal feedback only */
-    PvDataDouble _dl1EnergyVernierPv;
+    PvData<double> _dl1EnergyVernierPv;
 
     /** BC1 Energy Vernier PV - Used by the Longitutinal feedback only */
-    PvDataDouble _bc1EnergyVernierPv;
+    PvData<double> _bc1EnergyVernierPv;
 
     /** BC2 Energy Vernier PV - Used by the Longitutinal feedback only */
-    PvDataDouble _bc2EnergyVernierPv;
+    PvData<double> _bc2EnergyVernierPv;
 
     /** DL2 Energy Vernier PV - Used by the Longitutinal feedback only */
-    PvDataDouble _dl2EnergyVernierPv;
+    PvData<double> _dl2EnergyVernierPv;
 
     /**
      * Controls whether calculated states are sent on FCOM, using the ID
      * FBCK:<IOC>:<LOOP>:STATES
      */
-    PvDataBool _bcastStatesPv;
+    PvData<bool> _bcastStatesPv;
 
     /** Helper function to output contents of the configuration to a stream */
     friend std::ostream & operator<<(std::ostream &os,
