@@ -49,19 +49,18 @@ FcomChannelStates::~FcomChannelStates() {
 }
 
 /**
- * Initializes the channel, by first finding out the FcomID for the device
- * name (PV) and then subscribing to updates using fcomSubscribe() call.
+ * Initializes the channel by first finding out the FcomID for the device
+ * name (PV).
  *
- * @return -1 if PV name cannot be found or subscribe operation failed.
+ * @throws Exception if unable to get an FCOM ID for the PV
  * @author L.Piccoli
  */
 int FcomChannelStates::initialize() {
-    std::string fcomName = _name;
 
-    _id = fcomLCLSPV2FcomID(fcomName.c_str());
-    if (_id < 0) {
-      _stringStream.str(std::string()); // Clear the stream
-      _stringStream << "Failed to get FCOM ID for " << fcomName;
+    _id = fcomLCLSPV2FcomID(_name.c_str());
+    if (_id == FCOM_ID_NONE) {
+      _stringStream.str(""); // Clear the stream
+      _stringStream << "Failed to get FCOM ID for " << _name;
       throw Exception(_stringStream.str());
     }
     _type = STATES;
