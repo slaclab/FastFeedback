@@ -111,6 +111,8 @@ dbLoadRecords("db/fbckSettled.db","LP=FBCK:FB03:TR04")
 dbLoadRecords("db/fbckSettled.db","LP=FBCK:FB04:LG01")
 dbLoadRecords("db/fbckSettled.db","LP=FBCK:FB02:GN01")
 
+dbLoadRecords("db/fbckSettled.db","LP=FBCK:FB04:TR01")
+dbLoadRecords("db/fbckSettled.db","LP=FBCK:FB04:TR02")
 dbLoadRecords("db/fbckSettled.db","LP=FBCK:FB05:TR01")
 dbLoadRecords("db/fbckSettled.db","LP=FBCK:FB05:TR05")
 
@@ -133,6 +135,8 @@ dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB03:TR04")
 dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB04:LG01")
 dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB02:GN01")
 
+dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB04:TR01")
+dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB04:TR02")
 dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB05:TR01")
 dbLoadRecords("db/fbckSettledSum.db","LP=FBCK:FB05:TR05")
 
@@ -167,6 +171,8 @@ dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB03:TR04")
 dbLoadRecords("db/fbckAutoActLong.db","LP=FBCK:FB04:LG01")
 dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB02:GN01")
 
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB04:TR01")
+dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB04:TR02")
 dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB05:TR01")
 dbLoadRecords("db/fbckAutoAct.db","LP=FBCK:FB05:TR05")
 
