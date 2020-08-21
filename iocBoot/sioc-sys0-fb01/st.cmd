@@ -1,4 +1,4 @@
-#!../../bin/rhel6-x86_64/fastFeedback
+#!../../bin/linuxRT-x86_64/fastFeedback
 
 ## You may have to change fastFeedback to something else
 ## everywhere it appears in this file
