@@ -6,17 +6,38 @@
 
 
 # Contents
-1. [Application Overview](#application-overview)
-2. [Documentation](#documentation)
-3. [Directory Tree](#directory-tree)
-4. [List of IOCs](#list-of-iocs)
+1. [Documentation](#documentation)
+2. [Directory Tree](#directory-tree)
+3. [List of IOCs](#list-of-iocs)
 
-
-## Application Overview
 
 ## Documentation
+Links to various bits of information about the FastFeedback system are below. A unified FastFeedback documentation source is in progress.
 
 ## Directory Tree
+```
+. Build system <TOP>
++-- bin
+|   +-- linuxRT-x86_64     # fastFeedback and ffUnitTest binaries
++-- configure              # Build system configuration files
++-- fastFeedbackApp
+|   +-- Db
+|   |   +-- common         # Database files common to all Feedback IOCs
+|   |   +-- iocs           # Database files specific to a Feedback IOC
+|   +-- src                # Source directory. Contains state notation files, database definitions, and the main entry point
+|   |   +-- algo           # C++ sources for feedback algorithms
+|   |   +-- exec__         # C sources and database definitions to register EPICS interface functions
+|   |   +-- framework      # C++ sources for the Fast Feedback framework
+|   |   +-- test           # Unit Test sources
+|   |   +-- util           # Utility functions - logging, time, and EPICS device support
++-- iocBoot                # Common and IOC specific startup scripts
+|   +-- common
+|   +-- sioc-AREA-UNIT
+|   ...
++-- test                   # integration testing development support files
++-- tools                  # misc. support scripts
+```
+
 
 ## List of IOCs
 
