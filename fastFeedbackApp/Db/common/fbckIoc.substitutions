@@ -23,6 +23,6 @@ file fbckIocConfig.db {
 }
 # ioc level status pvs
 file fbckIocStatus.db {
-	pattern {   IOC,     LC,  LOOP,  AREA }
-	        { $(IOC),  $(LC), $(LP), $(AR) }
+	pattern {   IOC,     LC,  LOOP,  AREA,   BEND_MAG   }
+	        { $(IOC),  $(LC), $(LP), $(AR), $(BEND_MAG) }
 }
