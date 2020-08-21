@@ -41,6 +41,9 @@ epicsEnvSet("FB", "FB01")
 epicsEnvSet("LOOP", "LG01")
 epicsEnvSet("CONFIG_NAME", "Longitudinal")
 
+# Which BY1 bend magnet do we want to read energy from?
+epicsEnvSet("BEND_MAG", "BEND:LTUS:525:BDES")
+
 #=====================================================================
 # Set MACROS for EVRs & VIOC
 #====================================================================
