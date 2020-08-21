@@ -1,9 +1,5 @@
 # FastFeedback
 ## The NC LINAC FastFeedback EPICS Application
-#### Auth: 06-Apr-2010, L.Piccoli       (lpiccoli) (Original VME Application)
-#### Rev:     May-2015, A. Babbitt      (ababbitt) (linuxRT port)
-
-
 
 # Contents
 1. [Documentation](#documentation)
@@ -13,6 +9,8 @@
 
 ## Documentation
 Links to various bits of information about the FastFeedback system are below. A unified FastFeedback documentation source is in progress.
+
+[Assorted Documentation](https://confluence.slac.stanford.edu/display/~rreno/Fast+Feedback+assorted+Documentation?flashId=-195444716) PowerPoints, mostly
 
 ## Directory Tree
 ```
