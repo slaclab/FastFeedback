@@ -78,7 +78,7 @@ dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 # Load application specific databases
 # ===================================================================
 # These macros are used in PV generation:
-dbLoadRecords("db/fbck_template.db","VIOC=${IOC_TYPE},LOC=${LOCA},FEEDBACK=${FB},LOOP_TYPE=${LOOP},CON_NAME=${CONFIG_NAME},LOCAL_SETPOINTS=${LOCAL_SETPOINTS}")
+dbLoadRecords("db/fbck_template.db","VIOC=${IOC_TYPE},LOC=${LOCA},FEEDBACK=${FB},LOOP_TYPE=${LOOP},CON_NAME=${CONFIG_NAME},LOCAL_SETPOINTS=${LOCAL_SETPOINTS},BEND_MAG=${BEND_MAG}")
 #########################################################################
 #BEGIN: Setup autosave/restore
 ######################################################################

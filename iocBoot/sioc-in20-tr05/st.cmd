@@ -41,6 +41,9 @@ epicsEnvSet("FB", "FB03")
 epicsEnvSet("LOOP", "TR03")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop3")
 
+# Which BY1 bend magnet do we want to read energy from?
+epicsEnvSet("BEND_MAG", "BEND:LTUH:125:BDES")
+
 #=====================================================================
 # Set MACROS for EVRs
 #====================================================================
