@@ -261,7 +261,6 @@ void ActuatorDevice::clear() {
     Device::clear();
     _nextWrite = 0;
     _droppedPoints = 0;
-    //_referenceOffset = 0;
     Log::getInstance() << Log::flagOffset << Log::dpInfo
 		       << "ActuatorDevice::clear() _referenceOffset=0"
 		       << Log::dp;
