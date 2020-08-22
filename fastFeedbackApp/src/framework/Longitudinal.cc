@@ -1171,7 +1171,8 @@ int Longitudinal::selectStates() {
 		_latestMeasurementsSum[0] = 0;
 
 		// Zero actuator offsets!
-		actuatorDevice->zeroOffset();
+    //2020-08-21 J. Mock remove this for dual energy operation
+		//actuatorDevice->zeroOffset();
 	}
 	stateDevice->setUsedBy(stateUsed);
 	actuatorDevice->setUsedBy(stateUsed);
@@ -1252,7 +1253,8 @@ int Longitudinal::selectStates() {
 		_latestMeasurementsSum[1] = 0;
 
 		// Zero actuator offsets!
-		actuatorDevice->zeroOffset();
+    //2020-08-21 J. Mock remove this for dual energy operation
+		//actuatorDevice->zeroOffset();
 	}
 
 	stateDevice->setUsedBy(stateUsed);
@@ -1338,7 +1340,8 @@ int Longitudinal::selectStates() {
 		_latestMeasurementsSum[2] = 0;
 
 		// Zero actuator offsets!
-		actuatorDevice->zeroOffset();
+    //2020-08-21 J. Mock remove this for dual energy operation
+		//actuatorDevice->zeroOffset();
 	}
 	stateDevice->setUsedBy(stateUsed);
 	actuatorDevice->setUsedBy(stateUsed);
@@ -1417,7 +1420,8 @@ int Longitudinal::selectStates() {
 		_latestMeasurementsSum[3] = 0;
 
 		// Zero actuator offsets!
-		actuatorDevice->zeroOffset();
+    //2020-08-21 J. Mock remove this for dual energy operation
+		//actuatorDevice->zeroOffset();
 	}
 	stateDevice->setUsedBy(stateUsed);
 	actuatorDevice->setUsedBy(stateUsed);
@@ -1498,7 +1502,8 @@ int Longitudinal::selectStates() {
 		_latestMeasurementsSum[4] = 0;
 
 		// Zero actuator offsets!
-		actuatorDevice->zeroOffset();
+    //2020-08-21 J. Mock remove this for dual energy operation
+		//actuatorDevice->zeroOffset();
 	}
 	stateDevice->setUsedBy(stateUsed);
 	actuatorDevice->setUsedBy(stateUsed);
@@ -1652,7 +1657,8 @@ int Longitudinal::selectStates() {
 		_latestMeasurementsSum[5] = 0;
 
 		// Zero actuator offsets!
-		actuatorDevice->zeroOffset();
+    //2020-08-21 J. Mock remove this for dual energy operation
+		//actuatorDevice->zeroOffset();
 	}
 	stateDevice->setUsedBy(stateUsed);
 	actuatorDevice->setUsedBy(stateUsed);
