@@ -112,7 +112,7 @@ int LoopConfiguration::initialize() {
     _configured = false;
     _installedPv = true;
 
-    ActuatorSet *actuatorSetP1;
+    ActuatorSet *actuatorSetP1, *actuatorSetP2;
 
     // First need to create four fake PatternMask that will be used to initialize
     // all devices.
@@ -139,12 +139,40 @@ int LoopConfiguration::initialize() {
                 ("A", MAX_ACTUATORS, "", DEVICE_BUFFER_SIZE,
                 fakePatternMask, i + 1, aIt->second);
 
-        // Set reference actuators if pattern is P2/P3/P4
-        if (i == 0) {
-            actuatorSetP1 = aIt->second;
-        } else {
-            setReferenceActuators(actuatorSetP1, aIt->second);
-        }
+        /* 
+         * Set reference actuators.
+         * 
+         * LONGITUDINAL ONLY:
+         * This assumes P1, P4 are configured for HXR delivery with P1 as reference
+         * And P2, P3 are configured for SXR delivery with P2 as reference.
+         * Right now (8/25/2020) this is implemented in the pattern masks using BKRCUS in
+         * exclusion/inclusion masks as appropriate.
+         *
+         * TRANSVERSE:
+         * Use P1 as the reference for P2/P3/P4.
+         */ 
+        if ("LG01" == _slotName) {
+            switch (i) {
+                case 0:
+                    actuatorSetP1 = aIt->second;
+                    break;
+                case 1:
+                    actuatorSetP2 = aIt->second;
+                    break;
+                case 2:
+                    setReferenceActuators(actuatorSetP2, aIt->second);
+                    break;
+                case 3:
+                default:
+                    setReferenceActuators(actuatorSetP1, aIt->second);
+                    break;
+            }
+       } else {
+           if (i == 0)
+               actuatorSetP1 = aIt->second;
+           else
+               setReferenceActuators(actuatorSetP1, aIt->second);
+       }
 
         // Create all possible state devices
         StateMap::iterator sIt;
