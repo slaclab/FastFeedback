@@ -11,6 +11,10 @@
 #               2018, W. Williams        (ernesto)
 #      
 #==============================================================
+R3.2.2:   25-August-2020 R. Reno (rreno)
+    * Add second independent actuator reference for longitudinal loop. Re-enable zeroOffset()
+      removed in previous release.
+
 R3.2.1:   25-August-2020 J. Mock (jmock)
     * Remove calls to zeroOffset() in Longitudinal.cc to stop SXR loop from snapping
         to HXR value when the beam trips off
