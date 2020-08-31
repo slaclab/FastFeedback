@@ -8,15 +8,17 @@
 #ifndef _PVDATA_H
 #define	_PVDATA_H
 
-#include <dbScan.h>
+#include <iostream>
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
-#include <iostream>
+
 #include <aiRecord.h>
 #include <alarm.h>
-#include "Defs.h"
+#include <dbScan.h>
 #include <epicsMutex.h>
+
+#include "Defs.h"
 
 FF_NAMESPACE_START
 
@@ -38,54 +40,42 @@ using PvMapWaveform = std::map<std::string, std::vector<PvDataWaveform<T>*>*>;
  * should be of this template class. The parameter to the template should be
  * the attribute type (long, int, double, etc).
  *
- * As instances are created they are added to the static PvData::_pvMap. When
+ * As instances are created they are added to the static PvData<Type>::_pvMap. When
  * the Device Support is created the specified INST_IO string is used to search
  * for the correct device in the _pvMap.
- *
- * TODO: Need to add locking, to avoid race conditions between the code that updates
- * the PvData::_value and the device support code that uses it. These operations
- * happen on different threads/tasks.
  *
  * TODO: Add a second parameter to the template, the record type (e.g. aiRecord,
  * stringinRecord, etc...)
  * 
- * @author L.Piccoli
  */
 template <class Type>
 class PvData {
 public:
 
+    PvData() = default;
+
     /**
-     * Create a PvData with the given PvName and add it to the _pvMap
-     * singleton
+     * Create a PvData with the given PvName and add it to the static _pvMap
      *
      * @param pvName name of the PV associated with this data
-     * @author L.Piccoli
      */
     PvData(std::string pvName) :
-      _externalValuePtr(nullptr),
       _pvName(pvName),
-      _scanlist(nullptr),
-      _record(nullptr),
-      _mutex(nullptr) {
+    {
         insert();
-   };
+    }
 
-    PvData() :
-    _externalValuePtr(nullptr),
-      _pvName("ERROR"),
-      _scanlist(nullptr),
-      _record(nullptr),
-      _mutex(nullptr) {
-    };
+    /**
+     * Create a PvData with the given PvName and add it to the static _pvMap
+     *
+     * @param pvName name of the PV associated with this data
+     * @param value initial value of the PV
+     */
 
     PvData(std::string pvName, Type value) :
       _value(value),
-      _externalValuePtr(nullptr),
       _pvName(pvName),
-      _scanlist(nullptr),
-      _record(nullptr),
-      _mutex(nullptr) {
+    {
         insert();
     }
 
@@ -93,7 +83,7 @@ public:
       if (_mutex != nullptr) {
      	  delete _mutex;
       }
-    };
+    }
 
     /* used by threads to set the value of the data, must
      * lock so that pv records don't read while a thread
@@ -161,6 +151,11 @@ public:
         return _pvMap;
     }
 
+    /**
+     * Get the value address for device support
+     * Should not need to lock the mutex here since we are giving the pointer
+     * to the thing we would be locking against.
+     */
     Type* getValueAddress() {
         if (_externalValuePtr == nullptr)
             return &_value;
@@ -191,9 +186,8 @@ public:
      * Create the mutex to protect the value of the PvData - this must be done by the
      * device support init routine since the mutex cannot exist before the init
      *
-     * TODO (rreno): implement this?
      */
-    void createMutex() {  }
+    void createMutex() { _mutex = newEpicsMutex; }
 
     /**
      * This allows values to be read from/written to an area external to the
@@ -326,21 +320,15 @@ public:
             std::cout << item.first << ": " << item.second->size() << '\n';
     }
 
-    friend class LoopConfigurationTest; // For unit tests
+    friend class LoopConfigurationTest;            // For unit tests
 
 protected:
-    /** Actual value */
-    Type _value;
-
-    /** pointer to External value */
-    Type *_externalValuePtr;
-
-    /** Name of the PV associated with this PvData */
-    std::string _pvName;
+    Type         _value;                           // Actual value
+    Type        *_externalValuePtr = nullptr;      // Optional pointer to external value
+    std::string  _pvName           = "ERROR";      // Name of the EPICS record
 
 private:
-    /** Device support scanlist, used for a single PvData instance */
-    IOSCANPVT _scanlist;
+    IOSCANPVT    _scanlist         = nullptr;      // Device support scanlist, used by a single record
 
     /**
      * Points to the PV record. Even though an aiRecord is used here, most
@@ -348,17 +336,12 @@ private:
      * Remember that the value for the record is provided by the _value
      * attribute, which is accessed through device support.
      */
-    aiRecord *_record;
+    aiRecord    *_record           = nullptr;
 
-    // one mutex per PV, protects any reads/writes with the PV no matter what the type.
-    // Declared `mutable` to allow use in `const` members.
-    mutable epicsMutex *_mutex;
+    mutable epicsMutex *_mutex     = nullptr;      // Declared mutable to allow locking in const-qualified functions
 
     /**
-     * Insert this if not already in the map and not created by Devices
-     *
-     * @author L.Piccoli
-     * @author R.Reno
+     * Insert this object if not already in the map and not created by Devices
      */
     void insert() {
         // Do not insert if created by Devices
@@ -366,8 +349,12 @@ private:
         if (position != std::string::npos && position == 0)
             return;
      
-        auto *vec = new std::vector<decltype(this)> { this };
-        _pvMap.emplace(_pvName, vec);
+        auto *vec = new std::vector<PvData<Type>*> { this };
+        const auto [element, inserted] = _pvMap.insert({ _pvName, vec});
+        if (!inserted) {
+            element->second->push_back(this);
+            delete vec;
+        }
     }
 
     /**
