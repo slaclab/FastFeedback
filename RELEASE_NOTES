@@ -11,6 +11,22 @@
 #               2018, W. Williams        (ernesto)
 #      
 #==============================================================
+R3.2.2:   25-August-2020 R. Reno (rreno)
+    * Add second independent actuator reference for longitudinal loop. Re-enable zeroOffset()
+      removed in previous release.
+
+R3.2.1:   25-August-2020 J. Mock (jmock)
+    * Remove calls to zeroOffset() in Longitudinal.cc to stop SXR loop from snapping
+        to HXR value when the beam trips off
+    * Also comment out _referenceOffset = 0 in ActuatorDevice.cc::clear() for same reason
+
+R3.2.0:   25-August-2020 R.Reno (rreno)
+    * Add ability to select BY1 energy source at IOC startup
+    * Fixed bug where error handling code for an FCOM channel creation failure would never run
+    * Target linuxRT platform on watchdog IOC (sioc-sys0-fb01)
+    * Rewrote README in Markdown
+    * Added UNDS BLD IOC (sioc-unds-tr02) 
+
 R3.1.0:   05-August-2020 R.Reno (rreno)
     * Add 2 new transverse feedbacks for SXR (sioc-ltus-tr01 sioc-unds-tr01)
     * Codebase changes:

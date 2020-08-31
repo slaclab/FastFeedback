@@ -1170,8 +1170,8 @@ int Longitudinal::selectStates() {
 		_latestMeasurements[0] = 0;
 		_latestMeasurementsSum[0] = 0;
 
-		// Zero actuator offsets!
-		actuatorDevice->zeroOffset();
+        actuatorDevice->zeroOffset();
+
 	}
 	stateDevice->setUsedBy(stateUsed);
 	actuatorDevice->setUsedBy(stateUsed);
@@ -1250,9 +1250,9 @@ int Longitudinal::selectStates() {
 		_energyAverage[BC1_ENERGY]->clear();
 		_latestMeasurements[1] = 0;
 		_latestMeasurementsSum[1] = 0;
+        
+        actuatorDevice->zeroOffset();
 
-		// Zero actuator offsets!
-		actuatorDevice->zeroOffset();
 	}
 
 	stateDevice->setUsedBy(stateUsed);
@@ -1337,8 +1337,7 @@ int Longitudinal::selectStates() {
 		_latestMeasurements[2] = 0;
 		_latestMeasurementsSum[2] = 0;
 
-		// Zero actuator offsets!
-		actuatorDevice->zeroOffset();
+        actuatorDevice->zeroOffset();
 	}
 	stateDevice->setUsedBy(stateUsed);
 	actuatorDevice->setUsedBy(stateUsed);
@@ -1416,8 +1415,8 @@ int Longitudinal::selectStates() {
 		_latestMeasurements[3] = 0;
 		_latestMeasurementsSum[3] = 0;
 
-		// Zero actuator offsets!
-		actuatorDevice->zeroOffset();
+        actuatorDevice->zeroOffset();
+
 	}
 	stateDevice->setUsedBy(stateUsed);
 	actuatorDevice->setUsedBy(stateUsed);
@@ -1497,8 +1496,8 @@ int Longitudinal::selectStates() {
 		_latestMeasurements[4] = 0;
 		_latestMeasurementsSum[4] = 0;
 
-		// Zero actuator offsets!
-		actuatorDevice->zeroOffset();
+        actuatorDevice->zeroOffset();
+
 	}
 	stateDevice->setUsedBy(stateUsed);
 	actuatorDevice->setUsedBy(stateUsed);
@@ -1651,8 +1650,8 @@ int Longitudinal::selectStates() {
 		_latestMeasurements[5] = 0;
 		_latestMeasurementsSum[5] = 0;
 
-		// Zero actuator offsets!
-		actuatorDevice->zeroOffset();
+        actuatorDevice->zeroOffset();
+
 	}
 	stateDevice->setUsedBy(stateUsed);
 	actuatorDevice->setUsedBy(stateUsed);
