@@ -60,7 +60,7 @@ public:
      * @param pvName name of the PV associated with this data
      */
     PvData(std::string pvName) :
-      _pvName(pvName),
+      _pvName(pvName)
     {
         insert();
     }
@@ -74,7 +74,7 @@ public:
 
     PvData(std::string pvName, Type value) :
       _value(value),
-      _pvName(pvName),
+      _pvName(pvName)
     {
         insert();
     }
