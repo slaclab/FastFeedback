@@ -1,10 +1,12 @@
 bin/
 CVS/
-O.*/
-RELEASE_SITE
 db/
 dbd/
 lib/
+O.*/
+.clang_complete
 iocBoot/*/envPaths
+RELEASE_SITE
 *~
+*.log
 *.swp
