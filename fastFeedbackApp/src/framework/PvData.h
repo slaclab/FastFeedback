@@ -184,7 +184,9 @@ public:
 
     /**
      * Create the mutex to protect the value of the PvData - this must be done by the
-     * device support init routine since the mutex cannot exist before the init
+     * device support init routine since the mutex cannot exist before the init.
+     *
+     * uses a macro from epics base to allocate a mutex on the heap.
      *
      */
     void createMutex() { _mutex = newEpicsMutex; }
@@ -305,7 +307,12 @@ public:
     }
 
     void lock() const {
-        if (_mutex != nullptr)
+        if (_mutex == nullptr) {
+            std::cout << "WARNING: PvData::lock() called but no mutex allocated!"
+                "ensure PvData::createMutex() is called in record initialization!\n"; 
+            return;
+        }
+
             _mutex->lock();
     }
 
