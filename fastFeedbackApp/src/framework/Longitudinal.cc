@@ -660,7 +660,7 @@ double Longitudinal::calculateEnergyBc2(MeasurementDevice* m5, StateDevice* s4) 
     }
 
     // Joe's algorithm
-    auto [eref, vernier] = _loopConfiguration->getEnergy(_patternIndex, EnergyLocation::DL1_ENERGY);
+    auto [eref, vernier] = _loopConfiguration->getEnergy(_patternIndex, EnergyLocation::BC2_ENERGY);
     
     double refEnergy = eref * 1000;
     double setpoint  = refEnergy + vernier + s4->getOffset();
@@ -751,7 +751,7 @@ double Longitudinal::calculateEnergyDl2(MeasurementDevice* m7,
         return 0;
     }
 
-    auto [eref, vernier] = _loopConfiguration->getEnergy(_patternIndex, EnergyLocation::DL1_ENERGY);
+    auto [eref, vernier] = _loopConfiguration->getEnergy(_patternIndex, EnergyLocation::DL2_ENERGY);
     
     double refEnergy = eref * 1000;
     double setpoint = refEnergy + vernier + s6->getOffset();
