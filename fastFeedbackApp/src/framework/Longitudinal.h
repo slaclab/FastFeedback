@@ -8,8 +8,6 @@
 #ifndef _LONGITUDINAL_H
 #define	_LONGITUDINAL_H
 
-#include <type_traits> // enum class helper function as_int
-
 #include <boost/numeric/ublas/matrix.hpp>
 #include "Defs.h"
 #include "LoopConfiguration.h"
