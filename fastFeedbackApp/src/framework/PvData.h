@@ -8,120 +8,31 @@
 #ifndef _PVDATA_H
 #define	_PVDATA_H
 
-#include <dbScan.h>
+#include <iostream>
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
-#include <iostream>
+
 #include <aiRecord.h>
 #include <alarm.h>
-#include "Defs.h"
+#include <dbScan.h>
 #include <epicsMutex.h>
+
+#include "Defs.h"
 
 FF_NAMESPACE_START
 
 class LoopConfigurationTest;
-
 template <class Type> class PvData;
 
-/**
- * Definition of templates for all used data types
- */
+template <typename T>
+using PvDataWaveform = PvData<std::vector<T>>;
 
-/** PvData definition for CHAR PV */
-typedef PvData<char> PvDataChar;
+template <typename T>
+using PvMap = std::map<std::string, std::vector<PvData<T>*>*>;
 
-/** PvData definition for UCHAR PV */
-typedef PvData<unsigned char> PvDataUChar;
-
-/** PvData definition for INT PV */
-typedef PvData<int> PvDataInt;
-
-/** PvData definition for UINT PV */
-typedef PvData<unsigned int> PvDataUInt;
-
-/** PvData definition for LONG PV */
-typedef PvData<long> PvDataLong;
-
-/** PvData definition for ULONG PV */
-typedef PvData<unsigned long> PvDataULong;
-
-/** PvData definition for DOUBLE PV */
-typedef PvData<double> PvDataDouble;
-
-/** PvData definition for SHORT PV */
-typedef PvData<short> PvDataShort;
-
-/** PvData definition for USHORT PV */
-typedef PvData<unsigned short> PvDataUShort;
-
-/** PvData definition for STRING PV */
-typedef PvData<std::string> PvDataString;
-
-/** PvData definition for BOOL PV */
-typedef PvData<bool> PvDataBool;
-
-/** PvData definition for DOUBLE waveform PV */
-typedef PvData<std::vector<double> > PvDataDoubleWaveform;
-
-/** PvData definition for USHORT waveform PV */
-typedef PvData<std::vector<unsigned short> > PvDataUShortWaveform;
-
-/** PvData definition for STRING waveform PV */
-typedef PvData<std::vector<std::string> > PvDataStringWaveform;
-
-/** PvData definition for CHAR waveform PV */
-typedef PvData<std::string> PvDataCharWaveform;
-
-/**
- * Definition of template maps for the different types of PvData.
- * See comment on PvData::_pvMap bellow.
- */
-
-/** Map of PvDataChar */
-typedef std::map<std::string, std::vector<PvDataChar*>*> PvMapChar;
-
-/** Map of PvDataUChar */
-typedef std::map<std::string, std::vector<PvDataUChar*>*> PvMapUChar;
-
-/** Map of PvDataInt */
-typedef std::map<std::string, std::vector<PvDataInt*>*> PvMapInt;
-
-/** Map of PvDataUInt */
-typedef std::map<std::string, std::vector<PvDataUInt*>*> PvMapUInt;
-
-/** Map of PvDataLong */
-typedef std::map<std::string, std::vector<PvDataLong*>*> PvMapLong;
-
-/** Map of PvDataULong */
-typedef std::map<std::string, std::vector<PvDataULong*>*> PvMapULong;
-
-/** Map of PvDataDouble */
-typedef std::map<std::string, std::vector<PvDataDouble*>*> PvMapDouble;
-
-/** Map of PvDataShort */
-typedef std::map<std::string, std::vector<PvDataShort*>*> PvMapShort;
-
-/** Map of PvDataUShort */
-typedef std::map<std::string, std::vector<PvDataUShort*>*> PvMapUShort;
-
-/** Map of PvDataString */
-typedef std::map<std::string, std::vector<PvDataString*>*> PvMapString;
-
-/** Map of PvDataBool */
-typedef std::map<std::string, std::vector<PvDataBool*>*> PvMapBool;
-
-/** Map of PvDataDoubleWaveform */
-typedef std::map<std::string, std::vector<PvDataDoubleWaveform*>*> PvMapDoubleWaveform;
-
-/** Map of PvDataUShortWaveform */
-typedef std::map<std::string, std::vector<PvDataUShortWaveform*>*> PvMapUShortWaveform;
-
-/** Map of PvDataStringWaveform */
-typedef std::map<std::string, std::vector<PvDataStringWaveform*>*> PvMapStringWaveform;
-
-/** Map of PvDataCharWaveform */
-typedef std::map<std::string, std::vector<PvDataCharWaveform*>*> PvMapCharWaveform;
+template <typename T>
+using PvMapWaveform = std::map<std::string, std::vector<PvDataWaveform<T>*>*>;
 
 /**
  * This is a template class used for connecting object attributes to PV Device
@@ -129,129 +40,105 @@ typedef std::map<std::string, std::vector<PvDataCharWaveform*>*> PvMapCharWavefo
  * should be of this template class. The parameter to the template should be
  * the attribute type (long, int, double, etc).
  *
- * As instances are created they are added to the static PvData::_pvMap. When
+ * As instances are created they are added to the static PvData<Type>::_pvMap. When
  * the Device Support is created the specified INST_IO string is used to search
  * for the correct device in the _pvMap.
- *
- * TODO: Need to add locking, to avoid race conditions between the code that updates
- * the PvData::_value and the device support code that uses it. These operations
- * happen on different threads/tasks.
  *
  * TODO: Add a second parameter to the template, the record type (e.g. aiRecord,
  * stringinRecord, etc...)
  * 
- * @author L.Piccoli
  */
 template <class Type>
 class PvData {
 public:
 
+    PvData() = default;
+
     /**
-     * Create a PvData with the given PvName and add it to the _pvMap
-     * singleton
+     * Create a PvData with the given PvName and add it to the static _pvMap
      *
      * @param pvName name of the PV associated with this data
-     * @author L.Piccoli
      */
     PvData(std::string pvName) :
-      _externalValuePtr(NULL),
-      _pvName(pvName),
-      _scanlist(NULL),
-      _record(NULL),
-      _mutex(NULL) {
+      _pvName(pvName)
+    {
         insert();
-   };
+    }
 
-    PvData() :
-    _externalValuePtr(NULL),
-      _pvName("ERROR"),
-      _scanlist(NULL),
-      _record(NULL),
-      _mutex(NULL) {
-    };
+    /**
+     * Create a PvData with the given PvName and add it to the static _pvMap
+     *
+     * @param pvName name of the PV associated with this data
+     * @param value initial value of the PV
+     */
 
     PvData(std::string pvName, Type value) :
       _value(value),
-      _externalValuePtr(NULL),
-      _pvName(pvName),
-      _scanlist(NULL),
-      _record(NULL),
-      _mutex(NULL) {
+      _pvName(pvName)
+    {
         insert();
     }
 
-    /**
-     * Empty constructor, used only to instantiate classes in
-     * order to initialize the _pvMap static variable.
-     *
-     * This constructor must *not* be used for other purposes besides
-     * initializing the maps.
-     *
-     * @author L.Piccoli
-     */
-    PvData(bool clear, int a) :
-      _externalValuePtr(NULL),
-      _pvName("INVALID"),
-      _mutex(NULL) {
-    	if (clear) {
-    	  _pvMap.clear();
-    	}
-    }
-
     virtual ~PvData() {
-      if (_mutex != NULL) {
+      if (_mutex != nullptr) {
      	  delete _mutex;
       }
-    };
-    /*
-    PvData & operator=(const PvData &) {
-        return *this;
-    };
-    */
+    }
 
     /* used by threads to set the value of the data, must
      * lock so that pv records don't read while a thread
      * is setting this data
      */
     PvData & operator=(const Type &value) {
-      if (_mutex != NULL) {
-	_mutex->lock();
-      }
+        lock();
+        _value = value;
+        unlock();
 
-      _value = value;
-
-      if (_mutex != NULL) {
-	_mutex->unlock();
-      }
-
-      return *this;
+        return *this;
     }
 
     template <typename U>
-    bool operator==(const PvData<U> &other) {
-        return _value == other.getValue();
+    bool operator==(const PvData<U> &other) const {
+        lock();
+        auto res =  _value == other.getValue();
+        unlock();
+
+        return res;
+        
     }
 
-    bool operator==(const Type &value) {
-        return value == _value;
+    bool operator==(const Type &value) const {
+        lock();
+        auto res = value == _value;
+        unlock();
+
+        return res;
     }
 
     // do a comparison with implicit conversion
     template <typename U>
-    bool operator==(const U &value) {
-        return value == _value; 
+    bool operator==(const U &value) const {
+        lock();
+        auto res = value == _value; 
+        unlock();
+
+        return res;
     }
 
-    bool operator!=(const PvData<Type> &other) {
+    bool operator!=(const PvData<Type> &other) const {
         return !(*this == other);
     }
 
-    bool operator!=(const Type &value) {
+    bool operator!=(const Type &value) const {
         return !(*this == value);
     }
 
-    bool operator<(const Type &value) {
-        return _value < value;
+    bool operator<(const Type &value) const {
+        lock();
+        auto res =  _value < value;
+        unlock();
+
+        return res;
     }
 
     // Conversion of PvData<Type> to Type.
@@ -260,14 +147,19 @@ public:
         return getValue();
     }
 
-    static std::map<std::string, std::vector<PvData<Type> *> *> &getPvMap() {
+    static auto& getPvMap() {
         return _pvMap;
     }
 
-    Type *getValueAddress() {
-        if (_externalValuePtr == NULL) {
+    /**
+     * Get the value address for device support
+     * Should not need to lock the mutex here since we are giving the pointer
+     * to the thing we would be locking against.
+     */
+    Type* getValueAddress() {
+        if (_externalValuePtr == nullptr)
             return &_value;
-        } else {
+        else {
             std::cerr << ">>> RETURN EXTERNAL ADDRESS\n";
             return _externalValuePtr;
         }
@@ -275,32 +167,29 @@ public:
 
     Type getValue() const {
     	Type val;
-    	if (_mutex != NULL) {
-	  _mutex->lock();
-	}
+        lock();
 
-        if (_externalValuePtr == NULL) {
+        if (_externalValuePtr == nullptr)
             val = _value;
-        } else {
+        else {
             std::cerr << ">>> RETURN EXTERNAL VALUE ("
 		      << _pvName << ")" << std::endl;
             val = *_externalValuePtr;
         }
 
-       	if (_mutex != NULL) {
-	  _mutex->unlock();
-	}
+        unlock();
 
         return val;
     }
 
     /**
      * Create the mutex to protect the value of the PvData - this must be done by the
-     * device support init routine since the mutex cannot exist before the init
+     * device support init routine since the mutex cannot exist before the init.
      *
-     * TODO (rreno): implement this?
+     * uses a macro from epics base to allocate a mutex on the heap.
+     *
      */
-    void createMutex() {  }
+    void createMutex() { _mutex = newEpicsMutex; }
 
     /**
      * This allows values to be read from/written to an area external to the
@@ -318,7 +207,7 @@ public:
         _externalValuePtr = externalValuePtr;
     }
 
-    std::string getPvName() {
+    std::string getPvName() const {
         return _pvName;
     }
 
@@ -339,20 +228,15 @@ public:
      * @author L.Piccoli
      */
     virtual int write(Type *val, int size = 1) {
-      if (_mutex != NULL) {
-	_mutex->lock();
-      }
+        lock();
 
-      _value = *val;
-      if (_externalValuePtr != NULL) {
-    	  *_externalValuePtr = *val;
-      }
+        _value = *val;
+        if (_externalValuePtr != nullptr)
+            *_externalValuePtr = *val;
 
-      if (_mutex != NULL) {
-	_mutex->unlock();
-      }
+        unlock();
 
-      return 0;
+        return 0;
     }
 
     /**
@@ -372,21 +256,16 @@ public:
      * @author L.Piccoli
      */
     int read(Type *val, int size = 1) {
-      if (_mutex != NULL) {
-	_mutex->lock();
-      }
+        lock();
 
-      if (_externalValuePtr == NULL) {
-	*val = _value;
-      } else {
-	*val = *_externalValuePtr;
-      }
-      
-      if (_mutex != NULL) {
-	_mutex->unlock();
-      }
+        if (_externalValuePtr == nullptr)
+            *val = _value;
+        else 
+            *val = *_externalValuePtr;
 
-      return 0;
+        unlock();
+
+        return 0;
     }
 
     IOSCANPVT getScanList() {
@@ -398,72 +277,65 @@ public:
     }
 
     void scanIoRequest() {
-      if (_scanlist != NULL) {
-	::scanIoRequest(_scanlist);
-      }
+        if (_scanlist != nullptr)
+            ::scanIoRequest(_scanlist);
     }
 
     void setRecord(void *precord) {
-      _record = reinterpret_cast<aiRecord *>(precord);
+        _record = reinterpret_cast<aiRecord *>(precord);
     }
 
     void setAlarm(bool set = true) {
-      if (_record != NULL) {
-	if (set) {
-	  _record -> nsev = MAJOR_ALARM;
-	  _record -> nsta = HIHI_ALARM;
-	}
-	else {
-	  _record -> nsev = NO_ALARM;
-	  _record -> nsta = NO_ALARM;
-	}
-      }
+        if (_record != nullptr) {
+            if (set) {
+                _record -> nsev = MAJOR_ALARM;
+                _record -> nsta = HIHI_ALARM;
+            }
+            else {
+                _record -> nsev = NO_ALARM;
+                _record -> nsta = NO_ALARM;
+            }
+        }
     }
 
-    void show() {
-      std::cout << _pvName << "\t";
-      if (_record != NULL) {
-	std::cout << _record -> name;
-      }
-      else {
-	std::cout << "NULL";
-      }
+    void show() const {
+        std::cout << _pvName << "\t";
+        if (_record != nullptr)
+	        std::cout << _record -> name;
+        else
+            std::cout << "NULL";
     }
 
-    void lock() {
-      if (_mutex != NULL) {
-	_mutex->lock();
-      }
+    void lock() const {
+        if (_mutex == nullptr) {
+            std::cout << "WARNING: PvData::lock() called but no mutex allocated!"
+                "ensure PvData::createMutex() is called in record initialization!\n"; 
+            return;
+        }
+
+            _mutex->lock();
     }
 
-    void unlock() {
-      if (_mutex != NULL) {
-	_mutex->unlock();
-      }
+    void unlock() const {
+        if (_mutex != nullptr)
+            _mutex->unlock();
     }
 
-    friend class LoopConfigurationTest; // For unit tests
 
     static void showMap() {
-      typename std::map<std::string, std::vector<PvData<Type> *> *>::iterator it;
-      for (it = _pvMap.begin(); it != _pvMap.end(); ++it) {
-	std::cout << it->first << ": " << it->second->size() << std::endl;
-      }
+        for (const auto& item : _pvMap)
+            std::cout << item.first << ": " << item.second->size() << '\n';
     }
 
+    friend class LoopConfigurationTest;            // For unit tests
+
 protected:
-    /** Actual value */
-    Type _value;
-
-    /** pointer to External value */
-    Type *_externalValuePtr;
-
-    /** Name of the PV associated with this PvData */
-    std::string _pvName;
+    Type         _value;                           // Actual value
+    Type        *_externalValuePtr = nullptr;      // Optional pointer to external value
+    std::string  _pvName           = "ERROR";      // Name of the EPICS record
 
 private:
-    /** Device support scanlist, used for a single PvData instance */
-    IOSCANPVT _scanlist;
+    IOSCANPVT    _scanlist         = nullptr;      // Device support scanlist, used by a single record
 
     /**
      * Points to the PV record. Even though an aiRecord is used here, most
@@ -471,37 +343,25 @@ private:
      * Remember that the value for the record is provided by the _value
      * attribute, which is accessed through device support.
      */
-    aiRecord *_record;
+    aiRecord    *_record           = nullptr;
 
-    // one mutex per PV, protects any reads/writes with the PV no matter what the type.
-    // Declared `mutable` to allow use in `const` members.
-    mutable epicsMutex *_mutex;
+    mutable epicsMutex *_mutex     = nullptr;      // Declared mutable to allow locking in const-qualified functions
 
     /**
-     * Insert a new PvData in the proper Map
-     *
-     * @author L.Piccoli
+     * Insert this object if not already in the map and not created by Devices
      */
     void insert() {
-      // This code is to avoid the insertion of PvDatas created by Devices
-      // used for seachingn only (see LoopConfiguration::getDevice())
-      size_t position = _pvName.find("XX00");
-      if (position != std::string::npos && position == 0) {
-	return;
-      }
-      
-        // First check if there is a PV with the same name, and then append it
-        // to the end of the vector
-        std::vector<PvData<Type> *> *vector;
-        typename std::map<std::string, std::vector<PvData<Type> *> *>::iterator it;
-        it = _pvMap.find(_pvName);
-        if (it == _pvMap.end()) {
-            vector = new std::vector<PvData<Type> *>();
-            _pvMap.insert(std::pair<std::string, std::vector<PvData<Type> *> *>(_pvName, vector));
-        } else {
-            vector = it->second;
+        // Do not insert if created by Devices
+        auto position = _pvName.find("XX00");
+        if (position != std::string::npos && position == 0)
+            return;
+     
+        auto *vec = new std::vector<PvData<Type>*> { this };
+        const auto [element, inserted] = _pvMap.insert({ _pvName, vec});
+        if (!inserted) {
+            element->second->push_back(this);
+            delete vec;
         }
-        vector->push_back(this);
     }
 
     /**
@@ -523,7 +383,7 @@ private:
      * The assignment to precord->dpvt is performed in the device support code
      * (see file devFfConfig.cc)
      */
-    static std::map<std::string, std::vector<PvData<Type> *> *> _pvMap;
+    inline static PvMap<Type> _pvMap;
 
 };
 

@@ -145,10 +145,10 @@ private:
      *
      * This attribute maps into the $(LOOP):STATE PV
      */
-    PvDataBool _enabledPv;
+    PvData<bool> _enabledPv;
 
     /** Holds the current STATE of the loop (true for ON, false for OFF) */
-    PvDataBool _stateActPv;
+    PvData<bool> _stateActPv;
 
     /**
      * Holds the previous STATE of the loop. This is used to find the
@@ -166,10 +166,10 @@ private:
      *
      * This attribute maps to the $(LOOP):MODE PV.
      */
-    PvDataBool _modePv;
+    PvData<bool> _modePv;
 
     /** Holds the current MODE of the loop (true for ENABLED, false for COMPUTE) */
-    PvDataBool _modeActPv;
+    PvData<bool> _modeActPv;
 
     /**
      * Holds the previous MODE of the loop. This is used to find the
@@ -247,7 +247,7 @@ private:
     /**
      * PV that has the loop running rate.
      */
-    PvDataLong _ratePv;
+    PvData<long> _ratePv;
 
     /**
      * Count how many patterns were received without a matching measurement.

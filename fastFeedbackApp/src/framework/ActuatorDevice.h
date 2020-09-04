@@ -69,7 +69,7 @@ public:
     void setInitialOffset();
     void zeroOffset();
     //    void setInitialChannel(CommunicationChannel *initialChannel);
-    void setInitialChannel(PvDataDouble *initialChannel);
+    void setInitialChannel(PvData<double> *initialChannel);
     
     void setLimits(double high, double low);
 
@@ -124,7 +124,7 @@ protected:
      * the PV IOC:IN20:LS11:PCTRL.
      */
     //    CommunicationChannel *_initialChannel;
-    PvDataDouble *_initialChannel;
+    PvData<double> *_initialChannel;
 
     /**
      * Difference between the last value set for this actuator and the reference
@@ -138,7 +138,7 @@ protected:
      *
      * This attribute maps to the $(LOOP):<dev>HIHIIN PV
      */
-    PvDataDouble _hihiInPv;
+    PvData<double> _hihiInPv;
 
     /**
      * Warning high limit setting PV. Setting this device forces the Ax.HIGH field
@@ -146,7 +146,7 @@ protected:
      *
      * This attribute maps to the $(LOOP):<dev>HIGHIN PV
      */
-    PvDataDouble _highInPv;
+    PvData<double> _highInPv;
 
     /**
      * Warning low limit setting PV. Setting this device forces the Ax.LOW field
@@ -154,7 +154,7 @@ protected:
      *
      * This attribute maps to the $(LOOP):<dev>LOWIN PV
      */
-    PvDataDouble _lowInPv;
+    PvData<double> _lowInPv;
 
     /**
      * Alarm low limit setting PV. Setting this device forces the Ax.HIHI field
@@ -162,7 +162,7 @@ protected:
      *
      * This attribute maps to the $(LOOP):<dev>LOLOIN PV
      */
-    PvDataDouble _loloInPv;
+    PvData<double> _loloInPv;
 };
 
 FF_NAMESPACE_END
