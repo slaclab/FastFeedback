@@ -880,81 +880,51 @@ devWoFfConfigFunctions devWoFfConfig = {
 
 epicsExportAddress(dset, devWoFfConfig);
 
-/**
- * @author L.Piccoli
- */
+
+template <typename T>
+long init_waveformout(waveformRecord *precord)
+{
+    long status = -1;
+    auto pvName = precord->inp.value.instio.string;
+
+    if (precord->inp.type == INST_IO) {
+        // Find the PV in the map. If it exists initialize it with NELM 0s.
+        auto it = PvDataWaveform<T>::getPvMap().find(pvName);
+
+        if (it == PvDataWaveform<T>::getPvMap().end())
+            std::cout << "PvData: \"" << pvName << "\" not found.\n";
+        else {
+            precord->udf = FALSE;
+            precord->dpvt = it->second;
+            auto vec = reinterpret_cast<std::vector<PvDataWaveform<T>*>*> (precord->dpvt);
+
+            for (auto& wf : *vec) {
+                wf->createMutex();
+                auto wfvec = wf->getValueAddress();
+                wfvec->assign(0, precord->nelm);
+            }
+
+            if (vec->size() == 0)
+                std::cerr << "ERROR: Unable to initialize " << pvName << '\n';
+            else
+                status = 0;
+        }
+    } 
+    else 
+        precord->val = 0;
+
+    return status;
+}
+
 static long devWoFfConfig_init_record(waveformRecord *precord) {
     long status = -1;
+    
+    if (precord->ftvl == menuFtypeDOUBLE)
+        status = init_waveformout<double>(precord);
 
-    std::string pvName = precord->inp.value.instio.string;
+    else if (precord->ftvl == menuFtypeUSHORT)
+        status = init_waveformout<unsigned short>(precord);
 
-    if (precord->ftvl == menuFtypeDOUBLE) {//DBR_STS_SHORT DBF_DOUBLE) {
-        PvMapWaveform<double>::iterator it;
-        switch (precord->inp.type) {
-            case INST_IO:
-                it = PvDataWaveform<double>::getPvMap().find(pvName);
-                if (it == PvDataWaveform<double>::getPvMap().end()) {
-                    std::cout << "PvData: \"" << pvName;
-                    std::cout << "\" not found." << std::endl;
-                    status = -1;
-                } else {
-                    precord->udf = FALSE;
-                    precord->dpvt = it->second;
-                    // now create the mutex for this pvData
-                    // waveform out records have mutex to protect multi-byte PVs
-                    std::vector<PvDataWaveform<double> *> *vector =
-                            reinterpret_cast<std::vector<PvDataWaveform<double> *> *> (precord->dpvt);
-                    try {
-                      for (int i = 0; i < (int) vector->size(); ++i) {
-                        vector->at(i)->createMutex();
-                      }
-                      status = 0;
-                    } catch (std::out_of_range& e) {
-                        std::cerr << "ERROR: " << e.what() << std::endl;
-                        status = -1;
-                    }
-                    status = 0;
-                }
-                break;
-            default:
-                precord->val = 0;
-        }
-    } else if (precord->ftvl == menuFtypeUSHORT) {//DBR_SHORT) {
-        PvMapWaveform<unsigned short>::iterator it;
-        switch (precord->inp.type) {
-            case INST_IO:
-                it = PvDataWaveform<unsigned short>::getPvMap().find(pvName);
-                if (it == PvDataWaveform<unsigned short>::getPvMap().end()) {
-                    std::cout << "PvData: \"" << pvName;
-                    std::cout << "\" not found." << std::endl;
-                    status = -1;
-                } else {
-                    precord->udf = FALSE;
-                    precord->dpvt = it->second;
-                    // waveform out records have mutex to protect multi-byte PVs
-                    std::vector<PvDataWaveform<unsigned short> *> *vector =
-                            reinterpret_cast<std::vector<PvDataWaveform<unsigned short> *> *> (precord->dpvt);
-                    try {
-                      for (int i = 0; i < (int) vector->size(); ++i) {
-                        vector->at(i)->createMutex();
-                      }
-                      status = 0;
-                    } catch (std::out_of_range& e) {
-                        std::cerr << "ERROR: " << e.what() << std::endl;
-                        status = -1;
-                    }
-                    status = 0;
-                }
-                break;
-            default:
-                precord->val = 0;
-        }
-    } else {
-        std::cout << "PvData: \"" << pvName << "\" has invalid ftvl field. (inp.type="
-                << precord->inp.type << ", ftvl=" << precord->ftvl << ")" << std::endl;
-        std::cout << "DBF_DOUBLE = " << DBF_DOUBLE << std::endl;
-        status = -1;
-    }
 
     if (status != 0) {
         precord->udf = TRUE;
@@ -965,54 +935,32 @@ static long devWoFfConfig_init_record(waveformRecord *precord) {
     return 2;
 }
 
-/**
- * @author L.Piccoli
- */
+template <typename T>
+void write_waveform(waveformRecord *precord) {
+    auto vec = reinterpret_cast<std::vector<PvDataWaveform<T>*>*>(precord->dpvt);
+    for (auto& pvwf : *vec) {
+        auto data = reinterpret_cast<T *>(precord->bptr);
+        auto wfvec = pvwf->getValueAddress();
+        wfvec->assign(data, data + precord->nord);
+    }
+}
+
 static long devWoFfConfig_write_waveform(waveformRecord *precord) {
-    if (precord->dpvt == NULL || precord->bptr == NULL) {
-        //        std::cerr << "ERROR: invalid dpvt and bptr fields for record "
-        //                << precord->name << std::endl;
+    if (precord->dpvt == nullptr || precord->bptr == nullptr || precord->nord == 0)
         return 0;
-    }
 
-    if (precord->nord == 0) {
-        return 0;
-    }
+    if (precord->ftvl == menuFtypeDOUBLE)
+        write_waveform<double>(precord);
 
-    if (precord->ftvl == menuFtypeDOUBLE) { //DBF_DOUBLE DBR_STS_SHORT 10) {
-        std::vector<PvDataWaveform<double> *> *vector =
-                reinterpret_cast<std::vector<PvDataWaveform<double> *> *> (precord->dpvt);
-        try {
-            for (int i = 0; i < (int) vector->size(); ++i) {
-                // vector->at(i)->write(newValue); // TODO: Need to override the write() method in a subclass
-                double *data = reinterpret_cast<double *> (precord->bptr);
-                PvDataWaveform<double> *waveform = vector->at(i);
-                std::vector<double> *waveformVector = waveform->getValueAddress();
-                waveformVector->assign(data, data + precord->nord);
-            }
-        } catch (std::out_of_range& e) {
-            std::cerr << "ERROR: " << e.what() << std::endl;
-            return -1;
-        }
-    } else if (precord->ftvl == menuFtypeUSHORT) {//DBR_SHORT 4) {
-        std::vector<PvDataWaveform<unsigned short> *> *vector =
-                reinterpret_cast<std::vector<PvDataWaveform<unsigned short> *> *> (precord->dpvt);
-        try {
-            for (int i = 0; i < (int) vector->size(); ++i) {
-                unsigned short *data = reinterpret_cast<unsigned short *> (precord->bptr);
-                PvDataWaveform<unsigned short> *waveform = vector->at(i);
-                std::vector<unsigned short> *waveformVector = waveform->getValueAddress();
-                waveformVector->assign(data, data + precord->nord);
-            }
-        } catch (std::out_of_range& e) {
-            std::cerr << "ERROR: " << e.what() << std::endl;
-            return -1;
-        }
-    } else {
+    else if (precord->ftvl == menuFtypeUSHORT)
+        write_waveform<unsigned short>(precord);
+
+    else {
         std::cerr << "ERROR: Invalid waveform type of "
                 << precord->ftvl << std::endl;
         return -1;
     }
+
     return 0;
 }
 
@@ -1049,79 +997,53 @@ devWiFfConfigFunctions devWiFfConfig = {
 
 epicsExportAddress(dset, devWiFfConfig);
 
-/**
- * @author L.Piccoli
- */
+template <typename WaveformT>
+long init_waveformin(waveformRecord *precord)
+{
+    long status = -1;
+    auto pvName = precord->inp.value.instio.string;
+
+    if (precord->inp.type == INST_IO) {
+        auto it = WaveformT::getPvMap().find(pvName);
+        if (it == WaveformT::getPvMap().end()) {
+            std::cout << "PvData: \"" << pvName
+                      << "\" not found (wi).\n"
+                      << "There are " << WaveformT::getPvMap().size()
+                      << " registered PvData(s)\n";
+            status = -1;
+        } 
+        else {
+            precord->udf = FALSE;
+            precord->dpvt = it->second;
+            auto *wf = it->second;
+             // Init scan list for the waveform
+            if (wf->size() > 0) {
+                wf->at(0)->initScanList();
+                wf->at(0)->setRecord(precord);
+                status = 0;
+            }
+        }
+    }
+    else
+        precord->val = 0;
+
+    return status;
+}
+
 static long devWiFfConfig_init_record(waveformRecord *precord) {
     long status = -1;
 
-    std::string pvName = precord->inp.value.instio.string;
+    if (precord->ftvl == menuFtypeSTRING)
+        status = init_waveformin<PvDataWaveform<std::string>>(precord);
 
-    if (precord->ftvl == menuFtypeSTRING) { //DBF_STRING
-        PvMapWaveform<std::string>::iterator it;
-        switch (precord->inp.type) {
-            case INST_IO:
-                //pvName = precord->inp.value.instio.string;
-                it = PvDataWaveform<std::string>::getPvMap().find(pvName);
-                if (it == PvDataWaveform<std::string>::getPvMap().end()) {
-                    std::cout << "PvData: \"" << pvName;
-                    std::cout << "\" not found (wi)." << std::endl;
-                    std::cout << "There are " << PvDataWaveform<std::string>::getPvMap().size()
-                            << " registered PvData(s)" << std::endl;
-                    status = -1;
-                } else {
-                    std::cout << "PvData: \"" << pvName;
-                    std::cout << "\" found." << std::endl;
-                    precord->udf = FALSE;
-                    precord->dpvt = it->second;
-                    std::vector<PvDataWaveform<std::string> *> *strWf = it->second;
-                     // Init scan list for the waveform
-                    if (strWf->size() > 0) {
-                    	strWf->at(0)->initScanList();
-                    	strWf->at(0)->setRecord(precord);
-                    	status = 0;
-                    } else {
-                    	status = -1;
-                    }
-                }
-                break;
-            default:
-                precord->val = 0;
-        }
-    } else if (precord->ftvl == menuFtypeCHAR) { //DBF_CHAR 1) {
-        PvMap<std::string>::iterator it;
-        switch (precord->inp.type) {
-            case INST_IO:
-              it = PvData<std::string>::getPvMap().find(pvName);
-              if (it == PvData<std::string>::getPvMap().end()) {
-                std::cout << "PvData: \"" << pvName;
-                std::cout << "\" not found (wi)." << std::endl;
-                std::cout << "There are " << PvData<std::string>::getPvMap().size()
-                            << " registered PvData(s)" << std::endl;
-                status = -1;
-              } else {
-                precord->udf = FALSE;
-                precord->dpvt = it->second;
-                status = 0;
-                std::vector<PvData<std::string> *> *charWf = it->second;
-                // Init scan list for the waveform
-                if (charWf->size() > 0) {
-                     charWf->at(0)->initScanList();
-                	charWf->at(0)->setRecord(precord);
-                	status = 0;
-                } else {
-                	status = -1;
-                }
-              }
-              break;
-            default:
-              precord->val = 0;
-        }
-    } else {
+    else if (precord->ftvl == menuFtypeCHAR)
+        status = init_waveformin<PvData<std::string>>(precord);
+
+    else {
+        auto pvName = precord->inp.value.instio.string;
         std::cout << "PvData: \"" << pvName << "\" has invalid ftvl field. ("
-                << precord->ftvl << ") waveformin" << std::endl;
-	std::cout << "DBF_CHAR=" << DBF_CHAR << std::endl;
-        status = -1;
+                  << precord->ftvl << ") waveformin\n"
+                  << "DBF_CHAR=" << DBF_CHAR << '\n';
     }
 
     if (status != 0) {

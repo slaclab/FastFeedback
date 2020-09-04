@@ -107,7 +107,7 @@ CC_FILES = Thread.cc EventReceiver.cc EventGenerator.cc PatternManager.cc \
 	Algorithm.cc SineWave.cc ExecThread.cc ExecConfiguration.cc \
 	PatternGenerator.cc Commands.cc CaChannel.cc FcomChannel.cc \
 	ffRecord.c devFfDeviceView.cc ChannelAccess.cc \
-	PvData.cc devFfConfig.cc Pattern.cc TimeUtil.cc \
+	devFfConfig.cc Pattern.cc TimeUtil.cc \
 	PatternMask.cc Log.cc SetpointDevice.cc \
 	Longitudinal.cc MeasurementAverage.cc LongitudinalChirp.cc \
 	TrajectoryFitGeneral.cc TrajectoryFitStatic.cc InjectorLaunch.cc \

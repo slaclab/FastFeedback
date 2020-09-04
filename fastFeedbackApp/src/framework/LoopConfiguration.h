@@ -561,6 +561,17 @@ public:
      */
     PvData<bool> _chirpReadyPv;
 
+    /** DL1 Energy Vernier PV - Used by the Longitutinal feedback only */
+    PvData<double> _dl1EnergyVernierPv;
+
+    /** BC1 Energy Vernier PV - Used by the Longitutinal feedback only */
+    PvData<double> _bc1EnergyVernierPv;
+
+    /** BC2 Energy Vernier PV - Used by the Longitutinal feedback only */
+    PvData<double> _bc2EnergyVernierPv;
+
+    /** DL2 Energy Vernier PV - Used by the Longitutinal feedback only */
+    PvData<double> _dl2EnergyVernierPv;
 
     /**
      * Controls whether calculated states are sent on FCOM, using the ID
