@@ -36,7 +36,7 @@ _stateIndex(1) {
 
     std::ostringstream strstream;
     strstream << loopName << " " << name << "OFFSET" << patternIndex;
-    _offsetPv = new PvDataDouble(strstream.str(), 0);
+    _offsetPv = new PvData<double>(strstream.str(), 0);
 }
 
 /**

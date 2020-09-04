@@ -8,10 +8,6 @@ CPPUNIT_REGISTRY_ADD_TO_DEFAULT("FeedbackUnitTest");
 USING_FF_NAMESPACE
 
 void FF::PvDataTest::setUp() {
-    PvDataChar::getPvMap().clear();
-    PvDataUChar::getPvMap().clear();
-    PvDataInt::getPvMap().clear();
-    PvDataUInt::getPvMap().clear();
 }
 
 /**
@@ -56,14 +52,14 @@ void FF::PvDataTest::testCheckMap() {
     PvData<std::string> k("string");
 
     // Each PvData must have been added to the map
-    CPPUNIT_ASSERT_EQUAL(1, (int) PvDataChar::getPvMap().size());
-    CPPUNIT_ASSERT_EQUAL(1, (int) PvDataUChar::getPvMap().size());
-    CPPUNIT_ASSERT_EQUAL(1, (int) PvDataInt::getPvMap().size());
-    CPPUNIT_ASSERT_EQUAL(1, (int) PvDataUInt::getPvMap().size());
+    CPPUNIT_ASSERT_EQUAL(1, (int) PvData<char>::getPvMap().size());
+    CPPUNIT_ASSERT_EQUAL(1, (int) PvData<unsigned char>::getPvMap().size());
+    CPPUNIT_ASSERT_EQUAL(1, (int) PvData<int>::getPvMap().size());
+    CPPUNIT_ASSERT_EQUAL(1, (int) PvData<unsigned int>::getPvMap().size());
 
     // A duplicate PV name is not allowed
     PvData<int> x("int");
-    CPPUNIT_ASSERT_EQUAL(1, (int) PvDataInt::getPvMap().size());
+    CPPUNIT_ASSERT_EQUAL(1, (int) PvData<int>::getPvMap().size());
 }
 
 /**
@@ -80,13 +76,13 @@ void FF::PvDataTest::testDeviceSupport() {
     // When iocInit is called, the INST_IO string is used
     // to search for the PvData
     std::string pvName = "A1HIHI";
-    CPPUNIT_ASSERT(PvDataChar::getPvMap().find(pvName) == PvDataChar::getPvMap().end());
-    CPPUNIT_ASSERT(PvDataUChar::getPvMap().find(pvName) == PvDataUChar::getPvMap().end());
-    CPPUNIT_ASSERT(PvDataInt::getPvMap().find(pvName) == PvDataInt::getPvMap().end());
+    CPPUNIT_ASSERT(PvData<char>::getPvMap().find(pvName) == PvData<char>::getPvMap().end());
+    CPPUNIT_ASSERT(PvData<unsigned char>::getPvMap().find(pvName) == PvData<unsigned char>::getPvMap().end());
+    CPPUNIT_ASSERT(PvData<int>::getPvMap().find(pvName) == PvData<int>::getPvMap().end());
     // Must check all maps...
     // Until the right one is found:
-    PvMapDouble::iterator it = PvDataDouble::getPvMap().find(pvName);
-    CPPUNIT_ASSERT(it != PvDataDouble::getPvMap().end());
+    auto it = PvData<double>::getPvMap().find(pvName);
+    CPPUNIT_ASSERT(it != PvData<double>::getPvMap().end());
 
     void *dpvt = it->second->at(0)->getValueAddress();
 
@@ -108,7 +104,7 @@ void FF::PvDataTest::testDeviceSupport() {
 
 void FF::PvDataTest::testWrite() {
     std::string aString = "hi";
-    PvDataString myString("str", aString);
+    PvData<std::string> myString("str", aString);
     CPPUNIT_ASSERT(myString == aString);
     std::string otherString = "hello";
     myString.write(&otherString);
@@ -117,7 +113,7 @@ void FF::PvDataTest::testWrite() {
 
 void FF::PvDataTest::testReadExternal() {
     std::string aString = "hi";
-    PvDataString myString;
+    PvData<std::string> myString;
     myString.setExternalValuePtr(&aString);
 
     std::string readBack = "xxx";
@@ -128,7 +124,7 @@ void FF::PvDataTest::testReadExternal() {
 
 void FF::PvDataTest::testWriteExternal() {
     long val = -10;
-    PvDataLong myLong("myLong");
+    PvData<long> myLong("myLong");
     myLong.setExternalValuePtr(&val);
     CPPUNIT_ASSERT(myLong.getValue() == val);
 

@@ -258,28 +258,28 @@ protected:
      *
      * This attribute maps to the $(LOOP):<dev>HIHI PV
      */
-    PvDataDouble _hihiPv;
+    PvData<double> _hihiPv;
 
     /**
      * Warning high limit.
      *
      * This attribute maps to the $(LOOP):<dev>HIGH PV
      */
-    PvDataDouble _highPv;
+    PvData<double> _highPv;
 
     /**
      * Warning low limit.
      *
      * This attribute maps to the $(LOOP):<dev>LOW PV
      */
-    PvDataDouble _lowPv;
+    PvData<double> _lowPv;
 
     /**
      * Alarm low limit.
      *
      * This attribute maps to the $(LOOP):<dev>LOLO PV
      */
-    PvDataDouble _loloPv;
+    PvData<double> _loloPv;
 
     /**
      * Defines whether the device should use CaChannel (ChannelAccess) or
@@ -290,7 +290,7 @@ protected:
      *
      * This attribute maps into the $(LOOP):<dev>CAMODE PV.
      */
-    PvDataBool _caModePv;
+    PvData<bool> _caModePv;
 
     /**
      * Defines whether the device should be used in the Feedback Loop or not.
@@ -305,14 +305,14 @@ protected:
      *
      * This attribute maps into the $(LOOP):<dev>USED PV.
      */
-    PvDataBool _usedPv;
+    PvData<bool> _usedPv;
 
     /**
      * User assigned name for the device.
      * 
      * This attribute maps to the $(LOOP):<dev>DEVNAME PV.
      */
-    PvDataString _devNamePv;
+    PvData<std::string> _devNamePv;
 
     /**
      * CommunicationChannel used to set the FBCK attribute of Measurements and
@@ -343,18 +343,18 @@ protected:
      * Maps to the PV that indicates whethes this state is in use by
      * the loop or not (used by the Longitudital feedback)
      */
-    PvDataBool _usedByLoopPv;
+    PvData<bool> _usedByLoopPv;
     bool _usedByLoop;
 
     /**
      * Used to keep the number of successful read/write operations on the device
      */
-    PvDataLong _channelCountPv;
+    PvData<long> _channelCountPv;
 
     /**
      * Used to keep the number of errors from read/write operations.
      */
-    PvDataLong _channelErrorCountPv;
+    PvData<long> _channelErrorCountPv;
 
     std::stringstream _stringStream;
 

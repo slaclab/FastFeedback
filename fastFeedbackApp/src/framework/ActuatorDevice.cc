@@ -390,7 +390,7 @@ int ActuatorDevice::configure(CommunicationChannel::AccessType accessType,
  * @author L.Piccoli
  */
 //void ActuatorDevice::setInitialChannel(CommunicationChannel *initialChannel) {
-void ActuatorDevice::setInitialChannel(PvDataDouble *initialChannel) {
+void ActuatorDevice::setInitialChannel(PvData<double> *initialChannel) {
   _initialChannel = initialChannel;
 }
 

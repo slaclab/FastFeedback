@@ -94,7 +94,7 @@ public:
     void setLoopName(std::string loopName);
     void setSlotName(std::string slotName);
     void setAllLogToConsole(bool log = true);
-    void setStatusstrPv(PvDataCharWaveform *pvCharWaveform);
+    void setStatusstrPv(PvData<std::string> *pvCharWaveform);
 
     void setDebugLevel(int flag, int level);
 
@@ -132,7 +132,7 @@ private:
      * feedback loop.
      */
     //    PvDataString *_statusStrPv;
-    PvDataCharWaveform *_statusStrPv;
+    PvData<std::string> *_statusStrPv;
 
     /**
      * Static variable that defines if *all* logs should print out to

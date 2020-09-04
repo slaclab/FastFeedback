@@ -77,7 +77,7 @@ private:
     /**
      * State offset based on the pattern of interest (POI).
      */
-    PvDataDouble *_offsetPv;
+    PvData<double> *_offsetPv;
 
     /**
      * Maps to the PV that indicates whethes this state is in use by

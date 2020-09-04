@@ -335,7 +335,7 @@ void Log::setAllLogToConsole(bool log) {
 #endif
 }
 
-void Log::setStatusstrPv(PvDataCharWaveform *pvDataCharWaveform) {
+void Log::setStatusstrPv(PvData<std::string> *pvDataCharWaveform) {
 #ifdef LOG
   _statusStrPv = pvDataCharWaveform;
 #endif
