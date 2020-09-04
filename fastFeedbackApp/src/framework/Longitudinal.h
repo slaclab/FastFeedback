@@ -8,6 +8,8 @@
 #ifndef _LONGITUDINAL_H
 #define	_LONGITUDINAL_H
 
+#include <type_traits> // enum class helper function as_int
+
 #include <boost/numeric/ublas/matrix.hpp>
 #include "Defs.h"
 #include "LoopConfiguration.h"
@@ -91,12 +93,15 @@ enum MeasurementIndex {
 
 /**
  * This is the total number of calculated energy elements. The number is
- * slightly smalled than the number of BPMs because either BPMS_IN20_731
+ * slightly smaller than the number of BPMs because either BPMS_IN20_731
  * or BPMS_IN20_981 are used at one time and BPMS_LTU1_250/BPMS_LTU1_450 or
  * BPMS_BSY0_52 are used at one time. The BPMS_LTU1_250/BPMS_LTU1_450 are
  * combined into one energy value.
+ *
+ * We're forward declaring this in LoopConfiguration so we need to define
+ * the same underlying type here that we are declaring there.
  */
-enum EnergyLocation {
+enum EnergyLocation : int {
     DL1_ENERGY,
     BC1_ENERGY,
     BC2_ENERGY,
@@ -113,6 +118,7 @@ enum CurrentLocation {
     BC2_CURRENT,
     INTEGRAL_CURRENT_ELEMENTS
 };
+
 
 /** Number of averages for the integral energy/current */
 const int INTEGRAL_AVERAGE_COUNT = 1;
