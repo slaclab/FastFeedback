@@ -307,13 +307,10 @@ public:
     }
 
     void lock() const {
-        if (_mutex == nullptr) {
-            std::cout << "WARNING: PvData::lock() called but no mutex allocated!"
-                "ensure PvData::createMutex() is called in record initialization!\n"; 
+        if (_mutex == nullptr)
             return;
-        }
 
-            _mutex->lock();
+        _mutex->lock();
     }
 
     void unlock() const {
