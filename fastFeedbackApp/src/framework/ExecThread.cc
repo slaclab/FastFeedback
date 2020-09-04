@@ -341,16 +341,6 @@ void ExecThread::show() {
     std::cout << "Low TMIT: "
             << ExecConfiguration::getInstance()._tmitLowPv.getValue()
             << std::endl;
-    std::cout << "Energy refs: "
-	      << "DL1=" << ExecConfiguration::getInstance()._dl1ErefPv.getValue() * 1000 << " MeV; "
-	      << "BC1=" << ExecConfiguration::getInstance()._bc1ErefPv.getValue() * 1000 << " MeV; "
-	      << "BC2=" << ExecConfiguration::getInstance()._bc2ErefPv.getValue() * 1000 << " MeV; "
-	      << "DL2=" << ExecConfiguration::getInstance()._dl2ErefPv.getValue() * 1000 << " MeV"
-	      << std::endl;
-    std::cout << "DL2 Energy Limits: "
-	      << ExecConfiguration::getInstance()._dl2EnLoloPv.getValue() << " MeV; "
-	      << ExecConfiguration::getInstance()._dl2EnHihiPv.getValue() << " MeV"
-	      << std::endl;
 
     // CollectorThread
     std::cout << "--- CollectorThread: " << std::endl;
@@ -372,15 +362,6 @@ void ExecThread::show() {
     std::cout << "--- PatternManager: " << std::endl;
     PatternManager::getInstance().show();
 
-    // PatternGenerator -> NOT IN USE
-    /*
-    std::cout << "--- Pattern Generator: " << std::endl;
-    if (ExecConfiguration::getInstance()._hasPatternGenerator == true) {
-        PatternGenerator::getInstance().show();
-    } else {
-        std::cout << "    Disabled" << std::endl;
-    }
-    */
   } catch (std::exception& e) {
       std::cerr << "ffs command ERROR: " << e.what() << std::endl;
   }

@@ -37,14 +37,11 @@ class LoopConfigurationTest;
 class LoopTest;
 
 FF_NAMESPACE_START
-/*
-typedef struct EventChangeLog {
-  int _event;
-  epicsTimeStamp _time;
-} EventChangeLog;
-*/
+
 // Declare class Algorithm here because its header file includes this file!
 class Algorithm;
+// Declare this enum here since Longitudinal.h includes this file.
+enum EnergyLocation : int; 
 
 typedef std::set<MeasurementDevice *, DeviceCompare> MeasurementSet;
 typedef std::map<PatternMask, MeasurementSet *> MeasurementMap;
@@ -62,6 +59,8 @@ typedef std::map<PatternMask, Algorithm *> AlgorithmMap;
 
 //typedef boost::numeric::ublas::matrix<double> Matrix;
 typedef boost::numeric::ublas::matrix<double, boost::numeric::ublas::column_major, boost::numeric::ublas::bounded_array<double,400> > Matrix;
+
+
 /**
  * The LoopConfiguration contains configuration values associated with a
  * feedback loop. Most of the configuration is provided by PVs listed below.
@@ -158,6 +157,7 @@ public:
     void showReferenceOrbit();
     void showActuatorEnergy();
     void showDispersion();
+    void showEref();
 //ababbitt - need to insert the template
 
     template<class Map, class MapIterator, class Set, class SetIterator, class Device>
@@ -223,6 +223,12 @@ public:
 
     int peek(std::string deviceName, PatternMask patternMask,
 	     DataPoint &dataPoint, int pos);
+
+    /**
+     * Get the appropriate vernier or Eref values based on destination and location in the LINAC. 
+     * enum EnergyLocation is defined in Longitudinal.h 
+     */
+    std::pair<double, double> getEnergy(int _patternMask, EnergyLocation energyLocation);
 
     /**
      * Defines whether the Loop is in compute only mode (i.e. all actuator
@@ -580,8 +586,6 @@ public:
         return os;
     }
 
-    /** History of MODE changes */
-    //    std::deque<EventChangeLog> _modeEventHistory;
 
     friend class LoopConfigurationTest;
     friend class LoopTest;
@@ -640,6 +644,70 @@ private:
     template<class Map, class MapIterator, class Set, class SetIterator, class Device>
     int peekDeviceMap(Map &map, std::string deviceName,
 		      PatternMask patternMask, DataPoint &dataPoint, int pos);
+
+
+    /**
+     * Get beam destination from pattern index.
+     * ATTN: If the pattern assignments change for HXR/SXR delivery this code will also have to change!
+     * TODO: Investigate making this runtime configuratble.
+     */
+
+    enum class Destination {
+        HXR,
+        SXR,
+    };
+
+    Destination getPatternDestination(int patternIndex) {
+       if (patternIndex == 0 || patternIndex == 3) // P1 or P4 aka DS0 or DS3
+           return Destination::HXR;
+       else                                        // P2 or P3 aka DS1 or DS2
+           return Destination::SXR;
+    } 
+
+    /*
+     * The following PVs are specific to a destination. Used for Longitudinal feedback.
+     */
+
+    /** FBCK:FBxx:LG01:DL1VERNIER_(SXR) */
+    PvData<double> _dl1EnergyVernierPvHXR;
+    PvData<double> _dl1EnergyVernierPvSXR;
+
+    /** FBCK:FBxx:LG01:BC1VERNIER_(SXR) */
+    PvData<double> _bc1EnergyVernierPvHXR;
+    PvData<double> _bc1EnergyVernierPvSXR;
+
+    /** FBCK:FBxx:LG01:BC2VERNIER_(SXR) */
+    PvData<double> _bc2EnergyVernierPvHXR;
+    PvData<double> _bc2EnergyVernierPvSXR;
+
+    /** FBCK:FBxx:LG01:DL2VERNIER_(SXR) */
+    PvData<double> _dl2EnergyVernierPvHXR;
+    PvData<double> _dl2EnergyVernierPvSXR;
+
+    /* SIOC:SYS0:FBxx:DL1_EREF_(SXR) PV via CA */
+    PvData<double> _dl1ErefPvHXR;
+    PvData<double> _dl1ErefPvSXR;
+
+    /* SIOC:SYS0:FBxx:BC1_EREF_(SXR) PV via CA */
+    PvData<double> _bc1ErefPvHXR;
+    PvData<double> _bc1ErefPvSXR;
+
+    /* SIOC:SYS0:FBxx:BC2_EREF_(SXR) PV via CA */
+    PvData<double> _bc2ErefPvHXR;
+    PvData<double> _bc2ErefPvSXR;
+
+    /* SIOC:SYS0:FBxx:DL2_EREF_(SXR) PV via CA */
+    PvData<double> _dl2ErefPvHXR;
+    PvData<double> _dl2ErefPvSXR;
+
+    /* SIOC:SYS0:FBxx:LEM_DL2ENLOLO_(SXR) PV via CA */
+    PvData<double> _dl2EnLoloPvHXR;
+    PvData<double> _dl2EnLoloPvSXR;
+
+    /* SIOC:SYS0:FBxx:LEM_DL2ENHIHI_(SXR) PV via CA */
+    PvData<double> _dl2EnHihiPvHXR;
+    PvData<double> _dl2EnHihiPvSXR;
+
 };
 
 FF_NAMESPACE_END

@@ -523,21 +523,18 @@ double Longitudinal::calculateEnergyDl1(MeasurementDevice *m1, MeasurementDevice
         measurement = m2;
         dispersion = _loopConfiguration->_dispersions[M2];
     }
-    /*
-    double energy = (measurement->peek() / dispersion + 1) *
-            (135.0 / s1->getSetpoint()) - 1;
-    */
+
     // Joe's algorithm
-    //    double energy = measurement->peek() * (s1->getSetpoint()/dispersion);
-    double refEnergy = ExecConfiguration::getInstance()._dl1ErefPv.getValue() * 1000;
-    double setpoint = refEnergy +_loopConfiguration->_dl1EnergyVernierPv.getValue() + s1->getOffset();
-    //    double energy = measurement->peek() * (refEnergy/dispersion) + setpoint;
-    //    double energy = measurement->peek() * (refEnergy/dispersion) + refEnergy - s1->getSetpoint();
-    double energy = measurement->peek() * (refEnergy/dispersion) + refEnergy - setpoint;
+    auto [eref, vernier] = _loopConfiguration->getEnergy(_patternIndex, EnergyLocation::DL1_ENERGY);
+
+    double refEnergy = eref * 1000;
+    double setpoint  = refEnergy + vernier + s1->getOffset();
+    double energy    = measurement->peek() * (refEnergy/dispersion) + refEnergy - setpoint;
 
     _latestMeasurements[0] = energy;
     _energyAverage[DL1_ENERGY]->add(energy);
     _latestMeasurementsSum[0] = _energyAverage[DL1_ENERGY]->getSum();
+
     if (std::isnan(_latestMeasurementsSum[0])) {
 
       _loopConfiguration->_logger << Log::flagAlgo << Log::dpError 
@@ -569,19 +566,13 @@ double Longitudinal::calculateEnergyBc1(MeasurementDevice* m3, StateDevice* s2) 
         _latestMeasurementsSum[1] = 0;
         return 0;
     }
-    /*
-    double energy = (m3->peek() / _loopConfiguration->_dispersions[M3] + 1) *
-            (220.0 / s2->getSetpoint()) - 1;
-    */
+
     // Joe's algorithm
-    //    double energy = m3->peek() * (s2->getSetpoint()/_loopConfiguration->_dispersions[M3]);
-    double refEnergy = ExecConfiguration::getInstance()._bc1ErefPv.getValue() * 1000;
-    double setpoint = refEnergy + _loopConfiguration->_bc1EnergyVernierPv.getValue() + s2->getOffset();
-    //    double energy = m3->peek() * (refEnergy/_loopConfiguration->_dispersions[M3]) + setpoint;
-    //    double energy = m3->peek() * (refEnergy/_loopConfiguration->_dispersions[M3]) +
-    //      refEnergy - s2->getSetpoint();
-    double energy = m3->peek() * (refEnergy/_loopConfiguration->_dispersions[M3]) +
-      refEnergy - setpoint;
+    auto [eref, vernier] = _loopConfiguration->getEnergy(_patternIndex, EnergyLocation::BC1_ENERGY);
+
+    double refEnergy = eref * 1000;
+    double setpoint  = refEnergy + vernier + s2->getOffset();
+    double energy    = m3->peek() * (refEnergy/_loopConfiguration->_dispersions[M3]) + refEnergy - setpoint;
 
     _latestMeasurements[1] = energy;
     _energyAverage[BC1_ENERGY]->add(energy);
@@ -667,19 +658,13 @@ double Longitudinal::calculateEnergyBc2(MeasurementDevice* m5, StateDevice* s4) 
         _latestMeasurementsSum[3] = 0;
         return 0;
     }
-    /*
-    double energy = (m5->peek() / _loopConfiguration->_dispersions[M5] + 1) *
-      (5000.0 / s4->getSetpoint()) - 1;
-    */
+
     // Joe's algorithm
-    //    double energy = m5->peek() * (s4->getSetpoint()/_loopConfiguration->_dispersions[M5]);
-    double refEnergy = ExecConfiguration::getInstance()._bc2ErefPv.getValue() * 1000;
-    double setpoint = refEnergy + _loopConfiguration->_bc2EnergyVernierPv.getValue() + s4->getOffset();
-    //    double energy = m5->peek() * (refEnergy/_loopConfiguration->_dispersions[M5]) + setpoint;
-    //    double energy = m5->peek() * (refEnergy/_loopConfiguration->_dispersions[M5]) +
-    //      refEnergy - s4->getSetpoint();
-    double energy = m5->peek() * (refEnergy/_loopConfiguration->_dispersions[M5]) +
-      refEnergy - setpoint;
+    auto [eref, vernier] = _loopConfiguration->getEnergy(_patternIndex, EnergyLocation::BC2_ENERGY);
+    
+    double refEnergy = eref * 1000;
+    double setpoint  = refEnergy + vernier + s4->getOffset();
+    double energy = m5->peek() * (refEnergy/_loopConfiguration->_dispersions[M5]) + refEnergy - setpoint;
 
     _latestMeasurements[3] = energy;
     _energyAverage[BC2_ENERGY]->add(energy);
@@ -766,36 +751,29 @@ double Longitudinal::calculateEnergyDl2(MeasurementDevice* m7,
         return 0;
     }
 
-    double energy = 0;
-    //    double by1Bdes = ExecConfiguration::getInstance()._by1BdesPv.getValue();
-    //    by1Bdes *= 1000;
-    double refEnergy = ExecConfiguration::getInstance()._dl2ErefPv.getValue() * 1000;
-    double setpoint = refEnergy + _loopConfiguration->_dl2EnergyVernierPv.getValue() + s6->getOffset();
+    auto [eref, vernier] = _loopConfiguration->getEnergy(_patternIndex, EnergyLocation::DL2_ENERGY);
+    
+    double refEnergy = eref * 1000;
+    double setpoint = refEnergy + vernier + s6->getOffset();
+    double energy = 0.0;
 
     // Beam is going through BSY
-    if (_measurementStatus[M7] == VALID) {
-	energy = m7->peek() * (refEnergy/_loopConfiguration->_dispersions[M7]) +
-	  refEnergy - setpoint;
-	//	  refEnergy - s6->getSetpoint();
-    } else {
+    if (_measurementStatus[M7] == VALID)
+        energy = m7->peek() * (refEnergy/_loopConfiguration->_dispersions[M7]) + refEnergy - setpoint;
+
+    else {
         // Energy problem, trying to recover with M10
-        if (_measurementStatus[M10] == M10ENERGY) {
-	  energy = m10->peek() * (refEnergy/_loopConfiguration->_dispersions[M10]) +
-	    refEnergy - setpoint;
-	  //	    refEnergy - s6->getSetpoint();
-        } else {
+        if (_measurementStatus[M10] == M10ENERGY)
+            energy = m10->peek() * (refEnergy/_loopConfiguration->_dispersions[M10]) + refEnergy - setpoint;
+
+        else {
             // Beam is going through BYKIK
-            if (_measurementStatus[M8] == VALID &&
-                    _measurementStatus[M9] == INVALID) {
-	      energy = m8->peek() * (refEnergy/_loopConfiguration->_dispersions[M8]) +
-		refEnergy - setpoint;
-		//		refEnergy - s6->getSetpoint();
-            } else { // Beam is going through LTU
-	      energy = ((((m8->peek()/_loopConfiguration->_dispersions[M8])+
-			  (m9->peek()/_loopConfiguration->_dispersions[M9]) ) /2 ) * refEnergy) +
-		refEnergy - setpoint;
-	      //		refEnergy - s6->getSetpoint();
-            }
+            if (_measurementStatus[M8] == VALID && _measurementStatus[M9] == INVALID)
+                energy = m8->peek() * (refEnergy/_loopConfiguration->_dispersions[M8]) + refEnergy - setpoint;
+
+            else // Beam is going through LTU
+                energy = ((((m8->peek()/_loopConfiguration->_dispersions[M8])+
+			        (m9->peek()/_loopConfiguration->_dispersions[M9]) ) /2 ) * refEnergy) + refEnergy - setpoint;
         }
     }
 
@@ -837,59 +815,63 @@ int Longitudinal::updateStates() {
 
     // Energy at DL1
     if ((*stateIt)->isUsed() && (*stateIt)->getUsedBy()) {
-      if (calculateEnergyState(*stateIt, _energyAverage[DL1_ENERGY]->getLatestValue(),
-			       _loopConfiguration->_dl1EnergyVernierPv.getValue()) != 0) {
-        stateLimit = true;
-	stateLimitFlag |= 0x01;
-      }
+        auto [_, vernier] = _loopConfiguration->getEnergy(_patternIndex, DL1_ENERGY);
+
+        if (calculateEnergyState(*stateIt, _energyAverage[DL1_ENERGY]->getLatestValue(), vernier) != 0) {
+            stateLimit = true;
+            stateLimitFlag |= 0x01;
+        }
     }
 
     // Energy at BC1
     ++stateIt;
     if ((*stateIt)->isUsed() && (*stateIt)->getUsedBy()) {
-      if (calculateEnergyState(*stateIt, _energyAverage[BC1_ENERGY]->getLatestValue(),
-			       _loopConfiguration->_bc1EnergyVernierPv.getValue()) != 0) {
-        stateLimit = true;
-	stateLimitFlag |= 0x02;
-      }
+        auto [_, vernier] = _loopConfiguration->getEnergy(_patternIndex, BC1_ENERGY);
+
+        if (calculateEnergyState(*stateIt, _energyAverage[BC1_ENERGY]->getLatestValue(), vernier) != 0) {
+            stateLimit = true;
+	        stateLimitFlag |= 0x02;
+        }
     }
 
     // Current at BC1
     ++stateIt;
     if ((*stateIt)->isUsed() && (*stateIt)->getUsedBy()) {
-      if (calculateCurrentState(*stateIt, _currentAverage[BC1_CURRENT]->getLatestValue()) != 0) {
-        stateLimit = true;
-	stateLimitFlag |= 0x04;
-      }
+        if (calculateCurrentState(*stateIt, _currentAverage[BC1_CURRENT]->getLatestValue()) != 0) {
+            stateLimit = true;
+	        stateLimitFlag |= 0x04;
+        }
     }
 
     // Energy at BC2
     ++stateIt;
     if ((*stateIt)->isUsed() && (*stateIt)->getUsedBy()) {
-      if (calculateEnergyState(*stateIt, _energyAverage[BC2_ENERGY]->getLatestValue(),
-			       _loopConfiguration->_bc2EnergyVernierPv.getValue()) != 0) {
-        stateLimit = true;
-	stateLimitFlag |= 0x08;
-      }
+        auto [_, vernier] = _loopConfiguration->getEnergy(_patternIndex, BC2_ENERGY);
+
+        if (calculateEnergyState(*stateIt, _energyAverage[BC2_ENERGY]->getLatestValue(), vernier) != 0) {
+            stateLimit = true;
+	        stateLimitFlag |= 0x08;
+        }
     }
 
     // Current at BC2
     ++stateIt;
     if ((*stateIt)->isUsed() && (*stateIt)->getUsedBy()) {
-      if (calculateCurrentState(*stateIt, _currentAverage[BC2_CURRENT]->getLatestValue()) != 0) {
-        stateLimit = true;
-	stateLimitFlag |= 0x10;
-      }
+        if (calculateCurrentState(*stateIt, _currentAverage[BC2_CURRENT]->getLatestValue()) != 0) {
+            stateLimit = true;
+            stateLimitFlag |= 0x10;
+        }
     }
 
     // Energy at DL2
     ++stateIt;
     if ((*stateIt)->isUsed() && (*stateIt)->getUsedBy()) {
-      if (calculateEnergyState(*stateIt, _energyAverage[DL2_ENERGY]->getLatestValue(),
-			       _loopConfiguration->_dl2EnergyVernierPv.getValue()) != 0) {
-        stateLimit = true;
-	stateLimitFlag |= 0x20;
-      }
+        auto [_, vernier] = _loopConfiguration->getEnergy(_patternIndex, DL2_ENERGY);
+
+        if (calculateEnergyState(*stateIt, _energyAverage[DL2_ENERGY]->getLatestValue(), vernier) != 0) {
+            stateLimit = true;
+            stateLimitFlag |= 0x20;
+        }
     }
 
     if (stateLimitFlag > 0) {
