@@ -26,12 +26,6 @@ _algorithmsAvailable("ALGORITHMS"),
 _tmitLowPv("TMITLOW"),
 _by1BdesPv("BY1BDES"),
 _laserPowerReadbackPv("LASER_PWR_READBACK"),
-_dl1ErefPv("DL1_EREF"),
-_bc1ErefPv("BC1_EREF"),
-_bc2ErefPv("BC2_EREF"),
-_dl2ErefPv("DL2_EREF"),
-_dl2EnLoloPv("LEM_DL2ENLOLO"),
-_dl2EnHihiPv("LEM_DL2ENHIHI"),
 _s29AsumPv("S29_ASUM") {
     std::vector<std::string> *algorithms = _algorithmsAvailable.getValueAddress();
     if (algorithms != NULL) {

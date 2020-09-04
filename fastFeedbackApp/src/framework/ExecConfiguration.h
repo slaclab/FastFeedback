@@ -90,48 +90,6 @@ public:
      */
     PvData<double> _laserPowerReadbackPv;
 
-    /**
-     * This PvData is mapped to the SIOC:SYS0:FBxx:DL1_EREF PV through
-     * ChannelAccess link. Whenever the DL1_EREF PV changes this attribute
-     * is changed as well.
-     */
-    PvData<double> _dl1ErefPv;
-
-    /**
-     * This PvData is mapped to the SIOC:SYS0:FBxx:BC1_EREF PV through
-     * ChannelAccess link. Whenever the BC1_EREF PV changes this attribute
-     * is changed as well.
-     */
-    PvData<double> _bc1ErefPv;
-
-    /**
-     * This PvData is mapped to the SIOC:SYS0:FBxx:BC2_EREF PV through
-     * ChannelAccess link. Whenever the BC2_EREF PV changes this attribute
-     * is changed as well.
-     */
-    PvData<double> _bc2ErefPv;
-
-    /**
-     * This PvData is mapped to the SIOC:SYS0:FBxx:DL2_EREF PV through
-     * ChannelAccess link. Whenever the DL2_EREF PV changes this attribute
-     * is changed as well.
-     */
-    PvData<double> _dl2ErefPv;
-
-    /**
-     * This PvData is mapped to the Matlab PV SIOC:SYS0:ML00:AO280 PV through
-     * ChannelAccess link. That PV contains the LOLO limit for the DL2 energy
-     * actuator that is used by the Longitudinal feedback.
-     */
-    PvData<double> _dl2EnLoloPv;
-
-    /**
-     * This PvData is mapped to the Matlab PV SIOC:SYS0:ML00:AO281 PV through
-     * ChannelAccess link. That PV contains the HIHI limit for the DL2 energy
-     * actuator that is used by the Longitudinal feedback.
-     */
-    PvData<double> _dl2EnHihiPv;
-
     PvData<double> _s29AsumPv;
 
     /** Set to true if PatternGenerator is configured. Used for testing only. */
