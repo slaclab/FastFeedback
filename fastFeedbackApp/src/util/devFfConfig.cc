@@ -925,6 +925,10 @@ static long devWoFfConfig_init_record(waveformRecord *precord) {
     else if (precord->ftvl == menuFtypeUSHORT)
         status = init_waveformout<unsigned short>(precord);
 
+    else
+        std::cout << "PvData: \"" << precord->inp.value.instio.string
+                  << "\" has invalid ftvl field. (inp.type = "
+                  << precord->inp.type << ", ftvl = " << precord->ftvl << ")\n";
 
     if (status != 0) {
         precord->udf = TRUE;
