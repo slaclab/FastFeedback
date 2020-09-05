@@ -115,7 +115,7 @@ record(ao, "$(IOC):$(LC):$(LOOP):DL1_EREF") {
 
 # DL1 Energy Reference - SXR
 record(ai, "$(IOC):$(LC):$(LOOP):DL1_EREF_IN_SXR") {
-  field(DESC, "DL1 energy ref")
+  field(DESC, "DL1 SXR energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(FLNK, "$(IOC):$(LC):$(LOOP):DL1_EREF_SXR")
@@ -126,7 +126,7 @@ record(ai, "$(IOC):$(LC):$(LOOP):DL1_EREF_IN_SXR") {
 }
 
 record(ao, "$(IOC):$(LC):$(LOOP):DL1_EREF_SXR") {
-  field(DESC, "DL1 energy ref")
+  field(DESC, "DL1 SXR energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(VAL, "0")
@@ -172,7 +172,7 @@ record(ao, "$(IOC):$(LC):$(LOOP):BC1_EREF") {
 
 # BC1 Energy Reference - SXR
 record(ai, "$(IOC):$(LC):$(LOOP):BC1_EREF_IN_SXR") {
-  field(DESC, "BC1 energy ref")
+  field(DESC, "BC1 SXR energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(FLNK, "$(IOC):$(LC):$(LOOP):BC1_EREF_SXR")
@@ -182,7 +182,7 @@ record(ai, "$(IOC):$(LC):$(LOOP):BC1_EREF_IN_SXR") {
   field(PRIO, "MEDIUM")
 }
 record(ao, "$(IOC):$(LC):$(LOOP):BC1_EREF_SXR") {
-  field(DESC, "BC1 energy ref")
+  field(DESC, "BC1 SXR energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(VAL, "0")
@@ -228,7 +228,7 @@ record(ao, "$(IOC):$(LC):$(LOOP):BC2_EREF") {
 
 # BC2 Energy Reference - SXR
 record(ai, "$(IOC):$(LC):$(LOOP):BC2_EREF_IN_SXR") {
-  field(DESC, "BC2 energy ref")
+  field(DESC, "BC2 SXR energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(FLNK, "$(IOC):$(LC):$(LOOP):BC2_EREF_SXR")
@@ -238,7 +238,7 @@ record(ai, "$(IOC):$(LC):$(LOOP):BC2_EREF_IN_SXR") {
   field(PRIO, "MEDIUM")
 }
 record(ao, "$(IOC):$(LC):$(LOOP):BC2_EREF_SXR") {
-  field(DESC, "BC2 energy ref")
+  field(DESC, "BC2 SXR energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(VAL, "0")
@@ -284,7 +284,7 @@ record(ao, "$(IOC):$(LC):$(LOOP):DL2_EREF") {
 
 # DL2 Energy Reference - SXR
 record(ai, "$(IOC):$(LC):$(LOOP):DL2_EREF_IN_SXR") {
-  field(DESC, "DL2 energy ref")
+  field(DESC, "DL2 SXR energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(FLNK, "$(IOC):$(LC):$(LOOP):DL2_EREF_SXR")
@@ -294,7 +294,7 @@ record(ai, "$(IOC):$(LC):$(LOOP):DL2_EREF_IN_SXR") {
   field(PRIO, "MEDIUM")
 }
 record(ao, "$(IOC):$(LC):$(LOOP):DL2_EREF_SXR") {
-  field(DESC, "DL2 energy ref")
+  field(DESC, "DL2 SXR energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(VAL, "0")
