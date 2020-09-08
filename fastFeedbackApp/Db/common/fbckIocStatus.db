@@ -85,14 +85,13 @@ record(ao, "$(IOC):$(LC):$(LOOP):LASER_PWR_READBACK") {
 #------------------------------------------------------------
 # For Longitudinal feedback only (BEGIN)
 #------------------------------------------------------------
-# DL1 Energy Reference
+# DL1 Energy Reference - HXR
 record(ai, "$(IOC):$(LC):$(LOOP):DL1_EREF_IN") {
   field(DESC, "DL1 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(FLNK, "$(IOC):$(LC):$(LOOP):DL1_EREF")
   field(VAL, "0")
-#  field(INP, "SIOC:SYS0:ML00:AO406 CPP MS")
   field(INP, "REFS:IN20:751:EDES CPP MS")
   field(EGU, "GeV/c")
   field(PRIO, "MEDIUM")
@@ -114,14 +113,42 @@ record(ao, "$(IOC):$(LC):$(LOOP):DL1_EREF") {
   field(PRIO, "MEDIUM")
 }
 
-# BC1 Energy Reference
+# DL1 Energy Reference - SXR
+record(ai, "$(IOC):$(LC):$(LOOP):DL1_EREF_IN_SXR") {
+  field(DESC, "DL1 SXR energy ref")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):DL1_EREF_SXR")
+  field(VAL, "0")
+  field(INP, "REFS:IN20:751:EDES CPP MS")
+  field(EGU, "GeV/c")
+  field(PRIO, "MEDIUM")
+}
+
+record(ao, "$(IOC):$(LC):$(LOOP):DL1_EREF_SXR") {
+  field(DESC, "DL1 SXR energy ref")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(VAL, "0")
+  field(DTYP, "FfConfig")
+  field(OUT, "@DL1_EREF_SXR")
+  field(DOL, "$(IOC):$(LC):$(LOOP):DL1_EREF_IN_SXR")
+  field(EGU, "GeV/c")
+  field(OMSL, "closed_loop")
+  field(OIF, "Full")
+  field(DRVH, "20")
+  field(DRVL, "0")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):DL1SETPOINT_SXR")
+  field(PRIO, "MEDIUM")
+}
+
+# BC1 Energy Reference - HXR
 record(ai, "$(IOC):$(LC):$(LOOP):BC1_EREF_IN") {
   field(DESC, "BC1 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(FLNK, "$(IOC):$(LC):$(LOOP):BC1_EREF")
   field(VAL, "0")
-#  field(INP, "SIOC:SYS0:ML00:AO407 CPP MS")
   field(INP, "REFS:LI21:231:EDES CPP MS")
   field(EGU, "GeV/c")
   field(PRIO, "MEDIUM")
@@ -143,14 +170,41 @@ record(ao, "$(IOC):$(LC):$(LOOP):BC1_EREF") {
   field(PRIO, "MEDIUM")
 }
 
-# BC2 Energy Reference
+# BC1 Energy Reference - SXR
+record(ai, "$(IOC):$(LC):$(LOOP):BC1_EREF_IN_SXR") {
+  field(DESC, "BC1 SXR energy ref")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):BC1_EREF_SXR")
+  field(VAL, "0")
+  field(INP, "REFS:LI21:231:EDES CPP MS")
+  field(EGU, "GeV/c")
+  field(PRIO, "MEDIUM")
+}
+record(ao, "$(IOC):$(LC):$(LOOP):BC1_EREF_SXR") {
+  field(DESC, "BC1 SXR energy ref")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(VAL, "0")
+  field(DTYP, "FfConfig")
+  field(OUT, "@BC1_EREF_SXR")
+  field(DOL, "$(IOC):$(LC):$(LOOP):BC1_EREF_IN_SXR")
+  field(EGU, "GeV/c")
+  field(OMSL, "closed_loop")
+  field(OIF, "Full")
+  field(DRVH, "20")
+  field(DRVL, "0")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):BC1SETPOINT_SXR")
+  field(PRIO, "MEDIUM")
+}
+
+# BC2 Energy Reference - HXR
 record(ai, "$(IOC):$(LC):$(LOOP):BC2_EREF_IN") {
   field(DESC, "BC2 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(FLNK, "$(IOC):$(LC):$(LOOP):BC2_EREF")
   field(VAL, "0")
-#  field(INP, "SIOC:SYS0:ML00:AO408 CPP MS")
   field(INP, "REFS:LI24:790:EDES CPP MS")
   field(EGU, "GeV/c")
   field(PRIO, "MEDIUM")
@@ -172,14 +226,41 @@ record(ao, "$(IOC):$(LC):$(LOOP):BC2_EREF") {
   field(PRIO, "MEDIUM")
 }
 
-# DL2 Energy Reference
+# BC2 Energy Reference - SXR
+record(ai, "$(IOC):$(LC):$(LOOP):BC2_EREF_IN_SXR") {
+  field(DESC, "BC2 SXR energy ref")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):BC2_EREF_SXR")
+  field(VAL, "0")
+  field(INP, "REFS:LI24:790:EDES CPP MS")
+  field(EGU, "GeV/c")
+  field(PRIO, "MEDIUM")
+}
+record(ao, "$(IOC):$(LC):$(LOOP):BC2_EREF_SXR") {
+  field(DESC, "BC2 SXR energy ref")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(VAL, "0")
+  field(DTYP, "FfConfig")
+  field(OUT, "@BC2_EREF_SXR")
+  field(DOL, "$(IOC):$(LC):$(LOOP):BC2_EREF_IN_SXR")
+  field(EGU, "GeV/c")
+  field(OMSL, "closed_loop")
+  field(OIF, "Full")
+  field(DRVH, "20")
+  field(DRVL, "0")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):BC2SETPOINT_SXR")
+  field(PRIO, "MEDIUM")
+}
+
+# DL2 Energy Reference - HXR
 record(ai, "$(IOC):$(LC):$(LOOP):DL2_EREF_IN") {
   field(DESC, "DL2 energy ref")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(FLNK, "$(IOC):$(LC):$(LOOP):DL2_EREF")
   field(VAL, "0")
-#  field(INP, "SIOC:SYS0:ML00:AO409 CPP MS")
   field(INP, "REFS:DMPH:400:EDES CPP MS")
   field(EGU, "GeV/c")
   field(PRIO, "MEDIUM")
@@ -200,6 +281,35 @@ record(ao, "$(IOC):$(LC):$(LOOP):DL2_EREF") {
   field(FLNK, "FBCK:$(AREA):$(LOOP):DL2SETPOINT")
   field(PRIO, "MEDIUM")
 }
+
+# DL2 Energy Reference - SXR
+record(ai, "$(IOC):$(LC):$(LOOP):DL2_EREF_IN_SXR") {
+  field(DESC, "DL2 SXR energy ref")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):DL2_EREF_SXR")
+  field(VAL, "0")
+  field(INP, "REFS:DMPH:400:EDES CPP MS")
+  field(EGU, "GeV/c")
+  field(PRIO, "MEDIUM")
+}
+record(ao, "$(IOC):$(LC):$(LOOP):DL2_EREF_SXR") {
+  field(DESC, "DL2 SXR energy ref")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(VAL, "0")
+  field(DTYP, "FfConfig")
+  field(OUT, "@DL2_EREF_SXR")
+  field(DOL, "$(IOC):$(LC):$(LOOP):DL2_EREF_IN_SXR")
+  field(EGU, "GeV/c")
+  field(OMSL, "closed_loop")
+  field(OIF, "Full")
+  field(DRVH, "20")
+  field(DRVL, "0")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):DL2SETPOINT_SXR")
+  field(PRIO, "MEDIUM")
+}
+
 #------------------------------------------------------------
 # For Longitudinal feedback only (END)
 #------------------------------------------------------------
