@@ -9,8 +9,15 @@
 #        18-Nov-2015, A. Babbitt         (ababbitt)
 #               2017, J. Mock            (jmock)
 #               2018, W. Williams        (ernesto)
+#               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R3.3.0:   8-September-2020 R.Reno (rreno)
+    * Add independent Energy Ref and Verniers for the longitudinal loop.
+    * Add records supporting energy ref and verniers specific to SXR.
+        - Left the original records for HXR the same and appended _SXR where appropriate
+	  eg: FBCK:FB04:LG01:DL1VERNIER_SXR
+
 R3.2.2:   25-August-2020 R. Reno (rreno)
     * Add second independent actuator reference for longitudinal loop. Re-enable zeroOffset()
       removed in previous release.
