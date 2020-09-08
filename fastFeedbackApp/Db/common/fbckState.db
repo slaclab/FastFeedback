@@ -152,6 +152,19 @@ record(ao, "FBCK:$(AREA):$(LOOP):DL1VERNIER") {
   field(FLNK, "FBCK:$(AREA):$(LOOP):DL1SETPOINT")
   info(autosaveMon$(AREA), "VAL EGU")
 }
+
+record(ao, "FBCK:$(AREA):$(LOOP):DL1VERNIER_SXR") {
+  field(DTYP, "FfConfig")
+  field(EGU, "$(EGU)")
+  field(PINI, "YES")
+  field(PREC, "4")
+  field(EGU, "MeV")
+  field(OUT, "@$(LOOP) DL1VERNIER_SXR")
+  field(PRIO, "LOW")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):DL1SETPOINT_SXR")
+  info(autosaveMon$(AREA), "VAL EGU")
+}
+
 record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT") {
   field(DESC, "DL1 Energy Setpoint")
   field(PINI, "YES")
@@ -162,6 +175,18 @@ record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT") {
   field(CALC, "B*1000+A")
   info(autosaveMon$(AREA), "VAL EGU")
 }
+
+record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT_SXR") {
+  field(DESC, "DL1 Energy Setpoint - SXR")
+  field(PINI, "YES")
+  field(PRIO, "LOW")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL1VERNIER_SXR")
+  field(INPB, "$(IOC):$(LC):$(LOOP):DL1_EREF_SXR")
+  field(EGU, "MeV")
+  field(CALC, "B*1000+A")
+  info(autosaveMon$(AREA), "VAL EGU")
+}
+
 record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINTHST") {
   field(INP, "FBCK:$(AREA):$(LOOP):DL1SETPOINT.VAL")
   field(PINI, "YES")
@@ -178,6 +203,28 @@ record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINTHST_S") {
   field(PREC, "4")
   field(SCAN, ".2 second")
 }
+
+record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINTHST_SXR") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL1SETPOINT_SXR.VAL")
+  field(PINI, "YES")
+  field(ALG, "Circular Buffer")
+  field(NSAM, "$(NSAM)")
+  field(EGU, "$(EGU)")
+}
+
+record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINTHST_S_SXR") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL1SETPOINT_SXR.VAL")
+  field(ALG, "Circular Buffer")
+  field(PINI, "YES")
+  field(NSAM, "$(NDISP)")
+  field(EGU, "$(EGU)")
+  field(PREC, "4")
+  field(SCAN, ".2 second")
+}
+
+# DL1 Setpoints for each pattern. 
+# As of right now, P1 and P4 are for HXR delivery
+# and P2, P3 are for SXR.
 
 record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT1") {
   field(PINI, "YES")
@@ -203,7 +250,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINT1HST_S") {
 
 record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT2") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):$(LOOP):DL1SETPOINT")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL1SETPOINT_SXR")
   field(INPB, "FBCK:$(AREA):$(LOOP):S1OFFSET2")
   field(EGU, "$(EGU)")
   field(PREC, "4")
@@ -225,7 +272,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):DL1SETPOINT2HST_S") {
 
 record(calcout, "FBCK:$(AREA):$(LOOP):DL1SETPOINT3") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):$(LOOP):DL1SETPOINT")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL1SETPOINT_SXR")
   field(INPB, "FBCK:$(AREA):$(LOOP):S1OFFSET3")
   field(EGU, "$(EGU)")
   field(PREC, "4")
@@ -281,6 +328,19 @@ record(ao, "FBCK:$(AREA):$(LOOP):BC1VERNIER") {
   field(FLNK, "FBCK:$(AREA):$(LOOP):BC1SETPOINT")
   info(autosaveMon$(AREA), "VAL EGU")
 }
+
+record(ao, "FBCK:$(AREA):$(LOOP):BC1VERNIER_SXR") {
+  field(DTYP, "FfConfig")
+  field(EGU, "$(EGU)")
+  field(PINI, "YES")
+  field(PREC, "4")
+  field(EGU, "MeV")
+  field(OUT, "@$(LOOP) BC1VERNIER_SXR")
+  field(PRIO, "LOW")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):BC1SETPOINT_SXR")
+  info(autosaveMon$(AREA), "VAL EGU")
+}
+
 record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT") {
   field(DESC, "BC1 Energy Setpoint")
   field(PINI, "YES")
@@ -291,6 +351,18 @@ record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT") {
   field(CALC, "B*1000+A")
   info(autosaveMon$(AREA), "VAL EGU")
 }
+
+record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT_SXR") {
+  field(DESC, "BC1 Energy Setpoint")
+  field(PINI, "YES")
+  field(PRIO, "LOW")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC1VERNIER_SXR")
+  field(INPB, "$(IOC):$(LC):$(LOOP):BC1_EREF_SXR")
+  field(EGU, "MeV")
+  field(CALC, "B*1000+A")
+  info(autosaveMon$(AREA), "VAL EGU")
+}
+
 record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINTHST") {
   field(INP, "FBCK:$(AREA):$(LOOP):BC1SETPOINT.VAL")
   field(ALG, "Circular Buffer")
@@ -303,9 +375,28 @@ record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINTHST_S") {
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
   field(PREC, "4")
-#  field(SCAN, "Passive")
   field(SCAN, ".2 second")
 }
+
+record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINTHST_SXR") {
+  field(INP, "FBCK:$(AREA):$(LOOP):BC1SETPOINT_SXR.VAL")
+  field(ALG, "Circular Buffer")
+  field(NSAM, "$(NSAM)")
+  field(EGU, "$(EGU)")
+}
+record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINTHST_S_SXR") {
+  field(INP, "FBCK:$(AREA):$(LOOP):BC1SETPOINT_SXR.VAL")
+  field(ALG, "Circular Buffer")
+  field(NSAM, "$(NDISP)")
+  field(EGU, "$(EGU)")
+  field(PREC, "4")
+  field(SCAN, ".2 second")
+}
+
+# BC1 Setpoints for each pattern. 
+# As of right now, P1 and P4 are for HXR delivery
+# and P2, P3 are for SXR.
+
 record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT1") {
   field(PINI, "YES")
   field(INPA, "FBCK:$(AREA):$(LOOP):BC1SETPOINT")
@@ -330,7 +421,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINT1HST_S") {
 
 record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT2") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):$(LOOP):BC1SETPOINT")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC1SETPOINT_SXR")
   field(INPB, "FBCK:$(AREA):$(LOOP):S2OFFSET2")
   field(EGU, "$(EGU)")
   field(PREC, "4")
@@ -352,7 +443,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):BC1SETPOINT2HST_S") {
 
 record(calcout, "FBCK:$(AREA):$(LOOP):BC1SETPOINT3") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):$(LOOP):BC1SETPOINT")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC1SETPOINT_SXR")
   field(INPB, "FBCK:$(AREA):$(LOOP):S2OFFSET3")
   field(EGU, "$(EGU)")
   field(PREC, "4")
@@ -408,6 +499,19 @@ record(ao, "FBCK:$(AREA):$(LOOP):BC2VERNIER") {
   field(FLNK, "FBCK:$(AREA):$(LOOP):BC2SETPOINT")
   info(autosaveMon$(AREA), "VAL EGU")
 }
+
+record(ao, "FBCK:$(AREA):$(LOOP):BC2VERNIER_SXR") {
+  field(DTYP, "FfConfig")
+  field(EGU, "$(EGU)")
+  field(PINI, "YES")
+  field(PREC, "4")
+  field(EGU, "MeV")
+  field(OUT, "@$(LOOP) BC2VERNIER_SXR")
+  field(PRIO, "LOW")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):BC2SETPOINT_SXR")
+  info(autosaveMon$(AREA), "VAL EGU")
+}
+
 record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT") {
   field(DESC, "BC2 Energy Setpoint")
   field(PRIO, "LOW")
@@ -418,6 +522,18 @@ record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT") {
   field(CALC, "B*1000+A")
   info(autosaveMon$(AREA), "VAL EGU")
 }
+
+record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT_SXR") {
+  field(DESC, "BC2 Energy Setpoint")
+  field(PRIO, "LOW")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC2VERNIER_SXR")
+  field(PINI, "YES")
+  field(INPB, "$(IOC):$(LC):$(LOOP):BC2_EREF_SXR")
+  field(EGU, "MeV")
+  field(CALC, "B*1000+A")
+  info(autosaveMon$(AREA), "VAL EGU")
+}
+
 record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINTHST") {
   field(INP, "FBCK:$(AREA):$(LOOP):BC2SETPOINT.VAL")
   field(ALG, "Circular Buffer")
@@ -430,9 +546,27 @@ record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINTHST_S") {
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
   field(PREC, "4")
-#  field(SCAN, "Passive")
   field(SCAN, ".2 second")
 }
+
+record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINTHST_SXR") {
+  field(INP, "FBCK:$(AREA):$(LOOP):BC2SETPOINT_SXR.VAL")
+  field(ALG, "Circular Buffer")
+  field(NSAM, "$(NSAM)")
+  field(EGU, "$(EGU)")
+}
+record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINTHST_S_SXR") {
+  field(INP, "FBCK:$(AREA):$(LOOP):BC2SETPOINT_SXR.VAL")
+  field(ALG, "Circular Buffer")
+  field(NSAM, "$(NDISP)")
+  field(EGU, "$(EGU)")
+  field(PREC, "4")
+  field(SCAN, ".2 second")
+}
+
+# BC2 Setpoints for each pattern. 
+# As of right now, P1 and P4 are for HXR delivery
+# and P2, P3 are for SXR.
 
 record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT1") {
   field(PINI, "YES")
@@ -458,7 +592,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINT1HST_S") {
 
 record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT2") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):$(LOOP):BC2SETPOINT")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC2SETPOINT_SXR")
   field(INPB, "FBCK:$(AREA):$(LOOP):S4OFFSET2")
   field(EGU, "$(EGU)")
   field(PREC, "4")
@@ -480,7 +614,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):BC2SETPOINT2HST_S") {
 
 record(calcout, "FBCK:$(AREA):$(LOOP):BC2SETPOINT3") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):$(LOOP):BC2SETPOINT")
+  field(INPA, "FBCK:$(AREA):$(LOOP):BC2SETPOINT_SXR")
   field(INPB, "FBCK:$(AREA):$(LOOP):S4OFFSET3")
   field(EGU, "$(EGU)")
   field(PREC, "4")
@@ -536,6 +670,19 @@ record(ao, "FBCK:$(AREA):$(LOOP):DL2VERNIER") {
   field(FLNK, "FBCK:$(AREA):$(LOOP):DL2SETPOINT")
   info(autosaveMon$(AREA), "VAL EGU")
 }
+
+record(ao, "FBCK:$(AREA):$(LOOP):DL2VERNIER_SXR") {
+  field(DTYP, "FfConfig")
+  field(EGU, "$(EGU)")
+  field(PINI, "YES")
+  field(PREC, "4")
+  field(OUT, "@$(LOOP) DL2VERNIER_SXR")
+  field(PRIO, "LOW")
+  field(EGU, "MeV")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):DL2SETPOINT_SXR")
+  info(autosaveMon$(AREA), "VAL EGU")
+}
+
 record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT") {
   field(DESC, "DL2 Energy Setpoint")
   field(PINI, "YES")
@@ -546,6 +693,18 @@ record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT") {
   field(CALC, "B*1000+A")
   info(autosaveMon$(AREA), "VAL EGU")
 }
+
+record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT_SXR") {
+  field(DESC, "DL2 Energy Setpoint")
+  field(PINI, "YES")
+  field(PRIO, "LOW")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL2VERNIER_SXR")
+  field(INPB, "$(IOC):$(LC):$(LOOP):DL2_EREF_SXR")
+  field(EGU, "MeV")
+  field(CALC, "B*1000+A")
+  info(autosaveMon$(AREA), "VAL EGU")
+}
+
 record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINTHST") {
   field(INP, "FBCK:$(AREA):$(LOOP):DL2SETPOINT.VAL")
   field(ALG, "Circular Buffer")
@@ -558,9 +717,28 @@ record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINTHST_S") {
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
   field(PREC, "4")
-#  field(SCAN, "Passive")
   field(SCAN, ".2 second")
 }
+
+record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINTHST_SXR") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL2SETPOINT_SXR.VAL")
+  field(ALG, "Circular Buffer")
+  field(NSAM, "$(NSAM)")
+  field(EGU, "$(EGU)")
+}
+record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINTHST_S_SXR") {
+  field(INP, "FBCK:$(AREA):$(LOOP):DL2SETPOINT_SXR.VAL")
+  field(ALG, "Circular Buffer")
+  field(NSAM, "$(NDISP)")
+  field(EGU, "$(EGU)")
+  field(PREC, "4")
+  field(SCAN, ".2 second")
+}
+
+# DL2 Setpoints for each pattern. 
+# As of right now, P1 and P4 are for HXR delivery
+# and P2, P3 are for SXR.
+
 record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT1") {
   field(PINI, "YES")
   field(INPA, "FBCK:$(AREA):$(LOOP):DL2SETPOINT")
@@ -585,7 +763,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINT1HST_S") {
 
 record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT2") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):$(LOOP):DL2SETPOINT")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL2SETPOINT_SXR")
   field(INPB, "FBCK:$(AREA):$(LOOP):S6OFFSET2")
   field(EGU, "$(EGU)")
   field(PREC, "4")
@@ -607,7 +785,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):DL2SETPOINT2HST_S") {
 
 record(calcout, "FBCK:$(AREA):$(LOOP):DL2SETPOINT3") {
   field(PINI, "YES")
-  field(INPA, "FBCK:$(AREA):$(LOOP):DL2SETPOINT")
+  field(INPA, "FBCK:$(AREA):$(LOOP):DL2SETPOINT_SXR")
   field(INPB, "FBCK:$(AREA):$(LOOP):S6OFFSET3")
   field(EGU, "$(EGU)")
   field(PREC, "4")
