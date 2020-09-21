@@ -1,1 +1,11 @@
 PKG_ARCH=$(LINUXRT_BUILDROOT_VERSION)-x86_64
+
+# ========================================
+# Support for EVR pci module
+# ========================================
+EVRMA_MANAGER_PACKAGE_NAME=evrManager
+EVRMA_MANAGER_VERSION=R1.0.9
+EVRMA_MANAGER_TOP=$(PACKAGE_SITE_TOP)/$(EVRMA_MANAGER_PACKAGE_NAME)/$(EVRMA_MANAGER_VERSION)
+EVRMA_MANAGER_BIN=$(EVRMA_MANAGER_TOP)/$(PKG_ARCH)/bin
+
+# End of file
