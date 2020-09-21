@@ -196,3 +196,21 @@ std::string PatternMask::toString() {
     str << "TS: " << std::dec << _timeSlot << "]";
     return str.str();
 }
+
+bool
+PatternMask::destinationHXR()
+{
+    /*
+     * If the destination is HXR it will either have BKRCUS in its exclusion
+     * mask or BKRCUS will not be in its inclusion mask (or both).
+     *
+     * If a mask contains BKRCUS the bitwise and with the mask and BKRCUS will
+     * be a non-zero (true) value. Likewise, if BKRCUS is not in the mask, the
+     * bitwise and will be zero (false). We can just return the logical or of
+     * these two bitwise operations to determine the destination this pattern
+     * mask is configured for.
+     */
+
+    return ( _exclusionMask[MOD3_IDX] & BKRCUS ||
+           !(_inclusionMask[MOD3_IDX] & BKRCUS) )
+}

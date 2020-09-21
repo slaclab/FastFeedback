@@ -228,7 +228,7 @@ public:
      * Get the appropriate vernier or Eref values based on destination and location in the LINAC. 
      * enum EnergyLocation is defined in Longitudinal.h 
      */
-    std::pair<double, double> getEnergy(int _patternMask, EnergyLocation energyLocation);
+    std::pair<double, double> getEnergy(int patternMask, EnergyLocation energyLocation);
 
     /**
      * Defines whether the Loop is in compute only mode (i.e. all actuator
@@ -646,22 +646,19 @@ private:
 		      PatternMask patternMask, DataPoint &dataPoint, int pos);
 
 
-    /**
-     * Get beam destination from pattern index.
-     * ATTN: If the pattern assignments change for HXR/SXR delivery this code will also have to change!
-     * TODO: Investigate making this runtime configuratble.
-     */
+    /** Get beam destination from the PatternMask */
 
     enum class Destination {
         HXR,
         SXR,
     };
 
-    Destination getPatternDestination(int patternIndex) {
-       if (patternIndex == 0 || patternIndex == 3) // P1 or P4 aka DS0 or DS3
-           return Destination::HXR;
-       else                                        // P2 or P3 aka DS1 or DS2
-           return Destination::SXR;
+    Destination getPatternDestination(int patternIndex)
+    {
+        if ( _patternMasks[patternIndex].destinationHXR() )
+            return Destination::HXR;
+        else
+            return Destination::SXR;
     } 
 
     /*

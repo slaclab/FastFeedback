@@ -46,6 +46,9 @@ typedef struct PatternMask {
     PatternMask &operator=(const std::vector<unsigned short> &vector);
     PatternMask &operator=(PatternMask & other);
     std::string toString();
+   
+    /** Determines whether the destination is HXR or SXR */ 
+    bool destinationHXR();
 
     /**
      * Print out the PatternMask information to the specified stream.
