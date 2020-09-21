@@ -212,5 +212,5 @@ PatternMask::destinationHXR()
      */
 
     return ( _exclusionMask[MOD3_IDX] & BKRCUS ||
-           !(_inclusionMask[MOD3_IDX] & BKRCUS) )
+           !(_inclusionMask[MOD3_IDX] & BKRCUS) );
 }
