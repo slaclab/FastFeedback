@@ -13,7 +13,7 @@
 #      
 #==============================================================
 
-R3.3.1:   21-September-2020, K. Luchini (luchini):
+R3.4.0:   21-September-2020, K. Luchini (luchini):
     * Add cpuBoot directory
     * Add configure/RULES.cpu
     * Add evrManager to configure/CONFIG_SITE.Common.linuxRT-x86_64
