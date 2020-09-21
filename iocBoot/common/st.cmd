@@ -3,6 +3,9 @@
 # author: L. Piccoli, A. Babbitt
 ##########################################################
 
+# Environment varaible for logInit
+epicsEnvSet("SUBSYS","fbck")
+
 #======================================================================
 ######################################################################
 ## Register all support components
@@ -66,6 +69,19 @@ dbLoadRecords("db/EVR-TEMPLATE.db", "EVR=${EVR_DEV1},IOC=${IOC_NAME}")
 dbLoadRecords("db/iocAdminSoft.db","IOC=${IOC_NAME}")
 dbLoadRecords("db/iocRelease.db","IOC=${IOC_NAME}")
 dbLoadRecords("db/iocAdminScanMon.db", "IOC=${IOC_NAME}")
+
+# Load sequence admin
+dbLoadRecords("db/devSeqCar.db","SIOC=${IOC_NAME}")
+
+#==============================================================
+#  Load Channe Access Security if configuration file exists
+#==============================================================
+< ${ACF_INIT}
+
+#==============================================================
+# Start IOC Log Client
+#==============================================================
+< ${LOG_INIT}
 
 # ===================================================================
 #Load database for autosave status

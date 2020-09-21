@@ -12,6 +12,17 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+
+R3.4.0:   21-September-2020, K. Luchini (luchini):
+    * Add cpuBoot directory
+    * Add configure/RULES.cpu
+    * Add evrManager to configure/CONFIG_SITE.Common.linuxRT-x86_64
+    * Modify fastFeedback/src/Makefile 
+    *    Install binary caRepeater,caget,caput,camonitor,cainfo,evrManager
+    *    Install binary FirmwareLoader
+    *    Install library evrma.ko
+    *    Add devSeqCar.dbd,seqCar
+
 R3.3.0:   8-September-2020 R.Reno (rreno)
     * Add independent Energy Ref and Verniers for the longitudinal loop.
     * Add records supporting energy ref and verniers specific to SXR.
