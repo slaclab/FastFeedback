@@ -49,7 +49,6 @@ STATIC_BUILD=YES
 LINUXRT_BUILDROOT_VERSION=buildroot-2019.08
 LINUX_VERSION=rhel6
 
-
 # ======================================================
 # Linux Kernel Modules Top
 # =====================================================
@@ -59,62 +58,60 @@ KERNEL_MOD_TOP=$(PACKAGE_SITE_TOP)/linuxKernel_Modules
 # =============================================================================================================
 # Support for EVRMA Kernel Module (evrma.ko)
 # =============================================================================================================
-KERNEL_MODULE_EVRMA_PACKAGE_NAME=evrmaDriver
-KERNEL_MODULE_EVRMA_VERSION=R1.0.9
-KERNEL_MODULE_EVRMA_TOP=$(KERNEL_MOD_TOP)/$(KERNEL_MODULE_EVRMA_PACKAGE_NAME)/$(KERNEL_MODULE_EVRMA_VERSION)
-KERNEL_MODULE_EVRMA_KO = $(KERNEL_MODULE_EVRMA_TOP)/$(PKG_ARCH)
-KERNEL_MODULE_EVRMA_INCLUDE = $(KERNEL_MODULE_EVRMA_TOP)/$(PKG_ARCH)/include
+KERNEL_MODULE_EVRMA_PACKAGE_NAME = evrmaDriver
+KERNEL_MODULE_EVRMA_VERSION      = R1.0.9
+KERNEL_MODULE_EVRMA_TOP          = $(KERNEL_MOD_TOP)/$(KERNEL_MODULE_EVRMA_PACKAGE_NAME)/$(KERNEL_MODULE_EVRMA_VERSION)
+KERNEL_MODULE_EVRMA_KO           = $(KERNEL_MODULE_EVRMA_TOP)/$(PKG_ARCH)
+KERNEL_MODULE_EVRMA_INCLUDE      = $(KERNEL_MODULE_EVRMA_TOP)/$(PKG_ARCH)/include
 # =============================================================================================================
 
 # ===========================================================================
 # Support for EVRMA
 # ===========================================================================
-EVRMA_PACKAGE_NAME=evrma
-EVRMA_VERSION=R1.0.9
-EVRMA_TOP=$(PACKAGE_SITE_TOP)/$(EVRMA_PACKAGE_NAME)/$(EVRMA_VERSION)
-EVRMA_LIB = $(EVRMA_TOP)/$(PKG_ARCH)/lib
-EVRMA_INCLUDE = $(EVRMA_TOP)/$(PKG_ARCH)/include
+EVRMA_PACKAGE_NAME  = evrma
+EVRMA_VERSION       = R1.0.9
+EVRMA_TOP           = $(PACKAGE_SITE_TOP)/$(EVRMA_PACKAGE_NAME)/$(EVRMA_VERSION)
+EVRMA_LIB           = $(EVRMA_TOP)/$(PKG_ARCH)/lib
+EVRMA_INCLUDE       = $(EVRMA_TOP)/$(PKG_ARCH)/include
 # ===========================================================================
-
 
 # ===========================================================================
 # Support for CPPUNIT
 # ===========================================================================
-CPPUNIT_PACKAGE_NAME=cppunit
-CPPUNIT_VERSION=1.12.1
-CPPUNIT_TOP=$(PACKAGE_SITE_TOP)/$(CPPUNIT_PACKAGE_NAME)/$(CPPUNIT_VERSION)
-CPPUNIT_LIB = $(CPPUNIT_TOP)/$(PKG_ARCH)/lib
-CPPUNIT_INCLUDE = $(CPPUNIT_TOP)/$(PKG_ARCH)/include
+CPPUNIT_PACKAGE_NAME = cppunit
+CPPUNIT_VERSION      = 1.12.1
+CPPUNIT_TOP          = $(PACKAGE_SITE_TOP)/$(CPPUNIT_PACKAGE_NAME)/$(CPPUNIT_VERSION)
+CPPUNIT_LIB          = $(CPPUNIT_TOP)/$(PKG_ARCH)/lib
+CPPUNIT_INCLUDE      = $(CPPUNIT_TOP)/$(PKG_ARCH)/include
 # ===========================================================================
 
 # ===========================================================================
 # Support for BOOST
 # ===========================================================================
-BOOST_PACKAGE_NAME=boost
-BOOST_VERSION=1.63.0
-BOOST_TOP=$(PACKAGE_SITE_TOP)/$(BOOST_PACKAGE_NAME)/$(BOOST_VERSION)
-BOOST_LIB = $(BOOST_TOP)/$(PKG_ARCH)/lib
-BOOST_INCLUDE = $(BOOST_TOP)/$(PKG_ARCH)/include
+BOOST_PACKAGE_NAME = boost
+BOOST_VERSION      = 1.63.0
+BOOST_TOP          = $(PACKAGE_SITE_TOP)/$(BOOST_PACKAGE_NAME)/$(BOOST_VERSION)
+BOOST_LIB          = $(BOOST_TOP)/$(PKG_ARCH)/lib
+BOOST_INCLUDE      = $(BOOST_TOP)/$(PKG_ARCH)/include
 # ===========================================================================
 
 # ============================================================================================
 # Support for BOOST Numeric Bindings (Headers)
 # ============================================================================================
-BOOSTBINDINGS_PACKAGE_NAME=boost-numeric-bindings
-BOOSTBINDINGS_VERSION=1.63.0
-BOOSTBINDINGS_TOP=$(PACKAGE_SITE_TOP)/$(BOOSTBINDINGS_PACKAGE_NAME)/$(BOOSTBINDINGS_VERSION)
-BOOSTBINDINGS_INCLUDE = $(BOOSTBINDINGS_TOP)/include
+BOOSTBINDINGS_PACKAGE_NAME = boost-numeric-bindings
+BOOSTBINDINGS_VERSION      = 1.63.0
+BOOSTBINDINGS_TOP          = $(PACKAGE_SITE_TOP)/$(BOOSTBINDINGS_PACKAGE_NAME)/$(BOOSTBINDINGS_VERSION)
+BOOSTBINDINGS_INCLUDE      = $(BOOSTBINDINGS_TOP)/include
 # ============================================================================================
-
 
 # ===========================================================================
 # Support for LAPACK
 # ===========================================================================
-LAPACK_PACKAGE_NAME=lapack
-LAPACK_VERSION=3.2.1
-LAPACK_TOP=$(PACKAGE_SITE_TOP)/$(LAPACK_PACKAGE_NAME)/$(LAPACK_VERSION)
-LAPACK_LIB = $(LAPACK_TOP)/$(PKG_ARCH)/lib
-LAPACK_INCLUDE = $(LAPACK_TOP)/$(PKG_ARCH)/include
+LAPACK_PACKAGE_NAME = lapack
+LAPACK_VERSION      = 3.2.1
+LAPACK_TOP          = $(PACKAGE_SITE_TOP)/$(LAPACK_PACKAGE_NAME)/$(LAPACK_VERSION)
+LAPACK_LIB          = $(LAPACK_TOP)/$(PKG_ARCH)/lib
+LAPACK_INCLUDE      = $(LAPACK_TOP)/$(PKG_ARCH)/include
 # ===========================================================================
 
 # ===========================================================================
@@ -134,4 +131,16 @@ DL_INCLUDE   = $(STAGE_X86)/usr/include
 QUADMATH_LIB       = $(STAGE_X86)/usr/lib64
 QUADMATH_INCLUDE   = $(STAGE_X86)/usr/include
 # ============================================================================
+
+# ============================================================================
+# Common Platform Software Support
+# ============================================================================
+HAVE_CPSW = YES
+CPSW_FWLOADER_PACKAGE_NAME = cpsw/FirmwareLoader
+CPSW_FWLOADER_VERSION      = R1.3.0
+CPSW_FWLOADER_TOP          = $(PACKAGE_SITE_TOP)/$(CPSW_FWLOADER_PACKAGE_NAME)/$(CPSW_FWLOADER_VERSION)
+CPSW_FWLOADER_BIN          = $(CPSW_FWLOADER_TOP)/$(PKG_ARCH)/bin
+
+# End of file
+
 
