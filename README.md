@@ -18,6 +18,9 @@ Links to various bits of information about the FastFeedback system are below. A 
 +-- bin
 |   +-- linuxRT-x86_64     # fastFeedback and ffUnitTest binaries
 +-- configure              # Build system configuration files
++-- cpuBoot                # linuxRT CPU configuration files
+|    +-- dev               # dev CPUs
+|    +-- lcls              # prod LCLS CPUs
 +-- fastFeedbackApp
 |   +-- Db
 |   |   +-- common         # Database files common to all Feedback IOCs
