@@ -4,9 +4,10 @@ db/
 dbd/
 lib/
 O.*/
-.clang_complete
 iocBoot/*/envPaths
+cpuBoot/**/cpuEnv.sh
 RELEASE_SITE
+.clang_complete
 *~
 *.log
 *.swp
