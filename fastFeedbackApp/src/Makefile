@@ -58,6 +58,7 @@ DBD = fastFeedback.dbd
 fastFeedback_DBD += base.dbd
 fastFeedback_DBD += iocAdmin.dbd
 fastFeedback_DBD += devIocStats.dbd #Part of the iocAdmin module
+fastFeedback_DBD += devSeqCar.dbd
 fastFeedback_DBD += asSupport.dbd
 fastFeedback_DBD += caPutLog.dbd
 fastFeedback_DBD += ffRecord.dbd
@@ -124,6 +125,20 @@ fastFeedback_SRCS += fastFeedback_registerRecordDeviceDriver.cpp
 fastFeedback_SRCS_DEFAULT += fastFeedbackMain.cpp
 # ==================================================================================
 
+# ==================================================
+# Install external package executable
+#===================================================
+ifeq ($(T_A),linuxRT-x86_64)
+BIN_INSTALLS += $(EPICS_BASE_BIN)/caRepeater
+BIN_INSTALLS += $(EPICS_BASE_BIN)/caget
+BIN_INSTALLS += $(EPICS_BASE_BIN)/caput
+BIN_INSTALLS += $(EPICS_BASE_BIN)/camonitor
+BIN_INSTALLS += $(EPICS_BASE_BIN)/cainfo
+BIN_INSTALLS += $(EVRMA_MANAGER_BIN)/evrManager
+BIN_INSTALLS += $(CPSW_FWLOADER_BIN)/FirmwareLoader
+LIB_INSTALLS += $(KERNEL_MODULE_EVRMA_KO)/evrma.ko
+endif
+
 # ========================================================
 # Link in external package libraries (-llapack -lblas...)
 # Also, link system library (i.e. gfortran)
@@ -150,7 +165,7 @@ fastFeedback_LIBS += miscUtils
 fastFeedback_LIBS += devIocStats
 fastFeedback_LIBS += caPutLog
 fastFeedback_LIBS += autosave
-fastFeedback_LIBS += seq pv
+fastFeedback_LIBS += seqCar seq pv
 fastFeedback_LIBS += evrSupport
 fastFeedback_LIBS += devMrfEr
 fastFeedback_LIBS += fcom fcomIocshSupport fcomUtil
@@ -182,6 +197,7 @@ ffUnitTest_CPPFLAGS += -O0 -g3
 DBD              += ffUnitTest.dbd
 ffUnitTest_DBD   += base.dbd
 ffUnitTest_DBD   += iocAdmin.dbd
+ffUnitTest_DBD   += devSeqCar.dbd
 ffUnitTest_DBD   += asSupport.dbd
 ffUnitTest_DBD   += caPutLog.dbd
 ffUnitTest_DBD   += evrSupport.dbd
@@ -259,7 +275,7 @@ ffUnitTest_LIBS += autosave
 ffUnitTest_LIBS += evrSupport
 ffUnitTest_LIBS += devMrfEr
 ffUnitTest_LIBS += drvMrf
-ffUnitTest_LIBS += seq pv
+ffUnitTest_LIBS += seqCar seq pv
 ffUnitTest_LIBS += fcom fcomIocshSupport fcomUtil
 ffUnitTest_LIBS += udpCommBSD
 
