@@ -436,17 +436,7 @@ int LoopConfiguration::configure() {
       }
     }
 
-    try
-    {
-        updatePatternDestinations();
-    }
-    catch (std::out_of_range& e)
-    {
-        _logger << "ERROR: More POIs than there are destination PVs.\n"
-                << "Verify number of POI${NUM}_DEST records match number of POIs"
-                << " and be sure to edit LoopConfiguration::nPOIs\nException: ("
-                << e.what() << ")" << Log::cout;
-    }
+    updatePatternDestinations();
       
     _logger << Log::showtime << "INFO: Loop configured successfully" << Log::flushpvnoalarm;
 
