@@ -112,16 +112,17 @@ _bcastStatesPv(slotName + " BCASTSTATES")
     _statusMessage << "Not configured";
     _logger.setSlotName(_slotName);
     _logger.setStatusstrPv(&_statusstrPv);
-    _actuatorLastUpdatePv.initScanList(); // This enable PV updates.
-    _statusstrPv.initScanList(); // This enable PV updates.
-    _pulseIdPv.initScanList(); // This enable PV updates.
     _loopIndex = 0;
+
+    // initialize PV updates via I/O Intr
+    _actuatorLastUpdatePv.initScanList();
+    _pulseIdPv.initScanList();
+    _statusstrPv.initScanList();
 
     _poi1DestPv.initScanList();
     _poi2DestPv.initScanList();
     _poi3DestPv.initScanList();
     _poi4DestPv.initScanList();
-
 }
 
 /**
