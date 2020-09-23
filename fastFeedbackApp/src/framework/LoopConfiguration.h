@@ -158,7 +158,6 @@ public:
     void showActuatorEnergy();
     void showDispersion();
     void showEref();
-//ababbitt - need to insert the template
 
     template<class Map, class MapIterator, class Set, class SetIterator, class Device>
     Device *getDevice(Map &map, std::string deviceName, PatternMask patternMask);
@@ -249,16 +248,13 @@ public:
      */
     std::vector<PatternMask> _patternMasks;
 
-    /** PV for pattern of interest 1 waveform */
+    /**
+     * Pattern of Interest PVs
+     */
+
     PvDataWaveform<unsigned short> _poi1Pv;
-
-    /** PV for pattern of interest 2 waveform */
     PvDataWaveform<unsigned short> _poi2Pv;
-
-    /** PV for pattern of interest 3 waveform */
     PvDataWaveform<unsigned short> _poi3Pv;
-
-    /** PV for pattern of interest 4 waveform */
     PvDataWaveform<unsigned short> _poi4Pv;
 
     /** Map of MeasurementDevice sets, there is one set per pattern */
@@ -660,6 +656,16 @@ private:
         else
             return Destination::SXR;
     } 
+
+    void updatePatternDestinations();
+
+    /**
+     * PVs for querying the destination for each pattern
+     */
+    PvData<std::string> _poi1DestPv;
+    PvData<std::string> _poi2DestPv;
+    PvData<std::string> _poi3DestPv;
+    PvData<std::string> _poi4DestPv;
 
     /*
      * The following PVs are specific to a destination. Used for Longitudinal feedback.
