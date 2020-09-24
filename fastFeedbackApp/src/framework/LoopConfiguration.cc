@@ -1317,10 +1317,12 @@ void LoopConfiguration::showEref() {
 void
 LoopConfiguration::updatePatternDestinations()
 {
-    _poi1DestPv = ( _patternMasks[0].destinationHXR() ) ? "HXR" : "SXR";
-    _poi2DestPv = ( _patternMasks[1].destinationHXR() ) ? "HXR" : "SXR";
-    _poi3DestPv = ( _patternMasks[2].destinationHXR() ) ? "HXR" : "SXR";
-    _poi4DestPv = ( _patternMasks[3].destinationHXR() ) ? "HXR" : "SXR";
+    auto HXR = static_cast<int>(Destination::HXR);
+    auto SXR = static_cast<int>(Destination::SXR);
+    _poi1DestPv = ( _patternMasks[0].destinationHXR() ) ? HXR : SXR;
+    _poi2DestPv = ( _patternMasks[1].destinationHXR() ) ? HXR : SXR;
+    _poi3DestPv = ( _patternMasks[2].destinationHXR() ) ? HXR : SXR;
+    _poi4DestPv = ( _patternMasks[3].destinationHXR() ) ? HXR : SXR;
 
     _poi1DestPv.scanIoRequest();
     _poi2DestPv.scanIoRequest();

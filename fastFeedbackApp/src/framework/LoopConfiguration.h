@@ -645,8 +645,8 @@ private:
     /** Get beam destination from the PatternMask */
 
     enum class Destination {
-        HXR,
-        SXR,
+        HXR = 0,
+        SXR = 1,
     };
 
     Destination getPatternDestination(int patternIndex)
@@ -662,10 +662,10 @@ private:
     /**
      * PVs for querying the destination for each pattern
      */
-    PvData<std::string> _poi1DestPv;
-    PvData<std::string> _poi2DestPv;
-    PvData<std::string> _poi3DestPv;
-    PvData<std::string> _poi4DestPv;
+    PvData<bool> _poi1DestPv;
+    PvData<bool> _poi2DestPv;
+    PvData<bool> _poi3DestPv;
+    PvData<bool> _poi4DestPv;
 
     /*
      * The following PVs are specific to a destination. Used for Longitudinal feedback.
