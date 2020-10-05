@@ -6,9 +6,10 @@
  */
 
 #include <fstream>
-#include <sstream>
-#include <string>
 #include <iostream>
+#include <sstream>
+#include <stdexcept>
+#include <string>
 
 #include "MeasurementCollector.h"
 #include "LoopConfiguration.h"
@@ -43,6 +44,10 @@ _poi1Pv(slotName + " POI1"),
 _poi2Pv(slotName + " POI2"),
 _poi3Pv(slotName + " POI3"),
 _poi4Pv(slotName + " POI4"),
+_poi1DestPv(slotName + " POI1_DEST"),
+_poi2DestPv(slotName + " POI2_DEST"),
+_poi3DestPv(slotName + " POI3_DEST"),
+_poi4DestPv(slotName + " POI4_DEST"),
 _refOrbit(MAX_MEASUREMENTS),
 _actEnergy(MAX_ACTUATORS),
 _dispersions(MAX_MEASUREMENTS),
@@ -72,8 +77,7 @@ _statusstrPv(slotName + " STATUSSTR"),
 _actuatorLastUpdatePv(slotName + " ACTUPDATE"),
 _eventReceiver(NULL),
 _skipTmitCheck(false),
-_fakeBeam(false),// --->>> RESTORE THIS WHEN BEAM IS BACK!!!!
-//_fakeBeam(true), // FOR TESTS
+_fakeBeam(false),
 _chirpControlPv(slotName + " CHIRPCTRL", false),
 _chirpStatePv(slotName + " CHIRPSTATE", false),
 _bc2ChirpPv(slotName + " CHIRPDES", 2800),
@@ -103,15 +107,22 @@ _dl2EnLoloPvHXR("LEM_DL2ENLOLO"),
 _dl2EnLoloPvSXR("LEM_DL2ENLOLO_SXR"),
 _dl2EnHihiPvHXR("LEM_DL2ENHIHI"),
 _dl2EnHihiPvSXR("LEM_DL2ENHIHI_SXR"),
-_bcastStatesPv(slotName + " BCASTSTATES") {
+_bcastStatesPv(slotName + " BCASTSTATES")
+{
     _statusMessage << "Not configured";
     _logger.setSlotName(_slotName);
     _logger.setStatusstrPv(&_statusstrPv);
-//    _mutex = new epicsMutex();
-    _actuatorLastUpdatePv.initScanList(); // This enable PV updates.
-    _statusstrPv.initScanList(); // This enable PV updates.
-    _pulseIdPv.initScanList(); // This enable PV updates.
     _loopIndex = 0;
+
+    // initialize PV updates via I/O Intr
+    _actuatorLastUpdatePv.initScanList();
+    _pulseIdPv.initScanList();
+    _statusstrPv.initScanList();
+
+    _poi1DestPv.initScanList();
+    _poi2DestPv.initScanList();
+    _poi3DestPv.initScanList();
+    _poi4DestPv.initScanList();
 }
 
 /**
@@ -407,7 +418,6 @@ int LoopConfiguration::configure() {
 
     // Create FcomChannel for States
     // Only Longitudital and LTU need States on FCOM
-//     long numPatterns = _totalPoiPv.getValue();
 
     if (_bcastStatesPv == 1) {
       try {
@@ -425,6 +435,8 @@ int LoopConfiguration::configure() {
         return -1;
       }
     }
+
+    updatePatternDestinations();
       
     _logger << Log::showtime << "INFO: Loop configured successfully" << Log::flushpvnoalarm;
 
@@ -1296,4 +1308,24 @@ void LoopConfiguration::showEref() {
 	      << "HXR High: " <<_dl2EnHihiPvHXR.getValue() << " MeV"
 	      << "SXR Low: "  <<_dl2EnLoloPvSXR.getValue() << " MeV; "
 	      << "SXR High: " <<_dl2EnHihiPvSXR.getValue() << " MeV\n";
+}
+
+/**
+ * When the loop is configured, the destination for each POI is updated
+ * so that the information can be queried from the control system
+ */
+void
+LoopConfiguration::updatePatternDestinations()
+{
+    auto HXR = static_cast<int>(Destination::HXR);
+    auto SXR = static_cast<int>(Destination::SXR);
+    _poi1DestPv = ( _patternMasks[0].destinationHXR() ) ? HXR : SXR;
+    _poi2DestPv = ( _patternMasks[1].destinationHXR() ) ? HXR : SXR;
+    _poi3DestPv = ( _patternMasks[2].destinationHXR() ) ? HXR : SXR;
+    _poi4DestPv = ( _patternMasks[3].destinationHXR() ) ? HXR : SXR;
+
+    _poi1DestPv.scanIoRequest();
+    _poi2DestPv.scanIoRequest();
+    _poi3DestPv.scanIoRequest();
+    _poi4DestPv.scanIoRequest();
 }

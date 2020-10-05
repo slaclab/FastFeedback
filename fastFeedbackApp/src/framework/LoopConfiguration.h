@@ -158,7 +158,6 @@ public:
     void showActuatorEnergy();
     void showDispersion();
     void showEref();
-//ababbitt - need to insert the template
 
     template<class Map, class MapIterator, class Set, class SetIterator, class Device>
     Device *getDevice(Map &map, std::string deviceName, PatternMask patternMask);
@@ -228,7 +227,7 @@ public:
      * Get the appropriate vernier or Eref values based on destination and location in the LINAC. 
      * enum EnergyLocation is defined in Longitudinal.h 
      */
-    std::pair<double, double> getEnergy(int _patternMask, EnergyLocation energyLocation);
+    std::pair<double, double> getEnergy(int patternMask, EnergyLocation energyLocation);
 
     /**
      * Defines whether the Loop is in compute only mode (i.e. all actuator
@@ -249,16 +248,13 @@ public:
      */
     std::vector<PatternMask> _patternMasks;
 
-    /** PV for pattern of interest 1 waveform */
+    /**
+     * Pattern of Interest PVs
+     */
+
     PvDataWaveform<unsigned short> _poi1Pv;
-
-    /** PV for pattern of interest 2 waveform */
     PvDataWaveform<unsigned short> _poi2Pv;
-
-    /** PV for pattern of interest 3 waveform */
     PvDataWaveform<unsigned short> _poi3Pv;
-
-    /** PV for pattern of interest 4 waveform */
     PvDataWaveform<unsigned short> _poi4Pv;
 
     /** Map of MeasurementDevice sets, there is one set per pattern */
@@ -646,23 +642,30 @@ private:
 		      PatternMask patternMask, DataPoint &dataPoint, int pos);
 
 
-    /**
-     * Get beam destination from pattern index.
-     * ATTN: If the pattern assignments change for HXR/SXR delivery this code will also have to change!
-     * TODO: Investigate making this runtime configuratble.
-     */
+    /** Get beam destination from the PatternMask */
 
     enum class Destination {
-        HXR,
-        SXR,
+        HXR = 0,
+        SXR = 1,
     };
 
-    Destination getPatternDestination(int patternIndex) {
-       if (patternIndex == 0 || patternIndex == 3) // P1 or P4 aka DS0 or DS3
-           return Destination::HXR;
-       else                                        // P2 or P3 aka DS1 or DS2
-           return Destination::SXR;
+    Destination getPatternDestination(int patternIndex)
+    {
+        if ( _patternMasks[patternIndex].destinationHXR() )
+            return Destination::HXR;
+        else
+            return Destination::SXR;
     } 
+
+    void updatePatternDestinations();
+
+    /**
+     * PVs for querying the destination for each pattern
+     */
+    PvData<bool> _poi1DestPv;
+    PvData<bool> _poi2DestPv;
+    PvData<bool> _poi3DestPv;
+    PvData<bool> _poi4DestPv;
 
     /*
      * The following PVs are specific to a destination. Used for Longitudinal feedback.
