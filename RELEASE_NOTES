@@ -13,6 +13,11 @@
 #      
 #==============================================================
 
+R3.5.0:   05-Oct-2020, R. Reno (rreno):
+    * Add PVs for querying destination of a pattern of interst.
+      eg:
+      FBCK:FB04:LG01:POI1_DEST
+
 R3.4.0:   21-September-2020, K. Luchini (luchini):
     * Add cpuBoot directory
     * Add configure/RULES.cpu
