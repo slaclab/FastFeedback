@@ -94,5 +94,5 @@ Links to various bits of information about the FastFeedback system are below. A 
 |:-----------------:|:-----------------:|:----------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
 | sioc-undh-tr01    | cpu-sys0-fb02     | UNDH Launch      | FB03    | TR04  | 4     |                                                  |
 | sioc-undh-tr02    | cpu-sys0-fb02     | UNDH BLD         | FB05    | TR05  | 6     |                                                  |
-| sioc-unds-tr01    | cpu-sys0-fb01     | UNDS Launch      | FB04    | TR01  | 12    |                                                  |
+| sioc-unds-tr01    | cpu-sys0-fb01     | UNDS Launch      | FB04    | TR02  | 12    |                                                  |
 | sioc-unds-tr02    | cpu-sys0-fb01     | UNDS BLD         | FB03    | TR02  | 13    | Not yet commissioned                             |
