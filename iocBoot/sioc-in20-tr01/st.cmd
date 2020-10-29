@@ -36,8 +36,7 @@ epicsEnvSet("LOCATION","cpu-sys0-fb02")
 #========================================================================
 
 #System Location:
-epicsEnvSet("LOCA","FB01")
-epicsEnvSet("FB", "${LOCA}")
+epicsEnvSet("FB", "FB01")
 epicsEnvSet("LOOP", "TR01")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
 
@@ -86,6 +85,11 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # ====================================================================
 dbLoadDatabase("dbd/fastFeedback.dbd")
 fastFeedback_registerRecordDeviceDriver(pdbbase)
+
+dbLoadRecords("db/fbckSettled.db",    "LP=FBCK:$(FB):$(LOOP)")
+dbLoadRecords("db/fbckSettledSum.db", "LP=FBCK:$(FB):$(LOOP)")
+dbLoadRecords("db/fbckAutoAct.db",    "LP=FBCK:$(FB):$(LOOP)")
+
 <iocBoot/common/st.cmd
 
 #Done
