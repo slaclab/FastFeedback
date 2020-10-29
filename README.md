@@ -79,13 +79,13 @@ Links to various bits of information about the FastFeedback system are below. A 
 | Name              | CPU               | Function         | FB      |Loop   |VEVR # | Notes                                            |
 |:-----------------:|:-----------------:|:----------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
 | sioc-bsy0-tr01    | cpu-sys0-fb01     | BSY X            | FB01    | TR05  | 0     |                                                  |
-| sioc-bsy0-tr01    | cpu-sys0-fb02     | BSY Y            | FB05    | TR01  | 6     |                                                  |
+| sioc-bsy0-tr02    | cpu-sys0-fb02     | BSY Y            | FB05    | TR01  | 6     |                                                  |
 
 ### LTU
 | Name              | CPU               | Function         | FB      |Loop   |VEVR # | Notes                                            |
 |:-----------------:|:-----------------:|:----------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
-| sioc-ltuh-tr01    | cpu-sys0-fb01     | Slow LTUH1       | FB02    | TR04  | 5     |                                                  |
-| sioc-ltuh-tr02    | cpu-sys0-fb01     | Slow LTUH2       | FB02    | TR03  | 6     |                                                  |
+| sioc-ltuh-tr01    | cpu-sys0-fb01     | Slow LTUH1       | FB02    | TR03  | 5     |                                                  |
+| sioc-ltuh-tr02    | cpu-sys0-fb01     | Slow LTUH2       | FB02    | TR04  | 6     |                                                  |
 | sioc-ltuh-tr03    | cpu-sys0-fb01     | LTUH Launch      | FB03    | TR01  | 7     |                                                  |
 | sioc-ltus-tr01    | cpu-sys0-fb01     | LTUS Launch      | FB04    | TR01  | 11    |                                                  |
 
@@ -94,5 +94,5 @@ Links to various bits of information about the FastFeedback system are below. A 
 |:-----------------:|:-----------------:|:----------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
 | sioc-undh-tr01    | cpu-sys0-fb02     | UNDH Launch      | FB03    | TR04  | 4     |                                                  |
 | sioc-undh-tr02    | cpu-sys0-fb02     | UNDH BLD         | FB05    | TR05  | 6     |                                                  |
-| sioc-unds-tr01    | cpu-sys0-fb01     | UNDS Launch      | FB04    | TR01  | 12    |                                                  |
+| sioc-unds-tr01    | cpu-sys0-fb01     | UNDS Launch      | FB04    | TR02  | 12    |                                                  |
 | sioc-unds-tr02    | cpu-sys0-fb01     | UNDS BLD         | FB03    | TR02  | 13    | Not yet commissioned                             |
