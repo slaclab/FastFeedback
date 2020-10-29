@@ -77,7 +77,7 @@ record(aSub, "$(LP):AUTOACTOFFSET") {
   field(NOF, "4")
   field(NOG, "4")
   field(OUTA, "$(LP):AUTOACTOFFSETS")
-  field(NOVA, "24")
+  field(NOVA, "40")
   field(SCAN, "Passive")
   field(FTA, "SHORT")
 }
