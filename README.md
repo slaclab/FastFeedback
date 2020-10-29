@@ -79,7 +79,7 @@ Links to various bits of information about the FastFeedback system are below. A 
 | Name              | CPU               | Function         | FB      |Loop   |VEVR # | Notes                                            |
 |:-----------------:|:-----------------:|:----------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
 | sioc-bsy0-tr01    | cpu-sys0-fb01     | BSY X            | FB01    | TR05  | 0     |                                                  |
-| sioc-bsy0-tr01    | cpu-sys0-fb02     | BSY Y            | FB05    | TR01  | 6     |                                                  |
+| sioc-bsy0-tr02    | cpu-sys0-fb02     | BSY Y            | FB05    | TR01  | 6     |                                                  |
 
 ### LTU
 | Name              | CPU               | Function         | FB      |Loop   |VEVR # | Notes                                            |
