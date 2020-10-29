@@ -224,7 +224,7 @@ record(stringin, "FBCK:$(AREA):$(LOOP):REFORBITTS") {
 record(waveform, "FBCK:$(AREA):$(LOOP):ACTREF") {
   field(DESC, "Actuator References")
   field(DTYP, "Soft Channel")
-  field(NELM, "$(ANUM)")
+  field(NELM, "40")
   field(FTVL, "DOUBLE")
   field(PINI, "YES")
   field(FLNK, "FBCK:$(AREA):$(LOOP):ACTREFCNT")

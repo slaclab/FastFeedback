@@ -1,4 +1,8 @@
+function(CollectActPOIs)
 function(AutoActSave)
-function(AutoActOffLongSave)
-function(AutoActOffSave)
-function(AutoActOff)
+function(AutoActOffsetLongitudinal)
+function(AutoActOffsetLTU)
+function(AutoActOffset)
+
+variable(AUTOACT_DEBUG)
+variable(CONVERGED)

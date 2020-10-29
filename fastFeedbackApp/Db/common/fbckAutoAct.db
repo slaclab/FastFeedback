@@ -19,16 +19,16 @@ record(aSub, "$(LP):AUTOACTSAVE") {
   field(PINI, "YES")
   field(SNAM, "AutoActSave")
   field(INPA, "$(LP):CVGSUMM CA")
-  field(INPB, "$(LP):A1 CA")
-  field(INPC, "$(LP):A2 CA")
-  field(INPD, "$(LP):A3 CA")
-  field(INPE, "$(LP):A4 CA")
-  field(INPF, "$(LP):A5 CA")
-  field(INPG, "$(LP):A6 CA")
-  field(INPH, "$(LP):A7 CA")
-  field(INPI, "$(LP):A8 CA")
-  field(INPJ, "$(LP):A9 CA")
-  field(INPK, "$(LP):A10 CA")
+  field(INPB, "$(LP):A1_ALLPOI.VALA PP")
+  field(INPC, "$(LP):A2_ALLPOI.VALA PP")
+  field(INPD, "$(LP):A3_ALLPOI.VALA PP")
+  field(INPE, "$(LP):A4_ALLPOI.VALA PP")
+  field(INPF, "$(LP):A5_ALLPOI.VALA PP")
+  field(INPG, "$(LP):A6_ALLPOI.VALA PP")
+  field(INPH, "$(LP):A7_ALLPOI.VALA PP")
+  field(INPI, "$(LP):A8_ALLPOI.VALA PP")
+  field(INPJ, "$(LP):A9_ALLPOI.VALA PP")
+  field(INPK, "$(LP):A10_ALLPOI.VALA PP")
   field(FTA, "USHORT")
   field(OUTA, "$(LP):AUTOACTREF")
   field(NOVA, "10")
@@ -54,6 +54,8 @@ record(aSub, "$(LP):AUTOACTOFFSET") {
   field(NOVA, "40")
 }
 
+# This is unused for transverse loops. They are low rate and only have 1 pattern per
+# destination so there is no offset
 record(waveform, "$(LP):AUTOACTOFFSETS") {
   field(DESC, "ACT OFFSETS Auto Save")
   field(SCAN, "Passive")
@@ -70,6 +72,126 @@ record(stringin, "$(LP):AUTOACTOFFSETSTS") {
   field(PINI, "YES")
   field(DTYP, "Soft Timestamp")
   field(SIOL, "@%m/%d/%Y %H:%M:%S")
+}
+
+record(aSub, "$(LP):A1_ALLPOI") {
+    field(DESC, "Array of each of the POIs for A1")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(SNAM, "CollectActPOIs")
+    field(INPA, "$(LP):A1P1 CA")
+    field(INPB, "$(LP):A1P2 CA")
+    field(INPC, "$(LP):A1P3 CA")
+    field(INPD, "$(LP):A1P4 CA")
+    field(NOVA, "4")
+}
+
+record(aSub, "$(LP):A2_ALLPOI") {
+    field(DESC, "Array of each of the POIs for A2")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(SNAM, "CollectActPOIs")
+    field(INPA, "$(LP):A2P1 CA")
+    field(INPB, "$(LP):A2P2 CA")
+    field(INPC, "$(LP):A2P3 CA")
+    field(INPD, "$(LP):A2P4 CA")
+    field(NOVA, "4")
+}
+
+record(aSub, "$(LP):A3_ALLPOI") {
+    field(DESC, "Array of each of the POIs for A3")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(SNAM, "CollectActPOIs")
+    field(INPA, "$(LP):A1P1 CA")
+    field(INPB, "$(LP):A1P2 CA")
+    field(INPC, "$(LP):A1P3 CA")
+    field(INPD, "$(LP):A1P4 CA")
+    field(NOVA, "4")
+}
+
+record(aSub, "$(LP):A4_ALLPOI") {
+    field(DESC, "Array of each of the POIs for A4")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(SNAM, "CollectActPOIs")
+    field(INPA, "$(LP):A4P1 CA")
+    field(INPB, "$(LP):A4P2 CA")
+    field(INPC, "$(LP):A4P3 CA")
+    field(INPD, "$(LP):A4P4 CA")
+    field(NOVA, "4")
+}
+
+record(aSub, "$(LP):A5_ALLPOI") {
+    field(DESC, "Array of each of the POIs for A5")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(SNAM, "CollectActPOIs")
+    field(INPA, "$(LP):A5P1 CA")
+    field(INPB, "$(LP):A5P2 CA")
+    field(INPC, "$(LP):A5P3 CA")
+    field(INPD, "$(LP):A5P4 CA")
+    field(NOVA, "4")
+}
+
+record(aSub, "$(LP):A6_ALLPOI") {
+    field(DESC, "Array of each of the POIs for A6")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(SNAM, "CollectActPOIs")
+    field(INPA, "$(LP):A6P1 CA")
+    field(INPB, "$(LP):A6P2 CA")
+    field(INPC, "$(LP):A6P3 CA")
+    field(INPD, "$(LP):A6P4 CA")
+    field(NOVA, "4")
+}
+
+record(aSub, "$(LP):A7_ALLPOI") {
+    field(DESC, "Array of each of the POIs for A7")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(SNAM, "CollectActPOIs")
+    field(INPA, "$(LP):A7P1 CA")
+    field(INPB, "$(LP):A7P2 CA")
+    field(INPC, "$(LP):A7P3 CA")
+    field(INPD, "$(LP):A7P4 CA")
+    field(NOVA, "4")
+}
+
+record(aSub, "$(LP):A8_ALLPOI") {
+    field(DESC, "Array of each of the POIs for A8")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(SNAM, "CollectActPOIs")
+    field(INPA, "$(LP):A8P1 CA")
+    field(INPB, "$(LP):A8P2 CA")
+    field(INPC, "$(LP):A8P3 CA")
+    field(INPD, "$(LP):A8P4 CA")
+    field(NOVA, "4")
+}
+
+record(aSub, "$(LP):A9_ALLPOI") {
+    field(DESC, "Array of each of the POIs for A9")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(SNAM, "CollectActPOIs")
+    field(INPA, "$(LP):A9P1 CA")
+    field(INPB, "$(LP):A9P2 CA")
+    field(INPC, "$(LP):A9P3 CA")
+    field(INPD, "$(LP):A9P4 CA")
+    field(NOVA, "4")
+}
+
+record(aSub, "$(LP):A10_ALLPOI") {
+    field(DESC, "Array of each of the POIs for A10")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(SNAM, "CollectActPOIs")
+    field(INPA, "$(LP):A10P1 CA")
+    field(INPB, "$(LP):A10P2 CA")
+    field(INPC, "$(LP):A10P3 CA")
+    field(INPD, "$(LP):A10P4 CA")
+    field(NOVA, "4")
 }
 
 #! Further lines contain data used by VisualDCT
