@@ -44,7 +44,7 @@ epicsExportAddress(int, CONVERGED);
  */
 
 /**
- * (rreno) As of today, 10/27/2020, the most actuators used by any one loop
+ * (rreno) As of today, 10/29/2020, the most actuators used by any one loop
  * is 6. aSub records support a maximum of 21 inputs but we would need 25
  * in order to have one input per POI per actuator + 1 for converged status.
  *
@@ -69,19 +69,19 @@ int CollectActPOIs(aSubRecord *precord)
  * the input element where a value of zero is not converged and nonzero is 
  * converged.
  */
-static bool Converged(const void *input)
+static bool Converged(const void * const input)
 {
     if (AUTOACT_DEBUG)
         return CONVERGED;
 
-    return *(int *)input != 0;
+    return *( (int *)input ) != 0;
 }
 
 /**
  * Get the correct INPut field for a given actuator number.
  * Returns a NULL pointer if you didn't pass a number from 0-9
  */
-static double *GetInputActuator(const aSubRecord *precord, int actNum)
+static double * GetInputActuator(const aSubRecord *precord, int actNum)
 {
     switch(actNum) {
         case 0:
@@ -112,12 +112,6 @@ static double *GetInputActuator(const aSubRecord *precord, int actNum)
 /**
  * Generic routine to autosave actuator refs or offsets to an array
  *
- * Args:
- *     output:  pointer to the output array to save the data to.
- *     numActs: number of actuators to save
- *     numPOI:  number of patterns per actuator to save
- *
- * Always returns 0.
  */
 static void AutoSave(aSubRecord *precord, int numActs, int numPOI)
 {
@@ -139,11 +133,8 @@ static void AutoSave(aSubRecord *precord, int numActs, int numPOI)
  */
 int AutoActSave(aSubRecord *precord)
 {
-    if ( !Converged(precord->a) ) {
-        if (AUTOACT_DEBUG)
-            errlogPrintf("Not converged! Converged value: %d\n", *(int *)precord->a);
+    if ( !Converged(precord->a) )
         return 0;
-    }
 
     AutoSave( precord, N_ACT_REFS, N_POI );
 
