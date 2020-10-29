@@ -84,8 +84,8 @@ Links to various bits of information about the FastFeedback system are below. A 
 ### LTU
 | Name              | CPU               | Function         | FB      |Loop   |VEVR # | Notes                                            |
 |:-----------------:|:-----------------:|:----------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
-| sioc-ltuh-tr01    | cpu-sys0-fb01     | Slow LTUH1       | FB02    | TR04  | 5     |                                                  |
-| sioc-ltuh-tr02    | cpu-sys0-fb01     | Slow LTUH2       | FB02    | TR03  | 6     |                                                  |
+| sioc-ltuh-tr01    | cpu-sys0-fb01     | Slow LTUH1       | FB02    | TR03  | 5     |                                                  |
+| sioc-ltuh-tr02    | cpu-sys0-fb01     | Slow LTUH2       | FB02    | TR04  | 6     |                                                  |
 | sioc-ltuh-tr03    | cpu-sys0-fb01     | LTUH Launch      | FB03    | TR01  | 7     |                                                  |
 | sioc-ltus-tr01    | cpu-sys0-fb01     | LTUS Launch      | FB04    | TR01  | 11    |                                                  |
 
