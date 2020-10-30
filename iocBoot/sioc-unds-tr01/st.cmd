@@ -71,6 +71,11 @@ epicsEnvSet("LOCAL_SETPOINTS", "1")
 # ====================================================================
 dbLoadDatabase("dbd/fastFeedback.dbd")
 fastFeedback_registerRecordDeviceDriver(pdbbase)
+
+dbLoadRecords("db/fbckSettled.db",    "LP=FBCK:$(FB):$(LOOP)")
+dbLoadRecords("db/fbckSettledSum.db", "LP=FBCK:$(FB):$(LOOP)")
+dbLoadRecords("db/fbckAutoAct.db",    "LP=FBCK:$(FB):$(LOOP)")
+
 <iocBoot/common/st.cmd
 
 #Done  

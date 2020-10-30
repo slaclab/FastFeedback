@@ -1,10 +1,4 @@
 #!../../bin/linuxRT-x86_64/fastFeedback
-#
-# st.cmd file for Fast Feedback Controller IOC
-# Note: contains parameters specific to vioc-sys0-lg01 and
-#       and calls generic st.cmd common to all feedback loops 
-# author: L. Piccoli, A. Babbitt
-##########################################################
 
 # Where am I?
 pwd()
@@ -88,8 +82,12 @@ dbLoadDatabase("dbd/fastFeedback.dbd")
 fastFeedback_registerRecordDeviceDriver(pdbbase)
 dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI22:1,RF=L2,PHASE_LNK=ACCL:LI22:1:PDES,AMPL_LNK=ACCL:LI22:1:ADES,DRVH=6000")
 dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI25:1,RF=L3,PHASE_LNK=ACCL:LI25:1:PDES,AMPL_LNK=ACCL:LI25:1:ADES,DRVH=16000")
-<iocBoot/common/st.cmd
+# Load converged status and auto act ref+offset save databases.
+dbLoadRecords("db/fbckSettled.db",     "LP=FBCK:$(FB):$(LOOP)")
+dbLoadRecords("db/fbckSettledSum.db",  "LP=FBCK:$(FB):$(LOOP)")
+dbLoadRecords("db/fbckAutoActLong.db", "LP=FBCK:$(FB):$(LOOP)")
 
+<iocBoot/common/st.cmd
 # ====================================================================
 # Sequencer scripts to keep track of the CHIRP control and DL2 limits
 # ====================================================================

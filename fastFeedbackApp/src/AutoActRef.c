@@ -4,173 +4,185 @@
 // Routine to automatically save fast feedback actuator refs when
 // feedback loop has converged.
 
-#include <stdio.h>
-#include <dbEvent.h>
-#include <dbDefs.h>
-#include <dbCommon.h>
-#include <recSup.h>
+#include <stdbool.h>
+
 #include <aSubRecord.h>
-#include <registryFunction.h>
+#include <dbCommon.h>
+#include <dbDefs.h>
+#include <dbEvent.h>
 #include <epicsExport.h>
+#include <recSup.h>
+#include <registryFunction.h>
 
-int AutoActSave(aSubRecord *precord)
-{	
-  int converged;
-  double A1, A2, A3, A4, A5, A6, A7, A8, A9, A10;
-  double* output = (double*)precord->vala;
+const int N_ACT_REFS         = 10;
+const int N_POI              = 4;
+const int N_TR_OFFSET_ACTS   = 0;
+const int N_LONG_OFFSET_ACTS = 6;
+const int N_LTU_OFFSET_ACTS  = 4;
 
-	converged=*(int *)precord->a;
-	A1 = *(double*)precord->b;
-	A2 = *(double*)precord->c;
-	A3 = *(double*)precord->d;
-	A4 = *(double*)precord->e;
-	A5 = *(double*)precord->f;
-	A6 = *(double*)precord->g;
-	A7 = *(double*)precord->h;
-	A8 = *(double*)precord->i;
-	A9 = *(double*)precord->j;
-	A10 = *(double*)precord->k;
+/**
+ * Exported Debug Variables
+ *
+ * If you want to use these issue the following
+ * command in the IOC Shell:
+ *
+ *     `var <NAME> 1`
+ *
+ * And be sure to set to 0 again when you are done.
+ */
 
-  if(converged) {
-    output[0] = A1;
-    output[1] = A2;
-    output[2] = A3;
-    output[3] = A4;
-    output[4] = A5;
-    output[5] = A6;
-    output[6] = A7;
-    output[7] = A8;
-    output[8] = A9;
-    output[9] = A10;
-  }
+// Flag for switching to alternative logic.
+int AUTOACT_DEBUG = FALSE;
+epicsExportAddress(int, AUTOACT_DEBUG);
 
-	return 0;
-}
+// Simulate a converged status for testing.
+int CONVERGED = FALSE;
+epicsExportAddress(int, CONVERGED);
 
-int AutoActOff(aSubRecord *precord)
+/**
+ * End Exported Debug Variables
+ */
+
+/**
+ * (rreno) As of today, 10/29/2020, the most actuators used by any one loop
+ * is 6. aSub records support a maximum of 21 inputs but we would need 25
+ * in order to have one input per POI per actuator + 1 for converged status.
+ *
+ * To work around this, we create a subroutine to collect the 4 POIs for
+ * each actuator into an array. Then instead of needing 41 inputs for all 10
+ * acts + 1 for converged, we only need 10 inputs of 4 elements each + 1 input
+ * for converged status.
+ */
+
+int CollectActPOIs(aSubRecord *precord)
 {
-  double* output = (double*) precord->vala;
-  int i;
-  for (i = 0; i < 40; i++) {
-    output[i] = 0;
-  }
-  return 0;
+   ( (double *)precord->vala )[0] = *(double *)precord->a;
+   ( (double *)precord->vala )[1] = *(double *)precord->b;
+   ( (double *)precord->vala )[2] = *(double *)precord->c;
+   ( (double *)precord->vala )[3] = *(double *)precord->d;
+
+    return 0;
 }
 
-int AutoActOffLongSave(aSubRecord *precord)
-{	
-  int converged, i;
-  double A1_1,A1_2,A1_3, A2_1,A2_2,A2_3, A3_1,A3_2,A3_3, A4_1,A4_2,A4_3, A5_1,A5_2,A5_3, A6_1,A6_2,A6_3;
-  double* output = (double*)precord->vala;
+/**
+ * Determine whether or not a loop is converged. To use, pass the pointer to
+ * the input element where a value of zero is not converged and nonzero is 
+ * converged.
+ */
+static bool Converged(const void * const input)
+{
+    if (AUTOACT_DEBUG)
+        return CONVERGED;
 
-	converged=*(int *)precord->a;
-	A1_1 = *(double*)precord->b;
-	A1_2 = *(double*)precord->c;
-	A1_3 = *(double*)precord->d;
-	A2_1 = *(double*)precord->e;
-	A2_2 = *(double*)precord->f;
-	A2_3 = *(double*)precord->g;
-	A3_1 = *(double*)precord->h;
-	A3_2 = *(double*)precord->i;
-	A3_3 = *(double*)precord->j;
-	A4_1 = *(double*)precord->k;
-	A4_2 = *(double*)precord->l;
-	A4_3 = *(double*)precord->m;
-	A5_1 = *(double*)precord->n;
-	A5_2 = *(double*)precord->o;
-	A5_3 = *(double*)precord->p;
-	A6_1 = *(double*)precord->q;
-	A6_2 = *(double*)precord->r;
-	A6_3 = *(double*)precord->s;
+    return *( (int *)input ) != 0;
+}
 
-
-  if(converged) {
-    output[0] = 0;
-    output[1] = A1_1;
-    output[2] = A1_2;
-    output[3] = A1_3;
-    output[4] = 0;
-    output[5] = A2_1;
-    output[6] = A2_2;
-    output[7] = A2_3;
-    output[8] = 0;
-    output[9] = A3_1;
-    output[10] = A3_2;
-    output[11] = A3_3;
-    output[12] = 0;
-    output[13] = A4_1;
-    output[14] = A4_2;
-    output[15] = A4_3;
-    output[16] = 0;
-    output[17] = A5_1;
-    output[18] = A5_2;
-    output[19] = A5_3;
-    output[20] = 0;
-    output[21] = A6_1;
-    output[22] = A6_2;
-    output[23] = A6_3;
-    for (i = 24; i < 40; i++){
-      output[i] = 0.;
+/**
+ * Get the correct INPut field for a given actuator number.
+ * Returns a NULL pointer if you didn't pass a number from 0-9
+ */
+static double * GetInputActuator(const aSubRecord *precord, int actNum)
+{
+    switch(actNum) {
+        case 0:
+            return (double *)precord->b;
+        case 1:
+            return (double *)precord->c;
+        case 2:
+            return (double *)precord->d;
+        case 3:
+            return (double *)precord->e;
+        case 4:
+            return (double *)precord->f;
+        case 5:
+            return (double *)precord->g;
+        case 6:
+            return (double *)precord->h;
+        case 7:
+            return (double *)precord->i;
+        case 8:
+            return (double *)precord->j;
+        case 9:
+            return (double *)precord->k;
+        default:
+            return NULL;
     }
-  }
+}
+
+/**
+ * Generic routine to autosave actuator refs or offsets to an array
+ *
+ */
+static void AutoSave(aSubRecord *precord, int numActs, int numPOI)
+{
+    double *output = (double *)precord->vala;
+
+    for (int i = 0; i < numActs; ++i) {
+        double *input = GetInputActuator(precord, i);
+        if (NULL == input)
+            continue;
+
+        for (int j = 0; j < numPOI; ++j) {
+            output[numPOI * i + j] = input[j];
+        }
+    }
+}
+
+/**
+ * All loop actuator reference autosave routine.
+ */
+int AutoActSave(aSubRecord *precord)
+{
+    if ( !Converged(precord->a) )
+        return 0;
+
+    AutoSave( precord, N_ACT_REFS, N_POI );
 
 	return 0;
 }
 
-int AutoActOffSave(aSubRecord *precord)
-{	
-  int converged, i;
-  double A1_0,A1_1,A1_2,A1_3, A2_0,A2_1,A2_2,A2_3, A3_0,A3_1,A3_2,A3_3, A4_0,A4_1,A4_2,A4_3;
-  double* output = (double*)precord->vala;
+/**
+ * Longitudinal loop actuator offset autosave routine.
+ */
+int AutoActOffsetLongitudinal(aSubRecord *precord)
+{
+    if ( !Converged(precord->a) )
+        return 0;
 
-	converged=*(int *)precord->a;
-	A1_0 = *(double*)precord->b;
-	A1_1 = *(double*)precord->c;
-	A1_2 = *(double*)precord->d;
-	A1_3 = *(double*)precord->e;
-	A2_0 = *(double*)precord->f;
-	A2_1 = *(double*)precord->g;
-	A2_2 = *(double*)precord->h;
-	A2_3 = *(double*)precord->i;
-	A3_0 = *(double*)precord->j;
-	A3_1 = *(double*)precord->k;
-	A3_2 = *(double*)precord->l;
-	A3_3 = *(double*)precord->m;
-	A4_0 = *(double*)precord->n;
-	A4_1 = *(double*)precord->o;
-	A4_2 = *(double*)precord->p;
-	A4_3 = *(double*)precord->q;
-
-
-
-
-  if(converged) {
-    output[0] = A1_0;
-    output[1] = A1_1;
-    output[2] = A1_2;
-    output[3] = A1_3;
-    output[4] = A2_0;
-    output[5] = A2_1;
-    output[6] = A2_2;
-    output[7] = A2_3;
-    output[8] = A3_0;
-    output[9] = A3_1;
-    output[10] = A3_2;
-    output[11] = A3_3;
-    output[12] = A4_0;
-    output[13] = A4_1;
-    output[14] = A4_2;
-    output[15] = A4_3;
-    for (i = 16; i < 40; i++){
-      output[i] = 0.;
-    }
-  }
+    AutoSave( precord, N_LONG_OFFSET_ACTS, N_POI );
 
 	return 0;
 }
 
+/**
+ * Fast LTU actuator offset autosave routine.
+ */
+int AutoActOffsetLTU(aSubRecord *precord)
+{
+    if ( !Converged(precord->a) )
+        return 0;
 
+    AutoSave( precord, N_LTU_OFFSET_ACTS, N_POI );
+
+	return 0;
+}
+
+/**
+ * Transverse loop actuator offset autosave routine for those loops 
+ * not covered above.
+ * As of 10/29/2020 there are no offsets to autosave.
+ */
+int AutoActOffset(aSubRecord *precord)
+{
+    for (int i = 0; i < 40; ++i)
+        ( (double *)precord->vala )[i] = 0.0;
+
+    return 0;
+}
+
+
+epicsRegisterFunction(CollectActPOIs);
 epicsRegisterFunction(AutoActSave);
-epicsRegisterFunction(AutoActOffLongSave);
-epicsRegisterFunction(AutoActOffSave);
-epicsRegisterFunction(AutoActOff);
+epicsRegisterFunction(AutoActOffsetLongitudinal);
+epicsRegisterFunction(AutoActOffsetLTU);
+epicsRegisterFunction(AutoActOffset);

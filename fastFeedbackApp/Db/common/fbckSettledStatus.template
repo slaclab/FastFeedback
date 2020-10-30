@@ -2,7 +2,7 @@ record(calc, "$(LOOP):CVGCALC") {
 	field(DESC, "Checks if used states have converged")
 	field(SCAN, "Passive")
 
-	field(CALC, "A && B && C && D && E && F && G && H && I && J")
+	field(CALC, "A&&B&&C&&D&&E&&F&&G&&H&&I&&J")
 
 	field(INPA, "$(LOOP):S1INCL")
 	field(INPB, "$(LOOP):S2INCL")
