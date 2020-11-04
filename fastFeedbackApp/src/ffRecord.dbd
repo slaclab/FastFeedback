@@ -1,2 +1,0 @@
-device(ao, INST_IO, devAoPowerSet, "FF Power Write Support")
-device(ai, INST_IO, devAiPowerSet, "FF Power Read Support")
