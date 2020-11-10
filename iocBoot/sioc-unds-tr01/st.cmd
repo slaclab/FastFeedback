@@ -50,7 +50,7 @@ epicsEnvSet("BEND_MAG", "BEND:LTUS:525:BDES")
 
 epicsEnvSet("LOCA","UNDS")
 epicsEnvSet(FAC,"${LOCA}")
-epicsEnvSet(UNIT,"TR02") 
+epicsEnvSet(UNIT,"TR01") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
 epicsEnvSet(VEVR, "vevr12")
 
