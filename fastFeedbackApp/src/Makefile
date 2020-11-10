@@ -61,7 +61,6 @@ fastFeedback_DBD += devIocStats.dbd #Part of the iocAdmin module
 fastFeedback_DBD += devSeqCar.dbd
 fastFeedback_DBD += asSupport.dbd
 fastFeedback_DBD += caPutLog.dbd
-fastFeedback_DBD += ffRecord.dbd
 fastFeedback_DBD += devFfDeviceView.dbd
 fastFeedback_DBD += devFfConfig.dbd
 fastFeedback_DBD += evrSupport.dbd #Needed for EVR
@@ -107,8 +106,7 @@ CC_FILES = Thread.cc EventReceiver.cc EventGenerator.cc PatternManager.cc \
 	CollectorThread.cc LoopConfiguration.cc LoopThread.cc Loop.cc \
 	Algorithm.cc SineWave.cc ExecThread.cc ExecConfiguration.cc \
 	PatternGenerator.cc Commands.cc CaChannel.cc FcomChannel.cc \
-	ffRecord.c devFfDeviceView.cc ChannelAccess.cc \
-	devFfConfig.cc Pattern.cc TimeUtil.cc \
+	devFfDeviceView.cc ChannelAccess.cc devFfConfig.cc Pattern.cc TimeUtil.cc \
 	PatternMask.cc Log.cc SetpointDevice.cc \
 	Longitudinal.cc MeasurementAverage.cc LongitudinalChirp.cc \
 	TrajectoryFitGeneral.cc TrajectoryFitStatic.cc InjectorLaunch.cc \
@@ -189,6 +187,7 @@ fastFeedback_LIBS += $(EPICS_BASE_IOC_LIBS)
 # CPPUNIT Tests IOC Application
 # ========================================================================
 # Let's build the Following IOC Application
+ifeq ($(unittest), 1)
 PROD_linuxRT-x86_64 += ffUnitTest
 PROD += $(PROD_$(T_A))
 
@@ -308,6 +307,7 @@ endif
 # Link in EPICS BASE LIBS
 ffUnitTest_LIBS += $(EPICS_BASE_IOC_LIBS)
 
+endif # unittest
 include $(TOP)/configure/RULES
 #----------------------------------------
 #  ADD RULES AFTER THIS LINE
