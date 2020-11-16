@@ -47,7 +47,7 @@ Links to various bits of information about the FastFeedback system are below. A 
 |:-----------------:|:-----------------:|:----------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
 | sioc-sys0-fb01    | cpu-sys0-fb01     | Watchdog         | N/A     | N/A   | N/A   | Moved from lcls-daemon1 in R3.2.0 (Aug 25, 2020) |
 | sioc-sys0-lg01    | cpu-sys0-fb02     | HXR Longitudinal | FB04    | LG01  | 3     |                                                  |
-| sioc-sys0-lg02    | cpu-sys0-fb01     | SXR Longitudinal | FB03    | LG01  | 10    | Not yet commissioned                             |
+| sioc-sys0-lg02    | cpu-sys0-fb01     | SXR Longitudinal | FB03    | LG01  | 10    | Deferred                                         |
 | sioc-sys0-gn01    | cpu-sys0-fb02     | BunchCharge      | FB02    | GN01  | 2     |                                                  |
 
 ### S20                                                               
@@ -87,7 +87,8 @@ Links to various bits of information about the FastFeedback system are below. A 
 | sioc-ltuh-tr01    | cpu-sys0-fb01     | Slow LTUH1       | FB02    | TR03  | 5     |                                                  |
 | sioc-ltuh-tr02    | cpu-sys0-fb01     | Slow LTUH2       | FB02    | TR04  | 6     |                                                  |
 | sioc-ltuh-tr03    | cpu-sys0-fb01     | LTUH Launch      | FB03    | TR01  | 7     |                                                  |
-| sioc-ltus-tr01    | cpu-sys0-fb01     | LTUS Launch      | FB04    | TR01  | 11    |                                                  |
+| sioc-ltus-tr01    | cpu-sys0-fb01     | Slow LTUS Launch | FB04    | TR01  | 11    |                                                  |
+| sioc-ltus-tr02    | cpu-sys0-fb02     | Fast LTUS Launch | FB04    | TR03  | 10    |                                                  |
 
 ### Undulator Hall
 | Name              | CPU               | Function         | FB      |Loop   |VEVR # | Notes                                            |
@@ -95,4 +96,4 @@ Links to various bits of information about the FastFeedback system are below. A 
 | sioc-undh-tr01    | cpu-sys0-fb02     | UNDH Launch      | FB03    | TR04  | 4     |                                                  |
 | sioc-undh-tr02    | cpu-sys0-fb02     | UNDH BLD         | FB05    | TR05  | 6     |                                                  |
 | sioc-unds-tr01    | cpu-sys0-fb01     | UNDS Launch      | FB04    | TR02  | 12    |                                                  |
-| sioc-unds-tr02    | cpu-sys0-fb01     | UNDS BLD         | FB03    | TR02  | 13    | Not yet commissioned                             |
+| sioc-unds-tr02    | cpu-sys0-fb01     | UNDS BLD         | FB03    | TR02  | 13    |                                                  |
