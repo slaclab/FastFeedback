@@ -40,6 +40,7 @@ evrManager /dev/evr0mng create vevr6
 evrManager /dev/evr0mng create vevr7
 evrManager /dev/evr0mng create vevr8
 evrManager /dev/evr0mng create vevr9
+evrManager /dev/evr0mng create vevr10
 
 # wait a bit to device become visible
 sleep 1
@@ -54,6 +55,7 @@ chmod 666 /dev/vevr6
 chmod 666 /dev/vevr7
 chmod 666 /dev/vevr8
 chmod 666 /dev/vevr9
+chmod 666 /dev/vevr10
 echo "Initializing evrManager"
 evrManager /dev/evr0mng init
 
