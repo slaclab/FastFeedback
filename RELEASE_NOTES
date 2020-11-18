@@ -12,8 +12,9 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
-R3.6.1:   10-Nov-2020, J. Mock (jmock):
-    * Change UNIT env variable of sioc-unds-tr01 from TR02 to TR01
+R3.7.0:   18-Nov-2020, J. Mock (jmock) and R. Reno (rreno):
+    * Change UNIT env variable of sioc-unds-tr01 from TR02 to TR01.
+    * Add sioc-ltus-tr02 120Hz fast LTU feedback for reporting STATES to BLD.
 
 R3.6.0:   30-Oct-2020, R. Reno (rreno):
     * Extend Actuator Reference and Offset Autosave feature to save all patterns.
