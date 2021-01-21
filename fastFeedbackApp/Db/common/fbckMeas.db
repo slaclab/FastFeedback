@@ -102,6 +102,22 @@ record(stringout, "FBCK:$(AREA):$(LOOP):M$(MNUM)DEVNAME") {
   info(autosaveConfig$(LOOP), "VAL")
 }
 
+record(stringout, "FBCK:$(AREA):$(LOOP):M$(MNUM)DEVNAMEHXR") {
+  field(DESC, "$(DEV)")
+  field(VAL, "$(DEV)")
+  field(DTYP, "Soft Channel")
+  field(PINI, "YES")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(stringout, "FBCK:$(AREA):$(LOOP):M$(MNUM)DEVNAMESXR") {
+  field(DESC, "$(DEV)")
+  field(VAL, "$(DEV)")
+  field(DTYP, "Soft Channel")
+  field(PINI, "YES")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
 record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST") {
   field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1.VAL")
 #  field(RES, "FBCK:$(AREA):$(LOOP):STATE")

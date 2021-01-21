@@ -275,6 +275,24 @@ record(waveform, "FBCK:$(AREA):$(LOOP):POI1") {
   info(autosaveConfig$(LOOP), "VAL")
 }
 
+record(waveform, "FBCK:$(AREA):$(LOOP):POI1HXR") {
+  field(DESC, "POI for OFFSET1 for HXR")
+  field(PINI, "YES")
+  field(DTYP, "Soft Channel")
+  field(NELM, "21")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(waveform, "FBCK:$(AREA):$(LOOP):POI1SXR") {
+  field(DESC, "POI for OFFSET1 for SXR")
+  field(PINI, "YES")
+  field(DTYP, "Soft Channel")
+  field(NELM, "21")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
 record(bi, "FBCK:$(AREA):$(LOOP):POI1_DEST") {
   field(DESC, "Destination for POI1")
   field(PINI, "YES")
@@ -291,6 +309,24 @@ record(waveform, "FBCK:$(AREA):$(LOOP):POI2") {
   field(PINI, "YES")
   field(DTYP, "FfConfig")
   field(INP, "@$(LOOP) POI2")
+  field(NELM, "21")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(waveform, "FBCK:$(AREA):$(LOOP):POI2HXR") {
+  field(DESC, "POI for OFFSET2 for HXR")
+  field(PINI, "YES")
+  field(DTYP, "Soft Channel")
+  field(NELM, "21")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(waveform, "FBCK:$(AREA):$(LOOP):POI2SXR") {
+  field(DESC, "POI for OFFSET2 for SXR")
+  field(PINI, "YES")
+  field(DTYP, "Soft Channel")
   field(NELM, "21")
   field(FTVL, "USHORT")
   info(autosaveConfig$(LOOP), "VAL")
@@ -317,6 +353,24 @@ record(waveform, "FBCK:$(AREA):$(LOOP):POI3") {
   info(autosaveConfig$(LOOP), "VAL")
 }
 
+record(waveform, "FBCK:$(AREA):$(LOOP):POI3HXR") {
+  field(DESC, "POI for OFFSET3 for HXR")
+  field(PINI, "YES")
+  field(DTYP, "Soft Channel")
+  field(NELM, "21")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(waveform, "FBCK:$(AREA):$(LOOP):POI3SXR") {
+  field(DESC, "POI for OFFSET3 for SXR")
+  field(PINI, "YES")
+  field(DTYP, "Soft Channel")
+  field(NELM, "21")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
 record(bi, "FBCK:$(AREA):$(LOOP):POI3_DEST") {
   field(DESC, "Destination for POI3")
   field(PINI, "YES")
@@ -333,6 +387,24 @@ record(waveform, "FBCK:$(AREA):$(LOOP):POI4") {
   field(PINI, "YES")
   field(DTYP, "FfConfig")
   field(INP, "@$(LOOP) POI4")
+  field(NELM, "21")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(waveform, "FBCK:$(AREA):$(LOOP):POI4HXR") {
+  field(DESC, "POI for OFFSET4 for HXR")
+  field(PINI, "YES")
+  field(DTYP, "Soft Channel")
+  field(NELM, "21")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(waveform, "FBCK:$(AREA):$(LOOP):POI4SXR") {
+  field(DESC, "POI for OFFSET4 for SXR")
+  field(PINI, "YES")
+  field(DTYP, "Soft Channel")
   field(NELM, "21")
   field(FTVL, "USHORT")
   info(autosaveConfig$(LOOP), "VAL")
