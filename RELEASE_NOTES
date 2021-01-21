@@ -12,6 +12,9 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R3.7.1:   21-Jan-2021, J. Mock (jmock):
+    * Add HXR and SXR timing variables to make it easier to script changes
+
 R3.7.0:   18-Nov-2020, J. Mock (jmock) and R. Reno (rreno):
     * Change UNIT env variable of sioc-unds-tr01 from TR02 to TR01.
     * Add sioc-ltus-tr02 120Hz fast LTU feedback for reporting STATES to BLD.
