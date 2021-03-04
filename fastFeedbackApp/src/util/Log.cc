@@ -203,10 +203,11 @@ void Log::flushMessage() {
   _message << "\n";
   std::string outgoingMessage = _messageHeader + _message.str();
   if (_allLogToConsole || _logToConsole) {
-    errlogPrintf(outgoingMessage.c_str());
-  } else {
-    errlogPrintfNoConsole(outgoingMessage.c_str());
-  }
+    //errlogPrintf(outgoingMessage.c_str());
+    printf(outgoingMessage.c_str());
+  } //else {
+//    errlogPrintfNoConsole(outgoingMessage.c_str());
+//  }
   clear();
 #endif
   _mutex.unlock();

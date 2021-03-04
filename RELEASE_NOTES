@@ -12,6 +12,9 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R3.7.2:   3-March-2021, J. Mock (jmock):
+    * Stop sending messages to the message log
+
 R3.7.1:   21-Jan-2021, J. Mock (jmock):
     * Add HXR and SXR timing variables to make it easier to script changes
 
