@@ -12,6 +12,9 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R3.7.3:   18-March-2021, J. Mock (jmock):
+    * Change S<NUM>P1AVG number of average points from 10 to 120
+
 R3.7.2:   3-March-2021, J. Mock (jmock):
     * Stop sending messages to the message log
 
