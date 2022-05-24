@@ -772,6 +772,7 @@ int Loop::setDevices(bool skip) {
     epicsTimeGetCurrent(&timestamp);
     evrTimePutPulseID(&timestamp, _configuration->_pulseIdPv.getValue());
     (*stateIt)->writeFcom(timestamp);
+	(*stateIt)->setBsa(timestamp);
 
     // If actuators were set, then clear stale status message (after 5 seconds)
     if (!actuatorSettingFailed) {

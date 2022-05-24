@@ -115,6 +115,13 @@ int StateDevice::writeFcom(epicsTimeStamp timestamp) {
     return 0;
 }
 
+int StateDevice::setBsa(epicsTimeStamp timestamp) {
+	_lastValueSet = _buffer[_nextWrite]._value + _offsetPv->getValue();
+	Bsa_StoreData("state" + _name, timestamp, _lastValueSet, 0, 0); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
+
+	return 0;
+}
+
 /**
  * Return last calculated error, i.e. difference between last value set() and
  * the last setpoint available.
