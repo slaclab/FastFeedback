@@ -35,8 +35,7 @@ public:
             PatternMask patternMask = PatternMask::ZERO_PATTERN_MASK,
             int patternIndex = 1);
 
-    virtual ~StateDevice() {
-    };
+    virtual ~StateDevice();
 
     virtual int set(double value);
     virtual int set(double value, epicsTimeStamp timestamp);
@@ -102,7 +101,12 @@ private:
 	/**
 	 * BSA channel for real time communication of states.
 	 */
-	BsaChannel bsaStateChannel;
+	BsaChannel _bsaStateChannel;
+
+	/**
+	 * State value to be sent off to BSA.
+	 */
+	double stateValue;
 };
 
 FF_NAMESPACE_END

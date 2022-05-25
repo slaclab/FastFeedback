@@ -38,6 +38,12 @@ _stateIndex(1) {
     std::ostringstream strstream;
     strstream << loopName << " " << name << "OFFSET" << patternIndex;
     _offsetPv = new PvData<double>(strstream.str(), 0);
+	
+	_bsaStateChannel = BSA_CreateChannel(("STATE"+name.substr(1)).data());
+}
+
+StateDevice::~StateDevice() {
+	BSA_ReleaseChannel(_bsaStateChannel);
 }
 
 /**
@@ -125,11 +131,9 @@ int StateDevice::writeFcom(epicsTimeStamp timestamp) {
  * @author K.Wessel
  */
 int StateDevice::setBsa(epicsTimeStamp timestamp) {
-	_lastValueSet = _buffer[_nextWrite]._value + _offsetPv->getValue();
+	stateValue = _buffer[_nextWrite]._value + _offsetPv->getValue();
 	
-	bsaStateChannel = BSA_CreateChannel(("STATE"+_name.substr(1)).data());
-	BSA_StoreData(bsaStateChannel, timestamp, _lastValueSet, 0, 0); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
-	BSA_ReleaseChannel(bsaStateChannel);
+	BSA_StoreData(_bsaStateChannel, timestamp, stateValue, epicsAlarmNone, epicsSevNone); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
 
 	return 0;
 }
