@@ -127,7 +127,7 @@ int StateDevice::writeFcom(epicsTimeStamp timestamp) {
 int StateDevice::setBsa(epicsTimeStamp timestamp) {
 	_lastValueSet = _buffer[_nextWrite]._value + _offsetPv->getValue();
 	
-	bsaStateChannel = BSA_CreateChannel(_name.data());
+	bsaStateChannel = BSA_CreateChannel(("STATE"+_name.substr(1)).data());
 	BSA_StoreData(bsaStateChannel, timestamp, _lastValueSet, 0, 0); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
 	BSA_ReleaseChannel(bsaStateChannel);
 
