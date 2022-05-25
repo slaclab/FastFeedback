@@ -119,12 +119,17 @@ int StateDevice::writeFcom(epicsTimeStamp timestamp) {
 /**
  * Calls Bsa_StoreData passing in epicsTimeStamp and state _lastValueSet. 
  * The actual state value written is added to the existing _offset.
+ * Creates a BsaChannel to send state information in based on the name
+ * parameter for StateDevice(). 
  *
  * @author K.Wessel
  */
 int StateDevice::setBsa(epicsTimeStamp timestamp) {
 	_lastValueSet = _buffer[_nextWrite]._value + _offsetPv->getValue();
-	BSA_StoreData(_name, timestamp, _lastValueSet, 0, 0); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
+	
+	bsaStateChannel = BSA_CreateChannel(_name.data());
+	BSA_StoreData(bsaStateChannel, timestamp, _lastValueSet, 0, 0); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
+	BSA_ReleaseChannel(bsaStateChannel);
 
 	return 0;
 }

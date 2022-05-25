@@ -12,6 +12,7 @@
 #include "ActuatorDevice.h"
 #include "SetpointDevice.h"
 #include "FcomChannelStates.h"
+#include "BsaApi.h"
 
 class StateDeviceTest;
 
@@ -97,6 +98,11 @@ private:
      * State number is 5 for FBCK:FB01:TR01:S5
      */
     int _stateIndex;
+
+	/**
+	 * BSA channel for real time communication of states.
+	 */
+	BsaChannel bsaStateChannel;
 };
 
 FF_NAMESPACE_END
