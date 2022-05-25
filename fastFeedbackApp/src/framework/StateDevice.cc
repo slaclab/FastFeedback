@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string>
 #include <sstream>
+#include "BsaApi.h"
 
 USING_FF_NAMESPACE
 
@@ -115,9 +116,15 @@ int StateDevice::writeFcom(epicsTimeStamp timestamp) {
     return 0;
 }
 
+/**
+ * Calls Bsa_StoreData passing in epicsTimeStamp and state _lastValueSet. 
+ * The actual state value written is added to the existing _offset.
+ *
+ * @author K.Wessel
+ */
 int StateDevice::setBsa(epicsTimeStamp timestamp) {
 	_lastValueSet = _buffer[_nextWrite]._value + _offsetPv->getValue();
-	Bsa_StoreData("state" + _name, timestamp, _lastValueSet, 0, 0); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
+	BSA_StoreData(_name, timestamp, _lastValueSet, 0, 0); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
 
 	return 0;
 }
