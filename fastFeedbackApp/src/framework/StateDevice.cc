@@ -42,6 +42,12 @@ _stateIndex(1) {
 	_bsaStateChannel = BSA_CreateChannel(("STATE"+name.substr(1)).data());
 }
 
+/**
+ * StateDevice deconstructor to release a BsaChannel.
+ *
+ * @author K.Wessel
+ */
+ 
 StateDevice::~StateDevice() {
 	BSA_ReleaseChannel(_bsaStateChannel);
 }
@@ -125,8 +131,7 @@ int StateDevice::writeFcom(epicsTimeStamp timestamp) {
 /**
  * Calls Bsa_StoreData passing in epicsTimeStamp and state _lastValueSet. 
  * The actual state value written is added to the existing _offset.
- * Creates a BsaChannel to send state information in based on the name
- * parameter for StateDevice(). 
+ * 
  *
  * @author K.Wessel
  */
