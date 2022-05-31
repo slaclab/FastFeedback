@@ -1,0 +1,38 @@
+#==============================================================================
+#
+# Abs:  Beam Synchronous Acquisition records for a single Toroid.
+#
+# Name: bsaATTR.substitutions
+#
+# Note: Must follow the LCLS naming conventions.  
+#
+#==============================================================================
+# BSA Integration Note:
+# Each device attribute (such as width ) provides input to bsaEdefAvg.db.
+# The bsaEdefAvg.db provides the RMS and Avg -$(DEV):$(SECN)<edef id>, and history - 
+#   $(DEV):$(SECN)HST<edef id> for each device attribute for each of 20 edefs.
+#
+file bsaATTREdef.db
+{
+#	      Device   Name                                                      Init 
+#                                                                                Event Code
+  pattern {D ,  ATTR ,  I  ,  EG  ,  HO  ,  LO  ,PR,  AD  , SINK_SIZE        }
+	   { $(D),  BSAS1, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D),  BSAS2, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+  	   { $(D),  BSAS3, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+       { $(D),  BSAS4, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D),  BSAS5, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D),  BSAS6, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D),  BSAS7, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D),  BSAS8, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D),  BSAS9, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D), BSAS10, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+}
+
+file bsaEdefFanouts.db
+{
+#	    Device  Name
+  pattern {  DEV ,  SECN , INP , EGU  ,HOPR ,LOPR ,PREC ,ADEL ,FLNK   }
+	  { $(D) ,$(ATTR), $(I),$(EG) ,$(HO),$(LO),$(PR),$(AD),$(LNK) }
+}
+

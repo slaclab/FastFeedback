@@ -13,6 +13,8 @@ include $(TOP)/configure/CONFIG
 # each delivered *.template file specified below looks for its
 # *.substitutions file
 
+DB_INSTALLS += $(EVENT)/db/bsaATTREdef.db
+
 # for each feedback loop
 DB += fbckState.db
 DB += fbckMeas.db
@@ -32,6 +34,7 @@ DB += fbckAutoActLTU.db
 
 # Loop substitutions records per loop
 DB += fbckLoop.db
+DB += bsaATTR.db
 
 # IOC substitutions for PVs per feedback IOC
 DB += fbckIoc.db
