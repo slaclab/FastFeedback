@@ -16,17 +16,17 @@ file bsaATTREdef.db
 {
 #	      Device   Name                                                      Init 
 #                                                                                Event Code
-  pattern {D ,  ATTR ,  I  ,  EG  ,  HO  ,  LO  ,PR,  AD  , SINK_SIZE        }
-	   { $(D),  BSAS1, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D),  BSAS2, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-  	   { $(D),  BSAS3, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-       { $(D),  BSAS4, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D),  BSAS5, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D),  BSAS6, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D),  BSAS7, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D),  BSAS8, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D),  BSAS9, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D), BSAS10, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+  pattern {D ,  ATTR ,  I  ,  EG  ,  HO  ,  LO  ,PR,  AD  , SINK_SIZE       , }
+	   { $(D),  S1BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D),  S2BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+  	   { $(D),  S3BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+       { $(D),  S4BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D),  S5BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D),  S6BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D),  S7BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D),  S8BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D),  S9BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+	   { $(D), S10BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
 }
 
 file bsaEdefFanouts.db
