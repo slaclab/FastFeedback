@@ -732,6 +732,10 @@ int Loop::setDevices(bool skip) {
     epicsTimeStamp timestamp;
     epicsTimeGetCurrent(&timestamp);
 
+    epicsTimeStamp bsaTS;
+	  evrTimeGet(&bsaTS, 0);
+    
+
     bool actuatorSettingFailed = false;
 
     for (actIt = _actuators.begin();
@@ -764,6 +768,7 @@ int Loop::setDevices(bool skip) {
     for (stateIt = _states.begin();
             stateIt != _states.end(); ++stateIt) {
         (*stateIt)->write(); // TODO: need to implement skip in StateDevice::write (see ActuatorDevice::write(bool))
+        (*stateIt)->setBsa(bsaTS);
     }
 
     // Send the Fcom blob with states
@@ -771,11 +776,7 @@ int Loop::setDevices(bool skip) {
 
     epicsTimeGetCurrent(&timestamp);
     evrTimePutPulseID(&timestamp, _configuration->_pulseIdPv.getValue());
-    (*stateIt)->writeFcom(timestamp);
-
-	epicsTimeGetCurrent(&timestamp);
-	evrTimeGet(&timestamp, 0);
-	(*stateIt)->setBsa(timestamp);
+    (*stateIt)->writeFcom(timestamp);	
 
     // If actuators were set, then clear stale status message (after 5 seconds)
     if (!actuatorSettingFailed) {

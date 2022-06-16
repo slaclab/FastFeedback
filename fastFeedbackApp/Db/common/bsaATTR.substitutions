@@ -12,21 +12,21 @@
 # The bsaEdefAvg.db provides the RMS and Avg -$(DEV):$(SECN)<edef id>, and history - 
 #   $(DEV):$(SECN)HST<edef id> for each device attribute for each of 20 edefs.
 #
-file bsaATTREdef.db
+file bsaFbck.db
 {
 #	      Device   Name                                                      Init 
 #                                                                                Event Code
-  pattern {D ,  ATTR ,  I  ,  EG  ,  HO  ,  LO  ,PR,  AD  , SINK_SIZE       , }
-	   { $(D),  S1BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D),  S2BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-  	   { $(D),  S3BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-       { $(D),  S4BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D),  S5BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D),  S6BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D),  S7BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D),  S8BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D),  S9BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
-	   { $(D), S10BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=10) }
+  pattern {D ,  ATTR ,  I  ,  EG  ,  HO  ,  LO  ,PR,  AD  , SINK_SIZE       ,INP }
+	   { $(D),  S1BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=1),STATE1 }
+	   { $(D),  S2BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=1),STATE2 }
+  	   { $(D),  S3BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=1),STATE3 }
+       { $(D),  S4BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=1),STATE4 }
+	   { $(D),  S5BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=1),STATE5 }
+	   { $(D),  S6BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=1),STATE6 }
+	   { $(D),  S7BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=1),STATE7 }
+	   { $(D),  S8BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=1),STATE8 }
+	   { $(D),  S9BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=1),STATE9 }
+	   { $(D), S10BSA, $(I), $(EG), $(HO), $(LO), 3, $(AD), $(SINK_SIZE\=1),STATE10 }
 }
 
 file bsaEdefFanouts.db

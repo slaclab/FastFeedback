@@ -95,6 +95,7 @@ dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 # ===================================================================
 # These macros are used in PV generation:
 dbLoadRecords("db/fbck_template.db","VIOC=${IOC_TYPE},LOC=${LOCA},FEEDBACK=${FB},LOOP_TYPE=${LOOP},CON_NAME=${CONFIG_NAME},LOCAL_SETPOINTS=${LOCAL_SETPOINTS},BEND_MAG=${BEND_MAG}")
+dbLoadRecords("db/bsaATTR.db",    "D=FBCK:$(FB):$(LOOP), EG=mm, HO=10, LO=1, AD=5, I='', LNK='', ATTR=BSA, PR=3")
 #########################################################################
 #BEGIN: Setup autosave/restore
 ######################################################################
