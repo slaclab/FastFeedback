@@ -80,7 +80,6 @@ fastFeedback_registerRecordDeviceDriver(pdbbase)
 dbLoadRecords("db/fbckSettled.db",    "LP=FBCK:$(FB):$(LOOP)")
 dbLoadRecords("db/fbckSettledSum.db", "LP=FBCK:$(FB):$(LOOP)")
 dbLoadRecords("db/fbckAutoAct.db",    "LP=FBCK:$(FB):$(LOOP)")
-dbLoadRecords("db/bsaATTR.db",    "D=FBCK:$(FB):$(LOOP), EG=mm, HO=10, LO=1, AD=5, I='', LNK='', ATTR=BSA, PR=3")
 
 <iocBoot/common/st.cmd
 

@@ -34,7 +34,7 @@ DB += fbckAutoActLTU.db
 
 # Loop substitutions records per loop
 DB += fbckLoop.db
-DB += bsaATTR.db
+DB += bsaFbck.db
 
 # IOC substitutions for PVs per feedback IOC
 DB += fbckIoc.db
