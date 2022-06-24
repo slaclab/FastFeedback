@@ -29,7 +29,7 @@ file fbckLoop.db {
 
 file fbckIoc.db {
   pattern { AR,            LP,          IOC,       LC,     BEND_MAG     }
-          {$(FEEDBACK), $(LOOP_TYPE), $(VIOC),   $(LOC),  $(BEND_MAG)   }
+          {$(FEEDBACK), $(UNIT), $(VIOC),   $(LOC),  $(BEND_MAG)   }
 }
 
 # This is a necessary additional template file for longitudinal feedbacks            
