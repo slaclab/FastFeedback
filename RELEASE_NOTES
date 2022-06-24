@@ -12,6 +12,9 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R3.8.1    24 June 2022   J. Mock (jmock)
+    * Fix typo with sink size
+
 R3.8.0    24 June 2022   J. Mock (jmock)
     * Add BsaCore functionality to Loop.cc to send state data to BSA facility
     * Add BSA PVs to sioc-unds-tr02, sioc-undh-tr02, sioc-sys0-lg01
