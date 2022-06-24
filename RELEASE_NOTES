@@ -12,6 +12,10 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R3.8.0    24 June 2022   J. Mock (jmock)
+    * Add BsaCore functionality to Loop.cc to send state data to BSA facility
+    * Add BSA PVs to sioc-unds-tr02, sioc-undh-tr02, sioc-sys0-lg01
+
 R3.7.3:   18-March-2021, J. Mock (jmock):
     * Change S<NUM>P1AVG number of average points from 10 to 120
 
