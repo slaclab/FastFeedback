@@ -89,6 +89,11 @@ dbLoadRecords("db/fbckSettled.db",    "LP=FBCK:$(FB):$(LOOP)")
 dbLoadRecords("db/fbckSettledSum.db", "LP=FBCK:$(FB):$(LOOP)")
 dbLoadRecords("db/fbckAutoAct.db",    "LP=FBCK:$(FB):$(LOOP)")
 
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UNDH:1, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=X_POS, INP=STATE1, SINK_SIZE=$(SINK_SIZE\=1)")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UNDH:1, EG=mrad, HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=X_ANG, INP=STATE2, SINK_SIZE=$(SINK_SIZE\=1)")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UNDH:1, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=Y_POS, INP=STATE3, SINK_SIZE=$(SINK_SIZE\=1)")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UNDH:1, EG=mrad, HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=Y_ANG, INP=STATE4, SINK_SIZE=$(SINK_SIZE\=1)")
+
 <iocBoot/common/st.cmd
 
 #Done  

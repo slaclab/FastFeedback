@@ -38,6 +38,7 @@ epicsEnvSet("LOCATION","cpu-sys0-fb01")
 #System Location:
 epicsEnvSet("FB", "FB04")
 epicsEnvSet("LOOP", "TR01")
+epicsEnvSet("D", "FBCK:$(FB):$(LOOP)")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
 
 # Which BY1 bend magnet do we want to read energy from?
@@ -53,7 +54,8 @@ epicsEnvSet("LOCA","LTUS")
 epicsEnvSet(FAC,"${LOCA}")
 epicsEnvSet(UNIT,"TR01") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
-epicsEnvSet(VEVR, "vevr11")
+#epicsEnvSet(VEVR, "vevr11")
+epicsEnvSet(VEVR, "vevr0")
 
 
 epicsEnvSet("IOC_TYPE", "SIOC")

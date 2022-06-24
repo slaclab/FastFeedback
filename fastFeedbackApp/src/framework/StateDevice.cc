@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string>
 #include <sstream>
+#include "BsaApi.h"
 
 USING_FF_NAMESPACE
 
@@ -37,6 +38,18 @@ _stateIndex(1) {
     std::ostringstream strstream;
     strstream << loopName << " " << name << "OFFSET" << patternIndex;
     _offsetPv = new PvData<double>(strstream.str(), 0);
+	
+	_bsaStateChannel = BSA_CreateChannel(("STATE"+name.substr(1)).data());
+}
+
+/**
+ * StateDevice deconstructor to release a BsaChannel.
+ *
+ * @author K.Wessel
+ */
+ 
+StateDevice::~StateDevice() {
+	BSA_ReleaseChannel(_bsaStateChannel);
 }
 
 /**
@@ -113,6 +126,21 @@ int StateDevice::writeFcom(epicsTimeStamp timestamp) {
     }
 
     return 0;
+}
+
+/**
+ * Calls Bsa_StoreData passing in epicsTimeStamp and state _lastValueSet. 
+ * The actual state value written is added to the existing _offset.
+ * 
+ *
+ * @author K.Wessel
+ */
+int StateDevice::setBsa(epicsTimeStamp timestamp) {
+	stateValue = _buffer[_nextWrite]._value + _offsetPv->getValue();
+	
+	BSA_StoreData(_bsaStateChannel, timestamp, stateValue, epicsAlarmNone, epicsSevNone); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
+
+	return 0;
 }
 
 /**

@@ -12,6 +12,7 @@
 #include "ActuatorDevice.h"
 #include "SetpointDevice.h"
 #include "FcomChannelStates.h"
+#include "BsaApi.h"
 
 class StateDeviceTest;
 
@@ -34,13 +35,13 @@ public:
             PatternMask patternMask = PatternMask::ZERO_PATTERN_MASK,
             int patternIndex = 1);
 
-    virtual ~StateDevice() {
-    };
+    virtual ~StateDevice();
 
     virtual int set(double value);
     virtual int set(double value, epicsTimeStamp timestamp);
     virtual int write();
     int writeFcom(epicsTimeStamp timestamp);
+	int setBsa(epicsTimeStamp timestamp);
     virtual int getInitialSetting();
     virtual void show();
     virtual int configure(CommunicationChannel::AccessType accessType,
@@ -96,6 +97,16 @@ private:
      * State number is 5 for FBCK:FB01:TR01:S5
      */
     int _stateIndex;
+
+	/**
+	 * BSA channel for real time communication of states.
+	 */
+	BsaChannel _bsaStateChannel;
+
+	/**
+	 * State value to be sent off to BSA.
+	 */
+	double stateValue;
 };
 
 FF_NAMESPACE_END
