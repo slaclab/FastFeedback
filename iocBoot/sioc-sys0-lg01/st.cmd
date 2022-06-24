@@ -87,12 +87,12 @@ dbLoadRecords("db/fbckSettled.db",     "LP=FBCK:$(FB):$(LOOP)")
 dbLoadRecords("db/fbckSettledSum.db",  "LP=FBCK:$(FB):$(LOOP)")
 dbLoadRecords("db/fbckAutoActLong.db", "LP=FBCK:$(FB):$(LOOP)")
 
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=200,   LO=-90,    AD=5, PR=3, I='', LNK='', ATTR=DL1_ENERGY,  INP=STATE1, SINK_SIZE=1)")
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=400,   LO=-150,   AD=5, PR=3, I='', LNK='', ATTR=BC1_ENERGY,  INP=STATE2, SINK_SIZE=1)")
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=amps, HO=450,   LO=-300,   AD=5, PR=3, I='', LNK='', ATTR=BC1_CURRENT, INP=STATE3, SINK_SIZE=1)")
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=6500,  LO=-1700,  AD=5, PR=3, I='', LNK='', ATTR=BC2_ENERGY,  INP=STATE4, SINK_SIZE=1)")
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=amps, HO=50000, LO=-28000, AD=5, PR=3, I='', LNK='', ATTR=BC2_CURRENT, INP=STATE5, SINK_SIZE=1)")
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=17400, LO=-1,     AD=5, PR=3, I='', LNK='', ATTR=DL2_ENERGY,  INP=STATE6, SINK_SIZE=1)")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=200,   LO=-90,    AD=5, PR=3, I='', LNK='', ATTR=DL1_ENERGY,  INP=STATE1, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=400,   LO=-150,   AD=5, PR=3, I='', LNK='', ATTR=BC1_ENERGY,  INP=STATE2, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=amps, HO=450,   LO=-300,   AD=5, PR=3, I='', LNK='', ATTR=BC1_CURRENT, INP=STATE3, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=6500,  LO=-1700,  AD=5, PR=3, I='', LNK='', ATTR=BC2_ENERGY,  INP=STATE4, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=amps, HO=50000, LO=-28000, AD=5, PR=3, I='', LNK='', ATTR=BC2_CURRENT, INP=STATE5, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=17400, LO=-1,     AD=5, PR=3, I='', LNK='', ATTR=DL2_ENERGY,  INP=STATE6, SINK_SIZE=1")
 
 <iocBoot/common/st.cmd
 # ====================================================================
