@@ -107,14 +107,16 @@ int StateDevice::set(double value) {
  * there has been a problem with the communication channel
  * @author L.Piccoli
  */
-int StateDevice::write() {
+int StateDevice::write(epicsTimeStamp timestamp) {
   _lastValueSet = _buffer[_nextWrite]._value + _offsetPv->getValue();
-
+  BSA_StoreData(_bsaStateChannel, timestamp, _lastValueSet, epicsAlarmNone, epicsSevNone); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
     // Write value to the outgoing blob
     if (_statesChannel != NULL) {
         float value = _lastValueSet;
         _statesChannel->write(value, _stateIndex);
     }
+ 
+
 
     return ActuatorDevice::write(_buffer[_nextWrite]._value + _offsetPv->getValue());
 }
@@ -126,21 +128,6 @@ int StateDevice::writeFcom(epicsTimeStamp timestamp) {
     }
 
     return 0;
-}
-
-/**
- * Calls Bsa_StoreData passing in epicsTimeStamp and state _lastValueSet. 
- * The actual state value written is added to the existing _offset.
- * 
- *
- * @author K.Wessel
- */
-int StateDevice::setBsa(epicsTimeStamp timestamp) {
-	stateValue = _buffer[_nextWrite]._value + _offsetPv->getValue();
-	
-	BSA_StoreData(_bsaStateChannel, timestamp, stateValue, epicsAlarmNone, epicsSevNone); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
-
-	return 0;
 }
 
 /**

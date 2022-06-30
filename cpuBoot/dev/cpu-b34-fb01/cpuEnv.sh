@@ -1,6 +1,6 @@
 export CPU=cpu-b34-fb01
 export CPU_ARCH=linuxRT-x86_64
-export TOP=/afs/slac.stanford.edu/u/cd/kwessel/work/FastFeedback/FastFeedback-git
+export TOP=/afs/slac.stanford.edu/u/ld/jmock/Cosylab/workspace/FastFeedback
 export BASE_MODULE_VERSION=R7.0.3.1-1.0
 export EPICS_SITE_TOP=/afs/slac/g/lcls/epics
 export BASE_SITE_TOP=/afs/slac/g/lcls/epics/base

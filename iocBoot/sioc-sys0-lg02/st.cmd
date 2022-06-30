@@ -39,7 +39,7 @@ epicsEnvSet("LOCATION","cpu-sys0-fb02")
 #System Location:
 epicsEnvSet("FB", "FB01")
 epicsEnvSet("LOOP", "LG01")
-epicsEnvSet("CONFIG_NAME", "Longitudinal")
+epicsEnvSet("CONFIG_NAME", "LaunchLoop2")
 
 # Which BY1 bend magnet do we want to read energy from?
 epicsEnvSet("BEND_MAG", "BEND:LTUS:525:BDES")
@@ -86,17 +86,11 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # ====================================================================
 dbLoadDatabase("dbd/fastFeedback.dbd")
 fastFeedback_registerRecordDeviceDriver(pdbbase)
-dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI22:2,RF=L2,PHASE_LNK=ACCL:LI22:1:PDES,AMPL_LNK=ACCL:LI22:1:ADES,DRVH=6000")
-dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI25:2,RF=L3,PHASE_LNK=ACCL:LI25:1:PDES,AMPL_LNK=ACCL:LI25:1:ADES,DRVH=16000")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=X_POS, INP=STATE1, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mrad, HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=X_ANG, INP=STATE2, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=Y_POS, INP=STATE3, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mrad, HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=Y_ANG, INP=STATE4, SINK_SIZE=1")
+
 <iocBoot/common/st.cmd
-
-# ====================================================================
-# Sequencer scripts to keep track of the CHIRP control and DL2 limits
-# ====================================================================
-seq(&chirpControl, "IOC=FB01,LOOP=LG01")
-seq(&chirpUpdate, "IOC=FB01,LOOP=LG01")
-seq(&limitUpdate, "IOC=FB01,LOOP=LG01")
-
-seqShow()
 
 #Done  

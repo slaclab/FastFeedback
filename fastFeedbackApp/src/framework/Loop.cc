@@ -733,8 +733,7 @@ int Loop::setDevices(bool skip) {
     epicsTimeGetCurrent(&timestamp);
 
     epicsTimeStamp bsaTS;
-	  evrTimeGet(&bsaTS, 0);
-    
+	  evrTimeGet(&bsaTS, 0);    
 
     bool actuatorSettingFailed = false;
 
@@ -767,8 +766,7 @@ int Loop::setDevices(bool skip) {
     StateSet::iterator stateIt;
     for (stateIt = _states.begin();
             stateIt != _states.end(); ++stateIt) {
-        (*stateIt)->write(); // TODO: need to implement skip in StateDevice::write (see ActuatorDevice::write(bool))
-        (*stateIt)->setBsa(bsaTS);
+        (*stateIt)->write(bsaTS); // TODO: need to implement skip in StateDevice::write (see ActuatorDevice::write(bool))
     }
 
     // Send the Fcom blob with states

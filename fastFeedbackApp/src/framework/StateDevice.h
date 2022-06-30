@@ -39,9 +39,8 @@ public:
 
     virtual int set(double value);
     virtual int set(double value, epicsTimeStamp timestamp);
-    virtual int write();
+    virtual int write(epicsTimeStamp timestamp);
     int writeFcom(epicsTimeStamp timestamp);
-	int setBsa(epicsTimeStamp timestamp);
     virtual int getInitialSetting();
     virtual void show();
     virtual int configure(CommunicationChannel::AccessType accessType,

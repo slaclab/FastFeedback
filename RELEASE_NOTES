@@ -12,6 +12,9 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R3.8.4    29 June 2022   J. Mock (jmock)
+    * Fix bug with new BSA - buffer had moved on before BSA values were published
+
 R3.8.3    24 June 2022   J. Mock (jmock)
     * Fix problem with UNIT vs LOOP macro in database files:
         * LOOP should refer to the FBCK:FBXX:LOOP PVs
