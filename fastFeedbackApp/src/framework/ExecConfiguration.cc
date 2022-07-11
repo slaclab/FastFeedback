@@ -36,8 +36,8 @@ _s29AsumPv("S29_ASUM") {
     } else {
         Log::getInstance() << "ERROR: Failed to register algorithms." << Log::flush;
     }
-
-    _hasPatternGenerator = false;
+    // Use Pattern Generator for now. 
+    //_hasPatternGenerator = false;
 
     std::cout << ">> ExecConfiguration instance created." << std::endl;
 };
@@ -83,7 +83,7 @@ int ExecConfiguration::initialize() {
     // differences.
 
     // Use the pattern generator for now
-    _hasPatternGenerator = true;
+    //_hasPatternGenerator = true;
 
     return 0;
 }

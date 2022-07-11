@@ -43,7 +43,7 @@ public:
     static ExecConfiguration &getInstance();
     int getLoopIndex(std::string loopName);
     int getSlotNames(std::vector<std::string> &slotNames);
-
+    //void setPatternGenMode(bool patternGenMode);
     /**
      * Map containing the feedback loop configurations, keyed by the
      * loop (slot) name
@@ -93,7 +93,7 @@ public:
     PvData<double> _s29AsumPv;
 
     /** Set to true if PatternGenerator is configured. Used for testing only. */
-    bool _hasPatternGenerator;
+    //bool _hasPatternGenerator;
 };
 
 FF_NAMESPACE_END
