@@ -38,22 +38,22 @@ include $(TOP)/RELEASE_SITE
 # Define the version of modules needed by
 # IOC apps or other Support apps - this section for development
 # =============================================================
-SNCSEQ_MODULE_VERSION=R2.2.4-1.2
-AUTOSAVE_MODULE_VERSION=R5.8-2.1.0
-CAPUTLOG_MODULE_VERSION=R3.5-1.0.0
-IOCADMIN_MODULE_VERSION=R3.1.16-1.3.0
-MISCUTILS_MODULE_VERSION=R2.2.5
-CEXP_MODULE_VERSION=R1.1.2
-EVENT_MODULE_VERSION=R1.5.1
-UDPCOMM_MODULE_VERSION=R2.20.11
-FCOM_MODULE_VERSION=R1.9.24
-FCOMUTIL_MODULE_VERSION= R1.9.24
+SNCSEQ_MODULE_VERSION     = R2.2.4-1.2
+AUTOSAVE_MODULE_VERSION   = R5.8-2.1.0
+CAPUTLOG_MODULE_VERSION   = R3.5-1.0.0
+IOCADMIN_MODULE_VERSION   = R3.1.16-1.3.0
+MISCUTILS_MODULE_VERSION  = R2.2.5
+CEXP_MODULE_VERSION       = R1.1.2
+EVENT_MODULE_VERSION      = R1.5.1
+UDPCOMM_MODULE_VERSION    = R2.21.1
+FCOM_MODULE_VERSION       = R1.9.30
+FCOMUTIL_MODULE_VERSION   = R1.9.30
 
 # ==========================================
 # If we want to use the new BsaCore module:
 # ==========================================
-TIMINGAPI_MODULE_VERSION=R0.6
-BSACORE_MODULE_VERSION=R1.5.4
+TIMINGAPI_MODULE_VERSION  = R0.6
+BSACORE_MODULE_VERSION    = R1.5.4
 
 # ============================================================
 # Support module locations
