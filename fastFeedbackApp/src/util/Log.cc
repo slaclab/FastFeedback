@@ -206,8 +206,9 @@ void Log::flushMessage() {
     //errlogPrintf(outgoingMessage.c_str());
     printf(outgoingMessage.c_str());
   } //else {
-//    errlogPrintfNoConsole(outgoingMessage.c_str());
-//  }
+    //printf(outgoingMessage.c_str());
+    //errlogPrintfNoConsole(outgoingMessage.c_str());
+  //}
   clear();
 #endif
   _mutex.unlock();
