@@ -54,8 +54,7 @@ epicsEnvSet("LOCA","LTUS")
 epicsEnvSet(FAC,"${LOCA}")
 epicsEnvSet(UNIT,"TR01") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
-#epicsEnvSet(VEVR, "vevr11")
-epicsEnvSet(VEVR, "vevr0")
+epicsEnvSet(VEVR, "vevr11")
 
 
 epicsEnvSet("IOC_TYPE", "SIOC")
