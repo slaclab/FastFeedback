@@ -115,9 +115,6 @@ int StateDevice::write(epicsTimeStamp timestamp) {
         float value = _lastValueSet;
         _statesChannel->write(value, _stateIndex);
     }
- 
-
-
     return ActuatorDevice::write(_buffer[_nextWrite]._value + _offsetPv->getValue());
 }
 
