@@ -12,6 +12,11 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R3.9.0    24 July 2022   J. Mock (jmock)
+    * Fix sioc-ltus-tr01 to use vevr11 instead of vevr0
+    * Upgrade fcom, fcomUtil, and udpcomm to pick up changes to fcom addresses from
+      fcomUtil R1.9.30
+
 R3.8.4    29 June 2022   J. Mock (jmock)
     * Fix bug with new BSA - buffer had moved on before BSA values were published
 
