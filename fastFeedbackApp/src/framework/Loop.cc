@@ -907,28 +907,31 @@ int Loop::checkMeasurementStatus(epicsUInt32 patternPulseId) {
     for (measIt = _measurements.begin(); measIt != _measurements.end(); ++measIt) {
         MeasurementDevice *measurement = *measIt;
 	// Do not check PULSEID if NULL communication channel is used
-	if (!measurement->isNull()) {
-	  if (measurement->peekStatus() != DataPoint::READ) {
-	    Log::getInstance() << Log::flagBuffer << Log::dpInfo
-			       << "ERROR: Measurement "
-			       << measurement->getDeviceName().c_str()
-			       << " status is "
-			       << (int) measurement->peekStatus() << " (PULSEID="
-			       << (int) measurement->peekPulseId() << "/" 
-			       << (int) patternPulseId << ")" << Log::dp;
-	    _measBadStatus++;
+    // TODO: Check if we actually care first
+    if (measurement->getFacMode()){
+	    if (!measurement->isNull()) {
+	        if (measurement->peekStatus() != DataPoint::READ) {
+	            Log::getInstance() << Log::flagBuffer << Log::dpInfo
+			           << "ERROR: Measurement "
+			           << measurement->getDeviceName().c_str()
+			           << " status is "
+			           << (int) measurement->peekStatus() << " (PULSEID="
+			           << (int) measurement->peekPulseId() << "/" 
+			           << (int) patternPulseId << ")" << Log::dp;
+	            _measBadStatus++;
             return -1;
 	  }
-	  if (measurement->isFcom() && !measurement->isFile()) {
-            if (measurement->peekPulseId() != patternPulseId) {
-	      _pulseIdMismatchCount++;	     
+	if (measurement->isFcom() && !measurement->isFile()) {
+        if (measurement->peekPulseId() != patternPulseId) {
+	        _pulseIdMismatchCount++;	     
 	      //	      _configuration->_logger << Log::showtime << "PulseId mismatch, skipping this cycle."
 	      //				      << Log::flushpvonlynoalarm;
 	      
-	      return -1;
+	        return -1;
             }
 	  }
 	}
+    }
     }
 
     return 0;
