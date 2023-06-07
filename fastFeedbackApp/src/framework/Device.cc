@@ -56,13 +56,17 @@ _usedByLoopPv(slotName + " " + name + "USEDBYLOOP", true),
 _usedByLoop(true),
 _channelCountPv(slotName + " " + name + "DATACNT", 0),
 _channelErrorCountPv(slotName + " " + name + "DATAERRORS", 0),
-_isFile(false) {
+_isFile(false),
+_facModePv(slotName + " " + name + "FACMODE", true),
+_facMode(true) {
     _buffer = new DataPoint[bufferSize];
     for (int i = 0; i < _bufferSize; ++i) {
         _buffer[i]._status = DataPoint::EMPTY;
     }
     _usedByLoopPv.initScanList(); // This enable PV updates.
+    _facModePv.initScanList();
     _isFile = isFile();
+
 }
 
 /**
@@ -607,4 +611,15 @@ void Device::setUsedBy(bool used) {
 bool Device::getUsedBy() {
   //    return _usedByLoopPv.getValue();
   return _usedByLoop;
+}
+
+void Device::setFacMode(bool mode) {
+  _facModePv = mode;
+  _facModePv.scanIoRequest();
+  _facMode = mode;
+}
+
+bool Device::getFacMode() {
+  //    return _usedByLoopPv.getValue();
+  return _facModePv.getValue();
 }
