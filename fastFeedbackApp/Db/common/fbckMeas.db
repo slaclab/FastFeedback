@@ -3,23 +3,38 @@
 #! DBD("../../dbd/fbcksimSoft.dbd")
 #! DBDEND
 
+include "facMode.template"
 
-record(calc, "FBCK:$(AREA):$(LOOP):M$(MNUM)ENABLE") {
+record(bi, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)STATUS") {
+  field(DESC, "Measurement status")
+  field(PINI, "YES")
+  field(ZNAM, "BAD")
+  field(ONAM, "GOOD")
+  field(VAL,  "0")
+  field(ZSV,  "MAJOR")
+  field(OSV,  "NO_ALARM")
+  field(DTYP, "FfConfig")
+  field(INP,  "@$(LOOP) M$(DEVNUM)STATUS")
+  field(SCAN, "I/O Intr")
+  field(PRIO, "LOW")
+}
+
+record(calc, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)ENABLE") {
   field(INPA, "FBCK:$(AREA):$(LOOP):STATE")
-  field(INPB, "FBCK:$(AREA):$(LOOP):M$(MNUM)USED")
+  field(INPB, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)USED")
   field(CALC, "A*B")
 }
 
-record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)") {
-  field(DESC, "RB for dev->M$(MNUM)")
+record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)") {
+  field(DESC, "RB for dev->M$(DEVNUM)")
   field(PINI, "YES")
   field(DISV, "0")
 #  field(SDIS, "FBCK:$(AREA):$(LOOP):STATE")
-  field(SDIS, "FBCK:$(AREA):$(LOOP):M$(MNUM)USED")
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)TOLFAN")
+  field(SDIS, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)USED")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)TOLFAN")
   field(VAL, "0")
   field(DTYP, "FfDeviceView")
-  field(INP, "@$(LOOP) M$(MNUM) 0")
+  field(INP, "@$(LOOP) M$(DEVNUM) 0")
   field(PREC, "4")
   field(EGU, "$(EGU)")
   field(HIHI, "2")
@@ -35,20 +50,20 @@ record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)") {
   info(autosaveMon$(AREA), "EGU HIHI HIGH LOW LOLO")
 }
 
-record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)HST") {
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM).VAL")
+record(compress, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HST") {
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).VAL")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NSAM)")
   field(EGU, "$(EGU)")
   field(PREC, "4")
 }
 
-record(bo, "FBCK:$(AREA):$(LOOP):M$(MNUM)USED") {
+record(bo, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)USED") {
   field(DESC, "In Use")
   field(PINI, "YES")
   field(VAL, "$(USED)")
   field(DTYP, "FfConfig")
-  field(OUT, "@$(LOOP) M$(MNUM)USED")
+  field(OUT, "@$(LOOP) M$(DEVNUM)USED")
   field(OMSL, "supervisory")
   field(ZNAM, "NO")
   field(ONAM, "YES")
@@ -58,33 +73,33 @@ record(bo, "FBCK:$(AREA):$(LOOP):M$(MNUM)USED") {
 }
 
 
-record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)_S") {
+record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)_S") {
   field(DESC, "one second update")
   field(SCAN, ".2 second")
   field(PINI, "YES")
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM) NPP MS")
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM) NPP MS")
   field(PREC, "4")
   field(EGU, "$(EGU)")
   field(DISV, "0")
   field(SDIS, "FBCK:$(AREA):$(LOOP):STATE")
   field(VAL, "0")
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)HST_S")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HST_S")
 }
 
-record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)HST_S") {
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM).VAL")
+record(compress, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).VAL")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
   field(PREC, "4")
 }
 
-record(bo, "FBCK:$(AREA):$(LOOP):M$(MNUM)CAMODE") {
+record(bo, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)CAMODE") {
   field(DESC, "overides dev FCOM")
   field(PINI, "YES")
   field(VAL, "1")
   field(DTYP, "FfConfig")
-  field(OUT, "@$(LOOP) M$(MNUM)CAMODE")
+  field(OUT, "@$(LOOP) M$(DEVNUM)CAMODE")
   field(OMSL, "supervisory")
   field(ZNAM, "NO")
   field(ONAM, "YES")
@@ -93,16 +108,16 @@ record(bo, "FBCK:$(AREA):$(LOOP):M$(MNUM)CAMODE") {
   info(autosaveConfig$(LOOP), "VAL")
 }
 
-record(stringout, "FBCK:$(AREA):$(LOOP):M$(MNUM)DEVNAME") {
+record(stringout, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)DEVNAME") {
   field(DESC, "$(DEV)")
   field(VAL, "$(DEV)")
   field(DTYP, "FfConfig")
-  field(OUT, "@$(LOOP) M$(MNUM)DEVNAME")
+  field(OUT, "@$(LOOP) M$(DEVNUM)DEVNAME")
   field(PINI, "YES")
   info(autosaveConfig$(LOOP), "VAL")
 }
 
-record(stringout, "FBCK:$(AREA):$(LOOP):M$(MNUM)DEVNAMEHXR") {
+record(stringout, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)DEVNAMEHXR") {
   field(DESC, "$(DEV)")
   field(VAL, "$(DEV)")
   field(DTYP, "Soft Channel")
@@ -110,7 +125,7 @@ record(stringout, "FBCK:$(AREA):$(LOOP):M$(MNUM)DEVNAMEHXR") {
   info(autosaveConfig$(LOOP), "VAL")
 }
 
-record(stringout, "FBCK:$(AREA):$(LOOP):M$(MNUM)DEVNAMESXR") {
+record(stringout, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)DEVNAMESXR") {
   field(DESC, "$(DEV)")
   field(VAL, "$(DEV)")
   field(DTYP, "Soft Channel")
@@ -118,8 +133,8 @@ record(stringout, "FBCK:$(AREA):$(LOOP):M$(MNUM)DEVNAMESXR") {
   info(autosaveConfig$(LOOP), "VAL")
 }
 
-record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST") {
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1.VAL")
+record(compress, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1HST") {
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1.VAL")
 #  field(RES, "FBCK:$(AREA):$(LOOP):STATE")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NSAM)")
@@ -127,15 +142,15 @@ record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST") {
   field(PREC, "4")
 }
 
-record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1") {
-  field(DESC, "RB for dev->M$(MNUM)")
+record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1") {
+  field(DESC, "RB for dev->M$(DEVNUM)")
   field(DTYP, "FfDeviceView")
   field(PINI, "YES")
   field(DISV, "0")
-  field(SDIS, "FBCK:$(AREA):$(LOOP):M$(MNUM)USED")
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST")
+  field(SDIS, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)USED")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1HST")
   field(VAL, "0")
-  field(INP, "@$(LOOP) M$(MNUM) 1")
+  field(INP, "@$(LOOP) M$(DEVNUM) 1")
   field(PREC, "4")
   field(EGU, "$(EGU)")
   field(HIHI, "2")
@@ -152,38 +167,38 @@ record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1") {
 }
 
 
-record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1_S") {
+record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1_S") {
   field(DESC, "one second update")
   field(SCAN, ".2 second")
   field(PINI, "YES")
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1 NPP MS")
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1 NPP MS")
   field(PREC, "4")
   field(EGU, "$(EGU)")
   field(DISV, "0")
   field(SDIS, "FBCK:$(AREA):$(LOOP):STATE")
   field(VAL, "0")
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST_S")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1HST_S")
   info(autosaveMon$(AREA), "DESC EGU")
 }
 
-record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST_S") {
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1.VAL")
+record(compress, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1.VAL")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
   field(PREC, "4")
 }
 
-record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST_S") {
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2")
+record(compress, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
   field(PREC, "4")
 }
 
-record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST") {
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2")
+record(compress, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2HST") {
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NSAM)")
   field(EGU, "$(EGU)")
@@ -191,29 +206,29 @@ record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST") {
 }
 
 
-record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2_S") {
+record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2_S") {
   field(DESC, "one second update")
   field(SCAN, ".2 second")
   field(PINI, "YES")
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2 NPP MS")
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2 NPP MS")
   field(PREC, "4")
   field(EGU, "$(EGU)")
   field(DISV, "0")
   field(SDIS, "FBCK:$(AREA):$(LOOP):STATE")
   field(VAL, "0")
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST_S")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2HST_S")
   info(autosaveMon$(AREA), "DESC EGU")
 }
 
-record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2") {
-  field(DESC, "RB for dev->M$(MNUM)")
+record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2") {
+  field(DESC, "RB for dev->M$(DEVNUM)")
   field(PINI, "YES")
   field(DISV, "0")
-  field(SDIS, "FBCK:$(AREA):$(LOOP):M$(MNUM)USED")
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST")
+  field(SDIS, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)USED")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2HST")
   field(VAL, "0")
   field(DTYP, "FfDeviceView")
-  field(INP, "@$(LOOP) M$(MNUM) 2")
+  field(INP, "@$(LOOP) M$(DEVNUM) 2")
   field(PREC, "4")
   field(EGU, "$(EGU)")
   field(HIHI, "2")
@@ -229,15 +244,15 @@ record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2") {
   info(autosaveMon$(AREA), "DESC EGU")
 }
 
-record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3") {
-  field(DESC, "RB for dev->M$(MNUM)")
+record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3") {
+  field(DESC, "RB for dev->M$(DEVNUM)")
   field(PINI, "YES")
   field(DISV, "0")
-  field(SDIS, "FBCK:$(AREA):$(LOOP):M$(MNUM)USED")
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST")
+  field(SDIS, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)USED")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3HST")
   field(VAL, "0")
   field(DTYP, "FfDeviceView")
-  field(INP, "@$(LOOP) M$(MNUM) 3")
+  field(INP, "@$(LOOP) M$(DEVNUM) 3")
   field(PREC, "4")
   field(EGU, "$(EGU)")
   field(HIHI, "2")
@@ -253,15 +268,15 @@ record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3") {
   info(autosaveMon$(AREA), "DESC EGU")
 }
 
-record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4") {
-  field(DESC, "RB for dev->M$(MNUM)")
+record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4") {
+  field(DESC, "RB for dev->M$(DEVNUM)")
   field(PINI, "YES")
   field(DISV, "0")
-  field(SDIS, "FBCK:$(AREA):$(LOOP):M$(MNUM)USED")
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST")
+  field(SDIS, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)USED")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4HST")
   field(VAL, "0")
   field(DTYP, "FfDeviceView")
-  field(INP, "@$(LOOP) M$(MNUM) 4")
+  field(INP, "@$(LOOP) M$(DEVNUM) 4")
   field(PREC, "4")
   field(EGU, "$(EGU)")
   field(HIHI, "2")
@@ -277,8 +292,8 @@ record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4") {
   info(autosaveMon$(AREA), "DESC EGU")
 }
 
-record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST") {
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3")
+record(compress, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3HST") {
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NSAM)")
   field(EGU, "$(EGU)")
@@ -286,22 +301,22 @@ record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST") {
 }
 
 
-record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3_S") {
+record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3_S") {
   field(DESC, "one second update")
   field(SCAN, ".2 second")
   field(PINI, "YES")
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3 NPP MS")
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3 NPP MS")
   field(PREC, "4")
   field(EGU, "$(EGU)")
   field(DISV, "0")
   field(SDIS, "FBCK:$(AREA):$(LOOP):STATE")
   field(VAL, "0")
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST_S")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3HST_S")
   info(autosaveMon$(AREA), "DESC EGU")
 }
 
-record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST_S") {
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3")
+record(compress, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -309,30 +324,30 @@ record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST_S") {
 }
 
 
-record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4_S") {
+record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4_S") {
   field(DESC, "one second update")
   field(SCAN, ".2 second")
   field(PINI, "YES")
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4 NPP MS")
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4 NPP MS")
   field(PREC, "4")
   field(EGU, "$(EGU)")
   field(DISV, "0")
   field(SDIS, "FBCK:$(AREA):$(LOOP):STATE")
   field(VAL, "0")
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST_S")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4HST_S")
   info(autosaveMon$(AREA), "DESC EGU")
 }
 
-record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST") {
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4.VAL")
+record(compress, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4HST") {
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4.VAL")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NSAM)")
   field(EGU, "$(EGU)")
   field(PREC, "4")
 }
 
-record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST_S") {
-  field(INP, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4.VAL")
+record(compress, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4HST_S") {
+  field(INP, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4.VAL")
   field(ALG, "Circular Buffer")
   field(NSAM, "$(NDISP)")
   field(EGU, "$(EGU)")
@@ -340,96 +355,96 @@ record(compress, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST_S") {
 }
 
 #
-record(ao, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI") {
+record(ao, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIHI") {
   field(DESC, "HIHI value for actuator")
   field(VAL, "3")
   field(DTYP, "FfConfig")
-  field(OUT, "@$(LOOP) M$(MNUM)HIHI")
+  field(OUT, "@$(LOOP) M$(DEVNUM)HIHI")
   field(PINI, "YES")
   field(PRIO, "LOW")
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)LIMFAN")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LIMFAN")
   info(autosaveMon$(AREA), "VAL DESC EGU")
 }
 
-record(ao, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIGH") {
+record(ao, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIGH") {
   field(DESC, "HIGH value for actuator")
   field(VAL, "2")
   field(DTYP, "FfConfig")
-  field(OUT, "@$(LOOP) M$(MNUM)HIGH")
+  field(OUT, "@$(LOOP) M$(DEVNUM)HIGH")
   field(PINI, "YES")
   field(PRIO, "LOW")
 }
 
-record(ao, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOW") {
+record(ao, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOW") {
   field(DESC, "LOW value for actuator")
   field(VAL, "-2")
   field(DTYP, "FfConfig")
-  field(OUT, "@$(LOOP) M$(MNUM)LOW")
+  field(OUT, "@$(LOOP) M$(DEVNUM)LOW")
   field(PINI, "YES")
   field(PRIO, "LOW")
 }
 
-record(ao, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO") {
+record(ao, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOLO") {
   field(DESC, "LOLO value for actuator")
   field(VAL, "-3")
   field(DTYP, "FfConfig")
-  field(OUT, "@$(LOOP) M$(MNUM)LOLO")
+  field(OUT, "@$(LOOP) M$(DEVNUM)LOLO")
   field(PINI, "YES")
   field(PRIO, "LOW")
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)LIMFAN")
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LIMFAN")
   info(autosaveMon$(AREA), "VAL DESC EGU")
 }
 
-record(seq, "FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ") {
-  field(DOL1, "FBCK:$(AREA):$(LOOP):M$(MNUM).HIHI")
-  field(LNK1, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI PP")
-  field(DOL2, "FBCK:$(AREA):$(LOOP):M$(MNUM).HIGH")
-  field(LNK2, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIGH PP")
-  field(DOL3, "FBCK:$(AREA):$(LOOP):M$(MNUM).LOW")
-  field(LNK3, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOW PP")
-  field(DOL4, "FBCK:$(AREA):$(LOOP):M$(MNUM).LOLO")
-  field(LNK4, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO PP")
+record(seq, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)TOLSEQ") {
+  field(DOL1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).HIHI")
+  field(LNK1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIHI PP")
+  field(DOL2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).HIGH")
+  field(LNK2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIGH PP")
+  field(DOL3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).LOW")
+  field(LNK3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOW PP")
+  field(DOL4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).LOLO")
+  field(LNK4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOLO PP")
 }
 
-record(fanout, "FBCK:$(AREA):$(LOOP):M$(MNUM)TOLFAN") {
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)HST")
-  field(LNK1, "FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ")
+record(fanout, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)TOLFAN") {
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HST")
+  field(LNK1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)TOLSEQ")
 }
 
-record(longin, "FBCK:$(AREA):$(LOOP):M$(MNUM)BLOBCNT") {
+record(longin, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)BLOBCNT") {
   field(DESC, "# non-zero status")
   field(PINI, "YES")
   field(VAL, "0")
   field(SCAN, "1 second")
   field(DTYP, "FfConfig")
-  field(INP, "@$(LOOP) M$(MNUM)DATACNT")
+  field(INP, "@$(LOOP) M$(DEVNUM)DATACNT")
   field(LOPR, "0")
   field(PRIO, "LOW")
 }
 
-record(longin, "FBCK:$(AREA):$(LOOP):M$(MNUM)DATAERRORS") {
+record(longin, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)DATAERRORS") {
   field(DESC, "# non-zero status")
   field(PINI, "YES")
   field(VAL, "0")
   field(DTYP, "FfConfig")
-  field(INP, "@$(LOOP) M$(MNUM)DATAERRORS")
+  field(INP, "@$(LOOP) M$(DEVNUM)DATAERRORS")
   field(LOPR, "0")
   field(SCAN, "1 second")
   field(PRIO, "LOW")
 }
 
-record(longin, "FBCK:$(AREA):$(LOOP):M$(MNUM)TSMISMATCH") {
+record(longin, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)TSMISMATCH") {
   field(DESC, "# TS mismatch")
   field(PINI, "YES")
   field(VAL, "0")
   field(LOPR, "0")
   field(DTYP, "FfConfig")
-  field(INP, "@$(LOOP) M$(MNUM)TSMISMATCH")
+  field(INP, "@$(LOOP) M$(DEVNUM)TSMISMATCH")
   field(SCAN, "1 second")
   field(PRIO, "LOW")
 }
 
-record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)FCOMERRORS") {
+record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FCOMERRORS") {
   field(DESC, "# fcom failures")
   field(PINI, "YES")
   field(VAL, "0")
@@ -440,18 +455,18 @@ record(ai, "FBCK:$(AREA):$(LOOP):M$(MNUM)FCOMERRORS") {
   field(SCAN, "1 second")
 }
 
-record(seq, "FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQIN") {
-  field(DOL1, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI")
-  field(LNK1, "FBCK:$(AREA):$(LOOP):M$(MNUM).HIHI")
-  field(DOL2, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI")
-  field(LNK2, "FBCK:$(AREA):$(LOOP):M$(MNUM).HIGH")
-  field(DOL3, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO")
-  field(LNK3, "FBCK:$(AREA):$(LOOP):M$(MNUM).LOW")
-  field(DOL4, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO")
-  field(LNK4, "FBCK:$(AREA):$(LOOP):M$(MNUM).LOLO")
+record(seq, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)TOLSEQIN") {
+  field(DOL1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIHI")
+  field(LNK1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).HIHI")
+  field(DOL2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIHI")
+  field(LNK2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).HIGH")
+  field(DOL3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOLO")
+  field(LNK3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).LOW")
+  field(DOL4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOLO")
+  field(LNK4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).LOLO")
 }
 
-record(bi, "FBCK:$(AREA):$(LOOP):M$(MNUM)USEDBYLOOP") {
+record(bi, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)USEDBYLOOP") {
   field(DESC, "Actual In Use")
   field(PINI, "YES")
 #  field(OMSL, "supervisory")
@@ -461,201 +476,201 @@ record(bi, "FBCK:$(AREA):$(LOOP):M$(MNUM)USEDBYLOOP") {
   field(ZSV, "NO_ALARM")
   field(OSV, "NO_ALARM")
   field(DTYP, "FfConfig")
-  field(INP, "@$(LOOP) M$(MNUM)USEDBYLOOP")
+  field(INP, "@$(LOOP) M$(DEVNUM)USEDBYLOOP")
   field(SCAN, "I/O Intr")
   field(PRIO, "LOW")
 }
 
-record(seq, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1TOLSEQIN") {
-  field(DOL1, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI")
-  field(LNK1, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1.HIHI")
-  field(DOL2, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI")
-  field(LNK2, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1.HIGH")
-  field(DOL3, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO")
-  field(LNK3, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1.LOW")
-  field(DOL4, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO")
-  field(LNK4, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1.LOLO")
+record(seq, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1TOLSEQIN") {
+  field(DOL1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIHI")
+  field(LNK1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1.HIHI")
+  field(DOL2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIHI")
+  field(LNK2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1.HIGH")
+  field(DOL3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOLO")
+  field(LNK3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1.LOW")
+  field(DOL4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOLO")
+  field(LNK4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1.LOLO")
 }
 
-record(seq, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2TOLSEQIN") {
-  field(DOL1, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI")
-  field(LNK1, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2.HIHI")
-  field(DOL2, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI")
-  field(LNK2, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2.HIGH")
-  field(DOL3, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO")
-  field(LNK3, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2.LOW")
-  field(DOL4, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO")
-  field(LNK4, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2.LOLO")
+record(seq, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2TOLSEQIN") {
+  field(DOL1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIHI")
+  field(LNK1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2.HIHI")
+  field(DOL2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIHI")
+  field(LNK2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2.HIGH")
+  field(DOL3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOLO")
+  field(LNK3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2.LOW")
+  field(DOL4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOLO")
+  field(LNK4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2.LOLO")
 }
 
-record(seq, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3TOLSEQIN") {
-  field(DOL1, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI")
-  field(LNK1, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3.HIHI")
-  field(DOL2, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI")
-  field(LNK2, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3.HIGH")
-  field(DOL3, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO")
-  field(LNK3, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3.LOW")
-  field(DOL4, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO")
-  field(LNK4, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3.LOLO")
+record(seq, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3TOLSEQIN") {
+  field(DOL1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIHI")
+  field(LNK1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3.HIHI")
+  field(DOL2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIHI")
+  field(LNK2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3.HIGH")
+  field(DOL3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOLO")
+  field(LNK3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3.LOW")
+  field(DOL4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOLO")
+  field(LNK4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3.LOLO")
 }
 
-record(seq, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4TOLSEQIN") {
-  field(DOL1, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI")
-  field(LNK1, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4.HIHI")
-  field(DOL2, "FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI")
-  field(LNK2, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4.HIGH")
-  field(DOL3, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO")
-  field(LNK3, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4.LOW")
-  field(DOL4, "FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO")
-  field(LNK4, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4.LOLO")
+record(seq, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4TOLSEQIN") {
+  field(DOL1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIHI")
+  field(LNK1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4.HIHI")
+  field(DOL2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HIHI")
+  field(LNK2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4.HIGH")
+  field(DOL3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOLO")
+  field(LNK3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4.LOW")
+  field(DOL4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOLO")
+  field(LNK4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4.LOLO")
 }
 
-record(fanout, "FBCK:$(AREA):$(LOOP):M$(MNUM)LIMFAN") {
-  field(FLNK, "FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQIN")
-  field(LNK1, "FBCK:$(AREA):$(LOOP):M$(MNUM)P1TOLSEQIN")
-  field(LNK2, "FBCK:$(AREA):$(LOOP):M$(MNUM)P2TOLSEQIN")
-  field(LNK3, "FBCK:$(AREA):$(LOOP):M$(MNUM)P3TOLSEQIN")
-  field(LNK4, "FBCK:$(AREA):$(LOOP):M$(MNUM)P4TOLSEQIN")
+record(fanout, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LIMFAN") {
+  field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)TOLSEQIN")
+  field(LNK1, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P1TOLSEQIN")
+  field(LNK2, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P2TOLSEQIN")
+  field(LNK3, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P3TOLSEQIN")
+  field(LNK4, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)P4TOLSEQIN")
 }
 
 #! Further lines contain data used by VisualDCT
 #! View(1480,83,1.0)
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)ENABLE",1260,1082,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)ENABLE")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)ENABLE.INPA",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)ENABLE.INPA")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)ENABLE.INPB",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)ENABLE.INPB")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)ENABLE.INPB","FBCK:$(AREA):$(LOOP):M$(MNUM)USED.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)",1020,466,0,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM).VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM).VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM).FLNK",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM).FLNK")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM).FLNK","FBCK:$(AREA):$(LOOP):M$(MNUM)TOLFAN")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM).SDIS",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM).SDIS")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM).SDIS","FBCK:$(AREA):$(LOOP):M$(MNUM)USED.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM).HIHI",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM).HIHI")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM).HIGH",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM).HIGH")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM).LOW",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM).LOW")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM).LOLO",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM).LOLO")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)HST",1340,374,0,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)HST")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)HST.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)HST.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)HST.INP","FBCK:$(AREA):$(LOOP):M$(MNUM).VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)USED",980,985,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)USED")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)USED.VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)USED.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)_S",1340,565,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)_S")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)_S.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)_S.INP","FBCK:$(AREA):$(LOOP):M$(MNUM).VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)_S.SDIS",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)_S.SDIS")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)_S.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)_S.FLNK")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)_S.FLNK","FBCK:$(AREA):$(LOOP):M$(MNUM)HST_S")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)HST_S",1560,394,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)HST_S")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)HST_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)HST_S.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)HST_S.INP","FBCK:$(AREA):$(LOOP):M$(MNUM).VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)CAMODE",1220,1325,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)CAMODE")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)DEVNAME",780,974,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)DEVNAME")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST",2140,714,0,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST.INP","FBCK:$(AREA):$(LOOP):M$(MNUM)P1.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P1",1860,346,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P1")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P1.SDIS",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P1.SDIS")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P1.SDIS","FBCK:$(AREA):$(LOOP):M$(MNUM)USED.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P1.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P1.FLNK")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P1.FLNK","FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P1.VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P1.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P1_S",2140,345,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P1_S")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P1_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P1_S.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P1_S.INP","FBCK:$(AREA):$(LOOP):M$(MNUM)P1.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P1_S.SDIS",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P1_S.SDIS")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P1_S.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P1_S.FLNK")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P1_S.FLNK","FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST_S")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST_S",2400,514,0,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST_S")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST_S.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P1HST_S.INP","FBCK:$(AREA):$(LOOP):M$(MNUM)P1.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST_S",2360,1394,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST_S")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST_S.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST_S.INP","FBCK:$(AREA):$(LOOP):M$(MNUM)P2.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST",2180,1334,0,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST.INP","FBCK:$(AREA):$(LOOP):M$(MNUM)P2.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P2_S",2140,965,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P2_S")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P2_S.SDIS",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P2_S.SDIS")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P2_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P2_S.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P2_S.INP","FBCK:$(AREA):$(LOOP):M$(MNUM)P2.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P2_S.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P2_S.FLNK")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P2_S.FLNK","FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST_S")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P2",1860,946,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P2")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P2.SDIS",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P2.SDIS")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P2.SDIS","FBCK:$(AREA):$(LOOP):M$(MNUM)USED.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P2.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P2.FLNK")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P2.FLNK","FBCK:$(AREA):$(LOOP):M$(MNUM)P2HST")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P2.VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P2.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P3",2659,326,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P3")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P3.SDIS",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P3.SDIS")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P3.SDIS","FBCK:$(AREA):$(LOOP):M$(MNUM)USED.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P3.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P3.FLNK")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P3.FLNK","FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P3.VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P3.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P4",2670,966,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P4")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P4.SDIS",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P4.SDIS")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P4.SDIS","FBCK:$(AREA):$(LOOP):M$(MNUM)USED.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P4.VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P4.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P4.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P4.FLNK")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P4.FLNK","FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST",2960,574,0,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST.INP","FBCK:$(AREA):$(LOOP):M$(MNUM)P3.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P3_S",2940,285,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P3_S")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P3_S.SDIS",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P3_S.SDIS")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P3_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P3_S.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P3_S.INP","FBCK:$(AREA):$(LOOP):M$(MNUM)P3.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P3_S.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P3_S.FLNK")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P3_S.FLNK","FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST_S")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST_S",3220,634,0,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST_S")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST_S.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P3HST_S.INP","FBCK:$(AREA):$(LOOP):M$(MNUM)P3.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P4_S",2940,965,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P4_S")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P4_S.SDIS",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P4_S.SDIS")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P4_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P4_S.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P4_S.INP","FBCK:$(AREA):$(LOOP):M$(MNUM)P4.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P4_S.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)P4_S.FLNK")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P4_S.FLNK","FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST_S")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST",2980,1294,0,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST.INP","FBCK:$(AREA):$(LOOP):M$(MNUM)P4.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST_S",3220,1134,0,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST_S")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST_S.INP")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)P4HST_S.INP","FBCK:$(AREA):$(LOOP):M$(MNUM)P4.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI",440,380,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI.VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)HIGH",440,560,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)HIGH")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)HIGH.VAL",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)HIGH.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)LOW",440,720,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)LOW")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)LOW.VAL",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)LOW.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO",440,900,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO.VAL",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ",720,352,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.DOL1",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.DOL1")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.DOL1","FBCK:$(AREA):$(LOOP):M$(MNUM).HIHI")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.DOL2",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.DOL2")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.DOL2","FBCK:$(AREA):$(LOOP):M$(MNUM).HIGH")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.DOL3",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.DOL3")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.DOL3","FBCK:$(AREA):$(LOOP):M$(MNUM).LOW")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.DOL4",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.DOL4")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.DOL4","FBCK:$(AREA):$(LOOP):M$(MNUM).LOLO")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.LNK1",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.LNK1")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.LNK1","FBCK:$(AREA):$(LOOP):M$(MNUM)HIHI.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.LNK2",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.LNK2")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.LNK2","FBCK:$(AREA):$(LOOP):M$(MNUM)HIGH.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.LNK3",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.LNK3")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.LNK3","FBCK:$(AREA):$(LOOP):M$(MNUM)LOW.VAL")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.LNK4",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.LNK4")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ.LNK4","FBCK:$(AREA):$(LOOP):M$(MNUM)LOLO.VAL")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLFAN",1000,316,0,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)TOLFAN")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLFAN.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)TOLFAN.FLNK")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLFAN.FLNK","FBCK:$(AREA):$(LOOP):M$(MNUM)HST")
-#! Field("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLFAN.LNK1",16777215,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)TOLFAN.LNK1")
-#! Link("FBCK:$(AREA):$(LOOP):M$(MNUM)TOLFAN.LNK1","FBCK:$(AREA):$(LOOP):M$(MNUM)TOLSEQ")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)BLOBCNT",20,12,0,0,"FBCK:$(AREA):$(LOOP):M$(MNUM)BLOBCNT")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)DATAERRORS",540,1392,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)DATAERRORS")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)TSMISMATCH",760,1192,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)TSMISMATCH")
-#! Record("FBCK:$(AREA):$(LOOP):M$(MNUM)FCOMERRORS",760,1400,0,1,"FBCK:$(AREA):$(LOOP):M$(MNUM)FCOMERRORS")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)ENABLE",1260,1082,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)ENABLE")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)ENABLE.INPA",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)ENABLE.INPA")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)ENABLE.INPB",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)ENABLE.INPB")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)ENABLE.INPB","FBCK:$(AREA):$(LOOP):M$(DEVNUM)USED.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)",1020,466,0,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM).VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM).VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM).FLNK",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM).FLNK")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM).FLNK","FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLFAN")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM).SDIS",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM).SDIS")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM).SDIS","FBCK:$(AREA):$(LOOP):M$(DEVNUM)USED.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM).HIHI",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM).HIHI")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM).HIGH",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM).HIGH")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM).LOW",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM).LOW")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM).LOLO",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM).LOLO")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)HST",1340,374,0,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)HST")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)HST.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)HST.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)HST.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM).VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)USED",980,985,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)USED")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)USED.VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)USED.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)_S",1340,565,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)_S")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)_S.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)_S.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM).VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)_S.SDIS",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)_S.SDIS")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)_S.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)_S.FLNK")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)_S.FLNK","FBCK:$(AREA):$(LOOP):M$(DEVNUM)HST_S")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)HST_S",1560,394,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)HST_S")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)HST_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)HST_S.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)HST_S.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM).VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)CAMODE",1220,1325,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)CAMODE")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)DEVNAME",780,974,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)DEVNAME")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1HST",2140,714,0,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1HST")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1HST.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1HST.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1HST.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1",1860,346,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1.SDIS",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1.SDIS")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1.SDIS","FBCK:$(AREA):$(LOOP):M$(DEVNUM)USED.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1.FLNK")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1.FLNK","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1HST")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1.VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1_S",2140,345,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1_S")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1_S.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1_S.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1_S.SDIS",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1_S.SDIS")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1_S.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1_S.FLNK")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1_S.FLNK","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1HST_S")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1HST_S",2400,514,0,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1HST_S")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1HST_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1HST_S.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1HST_S.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P1.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2HST_S",2360,1394,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2HST_S")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2HST_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2HST_S.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2HST_S.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2HST",2180,1334,0,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2HST")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2HST.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2HST.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2HST.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2_S",2140,965,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2_S")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2_S.SDIS",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2_S.SDIS")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2_S.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2_S.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2_S.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2_S.FLNK")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2_S.FLNK","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2HST_S")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2",1860,946,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2.SDIS",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2.SDIS")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2.SDIS","FBCK:$(AREA):$(LOOP):M$(DEVNUM)USED.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2.FLNK")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2.FLNK","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2HST")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2.VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P2.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3",2659,326,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3.SDIS",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3.SDIS")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3.SDIS","FBCK:$(AREA):$(LOOP):M$(DEVNUM)USED.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3.FLNK")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3.FLNK","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3HST")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3.VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4",2670,966,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4.SDIS",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4.SDIS")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4.SDIS","FBCK:$(AREA):$(LOOP):M$(DEVNUM)USED.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4.VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4.FLNK")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4.FLNK","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4HST")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3HST",2960,574,0,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3HST")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3HST.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3HST.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3HST.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3_S",2940,285,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3_S")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3_S.SDIS",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3_S.SDIS")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3_S.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3_S.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3_S.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3_S.FLNK")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3_S.FLNK","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3HST_S")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3HST_S",3220,634,0,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3HST_S")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3HST_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3HST_S.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3HST_S.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P3.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4_S",2940,965,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4_S")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4_S.SDIS",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4_S.SDIS")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4_S.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4_S.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4_S.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4_S.FLNK")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4_S.FLNK","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4HST_S")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4HST",2980,1294,0,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4HST")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4HST.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4HST.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4HST.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4HST_S",3220,1134,0,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4HST_S")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4HST_S.INP",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4HST_S.INP")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4HST_S.INP","FBCK:$(AREA):$(LOOP):M$(DEVNUM)P4.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)HIHI",440,380,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)HIHI")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)HIHI.VAL",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)HIHI.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)HIGH",440,560,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)HIGH")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)HIGH.VAL",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)HIGH.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)LOW",440,720,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)LOW")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)LOW.VAL",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)LOW.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)LOLO",440,900,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)LOLO")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)LOLO.VAL",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)LOLO.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ",720,352,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.DOL1",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.DOL1")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.DOL1","FBCK:$(AREA):$(LOOP):M$(DEVNUM).HIHI")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.DOL2",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.DOL2")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.DOL2","FBCK:$(AREA):$(LOOP):M$(DEVNUM).HIGH")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.DOL3",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.DOL3")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.DOL3","FBCK:$(AREA):$(LOOP):M$(DEVNUM).LOW")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.DOL4",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.DOL4")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.DOL4","FBCK:$(AREA):$(LOOP):M$(DEVNUM).LOLO")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.LNK1",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.LNK1")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.LNK1","FBCK:$(AREA):$(LOOP):M$(DEVNUM)HIHI.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.LNK2",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.LNK2")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.LNK2","FBCK:$(AREA):$(LOOP):M$(DEVNUM)HIGH.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.LNK3",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.LNK3")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.LNK3","FBCK:$(AREA):$(LOOP):M$(DEVNUM)LOW.VAL")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.LNK4",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.LNK4")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ.LNK4","FBCK:$(AREA):$(LOOP):M$(DEVNUM)LOLO.VAL")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLFAN",1000,316,0,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLFAN")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLFAN.FLNK",16777215,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLFAN.FLNK")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLFAN.FLNK","FBCK:$(AREA):$(LOOP):M$(DEVNUM)HST")
+#! Field("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLFAN.LNK1",16777215,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLFAN.LNK1")
+#! Link("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLFAN.LNK1","FBCK:$(AREA):$(LOOP):M$(DEVNUM)TOLSEQ")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)BLOBCNT",20,12,0,0,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)BLOBCNT")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)DATAERRORS",540,1392,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)DATAERRORS")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)TSMISMATCH",760,1192,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)TSMISMATCH")
+#! Record("FBCK:$(AREA):$(LOOP):M$(DEVNUM)FCOMERRORS",760,1400,0,1,"FBCK:$(AREA):$(LOOP):M$(DEVNUM)FCOMERRORS")
 #! TextBox(TB5,1720,200,1960,320,0,"Dialog",12,1,16777215,"Measurement diagnostics written to by the feedback software.\nThe feedback software buffers this output as a lower priority so as not to hold up normal threading",null)
 #! TextBox(TB3,1560,120,2040,280,0,"Dialog",22,1,16777215,"FEEDBACK MEASUREMENT DEVICES: \nConfigurations, Control, and Storage\n",null)
 #! TextBox(TB2,2429,1811,2989,1911,0,"Dialog",18,1,16777215,"",Border0)
