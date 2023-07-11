@@ -212,8 +212,11 @@ public:
     void setUsedBy(bool used);
     bool getUsedBy();
 
-    void setFacMode(bool mode);
+    //void setFacMode(bool mode);
     bool getFacMode();
+
+    void setMeasStatus(bool measStatus);
+    bool getMeasStatus();
 
     double getHihi() {
       return _hihiPv.getValue();
@@ -351,6 +354,9 @@ protected:
 
     PvData<bool> _facModePv;
     bool _facMode;
+
+    PvData<bool> _measStatusPv;
+    bool _measStatus;
     /**
      * Used to keep the number of successful read/write operations on the device
      */

@@ -57,8 +57,10 @@ _usedByLoop(true),
 _channelCountPv(slotName + " " + name + "DATACNT", 0),
 _channelErrorCountPv(slotName + " " + name + "DATAERRORS", 0),
 _isFile(false),
-_facModePv(slotName + " " + name + "FACMODE", true),
-_facMode(true) {
+_facModePv(slotName + " " + name + "FACMODE"),
+_facMode(true),
+_measStatusPv(slotName + " " + name + "STATUS"),
+_measStatus(true) {
     _buffer = new DataPoint[bufferSize];
     for (int i = 0; i < _bufferSize; ++i) {
         _buffer[i]._status = DataPoint::EMPTY;
@@ -613,13 +615,24 @@ bool Device::getUsedBy() {
   return _usedByLoop;
 }
 
+/* Removed setter because we only want to read (kleleux 06/30/23)
 void Device::setFacMode(bool mode) {
   _facModePv = mode;
   _facModePv.scanIoRequest();
   _facMode = mode;
 }
+*/
 
 bool Device::getFacMode() {
-  //    return _usedByLoopPv.getValue();
   return _facModePv.getValue();
+}
+
+void Device::setMeasStatus(bool measStatus) {
+  _measStatusPv = measStatus;
+  _measStatusPv.scanIoRequest();
+  _measStatus = measStatus;
+}
+
+bool Device::getMeasStatus() {
+  return _measStatusPv.getValue();
 }
