@@ -60,7 +60,9 @@ _isFile(false),
 _facModePv(slotName + " " + name + "FACMODE"),
 _facMode(true),
 _measStatusPv(slotName + " " + name + "STATUS"),
-_measStatus(true) {
+_measStatus(true),
+_measLoopInclusionPv(slotName + " " + name + "LOOPINCLUSION"),
+_measLoopInclusion(true) {
     _buffer = new DataPoint[bufferSize];
     for (int i = 0; i < _bufferSize; ++i) {
         _buffer[i]._status = DataPoint::EMPTY;
@@ -68,7 +70,6 @@ _measStatus(true) {
     _usedByLoopPv.initScanList(); // This enable PV updates.
     _facModePv.initScanList();
     _isFile = isFile();
-
 }
 
 /**
@@ -635,4 +636,14 @@ void Device::setMeasStatus(bool measStatus) {
 
 bool Device::getMeasStatus() {
   return _measStatusPv.getValue();
+}
+
+void Device::setMeasLoopInclusion(bool measLoopInclusion) {
+  _measLoopInclusionPv = measLoopInclusion;
+  _measLoopInclusionPv.scanIoRequest();
+  _measLoopInclusion = measLoopInclusion;
+}
+
+bool Device::getMeasLoopInclusion() {
+  return _measLoopInclusionPv.getValue();
 }

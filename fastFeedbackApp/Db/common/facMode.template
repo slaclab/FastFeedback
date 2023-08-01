@@ -98,10 +98,16 @@ record(mbbi,  "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_STAT") {
 record(mbbo, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE"){
     field(DESC, "NC/SC Mode Set")
     field(DTYP, "FfConfig")
-    field(INP,  "@$(LOOP) $(DEVTYPE)$(DEVNUM)FACMODE")
+    field(SCAN, "1 second")
+    field(OUT,  "@$(LOOP) $(DEVTYPE)$(DEVNUM)FACMODE")
+#    field(OUT,  "@$(LOOP) M$(DEVNUM)FACMODE")
     field(PINI, "YES")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
     field(ZRST, "NC")
     field(ONST, "SC")
+    field(TWST, "Unknown")
     field(OMSL, "closed_loop")
     field(DOL, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_CALC MSI")
     field(FLNK, "$(FLNK="")")
@@ -117,4 +123,18 @@ record(mbbi, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_RBV"){
     field(TWVL, "2")
     field(TWSV, "MAJOR")
 
+}
+
+record(bi, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOOP_INCLUSION") {
+  field(DESC, "Measurement status")
+  field(PINI, "YES")
+  field(ZNAM, "BAD")
+  field(ONAM, "GOOD")
+  field(VAL,  "0")
+  field(ZSV,  "MAJOR")
+  field(OSV,  "NO_ALARM")
+  field(DTYP, "FfConfig")
+  field(INP,  "@$(LOOP) M$(DEVNUM)STATUS")
+  field(SCAN, "I/O Intr")
+  field(PRIO, "LOW")
 }

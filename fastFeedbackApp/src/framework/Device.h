@@ -218,6 +218,9 @@ public:
     void setMeasStatus(bool measStatus);
     bool getMeasStatus();
 
+    void setMeasLoopInclusion(bool measLoopInclusion);
+    bool getMeasLoopInclusion();
+
     double getHihi() {
       return _hihiPv.getValue();
     }
@@ -352,11 +355,14 @@ protected:
     PvData<bool> _usedByLoopPv;
     bool _usedByLoop;
 
-    PvData<bool> _facModePv;
-    bool _facMode;
+    PvData<double> _facModePv;
+    double _facMode;
 
     PvData<bool> _measStatusPv;
     bool _measStatus;
+
+    PvData<bool> _measLoopInclusionPv;
+    bool _measLoopInclusion;
     /**
      * Used to keep the number of successful read/write operations on the device
      */
