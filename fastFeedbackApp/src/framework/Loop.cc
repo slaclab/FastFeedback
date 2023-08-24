@@ -659,7 +659,7 @@ int Loop::checkTmit(Pattern &pattern) {
         // so check to see if the timestamp has not changed.
         // if the timestamp has not changed, mark the pulse as skipped
         if (ExecConfiguration::getInstance()._lclsModePv.getValue()) {
-          if (measurementDevice->checkTimestampChange()) {
+          if (!measurementDevice->checkTimestampChange()) {
 	          if (lowTmitBpms == 0) {
 	            firstLowDevice = measurementDevice->getDeviceName();
 	          }

@@ -12,6 +12,9 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R4.0.0-1.2    24 August 2023   J. Mock (jmock)
+    * Fix a bug in Loop.cc::checkTmit() to fail the TMIT check if the timestamps are the same.
+
 R4.0.0-1.1    24 August 2023   J. Mock (jmock)
     * Fix a bug in Loop.cc::checkTmit() to fail the TMIT check if the timestamps are the same.
 
