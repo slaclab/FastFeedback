@@ -11,6 +11,7 @@
 #include "TimeUtil.h"
 #include "Log.h"
 #include "EventLogger.h"
+#include "ExecConfiguration.h"
 #include <epicsMutex.h>
 
 USING_FF_NAMESPACE
@@ -854,6 +855,13 @@ void LoopThread::show() {
         std::cout << "yes" << std::endl;
     } else {
         std::cout << "no (not configured)" << std::endl;
+    }
+    std::cout << "  LCLS Mode:     ";
+    if (ExecConfiguration::getInstance()._lclsModePv.getValue()){
+        std::cout << "SC" << std::endl;
+    }
+    else {
+        std::cout << "NC" << std::endl;
     }
     std::cout << "  state:         ";
     if (_enabledPv == true) {

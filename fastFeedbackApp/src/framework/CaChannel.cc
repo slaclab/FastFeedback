@@ -104,16 +104,27 @@ CaChannel::~CaChannel() {
  */
 int CaChannel::read(double &value, epicsTimeStamp &timestamp, double timeout) {
     value = -1;
+    struct dbr_time_double * data;
+    unsigned nBytes;
+    unsigned elementCount;
     int tentative = 0;
     int maxTentatives = 3; // Tries 3 times with 3 sec. timeout each
     int success = false;
 
     _readStats.start();
     //    if (timeout >= 1) {
+      elementCount = ca_element_count ( _channelId );
+      nBytes = dbr_size_n(DBR_TIME_DOUBLE,elementCount);
+      data = (struct dbr_time_double *) malloc(nBytes);
+      if ( ! data ) {
+          Log::getInstance() << "insufficient memory to complete request\n" << Log::flush;
+          return -1;
+      }
       while (!success && tentative < maxTentatives) {
         tentative++;
 	
-        int status = ca_get(DBR_DOUBLE, _channelId, (void *) & value);
+        //int status = ca_get(DBR_DOUBLE, _channelId, (void *) & value);
+        int status = ca_array_get(DBR_TIME_DOUBLE,elementCount, _channelId, data);
         if (status != ECA_NORMAL) {
 	      Log::getInstance() << "ERROR: ca_get(" << _name.c_str()
 			     << "): " << ca_message(status) << Log::flush;
@@ -127,6 +138,7 @@ int CaChannel::read(double &value, epicsTimeStamp &timestamp, double timeout) {
 	        value = 0;
 	      } else {
 	        _readCount++;
+          value = data->value;
 	        success = true;
 	      }
         }
@@ -145,7 +157,7 @@ int CaChannel::read(double &value, epicsTimeStamp &timestamp, double timeout) {
     }
       */
     _readStats.end();
-
+    timestamp = data->stamp;
     _lastValue = value;
     if (!success) {
         return -1;

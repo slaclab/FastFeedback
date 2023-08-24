@@ -90,6 +90,14 @@ public:
      */
     PvData<double> _laserPowerReadbackPv;
 
+    /**
+     * This PvData is mapped to the <LOOP>:LCLSMODE PV.  In LCLS1 Mode (mode = 0), the loops
+       work as they always have done.  When in LCLS2 Mode (mode = 1), Measurement (BPM) timestamps
+       are checked for all measurement devices to ensure a coherent set of data are used.  Also, timestamps
+       are verified to have updated to ensure beam is present.
+     */
+    PvData<bool> _lclsModePv;
+
     PvData<double> _s29AsumPv;
 
     /** Set to true if PatternGenerator is configured. Used for testing only. */
