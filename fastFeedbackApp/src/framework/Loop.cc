@@ -656,8 +656,10 @@ int Loop::checkTmit(Pattern &pattern) {
 	        }
         }
         // If SC mode, means everything is CA including timestamps
+        // so check to see if the timestamp has not changed.
+        // if the timestamp has not changed, mark the pulse as skipped
         if (ExecConfiguration::getInstance()._lclsModePv.getValue()) {
-          if (!measurementDevice->checkTimestampChange()) {
+          if (measurementDevice->checkTimestampChange()) {
 	          if (lowTmitBpms == 0) {
 	            firstLowDevice = measurementDevice->getDeviceName();
 	          }
@@ -673,12 +675,17 @@ int Loop::checkTmit(Pattern &pattern) {
     if (lowTmitBpms > 0) {
 	  _configuration->_logger << Log::showtime << "TMIT too low on " 
 				  << firstLowDevice.c_str() << ", no change (";
-	    if (pattern.isTs1()) {
-	      _configuration->_logger << "TS1";
-	    }
-	    else {
-	      _configuration->_logger << "TS4";
-	    }
+        if (ExecConfiguration::getInstance()._lclsModePv.getValue()) {
+            _configuration->_logger << "SC";
+        }
+        else{
+    	    if (pattern.isTs1()) {
+    	      _configuration->_logger << "TS1";
+    	    }
+    	    else {
+    	      _configuration->_logger << "TS4";
+    	    }
+        }
 	    _configuration->_logger << ") " << firstLowTmit << " " 
 				    << (int) firstPulseId << Log::flushpvonly;
 
