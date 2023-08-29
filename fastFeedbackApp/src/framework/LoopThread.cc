@@ -773,7 +773,7 @@ int LoopThread::processMeasurementEvent(Event &event) {
             } else {
                 // Update _ratePv and _calculateStats only if pattern has beam.
 #ifdef CHECK_BEAM
-                if (event._pattern.hasBeam() || ExecConfiguration::getInstance()._lclsModePv.getValue()) {
+                if (event._pattern.hasBeam()) {
 #endif
                     _calculateStats.start();
                     _loopRateStats.end();
@@ -784,7 +784,7 @@ int LoopThread::processMeasurementEvent(Event &event) {
 #endif
                 loopStatus = loop->calculate(event._pattern);
 #ifdef CHECK_BEAM
-                if (event._pattern.hasBeam() || ExecConfiguration::getInstance()._lclsModePv.getValue()) {
+                if (event._pattern.hasBeam()) {
 #endif
                     _calculateStats.end();
                     _loopRateStats.start();

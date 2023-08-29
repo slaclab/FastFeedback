@@ -1,5 +1,6 @@
 #include "Pattern.h"
 #include "debugPrint.h"
+#include "ExecConfiguration.h"
 
 USING_FF_NAMESPACE
 
@@ -119,7 +120,12 @@ bool Pattern::isTs4() {
 }
 
 bool Pattern::hasBeam() {
-    return _value[2] & POCKCEL_PERM;
+    if (ExecConfiguration::getInstance()._lclsModePv.getValue()) {
+        return true;
+    }
+    else {
+        return _value[2] & POCKCEL_PERM;
+    }
 }
 
 /**
