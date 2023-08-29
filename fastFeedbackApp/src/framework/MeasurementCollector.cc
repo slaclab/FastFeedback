@@ -48,7 +48,7 @@ int MeasurementCollector::update(Pattern evrPattern) {
 #ifdef CHECK_BEAM
 	    // If EVR pattern has no pockel_cel, then we should not read 
 	    // measurements, there won't be any...
-	    if (evrPattern.hasBeam()) {
+	    if (evrPattern.hasBeam() || ExecConfiguration::getInstance()._lclsModePv.getValue()) {
 #endif
 	      _updateSetStats.start();
 	      updateMeasurementSet(iterator->second, evrPattern.getPulseId());
