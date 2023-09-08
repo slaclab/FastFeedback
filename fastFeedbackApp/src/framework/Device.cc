@@ -61,8 +61,8 @@ _facModePv(slotName + " " + name + "FACMODE"),
 _facMode(true),
 _measStatusPv(slotName + " " + name + "STATUS"),
 _measStatus(true),
-_measLoopInclusionPv(slotName + " " + name + "LOOPINCLUSION"),
-_measLoopInclusion(true) {
+_measCheckInclusionPv(slotName + " " + name + "MEASCHECKINCL"),
+_measCheckInclusion(true) {
     _buffer = new DataPoint[bufferSize];
     for (int i = 0; i < _bufferSize; ++i) {
         _buffer[i]._status = DataPoint::EMPTY;
@@ -638,12 +638,12 @@ bool Device::getMeasStatus() {
   return _measStatusPv.getValue();
 }
 
-void Device::setMeasLoopInclusion(bool measLoopInclusion) {
-  _measLoopInclusionPv = measLoopInclusion;
-  _measLoopInclusionPv.scanIoRequest();
-  _measLoopInclusion = measLoopInclusion;
+void Device::setMeasCheckInclusion(bool measCheckInclusion) {
+  _measCheckInclusionPv = measCheckInclusion;
+  _measCheckInclusionPv.scanIoRequest();
+  _measCheckInclusion = measCheckInclusion;
 }
 
-bool Device::getMeasLoopInclusion() {
-  return _measLoopInclusionPv.getValue();
+bool Device::getMeasCheckInclusion() {
+  return _measCheckInclusionPv.getValue();
 }

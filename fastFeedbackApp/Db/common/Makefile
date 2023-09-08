@@ -31,7 +31,7 @@ DB += fbckInjLaunch.db
 DB += fbckAutoAct.db
 DB += fbckAutoActLong.db
 DB += fbckAutoActLTU.db
-DB += fbckBeamPath.db
+#DB += facMode.db
 
 # Loop substitutions records per loop
 DB += fbckLoop.db

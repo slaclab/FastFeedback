@@ -19,6 +19,20 @@ record(bi, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)STATUS") {
   field(PRIO, "LOW")
 }
 
+record(bi, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)MEASCHECKINCL") {
+  field(DESC, "STATUS FOR MEASUREMENT CHECKING")
+  field(PINI, "YES")
+  field(ZNAM, "EXCLUDED")
+  field(ONAM, "INCLUDED")
+  field(VAL,  "1")
+  field(ZSV,  "NO_ALARM")
+  field(OSV,  "NO_ALARM")
+  field(DTYP, "FfConfig")
+  field(INP,  "@$(LOOP) M$(DEVNUM)MEASCHECKINCL")
+  field(SCAN, "I/O Intr")
+  field(PRIO, "LOW")
+}
+
 record(calc, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)ENABLE") {
   field(INPA, "FBCK:$(AREA):$(LOOP):STATE")
   field(INPB, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)USED")

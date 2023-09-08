@@ -911,7 +911,7 @@ int Loop::checkMeasurementStatus(epicsUInt32 patternPulseId) {
         MeasurementDevice *measurement = *measIt;
 	// Do not check PULSEID if NULL communication channel is used
     if (!measurement->getFacMode()){
-        measurement->setMeasLoopInclusion(true);
+        measurement->setMeasCheckInclusion(true);
 	    if (!measurement->isNull()) {
 	        if (measurement->peekStatus() != DataPoint::READ) {
 	            Log::getInstance() << Log::flagBuffer << Log::dpInfo
@@ -946,8 +946,8 @@ int Loop::checkMeasurementStatus(epicsUInt32 patternPulseId) {
 	}
     }
     else {
-        measurement->setMeasLoopInclusion(false);
-        _scMeasBadStatus++;
+        measurement->setMeasCheckInclusion(false);
+        //_scMeasBadStatus++;
     }
     }
 

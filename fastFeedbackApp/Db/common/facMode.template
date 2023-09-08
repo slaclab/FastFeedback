@@ -125,16 +125,3 @@ record(mbbi, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_RBV"){
 
 }
 
-record(bi, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)LOOP_INCLUSION") {
-  field(DESC, "Measurement status")
-  field(PINI, "YES")
-  field(ZNAM, "BAD")
-  field(ONAM, "GOOD")
-  field(VAL,  "0")
-  field(ZSV,  "MAJOR")
-  field(OSV,  "NO_ALARM")
-  field(DTYP, "FfConfig")
-  field(INP,  "@$(LOOP) M$(DEVNUM)STATUS")
-  field(SCAN, "I/O Intr")
-  field(PRIO, "LOW")
-}
