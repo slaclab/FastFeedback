@@ -910,6 +910,7 @@ int Loop::checkMeasurementStatus(epicsUInt32 patternPulseId) {
     for (measIt = _measurements.begin(); measIt != _measurements.end(); ++measIt) {
         MeasurementDevice *measurement = *measIt;
 	// Do not check PULSEID if NULL communication channel is used
+    // Check if in SC or NC mode
     if (!measurement->getFacMode()){
         measurement->setMeasCheckInclusion(true);
 	    if (!measurement->isNull()) {
@@ -947,6 +948,7 @@ int Loop::checkMeasurementStatus(epicsUInt32 patternPulseId) {
     }
     else {
         measurement->setMeasCheckInclusion(false);
+        // TODO: Implement an SC measurment check if necessary. - Kyle Leleux (kleleux 09/14/23) 
         //_scMeasBadStatus++;
     }
     }

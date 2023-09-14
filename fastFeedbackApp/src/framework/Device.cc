@@ -629,6 +629,10 @@ bool Device::getFacMode() {
 }
 
 void Device::setMeasStatus(bool measStatus) {
+// Sets measurement status. PV alarms if bad
+//      - 0 -> Bad
+//      - 1 -> Good
+// Author: Kyle Leleux (kleleux)
   _measStatusPv = measStatus;
   _measStatusPv.scanIoRequest();
   _measStatus = measStatus;
@@ -639,6 +643,10 @@ bool Device::getMeasStatus() {
 }
 
 void Device::setMeasCheckInclusion(bool measCheckInclusion) {
+// Sets MeasCheckLoopInclusion, which is defined by whether or not the LCLS-I measurement check is done
+//      - 0 -> Included
+//      - 1 -> Excluded
+// Author: Kyle Leleux (kleleux)
   _measCheckInclusionPv = measCheckInclusion;
   _measCheckInclusionPv.scanIoRequest();
   _measCheckInclusion = measCheckInclusion;
