@@ -13,6 +13,7 @@
 #include "TimeUtil.h"
 #include "ExecConfiguration.h"
 #include "PatternManager.h"
+#include "Override.h"
 #include <evrPattern.h>
 
 
@@ -523,9 +524,13 @@ int Loop::calculate(Pattern pattern) {
     // Check if there is at least one Measurement with status different than
     // DataPoint::READ. In that case the latest measurements are read out,
     // discarded and the calculation returns an error.
-    if (checkMeasurementStatus(pattern.getPulseId()) != 0) {
-        discardLatestMeasurements();
-        return -2;
+    // TODO: Wrap with override -Kyle Leleux 
+    if (!Override::getInstance().getOverrideState()) {
+
+        if (checkMeasurementStatus(pattern.getPulseId()) != 0) {
+            discardLatestMeasurements();
+            return -2;
+    }
     }
 
     _measCheckStats.end();
