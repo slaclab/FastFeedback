@@ -504,7 +504,7 @@ int TrajectoryFitGeneral::updateActuators(Vector& actuatorDelta) {
  * @author L.Piccoli
  */
 int TrajectoryFitGeneral::updateStates(Vector &states) {
-  //    std::cout << &_states << std::endl;
+    std::cout << &_states << std::endl;
 
     bool stateLimit = false;
     int i = 0;
