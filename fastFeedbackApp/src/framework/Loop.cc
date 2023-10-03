@@ -511,11 +511,16 @@ int Loop::calculate(Pattern pattern) {
 
     // TMIT is not checked if Longitudital/BunchCharge is the used algorithm
     // _skipTmitCheck is set when the Loop is (re)configured
-    if (!_configuration->_skipTmitCheck) {
-        if (checkTmit(pattern) != 0) {	  
-	  _lowTmitCount++;
-	  return -1;
+    if (!Override::getInstance().getOverrideState()) {
+        if (!_configuration->_skipTmitCheck) {
+            if (checkTmit(pattern) != 0) {	  
+	            _lowTmitCount++;
+	            return -1;
+            }
         }
+    }
+    else {
+        _configuration->_logger << "Skipping TMIT Check" << Log::flush;
     }
 
     _tmitCheckStats.end();
@@ -530,7 +535,10 @@ int Loop::calculate(Pattern pattern) {
         if (checkMeasurementStatus(pattern.getPulseId()) != 0) {
             discardLatestMeasurements();
             return -2;
+        }
     }
+    else {
+        _configuration->_logger << "Skipping Measurement Check" << Log::flush;
     }
 
     _measCheckStats.end();
