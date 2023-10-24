@@ -29,7 +29,6 @@ ipmitool lan print
 loadModule.sh $EPICS_CPU_LIB/evrma.ko
 chmod 666 /dev/evr0mng
 
-evrManager /dev/evr0mng init
 evrManager /dev/evr0mng create vevr0
 evrManager /dev/evr0mng create vevr1
 evrManager /dev/evr0mng create vevr2
@@ -82,11 +81,12 @@ evrManager /dev/evr0mng temperature
 # FCOMMGRP == mc-b034-fcom == 239.219.248.0
 # 239.219.248.0 ==> mc-b034-fcom ==> MCAST Address
 # ============================================================================
-ifconfig eth0 172.25.160.17 netmask 255.255.255.192
+#TODO: Change to eth1
+ifconfig eth1 172.25.160.17 netmask 255.255.255.192
 export FCOMMCGRP="mc-b034-fcom"
 
-route add -net FCOMMCGRP netmask 255.255.255.192 dev eth0
-ip route add 224.0.0.0/4 dev eth0
+route add -net FCOMMCGRP netmask 255.255.255.192 dev eth1
+ip route add 224.0.0.0/4 dev eth1
 
 # Note: the FCOM_MC_PREFIX is different between development and production
 # Development: 239.219.248.0
@@ -94,6 +94,8 @@ ip route add 224.0.0.0/4 dev eth0
 export FCOM_MC_PREFIX=239.219.248.0
 # ==================================================================
 
+
+#TODO: Get rid off
 # Set IP for ATCA communication
 ifconfig eth5 10.0.1.1 netmask 255.255.255.0 up
 
