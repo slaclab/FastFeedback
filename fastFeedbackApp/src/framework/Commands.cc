@@ -7,6 +7,7 @@
 #include "CaChannel.h"
 #include "Log.h"
 #include "EventLogger.h"
+#include "Override.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -537,7 +538,22 @@ static void LoopShowEvents(const iocshArgBuf *args) {
   EventLogger::getInstance().dump();
 }
 
-//TODO: add override function here. -Kyle Leleux (kleleux 09/27/2023)
+/** ffOverride *************************************************************/
+static const iocshArg ffOverride_Arg0 = { "Override", iocshArgInt  };
+static const iocshArg * const ffOverride_Args[] = {&ffOverride_Arg0};
+static const iocshFuncDef ffOverride_FuncDef = {"ffOverride", 1, ffOverride_Args};
+static void ffOverride(const iocshArgBuf * args) {
+    Override::getInstance().setOverrideState(args[0].ival);
+}
+
+/** ffLogPrint *************************************************************/
+static const iocshFuncDef ffLogPrint_FuncDef = {"ffLogPrint", 0, NULL};
+
+static void ffLogPrint(const iocshArgBuf *args) {
+    Log::getInstance() << Log::flagEvent << Log::dpWarn
+        << "This is a test" << Log::dp;
+    std::cout << "This is a test pt2" << std::endl;
+}
 
 /** Register all commands */
 IocshRegister::IocshRegister() {
@@ -585,6 +601,10 @@ IocshRegister::IocshRegister() {
 
     iocshRegister(&ffShowDevices_FuncDef, LoopShowDevices);
     iocshRegister(&ffsd_FuncDef, LoopShowDevices);
+    
+    iocshRegister(&ffOverride_FuncDef, ffOverride);
+
+    iocshRegister(&ffLogPrint_FuncDef, ffLogPrint);
 
     iocshRegister(&ffHelp_FuncDef, Help);
 }
