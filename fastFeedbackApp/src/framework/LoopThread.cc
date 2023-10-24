@@ -723,6 +723,7 @@ int LoopThread::processMeasurementEvent(Event &event) {
         _pulseIdMismatchCount++;
     }
 
+    // Why is this conditional the same as right above? - Kyle Leleux (kleleux 10/23/23)
     // Make sure the PulseId from the PATTERN_EVENT is the same
     // one received in the MEASUREMENT_EVENT.
     if (_pattern.getPulseId() != event._pattern.getPulseId()) {
