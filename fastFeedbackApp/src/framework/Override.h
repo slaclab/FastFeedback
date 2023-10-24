@@ -31,7 +31,7 @@ class Override {
 //                std::cout << slotName + " " + name + "TESTREC" << std::endl;
 //            }
         
-        Override(bool overrideState=0) :
+        Override(bool overrideState=1) :
             _overrideState(overrideState) {
                 std::cout << "Override State: " + overrideState << std::endl;
             }
