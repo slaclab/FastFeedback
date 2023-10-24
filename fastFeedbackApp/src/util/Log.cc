@@ -315,7 +315,27 @@ void Log::setDebugLevel(int flag, int level) {
     std::cout << " (BUFFER)";
     break;
   }
-  std::cout << " to level " << level << std::endl;
+  std::cout << " to level " << level << " ";
+  switch (level) {
+      case 0:
+          std::cout << "(DP_NONE)" << std::endl;
+          break;
+      case 1:
+          std::cout << "(DP_FATAL)" << std::endl;
+          break;
+      case 2:
+          std::cout << "(DP_ERROR)" << std::endl;
+          break;
+      case 3:
+          std::cout << "(DP_WARN)" << std::endl;
+          break;
+      case 4:
+          std::cout << "(DP_INFO)" << std::endl;
+          break;
+      case 5:
+          std::cout << "(DP_DEBUG)" << std::endl;
+          break;
+  };
   _mutex.unlock();
 #endif
 }
