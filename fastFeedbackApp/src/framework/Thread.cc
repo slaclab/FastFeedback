@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Thread.h"
 #include "Log.h"
+#include "Override.h"
 
 USING_FF_NAMESPACE
 
@@ -51,6 +52,12 @@ FF::Thread::~Thread() {
  * specific events can be handled. For example, the LoopThread should add
  * handlers for the MEASUREMENT_EVENT and PATTERN_EVENT events.
  *
+ * NOTE: This method seems to be called during the instantiation of the 
+ *       epicsThread using epicsThreadCallEntryPoint to call the virtual
+ *       run() defined in epicsThreadRunable. Because of our inheritance 
+ *       of epicsThreadRunable, this run() method is ran instead. 
+ *       - Kyle Leleux (kleleux 10/16/2023)
+ *
  * @author L.Piccoli
  */
 void FF::Thread::run() {
@@ -61,35 +68,40 @@ void FF::Thread::run() {
     }
     _started = true;
 
+    // Getting stuck here.
     while (!_done) {
         Event e;
-        if (receive(e) == 0) {
-	  _idleStats.end();
-	  _processStats.start();
+        std::cout << "did I make it here" << std::endl;
+//        if ((Override::getInstance().getOverrideState()) || (receive(e) == 0)){
+        if ((receive(e) == 0)){
+        std::cout << "did I make it here pt2" << std::endl;
+      _idleStats.end();
+      _processStats.start();
             _eventCount++;
             switch (e._type) {
                 case QUIT_EVENT:
                     _done = true;
                     break;
                     // Pass the event onto the subclass and let it deal with it
-
+    
                 default:
                     if (processEvent(e) != 0) {
                         _eventCountNotHandled++;
                     }
             }
-	    _processStats.end();
+        _processStats.end();
         } else {
             // Problem getting event from queue
         }
-	_idleStats.start();
+    _idleStats.start();
     }
     postRun();
     _channelAccess.detach();
     //    _join->unlock();
+    std::cout << "Do I get here" << std::endl;
     _thread.exit();
-}
 
+}
 /**
  * Spawns the actual EPICS thread. This method must be called after
  * the Thread object is created in order to have the Thread running.
