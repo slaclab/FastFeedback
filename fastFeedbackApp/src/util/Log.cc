@@ -134,7 +134,7 @@ Log &Log::operator<<(LogOperatorType const operation) {
 
 void Log::debugPrint() {
 #ifdef LOG
-#ifdef  DEBUG_PRINT
+#ifdef DEBUG_PRINT
   _mutex.lock();
   int flagLevel = 0;
   switch(_dpFlag) {
