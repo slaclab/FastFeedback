@@ -158,6 +158,9 @@ int CaChannel::read(double &value, epicsTimeStamp &timestamp, double timeout) {
       */
     _readStats.end();
     timestamp = data->stamp;
+    
+    free(data);
+    
     _lastValue = value;
     if (!success) {
         return -1;
