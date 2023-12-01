@@ -1,0 +1,11 @@
+record(bo, "FBCK:$(AREA):$(LOOP):FORCEDATA){
+    field(DESC, "Force Known State Data to FCOM")
+    field(DTYP, "FfConfig")
+    field(OUT,  "@$(LOOP) FORCEDATA")
+    field(PINI, "YES")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+    field(VAL,  "$(FDVAL)")
+    field(ZSV,  "NO_ALARM")
+    field(OSV,  "NO_ALARM")
+}
