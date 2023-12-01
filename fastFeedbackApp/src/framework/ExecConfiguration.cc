@@ -26,7 +26,8 @@ _algorithmsAvailable("ALGORITHMS"),
 _tmitLowPv("TMITLOW"),
 _by1BdesPv("BY1BDES"),
 _laserPowerReadbackPv("LASER_PWR_READBACK"),
-_s29AsumPv("S29_ASUM") {
+_s29AsumPv("S29_ASUM"),
+_forceDataPv("FORCE_DATA"){
     std::vector<std::string> *algorithms = _algorithmsAvailable.getValueAddress();
     if (algorithms != NULL) {
         algorithms->push_back(NOOP_ALGORITHM);
