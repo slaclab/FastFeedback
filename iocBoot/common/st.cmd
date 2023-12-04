@@ -200,7 +200,7 @@ ffStart()
 # driver thread
 #=======================================================================
 cd iocBoot/${VIOC} 
-system("/bin/su root -c `pwd`/rtPrioritySetup.${VEVR}.cmd")
+system("./rtPrioritySetup.${VEVR}.cmd")
 
 
 # =====================================================================
