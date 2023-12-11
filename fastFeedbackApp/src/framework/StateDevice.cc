@@ -110,10 +110,24 @@ int StateDevice::set(double value) {
 int StateDevice::write(epicsTimeStamp timestamp) {
   _lastValueSet = _buffer[_nextWrite]._value + _offsetPv->getValue();
   BSA_StoreData(_bsaStateChannel, timestamp, _lastValueSet, epicsAlarmNone, epicsSevNone); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
+
+  // Added temporarily, dont think I need
+  //LoopConfiguration *loopConfig = ExecConfiguration::getInstance().getLoopConfiguration(_slotName);
+  //_statesChannel = loopConfig->_statesFcomChannel;
     // Write value to the outgoing blob
     if (_statesChannel != NULL) {
-        float value = _lastValueSet;
-        _statesChannel->write(value, _stateIndex);
+        if (ExecConfiguration::getInstance()._forceDataPv.getValue()) {
+            float value = 0.01;
+            _statesChannel->write(value, _stateIndex);
+        }
+        else {
+            float value = _lastValueSet;
+            _statesChannel->write(value, _stateIndex);
+        }
+        //_statesChannel->write(value, _stateIndex);
+    }
+    else{
+        Log::getInstance() << Log::showtime << "Null statesChannel" << Log::cout;
     }
     return ActuatorDevice::write(_buffer[_nextWrite]._value + _offsetPv->getValue());
 }

@@ -202,11 +202,13 @@ int LoopConfiguration::initialize() {
        }
 
         // Create all possible state devices
+        _logger << Log::showtime << "trying to create state devices" << Log::cout;
         StateMap::iterator sIt;
         sIt = _states.find(fakePatternMask);
         initializeDevices<StateDevice, StateSet >
                 ("S", MAX_STATES, "", DEVICE_BUFFER_SIZE,
                 fakePatternMask, i + 1, sIt->second);
+
 
         // Create all possible setpoint devices
         SetpointMap::iterator spIt;
@@ -220,6 +222,7 @@ int LoopConfiguration::initialize() {
         // Assign setpoints to the states (its a one-to-one mapping)
         if (assignSetpoints(sIt->second, spIt->second) != 0) {
 	  _logger << Log::showtime << "ERROR: Failed to assign setpoints to states." << Log::flush;
+	  _logger << Log::showtime << "ERROR: Failed to assign setpoints to states." << Log::cout;
 	  return -1;
         }
 
@@ -375,8 +378,12 @@ int LoopConfiguration::configure() {
     if (countUsedDevices() != 0) {
       _logger << Log::showtime <<"ERROR: Failed to count used devices." << Log::flushpv;
       _logger << Log::showtime <<"ERROR: Failed to count used devices." << Log::cout;
-      return -1;
+      if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
+      return -1;  
+      }
     }
+
+    _logger << Log::showtime <<"Proceeding pt1." << Log::cout;
 
     if (configureReferenceOrbit() < 0) {
       _logger << Log::showtime <<"ERROR: Failed to configure reference orbit." << Log::flushpv;
@@ -395,7 +402,9 @@ int LoopConfiguration::configure() {
     if (configureFMatrix() != 0) {
       _logger << Log::showtime <<"ERROR: Failed to configure F Matrix." << Log::flushpv;
       _logger << Log::showtime <<"ERROR: Failed to configure F Matrix." << Log::cout;
+      if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
         return -1;
+    }
     }
 
     if (configureGMatrix() != 0) {
@@ -408,9 +417,11 @@ int LoopConfiguration::configure() {
       if (configureAlgorithm() != 0) {
 	_logger << Log::showtime <<"ERROR: Failed to configure algorithm." << Log::flushpv;
 	_logger << Log::showtime <<"ERROR: Failed to configure algorithm." << Log::cout;
+      if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
         return -1;
       }
-    } catch (Exception &e) {
+      
+    }} catch (Exception &e) {
       _logger << Log::showtime <<"ERROR: Failed to configure algorithm - " << e.what() << Log::flushpv;
       _logger << Log::showtime <<"ERROR: Failed to configure algorithm! " << e.what() << Log::cout;
       return -1;
@@ -419,6 +430,7 @@ int LoopConfiguration::configure() {
     // Create FcomChannel for States
     // Only Longitudital and LTU need States on FCOM
 
+    // NOTE: Here is where we create bcast states for fcom -KEL
     if (_bcastStatesPv == 1) {
       try {
         std::string statesChannelName = "FBCK:";
@@ -426,19 +438,24 @@ int LoopConfiguration::configure() {
         statesChannelName += ":";
         statesChannelName += _slotName;
         statesChannelName += ":STATES";
+        
         _statesFcomChannel = new FcomChannelStates(CommunicationChannel::WRITE_ONLY,
 						   statesChannelName);
-	std::cout<< "Created _statesFcomChannel " << statesChannelName << std::endl;
+	    _logger << Log::showtime << "Created _statesFcomChannel" << Log::cout;
       } catch (Exception &e) {
 	_logger << "ERROR: Failed to create FcomChannel for states ("
 		<< e.what() << ")" << Log::cout;
         return -1;
       }
     }
+    else {
+        _logger << Log::showtime << "Skipping statesFcomChannel creation" << Log::cout;
+    }
 
     updatePatternDestinations();
       
     _logger << Log::showtime << "INFO: Loop configured successfully" << Log::flushpvnoalarm;
+    _logger << Log::showtime << "INFO: Loop configured successfully" << Log::cout;
 
     return 0;
 }
@@ -476,14 +493,20 @@ int LoopConfiguration::countUsedDevices() {
       
       if (_measurementsUsedPv.getValue() == 0) {
 	_logger << Log::showtime << "No sensors defined" << Log::flushpv;
+	_logger << Log::showtime << "No sensors defined" << Log::cout;
 	return -1;
       }
       if (_actuatorsUsedPv.getValue() == 0) {
 	_logger << Log::showtime << "No actuators defined" << Log::flushpv;
-	return -1;
+	_logger << Log::showtime << "No actuators defined" << Log::cout;
+    
+    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
+	    return -1;
       }
+    }
       if (_statesUsedPv.getValue() == 0) {
 	_logger << Log::showtime << "No states defined" << Log::flushpv;
+	_logger << Log::showtime << "No states defined" << Log::cout;
 	return -1;
       }
     }
@@ -631,6 +654,7 @@ int LoopConfiguration::configureFMatrix() {
         _logger << Log::showtime << "Matrix size does not match defined devices" << Log::flushpv;
         _logger << Log::showtime << "ERROR: Can't configure F Matrix, too many rows: "
                 << rows << ". Maximum is " << MAX_MEASUREMENTS << Log::flush;
+        _logger << Log::showtime << "rows greater than number of measurements" << Log::cout;
         return -1;
     }
 
@@ -664,6 +688,7 @@ int LoopConfiguration::configureFMatrix() {
                 << rows * expectedCols << " elements, got "
                 << (int) fRows->size() << "). Used measurements="
                 << _measurementsUsedPv.getValue() << Log::flush;
+        _logger << Log::showtime << "Matrix size does not match defined devices" << Log::cout;
         return -1;
       }
     }

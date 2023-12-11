@@ -8,7 +8,6 @@
 #include <iostream>
 #include "Thread.h"
 #include "Log.h"
-#include "Override.h"
 
 USING_FF_NAMESPACE
 
@@ -71,10 +70,7 @@ void FF::Thread::run() {
     // Getting stuck here.
     while (!_done) {
         Event e;
-        std::cout << "did I make it here" << std::endl;
-//        if ((Override::getInstance().getOverrideState()) || (receive(e) == 0)){
         if ((receive(e) == 0)){
-        std::cout << "did I make it here pt2" << std::endl;
       _idleStats.end();
       _processStats.start();
             _eventCount++;

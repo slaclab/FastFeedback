@@ -118,6 +118,11 @@ int LoopThread::processEvent(Event& event) {
     case HEARTBEAT_EVENT:
       _configuration->_loopCounter = _configuration->_loopCounter.getValue() + 1;
       checkMode();
+      // NOTE: We want to send known data to FCOM, so we are adding a processMeasurementEvent to send this data. 
+      //``_configuration->_logger << Log::showtime << "Heartbeat Event" << Log::cout;
+      if (_stateActPv == true && _configuration->_configured) {
+    	  value = processMeasurementEvent(event);
+      }
       if (_firstLoop != NULL) {
 	_firstLoop->checkFcom();
       }
@@ -479,6 +484,7 @@ int LoopThread::reconfigure(bool statePv, bool modePv) {
         return -1;
     } else {
       //configuration successful, now configure loops
+      _configuration->_logger << Log::showtime << "Configured Loop. Proceeding" << Log::cout;
       long numPatterns = _configuration->_totalPoiPv.getValue();
 
       // now disable the patternManager and the MeasurementCollector to add this feedback
@@ -701,8 +707,10 @@ int LoopThread::processMeasurementEvent(Event &event) {
 			 << (int) event._pattern.getPulseId() << Log::dp;
 
       _unexpectedMeasurementCount++;
+      if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
       return -1;
-    }
+      
+    }}
 
     // If pattern received here is not the same received previously,
     // then the latest measurements may not correspond to the correct pattern,
@@ -714,9 +722,10 @@ int LoopThread::processMeasurementEvent(Event &event) {
       */
         _unexpectedMeasurementPatternCount++;
         _state = WAITING_PATTERN;
+        if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
         return -1;
     }
-
+    }
     // Check if pulseId from PATTERN_EVENT is the same received in the
     // MEASUREMENT_EVENT
     if (_pattern.getPulseId() != event._pattern.getPulseId()) {
@@ -729,8 +738,9 @@ int LoopThread::processMeasurementEvent(Event &event) {
     if (_pattern.getPulseId() != event._pattern.getPulseId()) {
         _unexpectedMeasurementPatternCount++;
         _state = WAITING_PATTERN;
+        if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
         return -1;
-    }
+    }}
 
     _measurementCount++;
 
@@ -746,6 +756,9 @@ int LoopThread::processMeasurementEvent(Event &event) {
         PatternMask mask = loop->getPatternMask();
         if (event._pattern.match(mask)) {
             if (match) {
+
+                _configuration->_logger << Log::showtime << "ERROR: Multiple pattern matches"
+                        << Log::cout;
                 _configuration->_logger << Log::showtime << "ERROR: Multiple pattern matches"
                         << Log::flushpvonly;
                 if (MULTIPLE_MATCHES == false) {
