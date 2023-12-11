@@ -11,6 +11,7 @@
 #include "TimeUtil.h"
 #include "Log.h"
 #include "EventLogger.h"
+#include "ExecConfiguration.h"
 #include <epicsMutex.h>
 
 USING_FF_NAMESPACE
