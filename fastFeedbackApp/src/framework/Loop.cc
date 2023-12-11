@@ -13,7 +13,6 @@
 #include "TimeUtil.h"
 #include "ExecConfiguration.h"
 #include "PatternManager.h"
-#include "Override.h"
 #include <evrPattern.h>
 
 
@@ -484,7 +483,6 @@ void Loop::checkFcom() {
  */
 int Loop::calculate(Pattern pattern) {
     //    _configuration->_loopCounter = _configuration->_loopCounter.getValue() + 1;
-
   _calculatePrepStats.start();
 
     // If there is no beam, this loop must be running on the second pattern.
@@ -511,7 +509,7 @@ int Loop::calculate(Pattern pattern) {
 
     // TMIT is not checked if Longitudital/BunchCharge is the used algorithm
     // _skipTmitCheck is set when the Loop is (re)configured
-    if (!Override::getInstance().getOverrideState()) {
+    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()) {
         if (!_configuration->_skipTmitCheck) {
             if (checkTmit(pattern) != 0) {	  
 	            _lowTmitCount++;
@@ -530,7 +528,7 @@ int Loop::calculate(Pattern pattern) {
     // DataPoint::READ. In that case the latest measurements are read out,
     // discarded and the calculation returns an error.
     // TODO: Wrap with override -Kyle Leleux 
-    if (!Override::getInstance().getOverrideState()) {
+    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()) {
 
         if (checkMeasurementStatus(pattern.getPulseId()) != 0) {
             discardLatestMeasurements();
@@ -545,6 +543,8 @@ int Loop::calculate(Pattern pattern) {
     _calculateStats.start();
     _calculateFailStats.start();
     int status = 0;
+    // Dont actually want it to calculate - kleleux
+    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()) {
     try {
       status = _algorithm->calculate(*_configuration, _measurements,
 				     _actuators, _states);
@@ -561,7 +561,10 @@ int Loop::calculate(Pattern pattern) {
 	status = 100;
       }
     }
-
+    }
+    else {
+        status = 0;
+    }
 
     // At this point, if _algorithm->calculate() took too long to finish then
     // there may be several PATTERN_EVENT and MEASUREMENT_EVENT queued up.
@@ -597,6 +600,8 @@ int Loop::calculate(Pattern pattern) {
         if (status == STATE_LIMIT) {
 	  _configuration->_logger << Log::showtime << "State values out of range, no change"
 				  << Log::flushpvonly;
+	  _configuration->_logger << Log::showtime << "State values out of range, no change"
+				  << Log::cout;
 	    /*
             StateSet::iterator sIt;
             for (sIt = _states.begin();
@@ -616,6 +621,8 @@ int Loop::calculate(Pattern pattern) {
             if (status == ACTUATOR_LIMIT) {
                 _configuration->_logger << Log::showtime << "Actuator values out of range, no change"
                         << Log::flushpvonly;
+                _configuration->_logger << Log::showtime << "Actuator values out of range, no change"
+                        << Log::cout;
                 _actuatorsOutsideLimitsCount++;
 		/*
                 ActuatorSet::iterator it;
@@ -629,6 +636,7 @@ int Loop::calculate(Pattern pattern) {
         }
     }
     _calculateFailCount++;
+    _configuration->_logger << Log::showtime << "Finished calculation." << Log::cout;
     return status;
 }
 
@@ -707,6 +715,8 @@ int Loop::setDevices(bool skip) {
     // If Look is configured to skip only if in compute mode, then set 
     // skip to false and let the _configuration->_mode control whether
     // the actuator will be skip'd or not
+    // skipping for now just to get to fcom. 
+    
     if (_configuration->_skipOnlyCompute) {
       skip = false;
     }
@@ -720,6 +730,7 @@ int Loop::setDevices(bool skip) {
     ActuatorSet::iterator actIt;
 //#ifdef RTEMS
     bool pulseMismatch = false;
+    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()) {
     for (actIt = _actuators.begin();
             actIt != _actuators.end(); ++actIt) {
         ActuatorDevice *actuator = (*actIt);
@@ -740,6 +751,7 @@ int Loop::setDevices(bool skip) {
         send = false;
         _actuatorMismatchCount++;
     }
+    }
 //#endif
 
     epicsTimeStamp timestamp;
@@ -750,6 +762,7 @@ int Loop::setDevices(bool skip) {
 
     bool actuatorSettingFailed = false;
 
+    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()) {
     for (actIt = _actuators.begin();
             actIt != _actuators.end(); ++actIt) {
       if ((*actIt)->write(send) == 0) {
@@ -774,9 +787,12 @@ int Loop::setDevices(bool skip) {
 	}
       }
     }
-
-    // Write state values to FcomBlob
+    }
+    
     StateSet::iterator stateIt;
+    
+    
+    // Write state values to FcomBlob
     for (stateIt = _states.begin();
             stateIt != _states.end(); ++stateIt) {
         (*stateIt)->write(bsaTS); // TODO: need to implement skip in StateDevice::write (see ActuatorDevice::write(bool))
@@ -790,12 +806,14 @@ int Loop::setDevices(bool skip) {
     (*stateIt)->writeFcom(timestamp);	
 
     // If actuators were set, then clear stale status message (after 5 seconds)
+    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()) {
     if (!actuatorSettingFailed) {
       _configuration->_clearStatusCounter++;
       if (_configuration->_clearStatusCounter >= 5 * _configuration->_rate) {
 	_configuration->_logger << Log::clearpv;
 	_configuration->_clearStatusCounter = 0;
       }
+    }
     }
 
     return 0;
