@@ -199,9 +199,9 @@ ffStart()
 # Setup Real-time priorities after starting the controller threads 
 # driver thread
 #=======================================================================
-cd iocBoot/${VIOC} 
-system("./rtPrioritySetup.${VEVR}.cmd")
-
+#cd iocBoot/${VIOC} 
+#system("./rtPrioritySetup.${VEVR}.cmd")
+system("rtPrioritySetup.cmd.evr${VEVR}")
 
 # =====================================================================
 # Use FCOM for the following PV instead of the file based:
