@@ -201,7 +201,7 @@ ffStart()
 #=======================================================================
 #cd iocBoot/${VIOC} 
 #system("./rtPrioritySetup.${VEVR}.cmd")
-system("rtPrioritySetup.cmd.evr${VEVR}")
+system("rtPrioritySetup.cmd.evr ${VEVR}")
 
 # =====================================================================
 # Use FCOM for the following PV instead of the file based:
