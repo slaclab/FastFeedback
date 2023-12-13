@@ -645,32 +645,53 @@ int Loop::checkTmit(Pattern &pattern) {
         measurementDevice = *it;
         if (measurementDevice->getTmit() <=
                 ExecConfiguration::getInstance()._tmitLowPv.getValue()) {
-	  if (lowTmitBpms == 0) {
-	    firstLowDevice = measurementDevice->getDeviceName();
-	  }
-	  lowTmitBpms++;
-	  lastLowTmit = measurementDevice->getTmit();
-	  if (firstLowTmit < 0) {
-	    firstLowTmit = lastLowTmit;
-	    firstPulseId = pattern.getPulseId();
-	  }
+	        if (lowTmitBpms == 0) {
+	          firstLowDevice = measurementDevice->getDeviceName();
+	        }
+	        lowTmitBpms++;
+	        lastLowTmit = measurementDevice->getTmit();
+	        if (firstLowTmit < 0) {
+	          firstLowTmit = lastLowTmit;
+	          firstPulseId = pattern.getPulseId();
+	        }
+        }
+        // If SC mode, means everything is CA including timestamps
+        // so check to see if the timestamp has not changed.
+        // if the timestamp has not changed, mark the pulse as skipped
+        if (ExecConfiguration::getInstance()._lclsModePv.getValue()) {
+          if (!measurementDevice->checkTimestampChange()) {
+	          if (lowTmitBpms == 0) {
+	            firstLowDevice = measurementDevice->getDeviceName();
+	          }
+	          lowTmitBpms++;
+	          lastLowTmit = measurementDevice->getTmit();
+	          if (firstLowTmit < 0) {
+	            firstLowTmit = lastLowTmit;
+	            firstPulseId = pattern.getPulseId();
+	          }
+          }
         }
     }
     if (lowTmitBpms > 0) {
 	  _configuration->_logger << Log::showtime << "TMIT too low on " 
 				  << firstLowDevice.c_str() << ", no change (";
-	  if (pattern.isTs1()) {
-	    _configuration->_logger << "TS1";
-	  }
-	  else {
-	    _configuration->_logger << "TS4";
-	  }
-	  _configuration->_logger << ") " << firstLowTmit << " " 
-				  << (int) firstPulseId << Log::flushpvonly;
+        if (ExecConfiguration::getInstance()._lclsModePv.getValue()) {
+            _configuration->_logger << "SC";
+        }
+        else{
+    	    if (pattern.isTs1()) {
+    	      _configuration->_logger << "TS1";
+    	    }
+    	    else {
+    	      _configuration->_logger << "TS4";
+    	    }
+        }
+	    _configuration->_logger << ") " << firstLowTmit << " " 
+				    << (int) firstPulseId << Log::flushpvonly;
 
-        // must skip Measurements on this cycle
-        discardLatestMeasurements();
-        return -1;
+          // must skip Measurements on this cycle
+          discardLatestMeasurements();
+          return -1;
     }
     return 0;
 }

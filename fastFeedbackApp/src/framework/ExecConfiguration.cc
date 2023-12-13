@@ -26,6 +26,7 @@ _algorithmsAvailable("ALGORITHMS"),
 _tmitLowPv("TMITLOW"),
 _by1BdesPv("BY1BDES"),
 _laserPowerReadbackPv("LASER_PWR_READBACK"),
+_lclsModePv("LCLSMODE"),
 _s29AsumPv("S29_ASUM") {
     std::vector<std::string> *algorithms = _algorithmsAvailable.getValueAddress();
     if (algorithms != NULL) {

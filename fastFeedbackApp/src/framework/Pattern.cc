@@ -1,5 +1,6 @@
 #include "Pattern.h"
 #include "debugPrint.h"
+#include "ExecConfiguration.h"
 
 USING_FF_NAMESPACE
 
@@ -119,7 +120,16 @@ bool Pattern::isTs4() {
 }
 
 bool Pattern::hasBeam() {
-    return _value[2] & POCKCEL_PERM;
+// Checks LCLS mode first before doing LCLS-I pattern check. Bug occurred when 
+// SC would not run because of the check with POCKCEL_PERM, which is NC only. 
+// TODO: Do a more intelligent check of whether there is SC beam or not - Kyle Leleux (kleleux 09/14/2023) 
+// Author: Kyle Leleux (kleleux)         
+    if (ExecConfiguration::getInstance()._lclsModePv.getValue()) {
+        return true;
+    }
+    else {
+        return _value[2] & POCKCEL_PERM;
+    }
 }
 
 /**

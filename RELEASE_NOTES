@@ -12,6 +12,24 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R4.0.0-1.5    1 November 2023   K. Leleux (kleleux)
+    * Addresses memory leak in CaChannel::read() initially found in CATER 165778
+
+R4.0.0-1.4    29 August 2023   K. Leleux (kleleux)
+    * Refactored Pattern::hasBeam to have lcls mode check
+
+R4.0.0-1.3    29 August 2023   K. Leleux (kleleux)
+    * Fixed bug that required NC beam permits to run SC loops.
+
+R4.0.0-1.2    24 August 2023   J. Mock (jmock)
+    * Fix a bug in Loop.cc::checkTmit() to fail the TMIT check if the timestamps are the same.
+
+R4.0.0-1.1    24 August 2023   J. Mock (jmock)
+    * Fix a bug in Loop.cc::checkTmit() to fail the TMIT check if the timestamps are the same.
+
+R4.0.0-1.0    24 August 2023   J. Mock (jmock)
+    * Update IOC to support SC loops.  Do timestamp checking in CA mode when in SC mode.
+
 R3.9.0    24 July 2022   J. Mock (jmock)
     * Fix sioc-ltus-tr01 to use vevr11 instead of vevr0
     * Upgrade fcom, fcomUtil, and udpcomm to pick up changes to fcom addresses from

@@ -82,6 +82,17 @@ record(ao, "$(IOC):$(LC):$(LOOP):LASER_PWR_READBACK") {
   field(PRIO, "LOW")
 }
 
+record(bo, "$(IOC):$(LC):$(LOOP):LCLSMODE") {
+  field(DESC, "NC/SC Mode")
+  field(DTYP, "FfConfig")
+  field(ZNAM, "NC")
+  field(ONAM, "SC")
+  field(PINI, "YES")
+  field(VAL,  "0")
+  field(OUT, "@LCLSMODE")
+  info(autosaveMon$(AREA), "VAL")
+}
+
 #------------------------------------------------------------
 # For Longitudinal feedback only (BEGIN)
 #------------------------------------------------------------

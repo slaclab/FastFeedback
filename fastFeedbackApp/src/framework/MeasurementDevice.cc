@@ -195,6 +195,24 @@ double MeasurementDevice::getAverage() {
 }
 
 /**
+ * Return whether this and previous timestamps are the same
+ *
+ * 
+ * @return true if timestamps are different; false if they are the same
+ * @author L.Piccoli
+ */
+bool MeasurementDevice::checkTimestampChange() {
+  bool different = false;
+  epicsTimeStamp prev = _buffer[CIRCULAR_DECREMENT(_next-1)]._timestamp;
+  epicsTimeStamp curr = _buffer[CIRCULAR_DECREMENT(_next)]._timestamp;
+  if (epicsTimeNotEqual(&prev,&curr)) {
+    different = true;
+  }
+  return different;
+}
+  
+
+/**
  * Clear contents of internal buffer and reset pointers.
  *
  * @author L.Piccoli
@@ -227,6 +245,22 @@ int MeasurementDevice::peek(DataPoint &dataPoint) {
 int MeasurementDevice::peek(DataPoint &dataPoint, int pos) {
     memcpy(&dataPoint, &_buffer[pos], sizeof (DataPoint));
     return 0;
+}
+
+epicsUInt32 MeasurementDevice::peekTsH() {
+  return _buffer[CIRCULAR_DECREMENT(_next)]._timestamp.secPastEpoch;
+}
+
+epicsUInt32 MeasurementDevice::peekTsL() {
+  return _buffer[CIRCULAR_DECREMENT(_next)]._timestamp.nsec;
+}
+
+epicsUInt32 MeasurementDevice::peekTsHLast() {
+  return _buffer[CIRCULAR_DECREMENT(_next-1)]._timestamp.secPastEpoch;
+}
+
+epicsUInt32 MeasurementDevice::peekTsLLast() {
+  return _buffer[CIRCULAR_DECREMENT(_next-1)]._timestamp.nsec;
 }
 
 /**
@@ -483,6 +517,55 @@ int MeasurementDevice::insert(double value, epicsTimeStamp timestamp) {
 
     return 0;
 }
+
+/**
+ * Check the timestamp of the lastest value read from the CommunicationChannel.
+ * This method is invoked by the MeasurementCollector just after calling read().
+ * This method is called when lclsmode is SC, so CommunicationsChannel is guaranteed
+ * to be channel access.  Timestamp is from CA from the source.  The assumption
+ * is that all timestamps must be the same.  Each measurement device timestamp is compared
+ * to the timestamp of the first used measurement device timestamp.
+ *
+ *
+ * @return true if timestampe from the measurement (CA) and the expectation (M0)
+ * match
+ * @author L.Piccoli
+ */
+
+epicsTimeStamp MeasurementDevice::getT0() {
+  return _buffer[CIRCULAR_DECREMENT(_next)]._timestamp;
+}
+
+bool MeasurementDevice::checkTimestamp(epicsTimeStamp ts) {
+  // Data must be CA and not from a file
+  if (!isFcom() && !isFile()) {
+    // If no new data point, increment fail count
+    if (_buffer[CIRCULAR_DECREMENT(_next)]._status != DataPoint::READ) {
+      _checkFailCount++;
+      return true;
+    }
+    epicsTimeStamp measTs = _buffer[CIRCULAR_DECREMENT(_next)]._timestamp;
+    if (epicsTimeEqual(&ts,&measTs)) {
+      return true;
+    }
+    else {
+      // Change the data status to indicate the timestamp mismatch
+      _buffer[CIRCULAR_DECREMENT(_next)]._status = DataPoint::READ_TSMISMATCH;
+
+      // Increase timestamp mismatch count PV
+      _timestampMismatchCountPv = _timestampMismatchCountPv.getValue() + 1;
+      if (epicsTimeGreaterThan(&ts,&measTs)) {
+        _timestampBehind++;
+      }
+      else {
+        _timestampAhead++;
+      }
+      return false;
+    }
+  }
+  return false;
+}
+
 
 /**
  * Check the PulseId of the lastest value read from the CommunicationChannel.

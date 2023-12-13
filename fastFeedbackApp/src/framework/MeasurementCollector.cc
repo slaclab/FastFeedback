@@ -97,25 +97,39 @@ int MeasurementCollector::updateMeasurementSet(CollectorMeasurementSet *measurem
 	readErrors = true;
       } else {
 	_readStats.end();
-	// Skip pulse id checking if TMIT is low
-#ifdef CHECK_BEAM
-	if ((*iterator)->getTmit() >
-	    ExecConfiguration::getInstance()._tmitLowPv.getValue()) {
-#endif
-	  // Check PulseID of the new measurement
-	  _checkTimestampStats.start();
-	  if (!(*iterator)->checkPulseId(patternPulseId)) {
-	    _measurementTimestampMismatchCount++;
 
-	    Log::getInstance() << Log::flagPulseId << Log::dpWarn
-			       << "WARN: MeasurementCollector::updateMeasurementSet() Meas PULSEID="
-			       << (int)(*iterator)->peekPulseId() << ", Patt PULSEID="
-			       <<  (int) patternPulseId << Log::dp;
+// If the loop is for SC, it will check TMIT low and match timestamps differently.  NC loops will behave the same
+// Default behavior is NC loop.
+
+  if (ExecConfiguration::getInstance()._lclsModePv.getValue()) {
+    // Mode is SC
+    CollectorMeasurementSet::iterator firstMeas = measurementSet->begin();
+    epicsTimeStamp t0 = (*firstMeas)->getT0();
+    if (!(*iterator)->checkTimestamp(t0)) {
+      _measurementTimestampMismatchCount++;
+    }
+  }
+  else {
+	  // Skip pulse id checking if TMIT is low
 #ifdef CHECK_BEAM
-	  }
+	  if ((*iterator)->getTmit() >
+	      ExecConfiguration::getInstance()._tmitLowPv.getValue()) {
 #endif
-	  _checkTimestampStats.end();
-	}
+	    // Check PulseID of the new measurement
+	    _checkTimestampStats.start();
+	    if (!(*iterator)->checkPulseId(patternPulseId)) {
+	      _measurementTimestampMismatchCount++;
+
+	      Log::getInstance() << Log::flagPulseId << Log::dpWarn
+			         << "WARN: MeasurementCollector::updateMeasurementSet() Meas PULSEID="
+			         << (int)(*iterator)->peekPulseId() << ", Patt PULSEID="
+			         <<  (int) patternPulseId << Log::dp;
+#ifdef CHECK_BEAM
+	    }
+#endif
+	    _checkTimestampStats.end();
+	    }
+    }  
       }
     }
     
@@ -276,8 +290,8 @@ void MeasurementCollector::showMeasurements() {
             for (sit = mit->second->begin(); sit != mit->second->end(); ++sit) {
                 MeasurementDevice *device;
                 device = (*sit);
-                std::cout << "  " << device->getDeviceName() << " - "
-			  << device->peek() << std::endl;
+                std::cout << "  " << device->getDeviceName() << " --> "
+			  << device->peek() << "; TS secPastEpoch: " << device->peekTsH() << " TS nsec: " << device->peekTsL() << " Previous sec:" << device->peekTsHLast() << " Previous nsec: " << device->peekTsLLast() << std::endl;
 		//		device->show();
             }
         }

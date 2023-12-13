@@ -42,6 +42,17 @@ Links to various bits of information about the FastFeedback system are below. A 
 
 ## List of IOCs
 
+### SC
+| Name              | CPU               | Function         | FB      |Loop   |VEVR # | Notes                                            |
+|:-----------------:|:-----------------:|:----------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
+| sioc-l3b-tr01     | cpu-sys0-fb03     | L3B Launch       | FB06    | TR01  | 0     |                                                  |
+| sioc-htr-tr01     | cpu-sys0-fb03     | HTR Launch       | FB06    | TR02  | 1     |                                                  |
+| sioc-diag0-tr01   | cpu-sys0-fb03     | DIAG0 Launch     | FB06    | TR03  | 2     |                                                  |
+| sioc-l1b-tr01     | cpu-sys0-fb03     | L1B Launch       | FB06    | TR04  | 3     |                                                  |
+| sioc-l2b-tr01     | cpu-sys0-fb03     | L2B Launch       | FB06    | TR05  | 4     |                                                  |
+| sioc-bpn16-tr01   | cpu-sys0-fb03     | Bypass Launch    | FB06    | TR06  | 5     |                                                  |
+| sioc-dog-tr01     | cpu-sys0-fb03     | DOG Launch       | FB06    | TR07  | 6     |                                                  |
+
 ### Global
 | Name              | CPU               | Function         | FB      |Loop   |VEVR # | Notes                                            |
 |:-----------------:|:-----------------:|:----------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
