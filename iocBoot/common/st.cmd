@@ -200,7 +200,6 @@ ffStart()
 # driver thread
 #=======================================================================
 #cd iocBoot/${VIOC} 
-#system("./rtPrioritySetup.${VEVR}.cmd")
 system("rtPrioritySetup.cmd.evr ${VEVR}")
 
 # =====================================================================
