@@ -9,14 +9,14 @@ caput FBCK:FB06:TR07:ACTNUM          4  > /dev/null
 caput FBCK:FB06:TR07:STATENUM        4  > /dev/null
 caput FBCK:FB06:TR07:PGAIN           0.03  > /dev/null
 caput FBCK:FB06:TR07:IGAIN           0  > /dev/null
-caput FBCK:FB06:TR07:M1DEVNAME       BPMS:COL0:320:XSCLTH
-caput FBCK:FB06:TR07:M2DEVNAME       BPMS:COL0:400:XSCLTH
-caput FBCK:FB06:TR07:M3DEVNAME       BPMS:COL0:560:XSCLTH
-caput FBCK:FB06:TR07:M4DEVNAME       BPMS:COL0:640:XSCLTH
-caput FBCK:FB06:TR07:M5DEVNAME       BPMS:COL0:320:YSCLTH
-caput FBCK:FB06:TR07:M6DEVNAME       BPMS:COL0:400:YSCLTH
-caput FBCK:FB06:TR07:M7DEVNAME       BPMS:COL0:560:YSCLTH
-caput FBCK:FB06:TR07:M8DEVNAME       BPMS:COL0:640:YSCLTH
+caput FBCK:FB06:TR07:M1DEVNAME       BPMS:DOG:405:XSCLTH
+caput FBCK:FB06:TR07:M2DEVNAME       BPMS:DOG:575:XSCLTH
+caput FBCK:FB06:TR07:M3DEVNAME       BPMS:DOG:740:XSCLTH
+caput FBCK:FB06:TR07:M4DEVNAME       BPMS:DOG:910:XSCLTH
+caput FBCK:FB06:TR07:M5DEVNAME       BPMS:BPN13:400:YSCLTH
+caput FBCK:FB06:TR07:M6DEVNAME       BPMS:BPN14:400:YSCLTH
+caput FBCK:FB06:TR07:M7DEVNAME       BPMS:BPN15:400:YSCLTH
+caput FBCK:FB06:TR07:M8DEVNAME       NULL
 caput FBCK:FB06:TR07:M9DEVNAME       NULL
 caput FBCK:FB06:TR07:M10DEVNAME      NULL
 caput FBCK:FB06:TR07:M11DEVNAME      NULL
@@ -36,7 +36,7 @@ caput FBCK:FB06:TR07:M4USED          YES  > /dev/null
 caput FBCK:FB06:TR07:M5USED          YES  > /dev/null
 caput FBCK:FB06:TR07:M6USED          YES  > /dev/null
 caput FBCK:FB06:TR07:M7USED          YES  > /dev/null
-caput FBCK:FB06:TR07:M8USED          YES  > /dev/null
+caput FBCK:FB06:TR07:M8USED          NO  > /dev/null
 caput FBCK:FB06:TR07:M9USED          NO  > /dev/null
 caput FBCK:FB06:TR07:M10USED         NO  > /dev/null
 caput FBCK:FB06:TR07:M11USED         NO  > /dev/null
@@ -56,7 +56,7 @@ caput FBCK:FB06:TR07:M4CAMODE        YES  > /dev/null
 caput FBCK:FB06:TR07:M5CAMODE        YES  > /dev/null
 caput FBCK:FB06:TR07:M6CAMODE        YES  > /dev/null
 caput FBCK:FB06:TR07:M7CAMODE        YES  > /dev/null
-caput FBCK:FB06:TR07:M8CAMODE        YES  > /dev/null
+caput FBCK:FB06:TR07:M8CAMODE        NO  > /dev/null
 caput FBCK:FB06:TR07:M9CAMODE        NO  > /dev/null
 caput FBCK:FB06:TR07:M10CAMODE       NO  > /dev/null
 caput FBCK:FB06:TR07:M11CAMODE       NO  > /dev/null
@@ -69,10 +69,10 @@ caput FBCK:FB06:TR07:M17CAMODE       NO  > /dev/null
 caput FBCK:FB06:TR07:M18CAMODE       NO  > /dev/null
 caput FBCK:FB06:TR07:M19CAMODE       NO  > /dev/null
 caput FBCK:FB06:TR07:M20CAMODE       NO  > /dev/null
-caput FBCK:FB06:TR07:A1DEVNAME       XCOR:HTR:974:BCTRL > /dev/null
-caput FBCK:FB06:TR07:A2DEVNAME       XCOR:COL0:235:BCTRL > /dev/null
-caput FBCK:FB06:TR07:A3DEVNAME       YCOR:HTR:951:BCTRL > /dev/null
-caput FBCK:FB06:TR07:A4DEVNAME       YCOR:COL0:289:BCTRL > /dev/null
+caput FBCK:FB06:TR07:A1DEVNAME       XCOR:DOG:252:BCTRL > /dev/null
+caput FBCK:FB06:TR07:A2DEVNAME       XCOR:DOG:338:BCTRL > /dev/null
+caput FBCK:FB06:TR07:A3DEVNAME       YCOR:DOG:227:BCTRL > /dev/null
+caput FBCK:FB06:TR07:A4DEVNAME       YCOR:DOG:357:BCTRL > /dev/null
 caput FBCK:FB06:TR07:A5DEVNAME       NULL > /dev/null
 caput FBCK:FB06:TR07:A6DEVNAME       NULL > /dev/null
 caput FBCK:FB06:TR07:A7DEVNAME       NULL  > /dev/null
