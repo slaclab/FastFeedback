@@ -43,7 +43,7 @@ evrManager /dev/evr0mng create vevr9
 # evrManager /dev/evr0mng create vevr10 <-- upcoming softline longitudinal
 evrManager /dev/evr0mng create vevr11
 evrManager /dev/evr0mng create vevr12
-# evrManager /dev/evr0mng create vevr13 <-- upcoming fast UNDS feedback
+evrManager /dev/evr0mng create vevr13 <-- upcoming fast UNDS feedback
 
 # wait a bit to device become visible
 sleep 1
@@ -61,7 +61,7 @@ chmod 666 /dev/vevr9
 # chmod 666 /dev/vevr10
 chmod 666 /dev/vevr11
 chmod 666 /dev/vevr12
-# chmod 666 /dev/vevr13
+chmod 666 /dev/vevr13
 echo "Initializing evrManager"
 evrManager /dev/evr0mng init
 
