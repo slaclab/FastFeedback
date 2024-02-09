@@ -43,7 +43,7 @@ evrManager /dev/evr0mng create vevr9
 # evrManager /dev/evr0mng create vevr10 <-- upcoming softline longitudinal
 evrManager /dev/evr0mng create vevr11
 evrManager /dev/evr0mng create vevr12
-evrManager /dev/evr0mng create vevr13 <-- upcoming fast UNDS feedback
+evrManager /dev/evr0mng create vevr13
 
 # wait a bit to device become visible
 sleep 1
