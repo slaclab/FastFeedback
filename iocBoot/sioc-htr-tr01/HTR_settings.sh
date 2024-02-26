@@ -113,6 +113,10 @@ caput FBCK:FB06:TR02:S1USED          YES  > /dev/null
 caput FBCK:FB06:TR02:S2USED          YES  > /dev/null
 caput FBCK:FB06:TR02:S3USED          YES  > /dev/null
 caput FBCK:FB06:TR02:S4USED          YES  > /dev/null
+caput FBCK:FB06:TR02:S1NAME          "mm"  > /dev/null
+caput FBCK:FB06:TR02:S2NAME          "mrad" > /dev/null
+caput FBCK:FB06:TR02:S3NAME          "mm"  > /dev/null
+caput FBCK:FB06:TR02:S4NAME          "mrad"  > /dev/null
 caput FBCK:FB06:TR02:S5USED          NO  > /dev/null
 caput FBCK:FB06:TR02:S6USED          NO  > /dev/null
 caput FBCK:FB06:TR02:S7USED          NO  > /dev/null
