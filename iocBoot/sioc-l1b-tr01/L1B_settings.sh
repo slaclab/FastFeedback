@@ -103,10 +103,10 @@ caput FBCK:FB06:TR04:S1NAME          "X.Pos"  > /dev/null
 caput FBCK:FB06:TR04:S2NAME          "X.Ang" > /dev/null
 caput FBCK:FB06:TR04:S3NAME          "Y.Pos"  > /dev/null
 caput FBCK:FB06:TR04:S4NAME          "Y.Ang"  > /dev/null
-caput FBCK:FB06:TR04:S1NAME          "mm"  > /dev/null
-caput FBCK:FB06:TR04:S2NAME          "mrad" > /dev/null
-caput FBCK:FB06:TR04:S3NAME          "mm"  > /dev/null
-caput FBCK:FB06:TR04:S4NAME          "mrad"  > /dev/null
+caput FBCK:FB06:TR04:S1.EGU          "mm"  > /dev/null
+caput FBCK:FB06:TR04:S2.EGU          "mrad" > /dev/null
+caput FBCK:FB06:TR04:S3.EGU          "mm"  > /dev/null
+caput FBCK:FB06:TR04:S4.EGU          "mrad"  > /dev/null
 caput FBCK:FB06:TR04:S5NAME            > /dev/null
 caput FBCK:FB06:TR04:S6NAME            > /dev/null
 caput FBCK:FB06:TR04:S7NAME            > /dev/null
