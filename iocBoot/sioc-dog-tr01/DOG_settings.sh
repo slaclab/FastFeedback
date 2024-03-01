@@ -2,6 +2,7 @@
 # === Feedback Configuration for FB06:TR07 ===
 caput FBCK:FB06:TR07:NAME            "DOG Launch" > /dev/null
 caput FBCK:FB06:TR07:ITERATEFUNC     TrajectoryFitBy1 > /dev/null
+caput SIOC:DOG:TR01:BY1BDES_IN.INP   BEND:DOG:110:BACT CPP MS > /dev/null
 caput FBCK:FB06:TR07:TOTALPOI        1  > /dev/null
 caput FBCK:FB06:TR07:SELECTALLDEVICES NO  > /dev/null
 caput FBCK:FB06:TR07:MEASNUM         8  > /dev/null
