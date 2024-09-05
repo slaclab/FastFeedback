@@ -16,9 +16,9 @@
 # Calculates difference between state and setpoint
 record(calc, "$(LOOP):S$(NUM)DIFF") {
   field(DESC, "Abs of diff between state and setpoint")
-  field(SCAN, "Passive")
+  field(SCAN, "1 second")
   field(CALC, "ABS(A-B)")
-  field(INPA, "$(LOOP):S$(NUM) CPP")
+  field(INPA, "$(LOOP):S$(NUM)")
   field(INPB, "$(LOOP):S$(NUM)DES")
   field(FLNK, "$(LOOP):S$(NUM)DBUFF")
 }
