@@ -12,6 +12,22 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+
+R4.0.5    1 November 2023   K. Leleux (kleleux)
+    * Adding db/fbckSettledSum.db to all SC loops
+
+R4.0.4    1 November 2023   K. Leleux (kleleux)
+    * Adding convergence summary records to BPN16 IOC to test functionality
+
+R4.0.3    1 November 2023   K. Leleux (kleleux)
+    * Bug fix related to CATER: 152217
+
+R4.0.2    1 November 2023   K. Leleux (kleleux)
+    * Uncommenting evr setup used for sioc-unds-tr02
+
+R4.0.1    1 November 2023   K. Leleux (kleleux)
+    * Fixed minor bug with a typo for the thread priority script
+
 R4.0.0-1.5    1 November 2023   K. Leleux (kleleux)
     * Addresses memory leak in CaChannel::read() initially found in CATER 165778
 
