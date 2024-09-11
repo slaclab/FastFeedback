@@ -933,7 +933,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)AVG"){
 }
 
 record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQHST"){
-    field(DESC, "BUFFER for squared state values")
+    field(DESC, "Buffer for squared state values")
     field(INP,  "FBCK:$(AREA):$(LOOP):S$(SNUM)SQ.VAL")
     field(ALG,  "Circular Buffer")
     field(NSAM, "$(NDISP)")
