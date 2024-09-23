@@ -927,6 +927,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)HST_S") {
 
 record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)AVG"){
     field(DESC, "State average")
+    field(INP,  "FBCK:$(AREA):$(LOOP):S$(SNUM).VAL")
     field(ALG,  "N to 1 Average")
     field(EGU,  "$(EGU)")
     field(PREC, "4")
@@ -1267,6 +1268,8 @@ record(ao, "FBCK:$(AREA):$(LOOP):S$(SNUM)LOLO") {
 record(fanout, "FBCK:$(AREA):$(LOOP):S$(SNUM)TOLFAN") {
   field(FLNK, "FBCK:$(AREA):$(LOOP):S$(SNUM)HST")
   field(LNK2, "FBCK:$(AREA):$(LOOP):S$(SNUM)DESHST")
+  field(LNK3, "FBCK:$(AREA):$(LOOP):S$(SNUM)AVG")
+  field(LNK4, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQ")
 }
 
 record(bi, "FBCK:$(AREA):$(LOOP):S$(SNUM)USEDBYLOOP") {

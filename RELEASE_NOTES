@@ -13,7 +13,12 @@
 #      
 #==============================================================
 
-R4.0.5    1 November 2023   K. Leleux (kleleux)
+R4.0.7    23 September 2024   K. Leleux (kleleux)
+    * Fixing bug with processing of RMS and AVG of states
+R4.0.6    10 September 2024   K. Leleux (kleleux)
+    * Adding RMS value for states
+
+R4.0.5    10 September 2024   K. Leleux (kleleux)
     * Adding db/fbckSettledSum.db to all SC loops
 
 R4.0.4    1 November 2023   K. Leleux (kleleux)
