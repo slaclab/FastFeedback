@@ -943,7 +943,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQHST"){
     field(FLNK, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQAVG")
 }
 
-record(compress, "FBCK:$(AREA):$LOOP):S$(SNUM)SQAVG") {
+record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQAVG") {
     field(DESC, "Average of squared state values")
     field(INP,  "FBCK:$(AREA):$(LOOP):S$(SNUM)SQHST")
     field(ALG,  "N to 1 Average")
