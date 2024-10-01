@@ -134,6 +134,7 @@ BIN_INSTALLS += $(EPICS_BASE_BIN)/camonitor
 BIN_INSTALLS += $(EPICS_BASE_BIN)/cainfo
 BIN_INSTALLS += $(EVRMA_MANAGER_BIN)/evrManager
 BIN_INSTALLS += $(CPSW_FWLOADER_BIN)/FirmwareLoader
+BIN_INSTALLS += $(FCOM)/bin/$(T_A)/fcometst
 LIB_INSTALLS += $(KERNEL_MODULE_EVRMA_KO)/evrma.ko
 endif
 
