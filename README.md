@@ -1,5 +1,5 @@
 # FastFeedback
-## The NC LINAC FastFeedback EPICS Application
+## The NC/SC LINAC FastFeedback EPICS Application
 
 # Contents
 1. [Documentation](#documentation)
