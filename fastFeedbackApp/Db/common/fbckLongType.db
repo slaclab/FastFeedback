@@ -1,6 +1,7 @@
 record(bo, "FBCK:$(AREA):$(LOOP):LG_TYPE") {
     field(DESC, "Longitudinal Type (SXR/HXR)")
     field(DTYP, "FfConfig")
+    field(OUT,  "@$(LOOP) LG_TYPE")
     field(PINI, "YES")
     field(VAL,  "$(LG_TYPE)")
     field(ZNAM, "HXR")
