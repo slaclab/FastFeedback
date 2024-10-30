@@ -368,8 +368,8 @@ bool Device::isSetFbckPvEnabled() {
  *
  *   BPMS:LI20:230:X -> BPMS:LI20:230:FBCK
  *
- * RF actuators whose PV name starts with ACCL must have the "FBCK" string appended 
- * to the original nome, e.g.:
+ * RF actuators whose PV name starts with ACCL must have the ":FBCK" or ":FBCK2" string 
+ * appended to the original nome, e.g.:
  *
  *   ACCL:LI24:2:ADES -> ACCL:LI24:2:ADES:FBCK
  * 
@@ -410,7 +410,13 @@ int Device::createFbckPv(CommunicationChannel::AccessType accessType) {
       std::cout << "Feedback PV: " << fbckName << std::endl;
     }
     else {
-      // If has ACCL, then append ":FBCK" to the PV name
+      // With split LLRF controls, we will need to append differently based
+      // on whether we are HXR or SXR. This information is stored in the
+      // BLANK PV:
+      // HXR:
+      //    * ACCL:LI24:2:ADES -> ACCL:LI24:2:ADES:FBCK
+      // SXR:
+      //    * ACCL:LI24:2:ADES -> ACCL:LI24:2:ADES:FBCK2
       if (found != std::string::npos) {
         fbckName = deviceName;
         fbckName += ":FBCK";
