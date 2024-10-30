@@ -39,6 +39,9 @@ DB += bsaFbck.db
 # IOC substitutions for PVs per feedback IOC
 DB += fbckIoc.db
 DB += iocEnergyChirp.db
+
+# Longitudinal Type Record:
+DB += fbckLongType.db
 #
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
