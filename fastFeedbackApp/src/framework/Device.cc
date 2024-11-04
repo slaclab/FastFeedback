@@ -50,7 +50,7 @@ _loloPv(slotName + " " + name + "LOLO", -1000),
 _caModePv(slotName + " " + name + "CAMODE", false),
 _usedPv(slotName + " " + name + "USED", false),
 _devNamePv(slotName + " " + name + "DEVNAME", name + "DEVNAME"),
-_longTypePv(slotName + " " + name + "LG_TYPE")
+_longTypePv(slotName + " " + name + "LG_TYPE"),
 _fbckCommunicationChannel(NULL),
 _setFbckPv(true),
 _usedByLoopPv(slotName + " " + name + "USEDBYLOOP", true),
@@ -426,7 +426,7 @@ int Device::createFbckPv(CommunicationChannel::AccessType accessType) {
         }
         else if (getLongType() == 1){
             // For _longTypePv == 1 (SXR):
-            fbckName += ":FBCK2"
+            fbckName += ":FBCK2";
         }
       }// if there is no ACCL, remove last part of PV name and add ":FBCK"
       else {
