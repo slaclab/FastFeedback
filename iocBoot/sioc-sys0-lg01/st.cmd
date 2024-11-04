@@ -96,7 +96,7 @@ dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=17400, LO=-1,     AD
 
 # Loading a record type that will differentiate which longitudinal controls
 # are being used. This helps to write to the correct PVs for the different
-# Feedbacks:
+# Feedbacks. This one is for HXR (Type 0):
 dbLoadRecords("db/fbckLongType.db", "AREA=$(FB), LOOP=$(LOOP), LG_TYPE=0")
 
 <iocBoot/common/st.cmd
