@@ -94,7 +94,13 @@ dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=6500,  LO=-1700,  AD
 dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=amps, HO=50000, LO=-28000, AD=5, PR=3, I='', LNK='', ATTR=BC2_CURRENT, INP=STATE5, SINK_SIZE=1")
 dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=17400, LO=-1,     AD=5, PR=3, I='', LNK='', ATTR=DL2_ENERGY,  INP=STATE6, SINK_SIZE=1")
 
+# Loading a record type that will differentiate which longitudinal controls
+# are being used. This helps to write to the correct PVs for the different
+# Feedbacks:
+dbLoadRecords("db/fbckLongType.db", "AREA=$(FB), LOOP=$(LOOP), LG_TYPE=0")
+
 <iocBoot/common/st.cmd
+
 # ====================================================================
 # Sequencer scripts to keep track of the CHIRP control and DL2 limits
 # ====================================================================

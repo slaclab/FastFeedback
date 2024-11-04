@@ -91,6 +91,11 @@ dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mrad, HO=10, LO=-10, AD=5, PR
 dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=Y_POS, INP=STATE3, SINK_SIZE=1")
 dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mrad, HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=Y_ANG, INP=STATE4, SINK_SIZE=1")
 
+# Loading a record type that will differentiate which longitudinal controls
+# are being used. This helps to write to the correct PVs for the different
+# Feedbacks:
+dbLoadRecords("db/fbckLongType.db", "AREA=$(FB), LOOP=$(LOOP), LG_TYPE=1")
+
 <iocBoot/common/st.cmd
 
 #Done  
