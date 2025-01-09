@@ -275,6 +275,22 @@ record(waveform, "FBCK:$(AREA):$(LOOP):POI1") {
   info(autosaveConfig$(LOOP), "VAL")
 }
 
+record(waveform, "FBCK:$(AREA):$(LOOP):POI1_INCLS") {
+  field(DESC, "INCL Mask for POI1")
+  field(PINI, "YES")
+  field(NELM, "10")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(waveform, "FBCK:$(AREA):$(LOOP):POI1_EXCLS") {
+  field(DESC, "EXCL Mask for POI1")
+  field(PINI, "YES")
+  field(NELM, "10")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
 record(waveform, "FBCK:$(AREA):$(LOOP):POI1HXR") {
   field(DESC, "POI for OFFSET1 for HXR")
   field(PINI, "YES")
@@ -310,6 +326,22 @@ record(waveform, "FBCK:$(AREA):$(LOOP):POI2") {
   field(DTYP, "FfConfig")
   field(INP, "@$(LOOP) POI2")
   field(NELM, "21")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(waveform, "FBCK:$(AREA):$(LOOP):POI2_INCLS") {
+  field(DESC, "INCL Mask for POI2")
+  field(PINI, "YES")
+  field(NELM, "10")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(waveform, "FBCK:$(AREA):$(LOOP):POI2_EXCLS") {
+  field(DESC, "EXCL Mask for POI2")
+  field(PINI, "YES")
+  field(NELM, "10")
   field(FTVL, "USHORT")
   info(autosaveConfig$(LOOP), "VAL")
 }
@@ -353,6 +385,22 @@ record(waveform, "FBCK:$(AREA):$(LOOP):POI3") {
   info(autosaveConfig$(LOOP), "VAL")
 }
 
+record(waveform, "FBCK:$(AREA):$(LOOP):POI3_INCLS") {
+  field(DESC, "INCL Mask for POI3")
+  field(PINI, "YES")
+  field(NELM, "10")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(waveform, "FBCK:$(AREA):$(LOOP):POI3_EXCLS") {
+  field(DESC, "EXCL Mask for POI3")
+  field(PINI, "YES")
+  field(NELM, "10")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
 record(waveform, "FBCK:$(AREA):$(LOOP):POI3HXR") {
   field(DESC, "POI for OFFSET3 for HXR")
   field(PINI, "YES")
@@ -388,6 +436,22 @@ record(waveform, "FBCK:$(AREA):$(LOOP):POI4") {
   field(DTYP, "FfConfig")
   field(INP, "@$(LOOP) POI4")
   field(NELM, "21")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(waveform, "FBCK:$(AREA):$(LOOP):POI4_INCLS") {
+  field(DESC, "INCL Mask for POI4")
+  field(PINI, "YES")
+  field(NELM, "10")
+  field(FTVL, "USHORT")
+  info(autosaveConfig$(LOOP), "VAL")
+}
+
+record(waveform, "FBCK:$(AREA):$(LOOP):POI4_EXCLS") {
+  field(DESC, "EXCL Mask for POI4")
+  field(PINI, "YES")
+  field(NELM, "10")
   field(FTVL, "USHORT")
   info(autosaveConfig$(LOOP), "VAL")
 }
