@@ -25,9 +25,11 @@ _timerDelayPv("TIMERDELAY"), // Delay is in microseconds
 _algorithmsAvailable("ALGORITHMS"),
 _tmitLowPv("TMITLOW"),
 _by1BdesPv("BY1BDES"),
+#ifdef DEV_FCOM
+_forceDataPv("FORCE_DATA"),
+#endif
 _laserPowerReadbackPv("LASER_PWR_READBACK"),
-_s29AsumPv("S29_ASUM"),
-_forceDataPv("FORCE_DATA"){
+_s29AsumPv("S29_ASUM"){
     std::vector<std::string> *algorithms = _algorithmsAvailable.getValueAddress();
     if (algorithms != NULL) {
         algorithms->push_back(NOOP_ALGORITHM);
