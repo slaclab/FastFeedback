@@ -7,12 +7,15 @@
 
 #include "ActuatorDevice.h"
 #include "FileChannel.h"
+#include "ExecConfiguration.h"
 #include "Log.h"
 #include <string.h>
 #include <sstream>
 #include <cmath>
 #include <sched.h>
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 
 USING_FF_NAMESPACE
 
@@ -29,6 +32,9 @@ _droppedPoints(0),
 _referenceActuator(NULL),
 _initialChannel(NULL),
 _referenceOffset(0),
+#ifdef DEV_FCOM
+_forcedValPv(loopName + " " + name + "FORCEDVAL"),
+#endif
 _hihiInPv(loopName + " " + name + "HIHIIN", 10),
 _highInPv(loopName + " " + name + "HIGHIN", 1),
 _lowInPv(loopName + " " + name + "LOWIN", -1),
@@ -166,6 +172,7 @@ int ActuatorDevice::write(bool send) {
 
     if (_buffer[writeIndex]._status == DataPoint::SET) {
         if (send) {
+
             // Save the last data sent to actuator
             _lastValueSet = _buffer[writeIndex]._value;
             // ... and send it!
@@ -210,7 +217,53 @@ int ActuatorDevice::write(bool send) {
         _buffer[writeIndex]._status = DataPoint::WRITE_SKIP;
         _nextWrite = CIRCULAR_INCREMENT(_nextWrite);
     }
-
+/*
+ * This build flag is for forcing custom, user-defined data to be sent over FCOM
+ * on the dev network. This is meant to be used to test things such as magnets,
+ * llrf, and bld. This should not be deployed to production. - Kyle Leleux (kleleux) 01/06/25 
+ */
+#ifdef DEV_FCOM
+    else if (ExecConfiguration::getInstance()._forceDataPv.getValue()){
+        if (_communicationChannel != NULL) {
+            //Log::getInstance() << "_communicationChannel not NULL" << Log::cout;
+            //res = _communicationChannel->write(ExecConfiguration::getInstance()._forceActValPv.getValue());
+            srand(time(0));
+            int randInt = rand() % 5;
+            int randInt2 = rand() % 300;
+            double randSmallDouble = (double)rand() / RAND_MAX / 1000;
+            double randDouble = (double)rand() / RAND_MAX;
+            //res = _communicationChannel->write(-57.1);
+            //Log::getInstance() << getDeviceIndex() << Log::cout;
+            // TODO: Instantiate some pvs for the random int and decimal - Kyle Leleux
+            //double value = _forcedValPv.getValue();
+            //res = _communicationChannel->write(value);
+            //res = _communicationChannel->write(-0.01+randSmallDouble);
+            //Log::getInstance() << -0.001 << Log::cout;
+            //return res;
+            /*
+            if (getDeviceIndex() == 1) { 
+                _pdesOffset = std::fmod(_pdesOffset + 0.1,5); 
+                res = _communicationChannel->write(70+randInt+randDouble);
+                //res = _communicationChannel->write(_pdesStartPoint + _pdesOffset);
+                //Log::getInstance() << res << Log::cout;
+                return res;
+            }
+            else if (getDeviceIndex() == 2) {
+                res = _communicationChannel->write(9500+randInt2+randDouble);
+                //_adesOffset = (_adesOffset + 100) % 300;
+                //res = _communicationChannel->write(_adesStartPoint + _adesOffset);
+                return res;
+            }
+            */
+            if (getDeviceIndex() == 1) {
+                res = _communicationChannel->write(-0.01 + randSmallDouble);
+                return res;
+            }
+            
+        
+    }
+}
+#endif
     return res;
 }
 

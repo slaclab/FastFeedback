@@ -163,6 +163,21 @@ protected:
      * This attribute maps to the $(LOOP):<dev>LOLOIN PV
      */
     PvData<double> _loloInPv;
+
+    /**
+     * Dev hack pv that sends a specified value to an actuator test stand on
+     * the dev network. This was initially used to test fcom connections between
+     * the llrf dual-energy setup and the magnet test stand upgrade from VME.
+     *
+     * This attribute maps to the $(LOOP):<dev>FORCEDVAL PV
+     * - Kyle Leleux (kleleux) 01/07/25
+     */
+    PvData<double> _forcedValPv;
+
+    double _pdesStartPoint = 70;
+    double _pdesOffset = 0;
+    int _adesStartPoint = 9500;
+    int _adesOffset = 0;
 };
 
 FF_NAMESPACE_END
