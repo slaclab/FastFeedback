@@ -762,7 +762,6 @@ int Loop::setDevices(bool skip) {
 
     bool actuatorSettingFailed = false;
 
-    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()) {
     for (actIt = _actuators.begin();
             actIt != _actuators.end(); ++actIt) {
       if ((*actIt)->write(send) == 0) {
@@ -785,13 +784,10 @@ int Loop::setDevices(bool skip) {
 				    << Log::flushpvonly;
 	  }
 	}
-      }
     }
     }
     
     StateSet::iterator stateIt;
-    
-    
     // Write state values to FcomBlob
     for (stateIt = _states.begin();
             stateIt != _states.end(); ++stateIt) {
@@ -806,14 +802,12 @@ int Loop::setDevices(bool skip) {
     (*stateIt)->writeFcom(timestamp);	
 
     // If actuators were set, then clear stale status message (after 5 seconds)
-    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()) {
     if (!actuatorSettingFailed) {
       _configuration->_clearStatusCounter++;
       if (_configuration->_clearStatusCounter >= 5 * _configuration->_rate) {
 	_configuration->_logger << Log::clearpv;
 	_configuration->_clearStatusCounter = 0;
       }
-    }
     }
 
     return 0;
