@@ -36,6 +36,14 @@ record(ai, "FBCK:$(AREA):$(LOOP):A$(ANUM)") {
   info(autosaveMon$(AREA), "EGU")
 }
 
+record(ao, "FBCK:$(AREA):$(LOOP):A$(ANUM)FORCEDVAL"){
+    field(DESC, "value to be written to dev act chan only")
+    field(DTYP, "FfConfig")
+    field(OUT,  "@$(LOOP) A$(ANUM)FORCEDVAL")
+    field(PINI, "YES")
+    field(VAL,  "0.0")
+}
+
 record(bo, "FBCK:$(AREA):$(LOOP):A$(ANUM)USED") {
   field(DESC, "In Use")
   field(ASG, "Low ")
