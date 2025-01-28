@@ -431,6 +431,7 @@ int LoopConfiguration::configure() {
     // Only Longitudital and LTU need States on FCOM
 
     // NOTE: Here is where we create bcast states for fcom -KEL
+    _logger << Log::showtime << "bcastStatesPv:" << _bcastStatesPv << Log::cout;
     if (_bcastStatesPv == 1) {
       try {
         std::string statesChannelName = "FBCK:";
