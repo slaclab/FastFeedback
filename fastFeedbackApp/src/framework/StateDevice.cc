@@ -110,15 +110,17 @@ int StateDevice::set(double value) {
 int StateDevice::write(epicsTimeStamp timestamp) {
   _lastValueSet = _buffer[_nextWrite]._value + _offsetPv->getValue();
   BSA_StoreData(_bsaStateChannel, timestamp, _lastValueSet, epicsAlarmNone, epicsSevNone); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
+
 #ifdef DEV_FCOM
   if (ExecConfiguration::getInstance()._forceDataPv.getValue()) {
       if (_statesChannel != NULL) {
           float value = 0;
-          _statesChannel->write(value, _stateIndex);
+          _statesChannel->write(_forceValPv.getValue(), _stateIndex);
           return 0;
       }
       else {
           Log::getInstance() << Log::showtime << "NULL statesChannel. Check bcastStates PV" << Log::cout;
+          return -1;
       }
   }
 #endif

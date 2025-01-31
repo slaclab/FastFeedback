@@ -106,6 +106,9 @@ private:
 	 * State value to be sent off to BSA.
 	 */
 	double stateValue;
+
+    PvData<double> _forcedValPv; 
+
 };
 
 FF_NAMESPACE_END
