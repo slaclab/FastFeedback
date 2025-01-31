@@ -29,6 +29,9 @@ ActuatorDevice(loopName, name, bufferSize, patternMask, patternIndex),
 _setpoint(0),
 _error(0),
 _offset(0),
+#ifdef DEV_FCOM
+_forcedValPv(loopName + " " + name + "FORCEDVAL"),
+#endif
 _statesChannel(NULL),
 _stateIndex(1) {
     //_usedByLoopPv(loopName + " " + name + "USEDBYLOOP", true) {
