@@ -107,7 +107,9 @@ private:
 	 */
 	double stateValue;
 
+#ifdef DEV_FCOM
     PvData<double> _forcedValPv; 
+#endif
 
 };
 
