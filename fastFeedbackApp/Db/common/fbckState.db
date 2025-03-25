@@ -899,6 +899,15 @@ record(ai, "FBCK:$(AREA):$(LOOP):S$(SNUM)") {
   info(autosaveMon$(AREA), "EGU HIHI HIGH LOW LOLO")
 }
 
+record(calc, "FBCK:$(AREA):$(LOOP):S$(NUM)SQ"){
+    field(DESC, "State value squared")
+    field(CALC, "A**B")
+    field(INPA, "FBCK:$(AREA):$(LOOP):S$(SNUM).VAL")
+    field(INPB, "2")
+    field(FLNK, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQHST")
+}
+
+
 record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)HST") {
   field(INP, "FBCK:$(AREA):$(LOOP):S$(SNUM).VAL")
   field(ALG, "Circular Buffer")
@@ -914,6 +923,41 @@ record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)HST_S") {
   field(EGU, "$(EGU)")
   field(PREC, "4")
   field(SCAN, "Passive")
+}
+
+record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)AVG"){
+    field(DESC, "State average")
+    field(INP,  "FBCK:$(AREA):$(LOOP):S$(SNUM).VAL")
+    field(ALG,  "N to 1 Average")
+    field(EGU,  "$(EGU)")
+    field(PREC, "4")
+}
+
+record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQHST"){
+    field(DESC, "Buffer for squared state values")
+    field(INP,  "FBCK:$(AREA):$(LOOP):S$(SNUM)SQ.VAL")
+    field(ALG,  "Circular Buffer")
+    field(NSAM, "$(NDISP)")
+    field(EGU,  "$(EGU)")
+    field(PREC, "4")
+    field(FLNK, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQAVG")
+}
+
+record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQAVG") {
+    field(DESC, "Average of squared state values")
+    field(INP,  "FBCK:$(AREA):$(LOOP):S$(SNUM)SQHST")
+    field(ALG,  "N to 1 Average")
+    field(EGU,  "$(EGU)")
+    field(PREC, "4")
+    field(FLNK, "FBCK:$(AREA):$(LOOP):S$(SNUM)RMS")
+}
+
+record(calc, "FBCK:$(AREA):$(LOOP):S$(SNUM)RMS") {
+    field(DESC, "RMS of State value")
+    field(CALC, "SQR(A)")
+    field(INPA, "FBCK:$(AREA):$(LOOP):S($SNUM)SQAVG.VAL")
+    field(EGU,  "$(EGU)")
+    field(PREC, "4")
 }
 
 record(calcout, "FBCK:$(AREA):$(LOOP):S$(SNUM)DES1") {
@@ -1224,6 +1268,8 @@ record(ao, "FBCK:$(AREA):$(LOOP):S$(SNUM)LOLO") {
 record(fanout, "FBCK:$(AREA):$(LOOP):S$(SNUM)TOLFAN") {
   field(FLNK, "FBCK:$(AREA):$(LOOP):S$(SNUM)HST")
   field(LNK2, "FBCK:$(AREA):$(LOOP):S$(SNUM)DESHST")
+  field(LNK3, "FBCK:$(AREA):$(LOOP):S$(SNUM)AVG")
+  field(LNK4, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQ")
 }
 
 record(bi, "FBCK:$(AREA):$(LOOP):S$(SNUM)USEDBYLOOP") {

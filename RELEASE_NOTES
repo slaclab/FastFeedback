@@ -12,6 +12,52 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+
+R4.0.9    10 January 2025   K. Leleux (kleleux)
+    * Adding two records per POI (_INCLS and _EXCLS) to use
+      PDUPatternChooser gui as Pattern Configuration GUI, which
+      caputs to a _INCLS and _EXCLS record. 
+R4.0.8    24 September 2024   K. Leleux (kleleux)
+    * Fixing Typo with SQ AVG PV.
+R4.0.7    23 September 2024   K. Leleux (kleleux)
+    * Fixing bug with processing of RMS and AVG of states
+
+R4.0.6    10 September 2024   K. Leleux (kleleux)
+    * Adding RMS value for states
+
+R4.0.5    10 September 2024   K. Leleux (kleleux)
+    * Adding db/fbckSettledSum.db to all SC loops
+
+R4.0.4    1 November 2023   K. Leleux (kleleux)
+    * Adding convergence summary records to BPN16 IOC to test functionality
+
+R4.0.3    1 November 2023   K. Leleux (kleleux)
+    * Bug fix related to CATER: 152217
+
+R4.0.2    1 November 2023   K. Leleux (kleleux)
+    * Uncommenting evr setup used for sioc-unds-tr02
+
+R4.0.1    1 November 2023   K. Leleux (kleleux)
+    * Fixed minor bug with a typo for the thread priority script
+
+R4.0.0-1.5    1 November 2023   K. Leleux (kleleux)
+    * Addresses memory leak in CaChannel::read() initially found in CATER 165778
+
+R4.0.0-1.4    29 August 2023   K. Leleux (kleleux)
+    * Refactored Pattern::hasBeam to have lcls mode check
+
+R4.0.0-1.3    29 August 2023   K. Leleux (kleleux)
+    * Fixed bug that required NC beam permits to run SC loops.
+
+R4.0.0-1.2    24 August 2023   J. Mock (jmock)
+    * Fix a bug in Loop.cc::checkTmit() to fail the TMIT check if the timestamps are the same.
+
+R4.0.0-1.1    24 August 2023   J. Mock (jmock)
+    * Fix a bug in Loop.cc::checkTmit() to fail the TMIT check if the timestamps are the same.
+
+R4.0.0-1.0    24 August 2023   J. Mock (jmock)
+    * Update IOC to support SC loops.  Do timestamp checking in CA mode when in SC mode.
+
 R3.9.0    24 July 2022   J. Mock (jmock)
     * Fix sioc-ltus-tr01 to use vevr11 instead of vevr0
     * Upgrade fcom, fcomUtil, and udpcomm to pick up changes to fcom addresses from

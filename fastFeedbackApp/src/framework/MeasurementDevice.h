@@ -56,6 +56,10 @@ public:
     virtual void disconnect();
 
     virtual double peek();
+    virtual epicsUInt32 peekTsH();
+    virtual epicsUInt32 peekTsL();
+    virtual epicsUInt32 peekTsHLast();
+    virtual epicsUInt32 peekTsLLast();
     virtual int peek(DataPoint &dataPoint);
     virtual int peek(DataPoint &dataPoint, int pos);
     virtual DataPoint::Status peekStatus();
@@ -64,6 +68,10 @@ public:
     virtual void show();
 
     bool checkPulseId(epicsUInt32 patternPulseId);
+    bool checkTimestamp(epicsTimeStamp ts);
+    bool checkTimestampChange();
+
+    epicsTimeStamp getT0();
 
     int insert(double value, epicsTimeStamp timestamp);
     int replace(double value);

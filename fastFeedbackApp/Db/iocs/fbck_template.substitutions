@@ -28,7 +28,7 @@ file fbckLoop.db {
 
 
 file fbckIoc.db {
-  pattern { AR,            LP,          IOC,       LC,     BEND_MAG     }
+  pattern { AR,          LP,       IOC,       LC,     BEND_MAG     }
           {$(FEEDBACK), $(UNIT), $(VIOC),   $(LOC),  $(BEND_MAG)   }
 }
 

@@ -19,9 +19,9 @@ record(calc, "$(LOOP):CVGCALC") {
 
 record(bi, "$(LOOP):CVGSUMM") {
   field(DESC, "Convergence status of used states")
-  field(INP, "$(LOOP):CVGCALC")
-  field(ZSV, "MAJOR")
-  field(OSV, "NO_ALARM")
+  field(INP,  "$(LOOP):CVGCALC")
+  field(ZSV,  "MINOR")
+  field(OSV,  "NO_ALARM")
   field(ZNAM, "NOT_SETTLED")
   field(ONAM, "SETTLED")
   field(SCAN, "Passive")
