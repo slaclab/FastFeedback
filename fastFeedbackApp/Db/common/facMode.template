@@ -1,0 +1,127 @@
+#================================================================================#
+# Mode Management PV                                                             #
+# Macro description:                                                             #
+#   - IOC        : IOC Prefix, example SIOC:GUNB:BP01                                 #
+#   - INPV       : Input PV to Monitor (Global Mode PV),                              #
+#                  Example "PHYS:UNDH:1:FACMODE CPP MSI"                              #
+#                  Be sure to include CPP specifier                                   #
+#                  If mode never changes, set to 0 for NC or 1 for SC.                #
+#                  Default is 1                                                       #
+#   - FLNK       : PV that FACMODE should drive for application-specific settings     #
+#                  (e.g. change TPR mode)                                             #
+#                  Default is empty                                                   #
+#   - INPR       : Input PV containing FACMODE readback.                              #
+#                  Include MS/MSI/PP specifier(s) if desired                          #
+#                  Default is to use FACMODE setting                                  #
+#   - ASG        : Access Security group for overriding mode selection.               #
+#                  Default is MCC group                                               #
+#   - DEVTYPE    : Access Security group for overriding mode selection.               #
+#                  Default is MCC group                                               #
+#   - DEVNUM     : Access Security group for overriding mode selection.               #
+#                  Default is MCC group                                               #
+#================================================================================#
+record(mbbo, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_INP") {
+    field(DESC, "Bring in Facility mode to IOC")
+    field(PINI, "YES")
+    field(OMSL, "closed_loop")
+    field(DOL,  "$(INPV=0)")
+    field(ZRST, "NC")
+    field(ZRVL, "0")
+    field(ZRSV, "NO_ALARM")
+    field(ONST, "SC")
+    field(ONVL, "1")
+    field(ONSV, "NO_ALARM")
+    field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_CALC")
+
+}
+record(bo, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_AUTO") {
+    field(DESC, "IOC Mode will follow $(DEVTYPE)$(DEVNUM)FACMODE_INP")
+    field(PINI, "YES")
+    field(ZNAM, "Override")
+    field(ONAM, "Global")
+    field(ZSV,  "MINOR")
+    field(OSV,  "NO_ALARM")
+    field(VAL,  "1")
+    field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_CALC")
+    info(autosaveFields, "VAL")
+    field(ASG,  "$(ASG=MCC)")
+
+}
+record(mbbo, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_USER") {
+    field(DESC, "Bring in Facility mode to IOC")
+    field(PINI, "YES")
+    field(SCAN, "Passive")
+    field(ZRST, "NC")
+    field(ZRVL, "0")
+    field(ZRSV, "NO_ALARM")
+    field(ONST, "SC")
+    field(ONVL, "1")
+    field(ONSV, "NO_ALARM")
+    field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_CALC")
+    info(autosaveFields, "VAL")
+
+}
+record(calc,    "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_CALC") {
+    field(DESC, "Calc the Facility Mode")
+    field(SCAN, "Passive")
+    field(INPA, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_INP MSI")
+    field(INPB, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_AUTO MSI")
+    field(INPC, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_USER MSI")
+    field(CALC, "B?A:C")
+    field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE")
+
+}
+record(calc,    "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_STAT_CALC") {
+    field(DESC, "NC/SC Mode Status")
+    field(SCAN, "1 second")
+    field(INPA, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_RBV MSI")
+    field(INPB, "$(INPV)")
+    field(INPC, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_AUTO MSI")
+    field(CALC, "(A#B)?0:(C=0)?1:2")
+    field(FLNK, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_STAT")
+
+}
+record(mbbi,  "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_STAT") {
+    field(DESC, "NC/SC Mode Status")
+    field(INP,  "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_STAT_CALC MSI")
+    field(ZRST, "Mismatch")
+    field(ZRVL, "0")
+    field(ZRSV, "MAJOR")
+    field(ONVL, "1")
+    field(ONST, "Override")
+    field(ONSV, "MINOR")
+    field(TWVL, "2")
+    field(TWST, "OK")
+    field(TWSV, "NO_ALARM")
+
+}
+record(mbbo, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE"){
+    field(DESC, "NC/SC Mode Set")
+    field(DTYP, "FfConfig")
+    field(SCAN, "1 second")
+    field(OUT,  "@$(LOOP) $(DEVTYPE)$(DEVNUM)FACMODE")
+#    field(OUT,  "@$(LOOP) M$(DEVNUM)FACMODE")
+    field(PINI, "YES")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(ZRST, "NC")
+    field(ONST, "SC")
+    field(TWST, "Unknown")
+    field(OMSL, "closed_loop")
+    field(DOL, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_CALC MSI")
+    field(FLNK, "$(FLNK="")")
+
+}
+record(mbbi, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE_RBV"){
+    field(DESC, "Node Timing Mode Readback")
+    field(INP, "$(INPR=FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)FACMODE)")
+    field(SCAN, "1 second")
+    field(ONVL, "1")
+    field(ONST, "SC")
+    field(TWST, "Unknown")
+    field(TWVL, "2")
+    field(TWSV, "MAJOR")
+
+}
+

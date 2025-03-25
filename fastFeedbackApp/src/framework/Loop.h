@@ -136,7 +136,8 @@ private:
     /** Count number of cycles with PulseId mismatches */
     unsigned long _pulseIdMismatchCount;
 
-    unsigned long _measBadStatus;
+    unsigned long _ncMeasBadStatus;
+    unsigned long _scMeasBadStatus;
 
     /** Count number of PulseId between the current pattern and the actuator PulseId */
     unsigned long _actuatorMismatchCount;

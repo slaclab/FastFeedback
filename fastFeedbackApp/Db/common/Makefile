@@ -31,6 +31,7 @@ DB += fbckInjLaunch.db
 DB += fbckAutoAct.db
 DB += fbckAutoActLong.db
 DB += fbckAutoActLTU.db
+#DB += facMode.db
 
 # Loop substitutions records per loop
 DB += fbckLoop.db
@@ -39,6 +40,7 @@ DB += bsaFbck.db
 # IOC substitutions for PVs per feedback IOC
 DB += fbckIoc.db
 DB += iocEnergyChirp.db
+#DB += testRecord.db
 #
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add

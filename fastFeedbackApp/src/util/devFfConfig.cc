@@ -16,6 +16,8 @@
 #include <calcoutRecord.h>
 #include <epicsExport.h>
 #include <menuFtype.h>
+#include <mbbiRecord.h>
+#include <mbboRecord.h>
 
 #include "Defs.h"
 #include "PatternManager.h"
@@ -1427,4 +1429,241 @@ static long devLongoutFfConfig_write_longout(longoutRecord *precord) {
     }
     return 0;
 }
+
+/** Multi-Bit Binary Input Device Support **********************************************/
+
+/**
+ * Struct defining functions for Mbbi FfConfig support
+ */
+typedef struct {
+    long number;
+    DEVSUPFUN report;
+    DEVSUPFUN init;
+    DEVSUPFUN init_record;
+    DEVSUPFUN get_ioint_info;
+    DEVSUPFUN read_mbbi;
+} devMbbiFfConfigFunctions;
+
+static long devMbbiFfConfig_init_record(mbbiRecord *precord);
+static long devMbbiFfConfig_get_ioint_info(int cmd, struct dbCommon *precord, IOSCANPVT *pvt_ps);
+static long devMbbiFfConfig_read_mbbi(mbbiRecord *precord);
+
+/**
+ * Instantiation of data structure holding functions for handling Bi
+ * FfConfig support.
+ */
+devMbbiFfConfigFunctions devMbbiFfConfig = {
+    5,
+    NULL,
+    NULL,
+    (DEVSUPFUN) devMbbiFfConfig_init_record,
+    (DEVSUPFUN) devMbbiFfConfig_get_ioint_info,
+    (DEVSUPFUN) devMbbiFfConfig_read_mbbi,
+};
+
+epicsExportAddress(dset, devMbbiFfConfig);
+
+/**
+ * Initialize the Multi-bit Binary Input (mbbi) record. The precord->dpvt pointer
+ * is set to the memory location of an int controlled by a PvData<int>.
+ * The correct PvData<int> instance is found based on the INST_IO string
+ * defined for the PV in the database. The string (following the @ sign) must
+ * be the same string used to initialize the PvData<int>.
+ *
+ * @param precord pointer to the record being initialized
+ * @author K. Leleux
+ */
+static long devMbbiFfConfig_init_record(mbbiRecord *precord) {
+    long status = -1;
+    std::string pvName = precord->inp.value.instio.string;
+    PvMap<double>::iterator it;
+    
+    switch (precord->inp.type) {
+        case INST_IO:
+            it = PvData<double>::getPvMap().find(pvName);
+            if (it == PvData<double>::getPvMap().end()) {
+                std::cout << "PvData: \"" << pvName;
+                std::cout << "\" not found (mbbi)." << std::endl;
+                std::cout << "There are " << PvData<int>::getPvMap().size()
+                        << " registered PvData(s)" << std::endl;
+                status = -1;
+            } else {
+                precord->udf = FALSE;
+                std::vector<PvData<double> *> *bools = it->second;
+                precord->dpvt = bools->at(0);
+
+                // Initialize the device support scan list
+                if (bools->size() > 0) {
+                    bools->at(0)->initScanList();
+                    status = 0;
+                } else {
+                    status = -1;
+                }
+            }
+            break;
+        default:
+            precord->val = 0;
+    }
+
+    if (status != 0) {
+        precord->udf = TRUE;
+        precord->dpvt = NULL;
+        return FF_S_db_badField;
+    }
+
+    return 2;
+}
+
+/**
+ * Return the scanlist (saved in the PvData<int> object) for the specified
+ * record.
+ *
+ * @param cmd (not used)
+ * @param precord pointer to the record being set up
+ * @param pvt_ps returning parameter, containing the pointer to the scanlist
+ * @return 0 on success, -1 on failure
+ * @author K.Lelelux
+ */
+static long devMbbiFfConfig_get_ioint_info(int cmd, struct dbCommon *precord,
+        IOSCANPVT *pvt_ps) {
+    PvData<double> *pvDataDouble = reinterpret_cast<PvData<double> *> (precord->dpvt);
+
+    if (pvDataDouble != NULL) {
+        IOSCANPVT scanlist = pvDataDouble->getScanList();
+        *pvt_ps = scanlist;
+    }
+
+    return 0;
+}
+
+/**
+ * This function is invoked when a new value is written to the PV. This new
+ * value is copied over to the address location defined in the init_record
+ * function.
+ *
+ * @param precord pointer to the record being processed
+ * @author K.Leleux
+ */
+static long devMbbiFfConfig_read_mbbi(mbbiRecord *precord) {
+    PvData<double> *pvDataDouble = reinterpret_cast<PvData<double> *> (precord->dpvt);
+
+    if (pvDataDouble != NULL) {
+      precord->val = pvDataDouble->getValue();
+    }
+
+    return 2;
+}
+
+/** Multi-bit Binary Output Device Support **********************************************/
+
+/**
+ * Struct defining functions for mbbo FfConfig support
+ */
+typedef struct {
+    long number;
+    DEVSUPFUN report;
+    DEVSUPFUN init;
+    DEVSUPFUN init_record;
+    DEVSUPFUN get_ioint_info;
+    DEVSUPFUN write_bo;
+    DEVSUPFUN special_linconv;
+} devMbboFfConfigFunctions;
+
+static long devMbboFfConfig_init_record(mbboRecord *precord);
+static long devMbboFfConfig_write_mbbo(mbboRecord *precord);
+
+/**
+ * Instantiation of data structure holding functions for handling bo FfConfig
+ * support.
+ */
+devMbboFfConfigFunctions devMbboFfConfig = {
+    6,
+    NULL,
+    NULL,
+    (DEVSUPFUN) devMbboFfConfig_init_record,
+    NULL,
+    (DEVSUPFUN) devMbboFfConfig_write_mbbo,
+    NULL
+};
+
+epicsExportAddress(dset, devMbboFfConfig);
+
+/**
+ * Initialize the Multi-bit Binary Output (mbbo) record. The precord->dpvt pointer
+ * is set to the memory location of the controlled PvData<double>. The correct
+ * PvData<double> is found based on the INST_IO string defined for the PV in the
+ * database. The string (following the @ sign) must be the same string used
+ * to initialize the PvData<double> (e.g. "TR01 A1HIHI" -> for setting the
+ * high alarm limit for A1).
+ *
+ * @param precord pointer to the record being initialized
+ * @author K.Leleux (kleleux)
+ */
+static long devMbboFfConfig_init_record(mbboRecord *precord) {
+    long status = -1;
+
+    std::string pvName;
+    PvMap<double>::iterator it;
+    switch (precord->out.type) {
+        case INST_IO:
+            pvName = precord->out.value.instio.string;
+            it = PvData<double>::getPvMap().find(pvName);
+            if (it == PvData<double>::getPvMap().end()) {
+                std::cout << "PvData: \"" << pvName;
+                std::cout << "\" not found." << std::endl;
+                status = -1;
+            } else {
+                precord->udf = FALSE;
+                precord->dpvt = it->second;
+                status = 0;
+            }
+            break;
+
+        default:
+            precord->val = 0;
+    }
+
+    if (status != 0) {
+        precord->udf = TRUE;
+        precord->dpvt = NULL;
+        return FF_S_db_badField;
+    }
+
+    return 2;
+}
+
+/**
+ * This function is invoked when a new value is written to the PV. This new
+ * value is copied over to the address location defined in the init_record
+ * function.
+ *
+ * @param precord pointer to the record being processed
+ * @author K.Leleux
+ */
+static long devMbboFfConfig_write_mbbo(mbboRecord *precord) {
+    if (!precord->dpvt) {
+        return 0;
+    }
+
+    std::vector<PvData<double> *> *vector =
+            reinterpret_cast<std::vector<PvData<double> *> *> (precord->dpvt);
+    try {
+        for (int i = 0; i < (int) vector->size(); ++i) {
+            //std::cout << "VAL1 " << &precord->val << std::endl;
+            //std::cout << "VAL2 " << precord->val << std::endl;
+            double newValue = precord->val;
+            //vector->at(i)->write(reinterpret_cast<double *> (&newValue));
+            vector->at(i)->write(&newValue);
+        }
+    } catch (std::out_of_range& e) {
+        std::cerr << "ERROR: " << e.what() << std::endl;
+        return -1;
+    }
+    return 0;
+}
+
+
+
+
+
 

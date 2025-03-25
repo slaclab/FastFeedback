@@ -45,7 +45,8 @@ _measurementsOutsideLimitsCount(0),
 _actuatorsSkipCount(0),
 _lowTmitCount(0),
 _pulseIdMismatchCount(0),
-_measBadStatus(0),
+_ncMeasBadStatus(0),
+_scMeasBadStatus(0),
 _actuatorMismatchCount(0),
 _calculatePrepStats(50, "Loop Calculate Prep"),
 _tmitCheckStats(50, "Loop TMIT check Stats"),
@@ -82,7 +83,8 @@ _measurementsOutsideLimitsCount(0),
 _actuatorsSkipCount(0),
 _lowTmitCount(0),
 _pulseIdMismatchCount(0),
-_measBadStatus(0),
+_ncMeasBadStatus(0),
+_scMeasBadStatus(0),
 _actuatorMismatchCount(0),
 _calculatePrepStats(50, "Loop Calculate Prep"),
 _tmitCheckStats(50, "Loop TMIT check Stats"),
@@ -854,7 +856,8 @@ void Loop::show() {
             << ", act lim: " << _actuatorsOutsideLimitsCount
             << ", act skip: " << _actuatorsSkipCount
             << ", low tmit: " << _lowTmitCount
-            << ", meas status: " << _measBadStatus
+            << ", NC meas status: " << _ncMeasBadStatus
+            << ", SC meas status: " << _scMeasBadStatus
             << ", ts mismatch: " << _pulseIdMismatchCount
             << ", act mismatch: " << _actuatorMismatchCount
             << ")" << std::endl;
@@ -932,28 +935,47 @@ int Loop::checkMeasurementStatus(epicsUInt32 patternPulseId) {
     for (measIt = _measurements.begin(); measIt != _measurements.end(); ++measIt) {
         MeasurementDevice *measurement = *measIt;
 	// Do not check PULSEID if NULL communication channel is used
-	if (!measurement->isNull()) {
-	  if (measurement->peekStatus() != DataPoint::READ) {
-	    Log::getInstance() << Log::flagBuffer << Log::dpInfo
-			       << "ERROR: Measurement "
-			       << measurement->getDeviceName().c_str()
-			       << " status is "
-			       << (int) measurement->peekStatus() << " (PULSEID="
-			       << (int) measurement->peekPulseId() << "/" 
-			       << (int) patternPulseId << ")" << Log::dp;
-	    _measBadStatus++;
-            return -1;
-	  }
-	  if (measurement->isFcom() && !measurement->isFile()) {
-            if (measurement->peekPulseId() != patternPulseId) {
-	      _pulseIdMismatchCount++;	     
-	      //	      _configuration->_logger << Log::showtime << "PulseId mismatch, skipping this cycle."
-	      //				      << Log::flushpvonlynoalarm;
-	      
-	      return -1;
+    // Check if in SC or NC mode
+    if (!measurement->getFacMode()){
+        measurement->setMeasCheckInclusion(true);
+	    if (!measurement->isNull()) {
+	        if (measurement->peekStatus() != DataPoint::READ) {
+	            Log::getInstance() << Log::flagBuffer << Log::dpInfo
+			           << "ERROR: Measurement "
+			           << measurement->getDeviceName().c_str()
+			           << " status is "
+			           << (int) measurement->peekStatus() << " (PULSEID="
+			           << (int) measurement->peekPulseId() << "/" 
+			           << (int) patternPulseId << ")" << Log::dp;
+                measurement->setMeasStatus(false);
+	            _ncMeasBadStatus++;
+                return -1;
+	        }
+
+            else {
+              measurement->setMeasStatus(true);
             }
-	  }
+	    if (measurement->isFcom() && !measurement->isFile()) {
+            if (measurement->peekPulseId() != patternPulseId) {
+                measurement->setMeasStatus(false);
+	            _pulseIdMismatchCount++;	     
+	            //	      _configuration->_logger << Log::showtime << "PulseId mismatch, skipping this cycle."
+	            //				      << Log::flushpvonlynoalarm;
+	      
+	            return -1;
+            }
+        
+            else {
+                measurement->setMeasStatus(true);
+            }
+	    }
 	}
+    }
+    else {
+        measurement->setMeasCheckInclusion(false);
+        // TODO: Implement an SC measurment check if necessary. - Kyle Leleux (kleleux 09/14/23) 
+        //_scMeasBadStatus++;
+    }
     }
 
     return 0;
