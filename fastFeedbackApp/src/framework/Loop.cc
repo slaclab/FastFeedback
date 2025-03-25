@@ -687,7 +687,11 @@ int Loop::checkTmit(Pattern &pattern) {
     	    }
         }
 	    _configuration->_logger << ") " << firstLowTmit << " " 
-				    << (int) firstPulseId << Log::flushpvonly;
+				    << (int) firstPulseId << " ";
+        if (firstLowTmit==0) {
+            _configuration->_logger << "Ensure measurement devices are connected properly";
+        }
+        _configuration->_logger << Log::flushpvonly;
 
           // must skip Measurements on this cycle
           discardLatestMeasurements();
