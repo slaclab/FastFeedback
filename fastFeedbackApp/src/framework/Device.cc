@@ -57,10 +57,6 @@ _usedByLoop(true),
 _channelCountPv(slotName + " " + name + "DATACNT", 0),
 _channelErrorCountPv(slotName + " " + name + "DATAERRORS", 0),
 _isFile(false),
-_facModePv(slotName + " " + name + "FACMODE"),
-_facMode(true),
-_measStatusPv(slotName + " " + name + "STATUS"),
-_measStatus(true),
 _measCheckInclusionPv(slotName + " " + name + "MEASCHECKINCL"),
 _measCheckInclusion(true) {
     _buffer = new DataPoint[bufferSize];
@@ -68,7 +64,6 @@ _measCheckInclusion(true) {
         _buffer[i]._status = DataPoint::EMPTY;
     }
     _usedByLoopPv.initScanList(); // This enable PV updates.
-    _facModePv.initScanList();
     _isFile = isFile();
 }
 
@@ -616,32 +611,6 @@ bool Device::getUsedBy() {
   return _usedByLoop;
 }
 
-/* Removed setter because we only want to read (kleleux 06/30/23)
-void Device::setFacMode(bool mode) {
-  _facModePv = mode;
-  _facModePv.scanIoRequest();
-  _facMode = mode;
-}
-*/
-
-bool Device::getFacMode() {
-  return _facModePv.getValue();
-}
-
-void Device::setMeasStatus(bool measStatus) {
-// Sets measurement status. PV alarms if bad
-//      - 0 -> Bad
-//      - 1 -> Good
-// Author: Kyle Leleux (kleleux)
-  _measStatusPv = measStatus;
-  _measStatusPv.scanIoRequest();
-  _measStatus = measStatus;
-}
-
-bool Device::getMeasStatus() {
-  return _measStatusPv.getValue();
-}
-
 void Device::setMeasCheckInclusion(bool measCheckInclusion) {
 // Sets MeasCheckLoopInclusion, which is defined by whether or not the LCLS-I measurement check is done
 //      - 0 -> Included
@@ -655,3 +624,5 @@ void Device::setMeasCheckInclusion(bool measCheckInclusion) {
 bool Device::getMeasCheckInclusion() {
   return _measCheckInclusionPv.getValue();
 }
+
+

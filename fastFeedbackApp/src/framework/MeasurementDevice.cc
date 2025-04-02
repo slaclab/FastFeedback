@@ -33,12 +33,15 @@ _timestampAhead(0),
 _tmitCommunicationChannel(NULL),
 // TODO: this PV does not handle multiple pattern
 _timestampMismatchCountPv(loopName + " " + name + "TSMISMATCH", 0),
+_facModePv(loopName + " " + "FACMODE"),
+_measStatusPv(loopName + " " + "STATUS"),
 _checkFailCount(0),
 _readCount(0),
 _getCount(0),
 _isBpm(false),
 _isBlen(false) {
   _setFbckPv = false; // REMOVEME: TEMPORARY - DEBUG
+  _facModePv.initScanList();
 }
 
 /**
@@ -625,4 +628,30 @@ void MeasurementDevice::resetNextRead() {
     } else {
         _nextRead = _next;
     }
+}
+
+/*
+ * Returns the device :FACMODE PV, which comes from the global :FACMODE PVs:
+ * - PHYS:UNDH:1:FACMODE
+ * - PHYS:UNDS:1:FACMODE
+ * FACMODE Mapping:
+ *  0 -> NC
+ *  1 -> SC
+*/
+bool MeasurementDevice::getFacMode() {    
+    return _facModePv.getValue();
+}
+
+/* 
+ * Returns the :M**STATUS PV. PV alarms if bad:
+ * 0 -> Bad
+ * 1 -> Good
+*/
+bool MeasurementDevice::getMeasStatus() {
+    return _measStatusPv.getValue();
+}
+
+void MeasurementDevice::setMeasStatus(bool measStatus) {
+    _measStatusPv = measStatus;
+    _measStatusPv.scanIoRequest();
 }
