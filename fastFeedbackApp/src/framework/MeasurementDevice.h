@@ -80,6 +80,12 @@ public:
     double getAverage();
     void resetNextRead();
 
+    bool getFacMode();
+
+    void setMeasStatus(bool measStatus);
+    bool getMeasStatus();
+
+
     friend class MeasurementDeviceTest;
 
     double getTmit() {
@@ -156,6 +162,10 @@ private:
      * using an FcomChannel.
      */
     PvData<long> _timestampMismatchCountPv;
+
+    PvData<bool> _facModePv;
+    
+    PvData<bool> _measStatusPv;
 
     /** Counter of how many times checkPulseId couldn't check because of wrong data status */
     unsigned long _checkFailCount;
