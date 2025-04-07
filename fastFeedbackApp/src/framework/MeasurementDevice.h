@@ -84,6 +84,9 @@ public:
 
     void setMeasStatus(bool measStatus);
     bool getMeasStatus();
+    
+    void setMeasCheckInclusion(bool measCheckInclusion);
+    bool getMeasCheckInclusion();
 
 
     friend class MeasurementDeviceTest;
@@ -166,6 +169,8 @@ private:
     PvData<bool> _facModePv;
     
     PvData<bool> _measStatusPv;
+
+    PvData<bool> _measCheckInclusionPv; 
 
     /** Counter of how many times checkPulseId couldn't check because of wrong data status */
     unsigned long _checkFailCount;

@@ -637,7 +637,7 @@ void MeasurementDevice::resetNextRead() {
  * FACMODE Mapping:
  *  0 -> NC
  *  1 -> SC
-*/
+ */
 bool MeasurementDevice::getFacMode() {    
     return _facModePv.getValue();
 }
@@ -646,7 +646,7 @@ bool MeasurementDevice::getFacMode() {
  * Returns the :M**STATUS PV. PV alarms if bad:
  * 0 -> Bad
  * 1 -> Good
-*/
+ */
 bool MeasurementDevice::getMeasStatus() {
     return _measStatusPv.getValue();
 }
@@ -654,4 +654,19 @@ bool MeasurementDevice::getMeasStatus() {
 void MeasurementDevice::setMeasStatus(bool measStatus) {
     _measStatusPv = measStatus;
     _measStatusPv.scanIoRequest();
+}
+
+/* Returns :M**MEASCHECKINCL PV
+ * Implemented to set the :M**USEDBYLOOP pv correctly without constantly toggling it 
+ * for the longitudinal feedback. See M8-M10 in Longitudinal::selectStates
+ * 0 -> Excluded
+ * 1 -> Included
+ */
+void MeasurementDevice::setMeasCheckInclusion(bool measCheckInclusion) {
+    _measCheckInclusionPv = measCheckInclusion;
+    _measCheckInclusionPv.scanIoRequest();
+}
+
+bool Device::getMeasCheckInclusion() {
+    return _measCheckInclusionPv.getValue();
 }
