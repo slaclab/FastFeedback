@@ -212,9 +212,6 @@ public:
     void setUsedBy(bool used);
     bool getUsedBy();
 
-    void setMeasCheckInclusion(bool measCheckInclusion);
-    bool getMeasCheckInclusion();
-
     double getHihi() {
       return _hihiPv.getValue();
     }
@@ -349,8 +346,6 @@ protected:
     PvData<bool> _usedByLoopPv;
     bool _usedByLoop;
 
-    PvData<bool> _measCheckInclusionPv;
-    bool _measCheckInclusion;
     /**
      * Used to keep the number of successful read/write operations on the device
      */

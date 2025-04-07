@@ -611,18 +611,3 @@ bool Device::getUsedBy() {
   return _usedByLoop;
 }
 
-void Device::setMeasCheckInclusion(bool measCheckInclusion) {
-// Sets MeasCheckLoopInclusion, which is defined by whether or not the LCLS-I measurement check is done
-//      - 0 -> Included
-//      - 1 -> Excluded
-// Author: Kyle Leleux (kleleux)
-  _measCheckInclusionPv = measCheckInclusion;
-  _measCheckInclusionPv.scanIoRequest();
-  _measCheckInclusion = measCheckInclusion;
-}
-
-bool Device::getMeasCheckInclusion() {
-  return _measCheckInclusionPv.getValue();
-}
-
-
