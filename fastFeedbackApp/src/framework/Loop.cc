@@ -934,10 +934,14 @@ int Loop::checkMeasurementStatus(epicsUInt32 patternPulseId) {
     MeasurementSet::iterator measIt;
     for (measIt = _measurements.begin(); measIt != _measurements.end(); ++measIt) {
         MeasurementDevice *measurement = *measIt;
-	// Do not check PULSEID if NULL communication channel is used
-    // Check if in SC or NC mode
+
+    /* Using FACMODE check to fix a problem where in dual delivery, the longitudinal feedback
+     * wouldn't actuate because some of the BPMs were in the SC FACMODE so they
+     * would silently fail checkMeasurementStatus. Check CATER: 165474 for more info.
+     */
     if (!measurement->getFacMode()){
         measurement->setMeasCheckInclusion(true);
+	// Do not check PULSEID if NULL communication channel is used
 	    if (!measurement->isNull()) {
 	        if (measurement->peekStatus() != DataPoint::READ) {
 	            Log::getInstance() << Log::flagBuffer << Log::dpInfo
