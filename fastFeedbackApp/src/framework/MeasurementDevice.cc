@@ -33,12 +33,16 @@ _timestampAhead(0),
 _tmitCommunicationChannel(NULL),
 // TODO: this PV does not handle multiple pattern
 _timestampMismatchCountPv(loopName + " " + name + "TSMISMATCH", 0),
+_facModePv(loopName + " " + name + "FACMODE"),
+_measStatusPv(loopName + " " + name + "STATUS"),
+_measCheckInclusionPv(loopName + " " + name + "MEASCHECKINCL"),
 _checkFailCount(0),
 _readCount(0),
 _getCount(0),
 _isBpm(false),
 _isBlen(false) {
   _setFbckPv = false; // REMOVEME: TEMPORARY - DEBUG
+  _facModePv.initScanList();
 }
 
 /**
@@ -625,4 +629,45 @@ void MeasurementDevice::resetNextRead() {
     } else {
         _nextRead = _next;
     }
+}
+
+/*
+ * Returns the device :FACMODE PV, which comes from the global :FACMODE PVs:
+ * - PHYS:UNDH:1:FACMODE
+ * - PHYS:UNDS:1:FACMODE
+ * FACMODE Mapping:
+ *  0 -> NC
+ *  1 -> SC
+ */
+bool MeasurementDevice::getFacMode() {    
+    return _facModePv.getValue();
+}
+
+/* 
+ * Returns the :M**STATUS PV. PV alarms if bad:
+ * 0 -> Bad
+ * 1 -> Good
+ */
+bool MeasurementDevice::getMeasStatus() {
+    return _measStatusPv.getValue();
+}
+
+void MeasurementDevice::setMeasStatus(bool measStatus) {
+    _measStatusPv = measStatus;
+    _measStatusPv.scanIoRequest();
+}
+
+/* Returns :M**MEASCHECKINCL PV
+ * Implemented to set the :M**USEDBYLOOP pv correctly without constantly toggling it 
+ * for the longitudinal feedback. See M8-M10 in Longitudinal::selectStates
+ * 0 -> Excluded
+ * 1 -> Included
+ */
+void MeasurementDevice::setMeasCheckInclusion(bool measCheckInclusion) {
+    _measCheckInclusionPv = measCheckInclusion;
+    _measCheckInclusionPv.scanIoRequest();
+}
+
+bool MeasurementDevice::getMeasCheckInclusion() {
+    return _measCheckInclusionPv.getValue();
 }
