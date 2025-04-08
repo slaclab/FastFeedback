@@ -56,9 +56,7 @@ _usedByLoopPv(slotName + " " + name + "USEDBYLOOP", true),
 _usedByLoop(true),
 _channelCountPv(slotName + " " + name + "DATACNT", 0),
 _channelErrorCountPv(slotName + " " + name + "DATAERRORS", 0),
-_isFile(false),
-_measCheckInclusionPv(slotName + " " + name + "MEASCHECKINCL"),
-_measCheckInclusion(true) {
+_isFile(false) {
     _buffer = new DataPoint[bufferSize];
     for (int i = 0; i < _bufferSize; ++i) {
         _buffer[i]._status = DataPoint::EMPTY;

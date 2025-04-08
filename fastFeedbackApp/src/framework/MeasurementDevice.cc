@@ -33,8 +33,9 @@ _timestampAhead(0),
 _tmitCommunicationChannel(NULL),
 // TODO: this PV does not handle multiple pattern
 _timestampMismatchCountPv(loopName + " " + name + "TSMISMATCH", 0),
-_facModePv(loopName + " " + "FACMODE"),
-_measStatusPv(loopName + " " + "STATUS"),
+_facModePv(loopName + " " + name + "FACMODE"),
+_measStatusPv(loopName + " " + name + "STATUS"),
+_measCheckInclusionPv(loopName + " " + name + "MEASCHECKINCL"),
 _checkFailCount(0),
 _readCount(0),
 _getCount(0),
@@ -667,6 +668,6 @@ void MeasurementDevice::setMeasCheckInclusion(bool measCheckInclusion) {
     _measCheckInclusionPv.scanIoRequest();
 }
 
-bool Device::getMeasCheckInclusion() {
+bool MeasurementDevice::getMeasCheckInclusion() {
     return _measCheckInclusionPv.getValue();
 }
