@@ -166,10 +166,26 @@ private:
      */
     PvData<long> _timestampMismatchCountPv;
 
+    /* Using the M**FACMODE PV, which can be pointed at the global FACMODE pvs 
+     * per device for use in the longitudinal feedback where some of its devices 
+     * can be placed in SC mode, which causes the feedback to not actuate and 
+     * fail silently. The default PV value is 0 and its .DOL field must be changed
+     * to the global FACMODE pv if desired. 
+     * 0 -> NC
+     * 1 -> SC
+     */
     PvData<bool> _facModePv;
     
+    /** Updated when in the Device::checkMeasurementStatus. Alarms if bad.
+     * 0 -> Bad
+     * 1 -> Good
+     */ 
     PvData<bool> _measStatusPv;
-
+    
+    /* Used as a way of keeping track of which devices in the longitudinal 
+     * feedback are actually used. This then becomes a condition in devices M8-M10
+     * to eventually set the M**USEDBYLOOP PV in Longitudinal.cc.
+     */
     PvData<bool> _measCheckInclusionPv; 
 
     /** Counter of how many times checkPulseId couldn't check because of wrong data status */
