@@ -170,11 +170,12 @@ private:
      * per device for use in the longitudinal feedback where some of its devices 
      * can be placed in SC mode, which causes the feedback to not actuate and 
      * fail silently. The default PV value is 0 and its .DOL field must be changed
-     * to the global FACMODE pv if desired. 
+     * to the global FACMODE pv if desired. It has to be a double because the record
+     * type is a MBBO
      * 0 -> NC
      * 1 -> SC
      */
-    PvData<bool> _facModePv;
+    PvData<double> _facModePv;
     
     /** Updated when in the Device::checkMeasurementStatus. Alarms if bad.
      * 0 -> Bad
