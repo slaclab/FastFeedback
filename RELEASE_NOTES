@@ -13,6 +13,8 @@
 #      
 #==============================================================
 
+R4.1.0    16 April 2025   K. Leleux (kleleux)
+    * Merging in FACMODE awareness to longitudinal feedback
 R4.0.9    10 January 2025   K. Leleux (kleleux)
     * Adding two records per POI (_INCLS and _EXCLS) to use
       PDUPatternChooser gui as Pattern Configuration GUI, which
