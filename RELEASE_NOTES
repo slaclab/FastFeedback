@@ -12,9 +12,10 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R4.1.2   16 April 2025   K. Leleux (kleleux)
+    * Fixing typo with root mean square calculations
 R4.1.1    16 April 2025   K. Leleux (kleleux)
     * Changing FACMODE datatype. Got it wrong when moving to MeasurementDevice.h
-
 R4.1.0    16 April 2025   K. Leleux (kleleux)
     * Merging in FACMODE awareness to longitudinal feedback
 R4.0.9    10 January 2025   K. Leleux (kleleux)
@@ -25,16 +26,12 @@ R4.0.8    24 September 2024   K. Leleux (kleleux)
     * Fixing Typo with SQ AVG PV.
 R4.0.7    23 September 2024   K. Leleux (kleleux)
     * Fixing bug with processing of RMS and AVG of states
-
 R4.0.6    10 September 2024   K. Leleux (kleleux)
     * Adding RMS value for states
-
 R4.0.5    10 September 2024   K. Leleux (kleleux)
     * Adding db/fbckSettledSum.db to all SC loops
-
 R4.0.4    1 November 2023   K. Leleux (kleleux)
     * Adding convergence summary records to BPN16 IOC to test functionality
-
 R4.0.3    1 November 2023   K. Leleux (kleleux)
     * Bug fix related to CATER: 152217
 
