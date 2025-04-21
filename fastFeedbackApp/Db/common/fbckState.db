@@ -899,7 +899,7 @@ record(ai, "FBCK:$(AREA):$(LOOP):S$(SNUM)") {
   info(autosaveMon$(AREA), "EGU HIHI HIGH LOW LOLO")
 }
 
-record(calc, "FBCK:$(AREA):$(LOOP):S$(NUM)SQ"){
+record(calc, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQ"){
     field(DESC, "State value squared")
     field(CALC, "A**B")
     field(INPA, "FBCK:$(AREA):$(LOOP):S$(SNUM).VAL")
