@@ -168,6 +168,14 @@ void IocshRegister::registerHelp() {
     command.second += "  Turns STATE=OFF to all loops. This releases all Fcom\n";
     command.second += "  and ChannelAccess connections.\n";
     helpMap->insert(command);
+
+    command.first = "ffPatternGenMode";
+    command.second = "Usage: ffPatternMode <mode>\n";
+    command.second += "  Sets the pattern generator mode.\n";
+    command.second += "  Mode:\n";
+    command.second += "    0 - Disabled\n";
+    command.second += "    1 - Enabled\n";
+    helpMap->insert(command);
 }
 
 /** ffReboot ******************************************************************/
@@ -537,6 +545,19 @@ static void LoopShowEvents(const iocshArgBuf *args) {
   EventLogger::getInstance().dump();
 }
 
+/** ffPatternGenMode *************************************************************/
+static const iocshArg ffPatternGenMode_Arg0 = {"Mode (0-Disabled, 1-Enabled)", iocshArgInt};
+static const iocshArg * const ffPatternGenMode_Args[1] = {&ffPatternGenMode_Arg0};
+static const iocshFuncDef ffPatternGenMode_FuncDef = {"ffPatternGenMode", 1, ffPatternGenMode_Args};
+
+static void ExecThreadSetPatternGenMode(const iocshArgBuf *args) {
+
+    std::cout << "Setting Pattern Gen Mode to Specified\n";
+    bool patternGenMode = args[0].ival;
+
+    ExecThread::getInstance().setPatternGenMode(patternGenMode);
+}
+
 
 /** Register all commands */
 IocshRegister::IocshRegister() {
@@ -584,6 +605,8 @@ IocshRegister::IocshRegister() {
 
     iocshRegister(&ffShowDevices_FuncDef, LoopShowDevices);
     iocshRegister(&ffsd_FuncDef, LoopShowDevices);
+    
+    iocshRegister(&ffPatternGenMode_FuncDef, ExecThreadSetPatternGenMode);
 
     iocshRegister(&ffHelp_FuncDef, Help);
 }
