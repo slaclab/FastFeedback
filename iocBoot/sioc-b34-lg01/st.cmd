@@ -36,7 +36,7 @@ epicsEnvSet("LOCATION","cpu-sys0-fb01")
 #========================================================================
 
 #System Location:
-epicsEnvSet("FB", "FB16")
+epicsEnvSet("FB", "FB04")
 epicsEnvSet("LOOP", "LG01")
 epicsEnvSet("D", "FBCK:$(FB):$(LOOP)")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
@@ -54,7 +54,7 @@ epicsEnvSet("LOCA","B34")
 epicsEnvSet(FAC,"${LOCA}")
 epicsEnvSet(UNIT,"LG01") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
-epicsEnvSet(VEVR, "vevr0")
+epicsEnvSet(VEVR, "vevr1")
 
 
 epicsEnvSet("IOC_TYPE", "SIOC")
