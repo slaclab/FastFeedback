@@ -1,8 +1,9 @@
 #!/bin/sh
 # === Feedback Configuration for FB16:TR01 ===
-caput FBCK:FB16:TR01:NAME            "HTR Launch" > /dev/null
+caput FBCK:FB16:TR01:NAME            "DEV Launch" > /dev/null
 caput FBCK:FB16:TR01:ITERATEFUNC     TrajectoryFitBy1 > /dev/null
-caput FBCK:FB16:TR01:TOTALPOI        1  > /dev/null
+#caput FBCK:FB16:TR01:ITERATEFUNC     LongitudinalChirp > /dev/null
+caput FBCK:FB16:TR01:TOTALPOI        4  > /dev/null
 caput FBCK:FB16:TR01:SELECTALLDEVICES NO  > /dev/null
 caput FBCK:FB16:TR01:MEASNUM         6  > /dev/null
 caput FBCK:FB16:TR01:ACTNUM          4  > /dev/null
@@ -84,10 +85,10 @@ caput FBCK:FB16:TR01:M17CAMODE       NO  > /dev/null
 caput FBCK:FB16:TR01:M18CAMODE       NO  > /dev/null
 caput FBCK:FB16:TR01:M19CAMODE       NO  > /dev/null
 caput FBCK:FB16:TR01:M20CAMODE       NO  > /dev/null
-caput FBCK:FB16:TR01:A1DEVNAME       SIOC:B34:TR01:HEARTBEAT > /dev/null
-caput FBCK:FB16:TR01:A2DEVNAME       SIOC:B34:TR01:HEARTBEAT > /dev/null
-caput FBCK:FB16:TR01:A3DEVNAME       SIOC:B34:TR01:HEARTBEAT > /dev/null
-caput FBCK:FB16:TR01:A4DEVNAME       SIOC:B34:TR01:HEARTBEAT > /dev/null
+caput FBCK:FB16:TR01:A1DEVNAME       XCOR:LTUH:558:BCTRL > /dev/null
+caput FBCK:FB16:TR01:A2DEVNAME       NULL > /dev/null
+caput FBCK:FB16:TR01:A3DEVNAME       NULL > /dev/null
+caput FBCK:FB16:TR01:A4DEVNAME       NULL > /dev/null
 caput FBCK:FB16:TR01:A5DEVNAME       NULL > /dev/null
 caput FBCK:FB16:TR01:A6DEVNAME       NULL > /dev/null
 caput FBCK:FB16:TR01:A7DEVNAME       NULL  > /dev/null
@@ -229,9 +230,20 @@ caput -a FBCK:FB16:TR01:GMATRIX 200 8.02303 0 0 8.12022 0 0 0 0 0 0 0 0 0 0 0 0 
 caput -a FBCK:FB16:TR01:MEASDSPR 40 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  > /dev/null
 caput -a FBCK:FB16:TR01:ACTENERGY 10 0.08 0.08 0.08 0.08 0 0 0 0 0 0  > /dev/null
 caput -a FBCK:FB16:TR01:REFORBIT 40 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  > /dev/null
-caput -a FBCK:FB16:TR01:POI1 21 0 0 0 8 0 0 0 32 0 0 55 0 0 0 0 0 0 0 0 0 0  > /dev/null
-caput -a FBCK:FB16:TR01:POI2 21 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  > /dev/null
-caput -a FBCK:FB16:TR01:POI3 21 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  > /dev/null
-caput -a FBCK:FB16:TR01:POI4 21 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  > /dev/null
+# FOR LONGITUDINAL TEST:
+#caput -a FBCK:FB16:TR01:POI1 21 0 0 0 0 0 0 0 0 0 0 55 0 0 128 0 0 0 0 0 0 0  > /dev/null
+#caput -a FBCK:FB16:TR01:POI2 21 0 0 0 128 0 0 0 0 0 0 62 0 0 0 0 0 0 0 0 0 0  > /dev/null
+#caput -a FBCK:FB16:TR01:POI3 21 0 0 0 128 0 0 0 0 0 0 55 0 0 0 0 0 0 0 0 0 0  > /dev/null
+#caput -a FBCK:FB16:TR01:POI4 21 0 0 0 0 0 0 0 0 0 0 62 0 0 128 0 0 0 0 0 0 0  > /dev/null
+# FOR LTUH MAGNET TEST:
+caput -a FBCK:FB16:TR01:POI1 21 0 0 0 8 0 0 0 16 0 0 55 16384 0 128 0 0 0 0 0 0 0
+caput -a FBCK:FB16:TR01:POI2 21 0 0 0 0 0 0 0 16 0 0 62 9728 0 129 0 0 0 0 0 0 0
+caput -a FBCK:FB16:TR01:POI3 21 0 0 0 0 0 0 0 0 0 0 55 26112 0 128 0 0 0 16 0 0 0
+caput -a FBCK:FB16:TR01:POI4 21 0 0 0 0 0 0 0 0 0 0 62 9728 0 129 0 0 0 16 0 0 0
+
+#caput -a FBCK:FB16:TR01:POI1 21 0 0 0 8 0 0 0 32 0 0 55 0 0 0 0 0 0 0 0 0 0  > /dev/null
+#caput -a FBCK:FB16:TR01:POI2 21 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  > /dev/null
+#caput -a FBCK:FB16:TR01:POI3 21 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  > /dev/null
+#caput -a FBCK:FB16:TR01:POI4 21 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  > /dev/null
 caput FBCK:FB16:TR01:INSTALLED 1 > /dev/null
 echo === Restored configuration for FB16:TR01 ===
