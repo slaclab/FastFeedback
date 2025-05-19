@@ -82,16 +82,21 @@ evrManager /dev/evr0mng temperature
 # 239.219.248.0 ==> mc-b034-fcom ==> MCAST Address
 # ============================================================================
 #TODO: Change to eth1
-ifconfig eth1 172.25.160.17 netmask 255.255.255.192
-export FCOMMCGRP="mc-b034-fcom"
+#ifconfig eth1 172.25.160.17 netmask 255.255.255.192
+ifconfig eth1 172.25.160.17 netmask 255.255.252.0
+# for shantha's llrf:
+export FCOMMCGRP="mc-b044-fcom"
+# for An's work
+#export FCOMMCGRP="mc-b034-fcom"
 
-route add -net FCOMMCGRP netmask 255.255.255.192 dev eth1
+route add -net FCOMMCGRP netmask 255.255.252.0 dev eth1
 ip route add 224.0.0.0/4 dev eth1
 
 # Note: the FCOM_MC_PREFIX is different between development and production
 # Development: 239.219.248.0
 # Production:  239.219.8.0
 export FCOM_MC_PREFIX=239.219.248.0
+#export FCOM_MC_PREFIX=239.218.8.0
 # ==================================================================
 
 
