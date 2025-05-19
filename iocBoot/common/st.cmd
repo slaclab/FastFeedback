@@ -44,10 +44,11 @@ epicsEnvSet("LOCA2_NAME", "${FB}", 1)
 #
 # ======= FCOM  Setup  ========================================
 # FCOM PREFIX FOR PROD
-epicsEnvSet("FCOM_MC_PREFIX","239.219.8.0")
+#epicsEnvSet("FCOM_MC_PREFIX","239.219.8.0")
 
 # FCOM PREFIX FOR DEV
-#epicsEnvSet("FCOM_MC_PREFIX","239.219.248.0")
+epicsEnvSet("FCOM_MC_PREFIX","239.219.248.0")
+#epicsEnvSet("FCOM_MC_PREFIX","239.218.8.0")
 
 # Initialize FCOM - Provide FCOM parameters in the kernel-modules.cmd 
 # FCOM parameters are different on production versus development
@@ -200,7 +201,8 @@ ffStart()
 # driver thread
 #=======================================================================
 cd iocBoot/${VIOC} 
-system("/bin/su root -c `pwd`/rtPrioritySetup.${VEVR}.cmd")
+#system("/bin/su root -c `pwd`/rtPrioritySetup.${VEVR}.cmd")
+system("rtPrioritySetup.cmd.evr ${VEVR}")
 
 
 # =====================================================================
