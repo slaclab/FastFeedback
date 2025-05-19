@@ -19,13 +19,20 @@ include $(TOP)/configure/CONFIG
 #  If not enable the new values will show up it the Axx PVs, but won't be
 #  sent on ChannelAccess or FCOM.
 #
+# -DDEV_FCOM: Enabled when testing fcom on the dev network. This will force
+#  data from PVs to the actuator device test stands. This has been used to test
+#  llrf dual-energy and magnet fcom on the dev network
+#
 # DEBUG_PRINT_FLAGS:
 # * DEBUG_PULSEID_FLAG
 # * DEBUG_EVENT_FLAG
 # * DEBUG_CA_FLAG
 #========================================================================================================
 # Flags for release
-USR_CPPFLAGS += -std=c++17 -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG -fno-ipa-cp-clone -Wextra -Wpedantic
+#USR_CPPFLAGS += -std=c++17 -DDEBUG_PRINT -g -ggdb -DNDEBUG -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG -fno-ipa-cp-clone -Wextra -Wpedantic
+
+# Flags for testing fcom on DEV
+USR_CPPFLAGS += -std=c++17 -DDEBUG_PRINT -g -ggdb -DNDEBUG -DDEV_FCOM -DCHECK_BEAM -DCONTROL_ACTUATORS -DLOG -fno-ipa-cp-clone -Wextra -Wpedantic
 
 # Flags for Unit Testing
 
