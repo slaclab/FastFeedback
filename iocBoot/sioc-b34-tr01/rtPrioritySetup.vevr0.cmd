@@ -5,6 +5,6 @@ export PATH=/usr/bin:$PATH
 
 ### set kernel read thread priority for the vevr0
 
-/usr/bin/chrt -pf 95  `ps  -Leo tid,comm | /usr/bin/awk '/evrma_vevr0/'`
+/usr/bin/chrt -pf 95  `ps  -Leo tid,comm | /usr/bin/awk '/evrma_${VEVR}/'`
 /usr/bin/chrt -pf 96  `ps  -Leo pid,comm | /usr/bin/awk '/irq.*pci-evrm/'`
 
