@@ -89,6 +89,7 @@ int FcomChannelStates::write(float value, int stateIndex) {
         return -1;
     }
     _blobData[stateIndex - 1] = value;
+    //_blobData[stateIndex - 1] = 1.23;
 
     return 0;
 }

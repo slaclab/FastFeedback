@@ -117,8 +117,10 @@ int StateDevice::write(epicsTimeStamp timestamp) {
 #ifdef DEV_FCOM
   if (ExecConfiguration::getInstance()._forceDataPv.getValue()) {
       if (_statesChannel != NULL) {
-          float value = 0;
-          _statesChannel->write(_forceValPv.getValue(), _stateIndex);
+          float value = 1.23;
+          //_statesChannel->write(_forceValPv.getValue(), _stateIndex);
+          //Log::getInstance() << Log::showtime << "Trying to set state channels" << Log::cout;
+          _statesChannel->write(value, _stateIndex);
           return 0;
       }
       else {
