@@ -240,7 +240,7 @@ int ActuatorDevice::write(bool send) {
             //res = _communicationChannel->write(-0.01+randSmallDouble);
             //Log::getInstance() << -0.001 << Log::cout;
             //return res;
-            /*
+            
             if (getDeviceIndex() == 1) { 
                 _pdesOffset = std::fmod(_pdesOffset + 0.1,5); 
                 res = _communicationChannel->write(70+randInt+randDouble);
@@ -254,12 +254,12 @@ int ActuatorDevice::write(bool send) {
                 //res = _communicationChannel->write(_adesStartPoint + _adesOffset);
                 return res;
             }
-            */
+            /*
             if (getDeviceIndex() == 1) {
                 res = _communicationChannel->write(-0.01 + randSmallDouble);
                 return res;
             }
-            
+            */
         
     }
 }
