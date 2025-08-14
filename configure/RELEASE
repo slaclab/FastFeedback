@@ -38,6 +38,7 @@ include $(TOP)/RELEASE_SITE
 # Define the version of modules needed by
 # IOC apps or other Support apps - this section for development
 # =============================================================
+ASYN_MODULE_VERSION       = R4.39-1.0.2
 SNCSEQ_MODULE_VERSION     = R2.2.4-1.2
 AUTOSAVE_MODULE_VERSION   = R5.8-2.1.0
 CAPUTLOG_MODULE_VERSION   = R3.5-1.0.0
@@ -58,6 +59,7 @@ BSACORE_MODULE_VERSION    = R1.5.4
 # ============================================================
 # Support module locations
 # ============================================================
+ASYN=$(EPICS_MODULES)/asyn/$(ASYN_MODULE_VERSION)
 SNCSEQ=$(EPICS_MODULES)/seq/$(SNCSEQ_MODULE_VERSION)
 AUTOSAVE=$(EPICS_MODULES)/autosave/$(AUTOSAVE_MODULE_VERSION)
 CAPUTLOG=$(EPICS_MODULES)/caPutLog/$(CAPUTLOG_MODULE_VERSION)

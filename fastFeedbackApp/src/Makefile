@@ -56,6 +56,7 @@ PROD_IOC = $(PROD_IOC_$(T_A))
 
 DBD = fastFeedback.dbd
 fastFeedback_DBD += base.dbd
+fastFeedback_DBD += asyn.dbd
 fastFeedback_DBD += iocAdmin.dbd
 fastFeedback_DBD += devIocStats.dbd #Part of the iocAdmin module
 fastFeedback_DBD += devSeqCar.dbd
@@ -120,6 +121,7 @@ CC_FILES = Thread.cc EventReceiver.cc EventGenerator.cc PatternManager.cc \
 fastFeedback_SRCS += $(CC_FILES) chirpUpdate.st chirpControl.st limitUpdate.st
 fastFeedback_SRCS += AutoActRef.c
 fastFeedback_SRCS += fastFeedback_registerRecordDeviceDriver.cpp
+fastFeedback_SRCS += getter.cpp
 fastFeedback_SRCS_DEFAULT += fastFeedbackMain.cpp
 # ==================================================================================
 
@@ -155,6 +157,8 @@ quadmath_DIR = $(QUADMATH_LIB)
 
 fastFeedback_LIBS  += gfortran
 fastFeedback_LIBS  += quadmath
+
+fastFeedback_LIBS  += asyn
 
 # ========================================================
 # Link in EPICS MODULES and BASE

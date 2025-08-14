@@ -76,9 +76,13 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 dbLoadDatabase("dbd/fastFeedback.dbd")
 fastFeedback_registerRecordDeviceDriver(pdbbase)
 
+##Driver Launches
+GetterDriverConfigure("lujko1")
+
 dbLoadRecords("db/fbckSettled.db",    "LP=FBCK:$(FB):$(LOOP)")
 dbLoadRecords("db/fbckSettledSum.db", "LP=FBCK:$(FB):$(LOOP)")
 dbLoadRecords("db/fbckAutoAct.db",    "LP=FBCK:$(FB):$(LOOP)")
+dbLoadRecords("db/getter.db", "USER=lujko,PORT=lujko1,ADDR=0,TIMEOUT=0")
 
 <iocBoot/common/st.cmd
 
