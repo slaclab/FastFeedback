@@ -17,6 +17,10 @@ GetterDriver::GetterDriver(const char *portName): asynPortDriver(
     0
     )
 {
+
+  epicsTimeStamp bsaTS;
+	evrTimeGet(&bsaTS, 0);  
+
   createParam("HXR_STATE", asynParamInt32, &hxr_state_idx);
   createParam("SXR_STATE", asynParamInt32, &sxr_state_idx);
 
@@ -43,7 +47,6 @@ GetterDriver::GetterDriver(const char *portName): asynPortDriver(
   createParam("ST_CLTS_IN_B", asynParamInt32, &st_clts_in_2_idx);
   createParam("BYKIKS", asynParamInt32, &bykiks_idx);
   createParam("TDUNDB_IN", asynParamInt32, &tdundb_in_idx);
-
 
   asynStatus status_hxr;
   status_hxr = (asynStatus)(epicsThreadCreate("HXRGetterTask", epicsThreadPriorityMedium, epicsThreadGetStackSize(epicsThreadStackMedium), (EPICSTHREADFUNC)::hxrTask, this) == NULL);
@@ -78,8 +81,29 @@ void GetterDriver::hxrTask(void)
   double hxr_permit;
   double hard_injrate;
 
+  std::cout << "After all that" << std::endl;
+
+  epicsTimeStamp epics_time_previous;
+  epicsTimeStamp epics_time_current;
+  // int val = evrTimeGet(&epics_time_current, 0); 
+  epicsTimeStamp epics_time_actual;
+  unsigned int event_code = 40;
+  const unsigned int EPSILON = 300; // 5 minutes
+  //epicsTimeGetCurrent(&epics_time_actual);
+
+
+
   while (true)
   {
+    epicsTimeGetCurrent(&epics_time_actual);
+    // std::cout << "After time get current" << std::endl;
+    // evrTimeGet(&epics_time_current, 0);
+    // epicsUInt32 time_diff = epics_time_current->secPastEpoch - epics_time_previous->secPastEpoch;
+    // epicsUInt32 actual_time_diff = epics_time_actual->secPastEpoch - epics_time_current->secPastEpoch;
+    // epics_time_previous = epics_time_current;
+    
+    // if (time_diff == 0 || actual_time_diff > EPSILON) {continue;} // SHOULD WE ADD A SLEEP HERE SO IT DOESN'T RUN TOO OFTEN
+
     getIntegerParam(shutter_idx, &shutter);
     getIntegerParam(bcs_fault_idx, &bcs_fault);
     getIntegerParam(gun_off_idx, &gun_off);

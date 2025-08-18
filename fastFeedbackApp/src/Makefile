@@ -69,6 +69,7 @@ fastFeedback_DBD += devMrfEr.dbd   #Needed for EVR
 fastFeedback_DBD += fcomUtil.dbd
 fastFeedback_DBD += fcomIocshSupport.dbd
 fastFeedback_DBD += AutoActRef.dbd
+fastFeedback_DBD += register.dbd
 
 
 # The system command as part of EPICS BASE is 
