@@ -16,7 +16,7 @@
 #include <evrTime.h>
 #include <evrPattern.h>
 #include <epicsTime.h>
-#include "PatternManager.h"
+//#include "PatternManager.h"
 
 using namespace std;
 

@@ -17,9 +17,7 @@ GetterDriver::GetterDriver(const char *portName): asynPortDriver(
     0
     )
 {
-
-  // epicsTimeStamp bsaTS;
-	// evrTimeGet(&bsaTS, 0);  
+  evrInitialize();
 
   createParam("HXR_STATE", asynParamInt32, &hxr_state_idx);
   createParam("SXR_STATE", asynParamInt32, &sxr_state_idx);
@@ -87,7 +85,7 @@ void GetterDriver::hxrTask(void)
   epics_time_previous.secPastEpoch = 0;
   epics_time_previous.nsec = 0;
   epicsTimeStamp epics_time_next;
-  // int val = evrTimeGet(&epics_time_current, 0); 
+  //int val = evrTimeGet(&epics_time_next, 40); 
   epicsTimeStamp epics_time_current;
   unsigned int event_code = 40;
   const unsigned int EPSILON = 300; // 5 minutes
@@ -98,7 +96,7 @@ void GetterDriver::hxrTask(void)
   while (true)
   {
     epicsTimeGetCurrent(&epics_time_current);
-    // std::cout << "After time get current" << std::endl;
+    std::cout << "After time get current" << std::endl;
     evrTimeGet(&epics_time_next, event_code);
     epicsUInt32 time_diff = epics_time_next.secPastEpoch - epics_time_previous.secPastEpoch;
     epicsUInt32 actual_time_diff = epics_time_current.secPastEpoch - epics_time_next.secPastEpoch;

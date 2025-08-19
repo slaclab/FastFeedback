@@ -5,7 +5,7 @@ include $(TOP)/configure/CONFIG
 #  ADD MACRO DEFINITIONS BELOW HERE
 
 # Use typed rset structure (see 3.16.1 release notes)
-USR_CPPFLAGS += -DUSE_TYPED_RSET
+USR_CPPFLAGS += -std=c++17 -DUSE_TYPED_RSET
 
 
 
@@ -26,13 +26,14 @@ ModeBsa_DBD += asyn.dbd
 #ModeBsa_DBD += devModeBsaVersion.dbd
 ModeBsa_DBD += evrSupport.dbd #Needed for EVR
 ModeBsa_DBD += devMrfEr.dbd   #Needed for EVR
-#ModeBsa_DBD += register.dbd
+ModeBsa_DBD += register.dbd
 
 # New BSA
 ModeBsa_DBD += bsaCore.dbd
 
 # ModeBsa_registerRecordDeviceDriver.cpp derives from ModeBsa.dbd
 ModeBsa_SRCS += ModeBsa_registerRecordDeviceDriver.cpp
+ModeBsa_SRCS += getter.cpp
 
 # Build the main IOC entry point where needed
 ModeBsa_SRCS_DEFAULT += ModeBsaMain.cpp

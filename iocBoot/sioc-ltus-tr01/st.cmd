@@ -69,23 +69,67 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 
 # END: Additional Environment variables
 #======================================================================
-
-# ====================================================================
-## Load common fast feedback st.cmd
-# ====================================================================
 dbLoadDatabase("dbd/ModeBsa.dbd")
 ModeBsa_registerRecordDeviceDriver(pdbbase)
 
 
-
-dbLoadRecords("db/fbckSettled.db",    "LP=FBCK:$(FB):$(LOOP)")
-dbLoadRecords("db/fbckSettledSum.db", "LP=FBCK:$(FB):$(LOOP)")
-dbLoadRecords("db/fbckAutoAct.db",    "LP=FBCK:$(FB):$(LOOP)")
 dbLoadRecords("db/getter.db", "USER=lujko,PORT=lujko1,ADDR=0,TIMEOUT=0")
 
-<iocBoot/common/st.cmd
+#iocBoot/common/st.cmd CODE STARTS HERE
+
+# Environment varaible for logInit
+epicsEnvSet("SUBSYS","fbck")
+    
+######################################################################
+#======================================================================    
+# Initialize all Hardware 
+#======================================================================    
+# Init PMC EVR: To support Timing System Event Receiver
+# In this case this EVR is running in a PC under linux
+# Setup for EVR:========================================================
+
+# Add eevrmaConfigure for each VEVR before iocInit.
+#
+#    eevrmaConfigure <instance> <vevrDevName>
+#
+#    where instance = EVR instance, starting from 0, incrementing by
+#                     for each subsequent card.  Only 1 EVR instance
+#                    is allowed for Embedded EVRs.
+#
+# ===================================================================
+# Debug interest level for EVR Driver
+# ErDebug=100
+            
+# Here we have an VEVR
+eevrmaConfigure(0, "/dev/${VEVR}")
+
+# ======= EVR Setup Complete ========================================
+# Each feedback needs the LOCA_NAME macro for LoopConfiguration.cc
+epicsEnvSet("LOCA_NAME","${FB}")
+epicsEnvSet("LOCA2_NAME", "${FB}", 1)
+#
+
+#########################################################################
+#BEGIN: Load the record database
+######################################################################
+
+# ===================================================================
+# load evr database
+# ===================================================================
+dbLoadRecords("db/EVR-TEMPLATE.db", "EVR=${EVR_DEV1},IOC=${IOC_NAME}") 
+    
+######################################################################
+#=======================================================================
+# Setup Real-time priorities after starting the controller threads 
+# driver thread
+#=======================================================================
+#cd iocBoot/${VIOC} 
+system("rtPrioritySetup.cmd.evr ${VEVR}")
+
 
 ##Driver Launches
 GetterDriverConfigure("lujko1")
+
+iocInit
 
 #Done  
