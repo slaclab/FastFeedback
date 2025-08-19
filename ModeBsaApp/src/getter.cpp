@@ -18,8 +18,8 @@ GetterDriver::GetterDriver(const char *portName): asynPortDriver(
     )
 {
 
-  epicsTimeStamp bsaTS;
-	evrTimeGet(&bsaTS, 0);  
+  // epicsTimeStamp bsaTS;
+	// evrTimeGet(&bsaTS, 0);  
 
   createParam("HXR_STATE", asynParamInt32, &hxr_state_idx);
   createParam("SXR_STATE", asynParamInt32, &sxr_state_idx);
@@ -84,9 +84,11 @@ void GetterDriver::hxrTask(void)
   std::cout << "After all that" << std::endl;
 
   epicsTimeStamp epics_time_previous;
-  epicsTimeStamp epics_time_current;
+  epics_time_previous.secPastEpoch = 0;
+  epics_time_previous.nsec = 0;
+  epicsTimeStamp epics_time_next;
   // int val = evrTimeGet(&epics_time_current, 0); 
-  epicsTimeStamp epics_time_actual;
+  epicsTimeStamp epics_time_current;
   unsigned int event_code = 40;
   const unsigned int EPSILON = 300; // 5 minutes
   //epicsTimeGetCurrent(&epics_time_actual);
@@ -95,14 +97,17 @@ void GetterDriver::hxrTask(void)
 
   while (true)
   {
-    epicsTimeGetCurrent(&epics_time_actual);
+    epicsTimeGetCurrent(&epics_time_current);
     // std::cout << "After time get current" << std::endl;
-    // evrTimeGet(&epics_time_current, 0);
-    // epicsUInt32 time_diff = epics_time_current->secPastEpoch - epics_time_previous->secPastEpoch;
-    // epicsUInt32 actual_time_diff = epics_time_actual->secPastEpoch - epics_time_current->secPastEpoch;
-    // epics_time_previous = epics_time_current;
-    
-    // if (time_diff == 0 || actual_time_diff > EPSILON) {continue;} // SHOULD WE ADD A SLEEP HERE SO IT DOESN'T RUN TOO OFTEN
+    evrTimeGet(&epics_time_next, event_code);
+    epicsUInt32 time_diff = epics_time_next.secPastEpoch - epics_time_previous.secPastEpoch;
+    epicsUInt32 actual_time_diff = epics_time_current.secPastEpoch - epics_time_next.secPastEpoch;
+    std::cout << "epics_time_current: " << epics_time_current.secPastEpoch << " and epics_time_next: " << epics_time_next.secPastEpoch << std::endl;
+    epics_time_previous = epics_time_next;
+
+    std::cout << "Time diff: " << time_diff << " and actual time diff: " << actual_time_diff << std::endl;
+     
+    if (time_diff == 0 || actual_time_diff > EPSILON) {sleep(5); continue;} // SHOULD WE ADD A SLEEP HERE SO IT DOESN'T RUN TOO OFTEN
 
     getIntegerParam(shutter_idx, &shutter);
     getIntegerParam(bcs_fault_idx, &bcs_fault);

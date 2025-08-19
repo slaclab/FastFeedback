@@ -18,7 +18,7 @@ include $(TOP)/configure/CONFIG
 DB += EVR-TEMPLATE.db
 
 #fbckFB_template.db is a generic file to configure all the feedback loops 
-DB += fbck_template.db
+#DB += fbck_template.db
 
 # ========================================
 # # Install timing/event related databases

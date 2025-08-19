@@ -7,26 +7,7 @@ include $(TOP)/configure/CONFIG
 # Use typed rset structure (see 3.16.1 release notes)
 USR_CPPFLAGS += -DUSE_TYPED_RSET
 
-# xxxRecord.h will be created from xxxRecord.dbd
-DBDINC += xxxRecord
 
-# Install xxxSupport.dbd into <top>/dbd
-DBD += xxxSupport.dbd
-
-# Build an IOC support library
-LIBRARY_IOC += ModeBsaSupport
-
-# Compile and add code to the support library
-ModeBsaSupport_SRCS += xxxRecord.c
-ModeBsaSupport_SRCS += devXxxSoft.c
-
-# Link locally-provided code into the support library,
-# rather than directly into the IOC application, that
-# causes problems on Windows DLL builds
-ModeBsaSupport_SRCS += dbSubExample.c
-ModeBsaSupport_SRCS += devModeBsaVersion.c
-ModeBsaSupport_SRCS += ModeBsaHello.c
-ModeBsaSupport_SRCS += initTrace.c
 
 ModeBsaSupport_LIBS += $(EPICS_BASE_IOC_LIBS)
 
@@ -37,18 +18,22 @@ GENVERSION = ModeBsaVersion.h
 GENVERSIONMACRO = ModeBsaVERSION
 
 # Build the IOC application
-PROD_IOC = ModeBsa
+#PROD_IOC = ModeBsa
+
+PROD_IOC_linuxRT-x86_64 = ModeBsa
+PROD_IOC = $(PROD_IOC_$(T_A))
 
 # ModeBsa.dbd will be created and installed
 DBD += ModeBsa.dbd
 
 # ModeBsa.dbd will include these files:
 ModeBsa_DBD += base.dbd
-ModeBsa_DBD += xxxSupport.dbd
+ModeBsa_DBD += asyn.dbd
 ModeBsa_DBD += dbSubExample.dbd
 ModeBsa_DBD += devModeBsaVersion.dbd
-ModeBsa_DBD += ModeBsaHello.dbd
-ModeBsa_DBD += initTrace.dbd
+ModeBsa_DBD += evrSupport.dbd #Needed for EVR
+ModeBsa_DBD += devMrfEr.dbd   #Needed for EVR
+ModeBsa_DBD += register.dbd
 
 # ModeBsa_registerRecordDeviceDriver.cpp derives from ModeBsa.dbd
 ModeBsa_SRCS += ModeBsa_registerRecordDeviceDriver.cpp
@@ -58,27 +43,14 @@ ModeBsa_SRCS_DEFAULT += ModeBsaMain.cpp
 ModeBsa_SRCS_vxWorks += -nil-
 
 # Link in the code from our support library
-ModeBsa_LIBS += ModeBsaSupport
+ModeBsa_LIBS += asyn
+ModeBsa_LIBS += miscUtils
+ModeBsa_LIBS += evrSupport
+ModeBsa_LIBS += devMrfEr
 
-# To build SNL programs, SNCSEQ must be defined
-# in the <top>/configure/RELEASE file
-ifneq ($(SNCSEQ),)
-    # Build sncExample into ModeBsaSupport
-    sncExample_SNCFLAGS += +r
-    ModeBsa_DBD += sncExample.dbd
-    # A .stt sequence program is *not* pre-processed:
-    ModeBsaSupport_SRCS += sncExample.stt
-    ModeBsaSupport_LIBS += seq pv
-    ModeBsa_LIBS += seq pv
 
-    # Build sncProgram as a standalone program
-    PROD_HOST += sncProgram
-    sncProgram_SNCFLAGS += +m
-    # A .st sequence program *is* pre-processed:
-    sncProgram_SRCS += sncProgram.st
-    sncProgram_LIBS += seq pv
-    sncProgram_LIBS += $(EPICS_BASE_HOST_LIBS)
-endif
+
+
 
 # Link QSRV (pvAccess Server) if available
 ifdef EPICS_QSRV_MAJOR_VERSION

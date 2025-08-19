@@ -1,4 +1,4 @@
-#!../../bin/linuxRT-x86_64/ModeBsa
+#!../../bin/linuxRT-x86_64/fastFeedback
 # st.cmd file for Fast Feedback Controller IOC
 # Note: contains parameters specific to sioc-ltus-tr01 and
 #       and calls generic st.cmd common to all feedback loops 
@@ -73,19 +73,14 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # ====================================================================
 ## Load common fast feedback st.cmd
 # ====================================================================
-dbLoadDatabase("dbd/ModeBsa.dbd")
-ModeBsa_registerRecordDeviceDriver(pdbbase)
-
+dbLoadDatabase("dbd/fastFeedback.dbd")
+fastFeedback_registerRecordDeviceDriver(pdbbase)
 
 
 dbLoadRecords("db/fbckSettled.db",    "LP=FBCK:$(FB):$(LOOP)")
 dbLoadRecords("db/fbckSettledSum.db", "LP=FBCK:$(FB):$(LOOP)")
 dbLoadRecords("db/fbckAutoAct.db",    "LP=FBCK:$(FB):$(LOOP)")
-dbLoadRecords("db/getter.db", "USER=lujko,PORT=lujko1,ADDR=0,TIMEOUT=0")
 
 <iocBoot/common/st.cmd
-
-##Driver Launches
-GetterDriverConfigure("lujko1")
 
 #Done  
