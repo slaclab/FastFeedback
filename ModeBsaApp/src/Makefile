@@ -11,12 +11,6 @@ USR_CPPFLAGS += -DUSE_TYPED_RSET
 
 ModeBsaSupport_LIBS += $(EPICS_BASE_IOC_LIBS)
 
-# Auto-generate a header file containing a version string.
-# Version comes from the VCS if available, else date+time.
-GENVERSION = ModeBsaVersion.h
-# Macro name
-GENVERSIONMACRO = ModeBsaVERSION
-
 # Build the IOC application
 #PROD_IOC = ModeBsa
 
@@ -29,11 +23,13 @@ DBD += ModeBsa.dbd
 # ModeBsa.dbd will include these files:
 ModeBsa_DBD += base.dbd
 ModeBsa_DBD += asyn.dbd
-ModeBsa_DBD += dbSubExample.dbd
-ModeBsa_DBD += devModeBsaVersion.dbd
+#ModeBsa_DBD += devModeBsaVersion.dbd
 ModeBsa_DBD += evrSupport.dbd #Needed for EVR
 ModeBsa_DBD += devMrfEr.dbd   #Needed for EVR
-ModeBsa_DBD += register.dbd
+#ModeBsa_DBD += register.dbd
+
+# New BSA
+ModeBsa_DBD += bsaCore.dbd
 
 # ModeBsa_registerRecordDeviceDriver.cpp derives from ModeBsa.dbd
 ModeBsa_SRCS += ModeBsa_registerRecordDeviceDriver.cpp
@@ -47,6 +43,15 @@ ModeBsa_LIBS += asyn
 ModeBsa_LIBS += miscUtils
 ModeBsa_LIBS += evrSupport
 ModeBsa_LIBS += devMrfEr
+ModeBsa_LIBS += drvMrf
+evrma_DIR = $(EVRMA_LIB)
+ModeBsa_LIBS += evrma
+
+# Link in New BSA Support
+ModeBsa_LIBS += eventBsaSupport
+ModeBsa_LIBS += BsaCore
+
+#ModeBsa_SRCS += devModeBsaVersion.c
 
 
 
