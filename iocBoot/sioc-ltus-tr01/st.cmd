@@ -126,6 +126,7 @@ dbLoadRecords("db/EVR-TEMPLATE.db", "EVR=${EVR_DEV1},IOC=${IOC_NAME}")
 #cd iocBoot/${VIOC} 
 system("rtPrioritySetup.cmd.evr ${VEVR}")
 
+evrInitialize();
 
 ##Driver Launches
 GetterDriverConfigure("lujko1")

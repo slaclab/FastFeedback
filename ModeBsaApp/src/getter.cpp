@@ -3,8 +3,89 @@
 #include "getter.h"
 #include <unistd.h>
 
+static epicsEventId EVRFireEvent = NULL;
+static int testing_var = 4;
+
 void hxrTask(void *driverPointer);
 void sxrTask(void *driverPointer);
+//void EVRFireTest(void* pBlobSet);
+
+/*
+ * This function will be registered with EVR for callback each fiducial at 360hz
+ * The argument is the bldBlobSet ptr allocated by fcomAllocBlobSet()
+ */
+// void EVRFire( void * pBlobSet )
+void EVRFireTest(void*)
+{
+  errlogPrintf("Testing to see if anything is happening in EVRFireTest");
+  printf("Is this a print problem");
+  //std::cout << "Is this being called at all" << std::endl;
+  testing_var = 5;
+	epicsTimeStamp time40;
+	int		fid40, fidpipeline;
+	unsigned long long	tscLast;
+	/* evrRWMutex is locked while calling these user functions so don't do anything that might block. */
+	epicsTimeStamp time_s;
+
+	/* get the current pattern data - check for good status */
+	evrModifier_ta modifier_a;
+	epicsUInt32  patternStatus; /* see evrPattern.h for values */
+	int status = evrTimeGetFromPipeline(&time_s,  evrTimeCurrent, modifier_a, &patternStatus, 0,0,0);
+	if ( status != 0 )
+	{
+		/* Error from evrTimeGetFromPipeline! */
+		// bldFiducialTime.nsec = PULSEID_INVALID;
+    std::cout << "Status wasn't 0, evrTimeGetFromPipeline failed" << std::endl;
+		return;
+	}
+#if defined(BLD_SXR)
+	/* check for No LCLS SXR beam */
+	if ( (modifier_a[MOD3_IDX] & BKRCUS) == 0)
+#else
+	/* check for No LCLS HXR beam */
+	if ( (modifier_a[MOD5_IDX] & MOD5_BEAMFULL_MASK) == 0)
+#endif
+	{
+		/* This is 360Hz. So printf will really screw timing. Only enable briefly */
+		// if(BLD_MCAST_DEBUG >= 6)
+    //         errlogPrintf("EVR fires (status %i, mod5 0x%08x, fid %d)\n",
+    //                 status, (unsigned)modifier_a[MOD5_IDX], PULSEID(time_s) );
+		/* No beam */
+		//return;
+	}
+
+	fidpipeline = PULSEID(time_s);
+	tscLast	= evrGetFiducialTsc();
+	epicsTimeGetEvent( &time40, 40 );
+	fid40 = PULSEID(time40);
+
+	/* Get timestamps for beam fiducial */
+	// bldFiducialTime = time_s;
+	// bldFiducialTsc	= GetHiResTicks();
+
+	// if(BLD_MCAST_DEBUG >= 5) {
+	// 	double			deltaLastFid;
+	// 	deltaLastFid	= HiResTicksToSeconds( bldFiducialTsc - tscLast   ) * 1e3;
+	// 	errlogPrintf( "pipeline fid %d (-%0.2f)\n", fidpipeline, deltaLastFid );
+	// /* HACK */
+	// 	return;
+	// }
+
+	/* This is 120Hz. So printf will screw timing. Only enable briefly. */
+	// if(BLD_MCAST_DEBUG >= 4) errlogPrintf("EVR fires (status %i, mod5 0x%08x, fid %d, fid40 %d)\n", status, (unsigned)modifier_a[4], fidpipeline, fid40 );
+
+	/* Signal the EVRFireEvent to trigger the fcomGetBlobSet call */
+  std::cout << "Did we get to the Event Signal?" << std::endl;
+	epicsEventSignal( EVRFireEvent);
+
+// #ifdef RTEMS
+// 	if ( pBlobSet == NULL ) {
+// 		BSP_timer_start( BSPTIMER, timer_delay_clicks );
+// 	}
+// #endif
+	return;
+}
+
 
 GetterDriver::GetterDriver(const char *portName): asynPortDriver(
     portName,
@@ -17,7 +98,11 @@ GetterDriver::GetterDriver(const char *portName): asynPortDriver(
     0
     )
 {
-  evrInitialize();
+  // int initialization_status = evrInitialize();
+  // if (!initialization_status) 
+  // {
+  //   std::cout << "Initialization was successful" << std::endl;
+  // }
 
   createParam("HXR_STATE", asynParamInt32, &hxr_state_idx);
   createParam("SXR_STATE", asynParamInt32, &sxr_state_idx);
@@ -87,25 +172,85 @@ void GetterDriver::hxrTask(void)
   epicsTimeStamp epics_time_next;
   //int val = evrTimeGet(&epics_time_next, 40); 
   epicsTimeStamp epics_time_current;
-  unsigned int event_code = 40;
+  unsigned int event_code = 0;
   const unsigned int EPSILON = 300; // 5 minutes
   //epicsTimeGetCurrent(&epics_time_actual);
 
+  // epicsTimeStamp time_s;
+  // evrModifier_ta modifier_a;
+  // epicsUInt32  patternStatus;
+  //evrTimeCurrent = 0;
+//   typedef enum {
+//   evrTimeCurrent=0, evrTimeNext1=1, evrTimeNext2=2, evrTimeNext3=3, evrTimeActive
+// } evrTimeId_te;
+	/* All ready to go, create event and register with EVR */
+	EVRFireEvent = epicsEventMustCreate(epicsEventEmpty);
 
+	/* Register EVRFire */
+	// evrTimeRegister(EVRFire, bldBlobSet);
+  int function_registration = evrTimeRegister(EVRFireTest, NULL);
+  std::cout << "Func registration: " << function_registration << std::endl;
+  if (function_registration != 0) {std::cout << "Registration didn't work" << std::endl;}
+  else {std::cout << "All good with evr function registration" << std::endl;}
+
+  // EVRFireTest(bldBlobSet);
+
+  // fiducial event
+  epicsTimeStamp time1;
+
+  std::cout << "The value of testing var is: " << testing_var << std::endl;
+
+  // std::cout << "Manually calling evrTask now" << std::endl;
+  // evrTask();
+  // std::cout << "After calling evr Task" << std::endl;
+
+  std::cout << "Printing all threads here: " << std::endl;
+  epicsThreadShowAll(2);
 
   while (true)
   {
-    epicsTimeGetCurrent(&epics_time_current);
-    std::cout << "After time get current" << std::endl;
-    evrTimeGet(&epics_time_next, event_code);
-    epicsUInt32 time_diff = epics_time_next.secPastEpoch - epics_time_previous.secPastEpoch;
-    epicsUInt32 actual_time_diff = epics_time_current.secPastEpoch - epics_time_next.secPastEpoch;
-    std::cout << "epics_time_current: " << epics_time_current.secPastEpoch << " and epics_time_next: " << epics_time_next.secPastEpoch << std::endl;
-    epics_time_previous = epics_time_next;
+    epicsTimeGetEvent( &time1, 1 );
+    //std::cout << "Fiducial time: " << time1.secPastEpoch << std::endl;
+    //sleep(5);
+    // int status = evrTimeGetFromPipeline(&time_s,  evrTimeCurrent, modifier_a, &patternStatus, 0,0,0);
+    // std::cout << "Updated time: " << time_s.secPastEpoch << std::endl;
+    // evrTimeGet(&epics_time_next, event_code);
+    // std::cout << "epics_time_next: " << epics_time_next.secPastEpoch << std::endl;
+    // sleep(5);
+    // epicsTimeGetCurrent(&epics_time_current);
+    // std::cout << "After time get current" << std::endl;
+    // evrTimeGet(&epics_time_next, event_code);
+    // epicsUInt32 time_diff = epics_time_next.secPastEpoch - epics_time_previous.secPastEpoch;
+    // epicsUInt32 actual_time_diff = epics_time_current.secPastEpoch - epics_time_next.secPastEpoch;
+    // std::cout << "epics_time_current: " << epics_time_current.secPastEpoch << " and epics_time_next: " << epics_time_next.secPastEpoch << std::endl;
+    // epics_time_previous = epics_time_next;
 
-    std::cout << "Time diff: " << time_diff << " and actual time diff: " << actual_time_diff << std::endl;
+    // std::cout << "Time diff: " << time_diff << " and actual time diff: " << actual_time_diff << std::endl;
      
-    if (time_diff == 0 || actual_time_diff > EPSILON) {sleep(5); continue;} // SHOULD WE ADD A SLEEP HERE SO IT DOESN'T RUN TOO OFTEN
+    // if (time_diff == 0 || actual_time_diff > EPSILON) {sleep(5); continue;} // SHOULD WE ADD A SLEEP HERE SO IT DOESN'T RUN TOO OFTEN
+
+    int status;
+		{
+			status = epicsEventWaitWithTimeout(EVRFireEvent, DEFAULT_EVR_TIMEOUT);
+			if(status != epicsEventWaitOK)
+			{
+				if(status == epicsEventWaitTimeout)
+				{
+					// if(BLD_MCAST_DEBUG >= 3) 
+          errlogPrintf("Timed out waiting for Beam event\n");
+				}
+				else
+				{
+					errlogPrintf("Wait EVR Error, what happened? Let's sleep 2 seconds.\n");
+					epicsThreadSleep(2.0);
+				}
+
+        //std::cout << "Status wasn't okay, next iteration" << std::endl;
+
+				continue;
+			}
+      std::cout << "Status was okay, now proceeding" << std::endl;
+		}
 
     getIntegerParam(shutter_idx, &shutter);
     getIntegerParam(bcs_fault_idx, &bcs_fault);
@@ -231,6 +376,8 @@ void GetterDriver::sxrTask(void)
   setIntegerParam(sxr_state_idx, state);
   callParamCallbacks();
 }
+
+
 
 
 extern "C" {

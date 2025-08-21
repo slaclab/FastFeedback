@@ -16,9 +16,12 @@
 #include <evrTime.h>
 #include <evrPattern.h>
 #include <epicsTime.h>
+#include <errlog.h>
 //#include "PatternManager.h"
 
 using namespace std;
+
+#define DEFAULT_EVR_TIMEOUT	0.2		/* Default EVR event timeout, for 30Hz */
 
 class GetterDriver : public asynPortDriver {
   public:
