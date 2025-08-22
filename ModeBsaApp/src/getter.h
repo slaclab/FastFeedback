@@ -26,8 +26,7 @@ using namespace std;
 class GetterDriver : public asynPortDriver {
   public:
     GetterDriver(const char *portName);
-    void hxrTask(void);
-    void sxrTask(void);
+    void xrayTask(void);
 
   protected:
 
