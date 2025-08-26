@@ -113,7 +113,7 @@ int ExecThread::preRun() {
     // If the ExecConfiguration::_hasPatternGenerator is true, then start
     // Generating patterns -> This must be called here, after the ca_context
     // is created!
-    if (ExecConfiguration::getInstance()._hasPatternGenerator) {
+    if (_hasPatternGenerator) {
         std::cout << "--- Starting PatternGenerator ... ";
         PatternGenerator::getInstance().start();
         std::cout << "done." << std::endl;
@@ -212,7 +212,7 @@ int ExecThread::stop() {
 
     // If the ExecConfiguration::_hasPatternGenerator is true, then start
     // Generating patterns
-    if (ExecConfiguration::getInstance()._hasPatternGenerator) {
+    if (_hasPatternGenerator) {
         PatternGenerator::getInstance().stop();
     }
 
@@ -438,3 +438,19 @@ void ExecThread::showLoopConfig(std::string loopName) {
       std::cerr << "showLoopConfig command ERROR: " << e.what() << std::endl;
   }
 }
+
+/**
+ * This method sets the mode for the pattern generation. 
+ *
+ * @param patternGenMode:
+ *  0 - Disabled
+ *  1 - Enabled
+ * @author K.Leleux
+ */
+
+void ExecThread::setPatternGenMode(bool patternGenMode = false) {
+    //Set the _hasPatternGenMode
+    std::cout << "Setting Pattern Gen Mode\n";
+    _hasPatternGenerator = patternGenMode;
+}
+
