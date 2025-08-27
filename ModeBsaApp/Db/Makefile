@@ -6,13 +6,7 @@ include $(TOP)/configure/CONFIG
 #DIRS += iocs
 
 # Install databases, templates & substitutions like this
-# DB += circle.db
-# DB += dbExample1.db
-# DB += dbExample2.db
 DB += ModeBsaVersion.db
-# DB += dbSubExample.db
-# DB += user.substitutions
-#DB += EVR-TEMPLATE.db
 DB += getter.db
 
 # If <anyname>.db template is not named <anyname>*.template add

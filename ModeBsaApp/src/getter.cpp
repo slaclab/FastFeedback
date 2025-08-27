@@ -222,11 +222,14 @@ void GetterDriver::xrayTask(void)
 
     int return_status_sxr = BSA_StoreData(_bsaSXRChannel, time40, sxr_state_double, epicsAlarmNone, epicsSevNone);
     if (return_status_sxr) {std::cout << "BSA_StoreData failed for SXR" << std::endl;}
-
-    // RELEASE CHANNELS HERE?
-    //BSA_ReleaseChannel(_bsaHXRChannel);
-    //BSA_ReleaseChannel(_bsaSXRChannel);
   }
+}
+
+GetterDriver::~GetterDriver() 
+{
+  // Release BSA channels here
+  BSA_ReleaseChannel(_bsaHXRChannel);
+  BSA_ReleaseChannel(_bsaSXRChannel);
 }
 
 /*
@@ -254,7 +257,7 @@ void EVRFireTest(void*)
     epicsEventSignal( EVRFireEvent);
     return;
   }
-  
+
 	return;
 }
 
