@@ -85,16 +85,6 @@ void GetterDriver::xrayTask(void)
   int spectrometer_state;
   int td_11_in;
 
-  std::cout << "After all that" << std::endl;
-
-  // epicsTimeStamp epics_time_previous;
-  // epics_time_previous.secPastEpoch = 0;
-  // epics_time_previous.nsec = 0;
-  // epicsTimeStamp epics_time_next;
-  // epicsTimeStamp epics_time_current;
-  // unsigned int event_code = 0;
-
-
 	/* All ready to go, create event and register with EVR */
 	EVRFireEvent = epicsEventMustCreate(epicsEventEmpty);
 
@@ -102,12 +92,6 @@ void GetterDriver::xrayTask(void)
   int function_registration = evrTimeRegister(EVRFireTest, NULL);
   if (function_registration != 0) {std::cout << "Registration didn't work" << std::endl;}
   else {std::cout << "All good with evr function registration" << std::endl;}
-
-  // // fiducial event
-  // epicsTimeStamp time1;
-
-  // std::cout << "Printing all threads here: " << std::endl;
-  // epicsThreadShowAll(2);
 
   while (true)
   {
@@ -128,7 +112,6 @@ void GetterDriver::xrayTask(void)
 
 				continue;
 			}
-      // std::cout << "Status was okay, now proceeding" << std::endl;
 		}
 
     getIntegerParam(shutter_idx, &shutter);
@@ -231,12 +214,6 @@ void GetterDriver::xrayTask(void)
     setIntegerParam(sxr_state_idx, sxr_state);
     callParamCallbacks();
 
-
-    // std::cout << "Created xray channel" << std::endl;
-
-    // epicsTimeStamp testing_timestamp;
-    // epicsTimeGetCurrent(&testing_timestamp);
-
     double hxr_state_double = (double)hxr_state;
     double sxr_state_double = (double)sxr_state;
 
@@ -246,15 +223,6 @@ void GetterDriver::xrayTask(void)
     int return_status_sxr = BSA_StoreData(_bsaSXRChannel, time40, sxr_state_double, epicsAlarmNone, epicsSevNone);
     if (return_status_sxr) {std::cout << "BSA_StoreData failed for SXR" << std::endl;}
 
-    // std::cout << "Printing stats" << std::endl;
-    // BSA_DumpChannelStats(_bsaHXRChannel, NULL);
-
-    // BsaResult result_array;
-    // BSA_ReleaseResults(result_array);
-
-    // std::cout << "Release: " << result_array[0].avg << std::endl;
-    // std::cout << "The size of the array is: " << sizeof(result_array)/sizeof(result_array[0]) << std::endl;
-
     // RELEASE CHANNELS HERE?
     //BSA_ReleaseChannel(_bsaHXRChannel);
     //BSA_ReleaseChannel(_bsaSXRChannel);
@@ -263,88 +231,30 @@ void GetterDriver::xrayTask(void)
 
 /*
  * This function will be registered with EVR for callback each fiducial at 360hz
- * The argument is the bldBlobSet ptr allocated by fcomAllocBlobSet()
  */
-// void EVRFire( void * pBlobSet )
 void EVRFireTest(void*)
 {
-  // errlogPrintf("Testing to see if anything is happening in EVRFireTest");
-  // printf("Is this a print problem");
-  // std::cout << "Is this being called at all" << std::endl;
-	// epicsTimeStamp time40;
-	//int		fid40, fidpipeline;
-	//unsigned long long	tscLast;
 	// /* evrRWMutex is locked while calling these user functions so don't do anything that might block. */
-	//epicsTimeStamp time_s;
 
 	// /* get the current pattern data - check for good status */
 	evrModifier_ta modifier_a;
 	epicsUInt32  patternStatus; /* see evrPattern.h for values */
 	int status = evrTimeGetFromPipeline(&time40,  evrTimeCurrent, modifier_a, &patternStatus, 0,0,0);
-  // std::cout << "First time40 is " << time40.secPastEpoch << " and " << time40.nsec << std::endl;
 	if ( status != 0 )
 	{
 		/* Error from evrTimeGetFromPipeline! */
-		// bldFiducialTime.nsec = PULSEID_INVALID;
     std::cout << "Status wasn't 0, evrTimeGetFromPipeline failed" << std::endl;
 		return;
 	}
 
+  // indicates the presence of event 40
   if (((modifier_a[MOD2_IDX] & TIMESLOT1_MASK) || (modifier_a[MOD2_IDX] & TIMESLOT4_MASK)) == 1)
   {
-    // std::cout << "Should indicate the presence of event 40" << std::endl;
-    // epicsTimeGetCurrent(&timestamp); DO WE WANT TO GET CURRENT TIME INSTEAD
-
     /* Signal the EVRFireEvent */
     epicsEventSignal( EVRFireEvent);
     return;
   }
-
-// #if defined(BLD_SXR)
-// 	/* check for No LCLS SXR beam */
-// 	if ( (modifier_a[MOD3_IDX] & BKRCUS) == 0)
-// #else
-// 	/* check for No LCLS HXR beam */
-// 	if ( (modifier_a[MOD5_IDX] & MOD5_BEAMFULL_MASK) == 0)
-// #endif
-// 	{
-// 		/* This is 360Hz. So printf will really screw timing. Only enable briefly */
-// 		// if(BLD_MCAST_DEBUG >= 6)
-//     //         errlogPrintf("EVR fires (status %i, mod5 0x%08x, fid %d)\n",
-//     //                 status, (unsigned)modifier_a[MOD5_IDX], PULSEID(time_s) );
-// 		/* No beam */
-// 		//return;
-// 	}
-
-	// fidpipeline = PULSEID(time_s);
-	// tscLast	= evrGetFiducialTsc();
-	// epicsTimeGetEvent( &time40, 40 );
-	// fid40 = PULSEID(time40);
-
-	/* Get timestamps for beam fiducial */
-	// bldFiducialTime = time_s;
-	// bldFiducialTsc	= GetHiResTicks();
-
-	// if(BLD_MCAST_DEBUG >= 5) {
-	// 	double			deltaLastFid;
-	// 	deltaLastFid	= HiResTicksToSeconds( bldFiducialTsc - tscLast   ) * 1e3;
-	// 	errlogPrintf( "pipeline fid %d (-%0.2f)\n", fidpipeline, deltaLastFid );
-	// /* HACK */
-	// 	return;
-	// }
-
-	/* This is 120Hz. So printf will screw timing. Only enable briefly. */
-	// if(BLD_MCAST_DEBUG >= 4) errlogPrintf("EVR fires (status %i, mod5 0x%08x, fid %d, fid40 %d)\n", status, (unsigned)modifier_a[4], fidpipeline, fid40 );
-
-	// /* Signal the EVRFireEvent to trigger the fcomGetBlobSet call */
-  // std::cout << "Did we get to the Event Signal?" << std::endl;
-	// epicsEventSignal( EVRFireEvent);
-
-// #ifdef RTEMS
-// 	if ( pBlobSet == NULL ) {
-// 		BSP_timer_start( BSPTIMER, timer_delay_clicks );
-// 	}
-// #endif
+  
 	return;
 }
 

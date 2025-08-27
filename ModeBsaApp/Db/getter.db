@@ -1,7 +1,7 @@
 ## getter.db
 
 
-record(mbbi, "$(USER):HXR_STATE")
+record(mbbi, "$(USER):$(D_HXR):$(ATTR)BR")
 {
   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))HXR_STATE")
   field(DTYP, "asynInt32")
@@ -22,7 +22,7 @@ record(mbbi, "$(USER):HXR_STATE")
   field(SCAN, "I/O Intr")
 }
 
-record(mbbi, "$(USER):SXR_STATE")
+record(mbbi, "$(USER):$(D_SXR):$(ATTR)BR")
 {
   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))SXR_STATE")
   field(DTYP, "asynInt32")

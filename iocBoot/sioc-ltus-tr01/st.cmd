@@ -31,19 +31,6 @@ epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
 epicsEnvSet("ENGINEER","J.Mock")
 epicsEnvSet("LOCATION","cpu-sys0-fb01")
 
-#========================================================================
-# Fast Feedback Application Specific Environment Variables
-#========================================================================
-
-#System Location:
-epicsEnvSet("FB", "FB04")
-epicsEnvSet("LOOP", "TR01")
-epicsEnvSet("D", "FBCK:$(FB):$(LOOP)")
-epicsEnvSet("CONFIG_NAME", "LaunchLoop1")
-
-# Which BY1 bend magnet do we want to read energy from?
-epicsEnvSet("BEND_MAG", "BEND:LTUS:525:BDES")
-
 #===================================================================
 # Set MACROS for EVRs & VIOC
 #===================================================================
@@ -67,18 +54,25 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # 
 # =================================================================
 
+# BSA Prefixes
+epicsEnvSet("D_HXR", "D_HXR")
+epicsEnvSet("D_SXR", "D_SXR")
+epicsEnvSet("ATTR", "X_POS")
+
+# Required for the port driver
+epicsEnvSet("USER", "USER")
+epicsEnvSet("PORT_NAME", "PORT_NAME")
+
 # END: Additional Environment variables
 #======================================================================
 dbLoadDatabase("dbd/ModeBsa.dbd")
 ModeBsa_registerRecordDeviceDriver(pdbbase)
 
 
-dbLoadRecords("db/getter.db", "USER=lujko,PORT=lujko1,ADDR=0,TIMEOUT=0")
+dbLoadRecords("db/getter.db", "USER=${USER},PORT=${PORT_NAME}, ADDR=0,TIMEOUT=0,D_HXR=${D_HXR},D_SXR=${D_SXR},ATTR=${ATTR}")
 
 #iocBoot/common/st.cmd CODE STARTS HERE
 
-# Environment varaible for logInit
-epicsEnvSet("SUBSYS","fbck")
     
 ######################################################################
 #======================================================================    
@@ -104,10 +98,7 @@ epicsEnvSet("SUBSYS","fbck")
 eevrmaConfigure(0, "/dev/${VEVR}")
 
 # ======= EVR Setup Complete ========================================
-# Each feedback needs the LOCA_NAME macro for LoopConfiguration.cc
-epicsEnvSet("LOCA_NAME","${FB}")
-epicsEnvSet("LOCA2_NAME", "${FB}", 1)
-#
+
 
 #########################################################################
 #BEGIN: Load the record database
@@ -121,8 +112,8 @@ dbLoadRecords("db/EVR-TEMPLATE.db", "EVR=${EVR_DEV1},IOC=${IOC_NAME}")
 # ===================================================================
 # load bsa database
 # ===================================================================
-dbLoadRecords("db/bsaFbck.db",  "D=BEAM:HXR, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=X_POS, INP=HXR_CHANNEL, SINK_SIZE=1")
-dbLoadRecords("db/bsaFbck.db",  "D=BEAM:SXR, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=X_POS, INP=SXR_CHANNEL, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=${D_HXR}, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=${ATTR}, INP=HXR_CHANNEL, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=${D_SXR}, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=${ATTR}, INP=SXR_CHANNEL, SINK_SIZE=1")
     
 ######################################################################
 #=======================================================================
@@ -135,7 +126,7 @@ system("rtPrioritySetup.cmd.evr ${VEVR}")
 evrInitialize();
 
 ##Driver Launches
-GetterDriverConfigure("lujko1")
+GetterDriverConfigure("${PORT_NAME}")
 
 iocInit
 
