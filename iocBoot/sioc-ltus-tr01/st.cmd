@@ -117,6 +117,12 @@ epicsEnvSet("LOCA2_NAME", "${FB}", 1)
 # load evr database
 # ===================================================================
 dbLoadRecords("db/EVR-TEMPLATE.db", "EVR=${EVR_DEV1},IOC=${IOC_NAME}") 
+
+# ===================================================================
+# load bsa database
+# ===================================================================
+dbLoadRecords("db/bsaFbck.db",  "D=BEAM:HXR, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=X_POS, INP=HXR_CHANNEL, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=BEAM:SXR, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=X_POS, INP=SXR_CHANNEL, SINK_SIZE=1")
     
 ######################################################################
 #=======================================================================

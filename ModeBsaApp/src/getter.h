@@ -17,6 +17,8 @@
 #include <evrPattern.h>
 #include <epicsTime.h>
 #include <errlog.h>
+#include "BsaApi.h"
+#include "alarm.h"
 //#include "PatternManager.h"
 
 using namespace std;
@@ -56,4 +58,10 @@ class GetterDriver : public asynPortDriver {
     int st_clts_in_2_idx;
     int bykiks_idx;
     int tdundb_in_idx;
+
+    /**
+    * BSA channel for real time communication of states.
+    */
+    BsaChannel _bsaHXRChannel;
+    BsaChannel _bsaSXRChannel;
 };
