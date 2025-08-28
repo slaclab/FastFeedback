@@ -1,0 +1,2087 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1132</width>
+    <height>898</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>40</y>
+     <width>541</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <item row="3" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_14">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:GUN_RATE.VAL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_10">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:BCS_FAULT.VAL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_6">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:SHUTTER.VAL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_18">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:SOFT_INJRATE.VAL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_8">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="text">
+       <string>EVNT:SYS0:1:NC_SOFT_INJRATE == 0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_12">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:GUN_OFF.VAL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_5">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="text">
+       <string>EVNT:SYS0:1:LCLSBEAMRATE == 0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_3">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="text">
+       <string>BCS:MCC0:1:BEAMPMSV == 0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_4">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="text">
+       <string>IOC:BSY0:MP01:PC_RATE == 1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_7">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="text">
+       <string>IOC:BSY0:MP01:GUNSXR_RATE == 1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="text">
+       <string>MPS:IN20:200:MSHT1_IN_MPS == 1</string>
+      </property>
+      <property name="channel" stdset="0">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_16">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:SXR_PERMIT.VAL</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>410</y>
+     <width>541</width>
+     <height>48</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_19">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="text">
+       <string>BEND:IN20:931:STATE == 0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_21">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:SPECTROMETER_STATE.VAL</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>490</y>
+     <width>541</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_23">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="text">
+       <string>DUMP:LI21:305:TGT_STS == 2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_24">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:TD_11_IN.VAL</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_4">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>570</y>
+     <width>541</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_27">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:ST_CLTS_IN_A.VAL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_34">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="text">
+       <string>PPS:BSYS:1:STCLTS:OUT_B == 0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_26">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="text">
+       <string>PPS:BSYS:1:STCLTS:OUT_A == 0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_36">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:ST_CLTS_IN_B.VAL</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_5">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>680</y>
+     <width>541</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_5">
+    <item row="0" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_30">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:BYKIKS.VAL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_29">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="text">
+       <string>IOC:BSY0:MP01:BYKIKS_RATE == 0</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_6">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>750</y>
+     <width>541</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_6">
+    <item row="0" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_33">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:TDUNDB_IN.VAL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_32">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="text">
+       <string>DUMP:LTUS:972:TGT_STS == 2</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>OR</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_9">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>OR</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_11">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>180</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>OR</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_13">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>230</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>OR</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_15">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>270</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>OR</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_17">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>620</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>OR</string>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>120</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>0.0, 50.0</string>
+     <string>100.0, 50.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_7">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>330</y>
+     <width>541</width>
+     <height>48</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_7">
+    <item row="0" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_20">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="text">
+       <string>remaining state</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_22">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:SPECTROMETER_STATE.VAL</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_2">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>300</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>0.0, 50.0</string>
+     <string>100.0, 50.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_3">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>380</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>0.0, 50.0</string>
+     <string>100.0, 50.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_4">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>460</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>0.0, 50.0</string>
+     <string>100.0, 50.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_5">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>560</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>0.0, 50.0</string>
+     <string>100.0, 50.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_6">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>650</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>0.0, 50.0</string>
+     <string>100.0, 50.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_7">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>720</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>0.0, 50.0</string>
+     <string>100.0, 50.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingEllipse" name="PyDMDrawingEllipse_3">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>400</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="brush" stdset="0">
+    <brush brushstyle="SolidPattern">
+     <color alpha="255">
+      <red>150</red>
+      <green>160</green>
+      <blue>220</blue>
+     </color>
+    </brush>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingEllipse" name="PyDMDrawingEllipse_4">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>140</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="brush" stdset="0">
+    <brush brushstyle="SolidPattern">
+     <color alpha="255">
+      <red>150</red>
+      <green>160</green>
+      <blue>220</blue>
+     </color>
+    </brush>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingEllipse" name="PyDMDrawingEllipse_5">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>320</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="brush" stdset="0">
+    <brush brushstyle="SolidPattern">
+     <color alpha="255">
+      <red>150</red>
+      <green>160</green>
+      <blue>220</blue>
+     </color>
+    </brush>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingEllipse" name="PyDMDrawingEllipse_6">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>480</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="brush" stdset="0">
+    <brush brushstyle="SolidPattern">
+     <color alpha="255">
+      <red>150</red>
+      <green>160</green>
+      <blue>220</blue>
+     </color>
+    </brush>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingEllipse" name="PyDMDrawingEllipse_7">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>580</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="brush" stdset="0">
+    <brush brushstyle="SolidPattern">
+     <color alpha="255">
+      <red>150</red>
+      <green>160</green>
+      <blue>220</blue>
+     </color>
+    </brush>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingEllipse" name="PyDMDrawingEllipse_8">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>670</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="brush" stdset="0">
+    <brush brushstyle="SolidPattern">
+     <color alpha="255">
+      <red>150</red>
+      <green>160</green>
+      <blue>220</blue>
+     </color>
+    </brush>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingEllipse" name="PyDMDrawingEllipse_9">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>740</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="brush" stdset="0">
+    <brush brushstyle="SolidPattern">
+     <color alpha="255">
+      <red>150</red>
+      <green>160</green>
+      <blue>220</blue>
+     </color>
+    </brush>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_25">
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>160</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>0: Beam Off</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_28">
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>340</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>1: Gun Spec</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_31">
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>420</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>2: Inj Spec</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_35">
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>600</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>4: ST-CLTS</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_37">
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>690</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>5: BYKIKS</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_38">
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>760</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>6: TDUNDB</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_39">
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>830</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>7: SXR Dump</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_40">
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>500</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>3: TD-11</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_8">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>300</y>
+     <width>100</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>50.0, 0.0</string>
+     <string>50.0, 100.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_9">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>380</y>
+     <width>100</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>50.0, 0.0</string>
+     <string>50.0, 100.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_10">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>460</y>
+     <width>100</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>50.0, 0.0</string>
+     <string>50.0, 100.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_11">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>540</y>
+     <width>100</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>50.0, 0.0</string>
+     <string>50.0, 100.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_12">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>650</y>
+     <width>100</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>50.0, 0.0</string>
+     <string>50.0, 100.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_13">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>720</y>
+     <width>100</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>50.0, 0.0</string>
+     <string>50.0, 100.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_14">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>790</y>
+     <width>101</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>50.0, 0.0</string>
+     <string>50.0, 100.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingPolyline" name="PyDMDrawingPolyline_15">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>790</y>
+     <width>371</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="channel" stdset="0">
+    <string/>
+   </property>
+   <property name="arrowSize" stdset="0">
+    <number>6</number>
+   </property>
+   <property name="arrowEndPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowStartPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="arrowMidPoint" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="flipMidPointArrow" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="points">
+    <stringlist>
+     <string>0.0, 50.0</string>
+     <string>371.0, 50.0</string>
+    </stringlist>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingEllipse" name="PyDMDrawingEllipse_10">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>810</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="brush" stdset="0">
+    <brush brushstyle="SolidPattern">
+     <color alpha="255">
+      <red>150</red>
+      <green>160</green>
+      <blue>220</blue>
+     </color>
+    </brush>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_41">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>310</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>NO</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_42">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>390</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>NO</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_43">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>470</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>NO</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_44">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>550</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>NO</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_45">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>660</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>NO</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_46">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>730</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>NO</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_47">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>820</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>NO</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_48">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>150</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>YES</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_49">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>330</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>YES</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_50">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>410</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>YES</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_51">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>490</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>YES</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_52">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>590</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>YES</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_53">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>680</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>YES</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_54">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>750</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>YES</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_55">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>20</y>
+     <width>101</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>Current Value</string>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="PyDMLabel_56">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>20</y>
+     <width>101</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>Required Value</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_8">
+   <property name="geometry">
+    <rect>
+     <x>910</x>
+     <y>390</y>
+     <width>160</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_8">
+    <item row="0" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_57">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <property name="text">
+       <string>Current State</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="PyDMLabel" name="PyDMLabel_58">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="lineWidth">
+       <number>100</number>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://${USER}:${D_SXR}:${ATTR}BR</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="PyDMDrawingRectangle" name="PyDMDrawingRectangle">
+   <property name="geometry">
+    <rect>
+     <x>900</x>
+     <y>380</y>
+     <width>181</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+  </widget>
+  <zorder>PyDMDrawingRectangle</zorder>
+  <zorder>PyDMDrawingEllipse_10</zorder>
+  <zorder>gridLayoutWidget</zorder>
+  <zorder>gridLayoutWidget_2</zorder>
+  <zorder>gridLayoutWidget_3</zorder>
+  <zorder>gridLayoutWidget_4</zorder>
+  <zorder>gridLayoutWidget_5</zorder>
+  <zorder>gridLayoutWidget_6</zorder>
+  <zorder>PyDMLabel</zorder>
+  <zorder>PyDMLabel_9</zorder>
+  <zorder>PyDMLabel_11</zorder>
+  <zorder>PyDMLabel_13</zorder>
+  <zorder>PyDMLabel_15</zorder>
+  <zorder>PyDMLabel_17</zorder>
+  <zorder>PyDMDrawingPolyline</zorder>
+  <zorder>gridLayoutWidget_7</zorder>
+  <zorder>PyDMDrawingPolyline_2</zorder>
+  <zorder>PyDMDrawingPolyline_3</zorder>
+  <zorder>PyDMDrawingPolyline_4</zorder>
+  <zorder>PyDMDrawingPolyline_5</zorder>
+  <zorder>PyDMDrawingPolyline_6</zorder>
+  <zorder>PyDMDrawingPolyline_7</zorder>
+  <zorder>PyDMDrawingEllipse_3</zorder>
+  <zorder>PyDMDrawingEllipse_4</zorder>
+  <zorder>PyDMDrawingEllipse_5</zorder>
+  <zorder>PyDMDrawingEllipse_6</zorder>
+  <zorder>PyDMDrawingEllipse_7</zorder>
+  <zorder>PyDMDrawingEllipse_8</zorder>
+  <zorder>PyDMDrawingEllipse_9</zorder>
+  <zorder>PyDMLabel_25</zorder>
+  <zorder>PyDMLabel_28</zorder>
+  <zorder>PyDMLabel_31</zorder>
+  <zorder>PyDMLabel_35</zorder>
+  <zorder>PyDMLabel_37</zorder>
+  <zorder>PyDMLabel_38</zorder>
+  <zorder>PyDMLabel_39</zorder>
+  <zorder>PyDMLabel_40</zorder>
+  <zorder>PyDMDrawingPolyline_8</zorder>
+  <zorder>PyDMDrawingPolyline_9</zorder>
+  <zorder>PyDMDrawingPolyline_10</zorder>
+  <zorder>PyDMDrawingPolyline_11</zorder>
+  <zorder>PyDMDrawingPolyline_12</zorder>
+  <zorder>PyDMDrawingPolyline_13</zorder>
+  <zorder>PyDMDrawingPolyline_14</zorder>
+  <zorder>PyDMDrawingPolyline_15</zorder>
+  <zorder>PyDMLabel_41</zorder>
+  <zorder>PyDMLabel_42</zorder>
+  <zorder>PyDMLabel_43</zorder>
+  <zorder>PyDMLabel_44</zorder>
+  <zorder>PyDMLabel_45</zorder>
+  <zorder>PyDMLabel_46</zorder>
+  <zorder>PyDMLabel_47</zorder>
+  <zorder>PyDMLabel_48</zorder>
+  <zorder>PyDMLabel_49</zorder>
+  <zorder>PyDMLabel_50</zorder>
+  <zorder>PyDMLabel_51</zorder>
+  <zorder>PyDMLabel_52</zorder>
+  <zorder>PyDMLabel_53</zorder>
+  <zorder>PyDMLabel_54</zorder>
+  <zorder>PyDMLabel_55</zorder>
+  <zorder>PyDMLabel_56</zorder>
+  <zorder>gridLayoutWidget_8</zorder>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PyDMLabel</class>
+   <extends>QLabel</extends>
+   <header>pydm.widgets.label</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMDrawingEllipse</class>
+   <extends>QWidget</extends>
+   <header>pydm.widgets.drawing</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMDrawingRectangle</class>
+   <extends>QWidget</extends>
+   <header>pydm.widgets.drawing</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMDrawingPolyline</class>
+   <extends>QWidget</extends>
+   <header>pydm.widgets.drawing</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
