@@ -5,6 +5,7 @@
 #include <memory>
 #include <functional>
 #include <map>
+#include <string.h>
 
 #include <iocsh.h>
 #include <epicsExport.h>

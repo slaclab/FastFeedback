@@ -5,6 +5,7 @@
 
 static epicsEventId EVRFireEvent = NULL;
 static epicsTimeStamp time40;
+static evrModifier_ta modifier_prev;
 
 void xrayTask(void *driverPointer);
 void EVRFireTest(void*);
@@ -127,89 +128,99 @@ void BeamPathDriver::xrayTask(void)
     getDoubleParam(sxr_permit_idx, &sxr_permit);
     getDoubleParam(soft_injrate_idx, &soft_injrate);
 
-    // check conditions for HXR
-    if (not(shutter == 1 or bcs_fault == 0 or gun_off == 1 or gun_rate == 0 or hxr_permit == 1 or hard_injrate == 0))
+    // NC beam is present
+    if ((modifier_prev[MOD3_IDX] & POCKCEL_PERM) != 0)
     {
-      int d2_in_1;
-      int d2_in_2;
-      int bykik;
-      int tdund_in;
+      // check conditions for HXR
+      // absence of BKRCUS indicates absence of SXR
+      if (((modifier_prev[MOD3_IDX] & BKRCUS) == 0) and
+        not(shutter == 1 or bcs_fault == 0 or gun_off == 1 or gun_rate == 0 or hxr_permit == 1 or hard_injrate == 0))
+      {
+        int d2_in_1;
+        int d2_in_2;
+        int bykik;
+        int tdund_in;
 
-      getIntegerParam(spectrometer_state_idx, &spectrometer_state);
-      getIntegerParam(td_11_in_idx, &td_11_in);
+        getIntegerParam(spectrometer_state_idx, &spectrometer_state);
+        getIntegerParam(td_11_in_idx, &td_11_in);
 
-      getIntegerParam(d2_in_1_idx, &d2_in_1);
-      getIntegerParam(d2_in_2_idx, &d2_in_2);
-      getIntegerParam(bykik_idx, &bykik);
-      getIntegerParam(tdund_in_idx, &tdund_in);
+        getIntegerParam(d2_in_1_idx, &d2_in_1);
+        getIntegerParam(d2_in_2_idx, &d2_in_2);
+        getIntegerParam(bykik_idx, &bykik);
+        getIntegerParam(tdund_in_idx, &tdund_in);
 
-      if (spectrometer_state == 0)
-      {
-        hxr_state = 1;
+        if (spectrometer_state == 0)
+        {
+          hxr_state = 1;
+        }
+        else if (td_11_in == 2) 
+        {
+          hxr_state = 2;
+        }
+        else if (d2_in_1 == 0 or d2_in_2 == 0)
+        {
+          hxr_state = 3;
+        }
+        else if (bykik == 0 and ((modifier_prev[MOD2_IDX] & BYKIK) != 0))
+        {
+          hxr_state = 4;
+        }
+        else if (tdund_in == 2)
+        {
+          hxr_state = 5;
+        }
+        else 
+        {
+          hxr_state = 6;  
+        }
       }
-      else if (td_11_in == 2) 
+
+      // check conditions for SXR
+      // presence of BKRCUS indicates presence of SXR
+      if (((modifier_prev[MOD3_IDX] & BKRCUS) != 0) and
+        not(shutter == 1 or bcs_fault == 0 or gun_off == 1 or gun_rate == 0 or sxr_permit == 1 or soft_injrate == 0))
       {
-        hxr_state = 2;
-      }
-      else if (d2_in_1 == 0 or d2_in_2 == 0)
-      {
-        hxr_state = 3;
-      }
-      else if (bykik == 0)
-      {
-        hxr_state = 4;
-      }
-      else if (tdund_in == 2)
-      {
-        hxr_state = 5;
-      }
-      else 
-      {
-        hxr_state = 6;  
+        int st_clts_in_1;
+        int st_clts_in_2;
+        int bykiks;
+        int tdundb_in;
+
+        getIntegerParam(spectrometer_state_idx, &spectrometer_state);
+        getIntegerParam(td_11_in_idx, &td_11_in);
+        
+        getIntegerParam(st_clts_in_1_idx, &st_clts_in_1);
+        getIntegerParam(st_clts_in_2_idx, &st_clts_in_2);
+        getIntegerParam(bykiks_idx, &bykiks);
+        getIntegerParam(tdundb_in_idx, &tdundb_in);
+
+        if (spectrometer_state == 0)
+        {
+          sxr_state = 1;
+        }
+        else if (td_11_in == 2) 
+        {
+          sxr_state = 2;
+        }
+        else if (st_clts_in_1 == 0 or st_clts_in_2 == 0)
+        {
+          sxr_state = 3;
+        }
+        else if (bykiks == 0 and ((modifier_prev[MOD2_IDX] & BYKIKS) != 0))
+        {
+          sxr_state = 4;
+        }
+        else if (tdundb_in == 2)
+        {
+          sxr_state = 5;
+        }
+        else 
+        {
+          sxr_state = 6;  
+        }
       }
     }
 
-    // check conditions for SXR
-    if (not(shutter == 1 or bcs_fault == 0 or gun_off == 1 or gun_rate == 0 or sxr_permit == 1 or soft_injrate == 0))
-    {
-      int st_clts_in_1;
-      int st_clts_in_2;
-      int bykiks;
-      int tdundb_in;
-
-      getIntegerParam(spectrometer_state_idx, &spectrometer_state);
-      getIntegerParam(td_11_in_idx, &td_11_in);
-      
-      getIntegerParam(st_clts_in_1_idx, &st_clts_in_1);
-      getIntegerParam(st_clts_in_2_idx, &st_clts_in_2);
-      getIntegerParam(bykiks_idx, &bykiks);
-      getIntegerParam(tdundb_in_idx, &tdundb_in);
-
-      if (spectrometer_state == 0)
-      {
-        sxr_state = 1;
-      }
-      else if (td_11_in == 2) 
-      {
-        sxr_state = 2;
-      }
-      else if (st_clts_in_1 == 0 or st_clts_in_2 == 0)
-      {
-        sxr_state = 3;
-      }
-      else if (bykiks == 0)
-      {
-        sxr_state = 4;
-      }
-      else if (tdundb_in == 2)
-      {
-        sxr_state = 5;
-      }
-      else 
-      {
-        sxr_state = 6;  
-      }
-    }
+    
 
     //Set param of state
     setIntegerParam(hxr_state_idx, hxr_state);
@@ -253,7 +264,9 @@ void EVRFireTest(void*)
 		return;
 	}
 
-  // indicates the presence of event 40
+  memcpy(modifier_prev, modifier_a, sizeof(evrModifier_ta));
+
+  // indicates the presence of event code 40
   if (((modifier_a[MOD2_IDX] & TIMESLOT1_MASK) || (modifier_a[MOD2_IDX] & TIMESLOT4_MASK)) == 1)
   {
     /* Signal the EVRFireEvent */
