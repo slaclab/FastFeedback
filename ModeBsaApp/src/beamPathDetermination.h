@@ -1,4 +1,4 @@
-//Getter.h 
+//beamPathDetermination.h 
 
 #include <iostream>
 #include <cstdint>
@@ -25,10 +25,10 @@ using namespace std;
 
 #define DEFAULT_EVR_TIMEOUT	0.2		/* Default EVR event timeout, for 30Hz */
 
-class GetterDriver : public asynPortDriver {
+class BeamPathDriver : public asynPortDriver {
   public:
-    GetterDriver(const char *portName);
-    ~GetterDriver();
+    BeamPathDriver(const char *portName);
+    ~BeamPathDriver();
     void xrayTask(void);
 
   protected:

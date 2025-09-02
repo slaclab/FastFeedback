@@ -1,4 +1,4 @@
-## getter.db
+## beamPathDetermination.db
 
 
 record(mbbi, "$(USER):$(D_HXR):$(ATTR)BR")

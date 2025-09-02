@@ -69,7 +69,7 @@ dbLoadDatabase("dbd/ModeBsa.dbd")
 ModeBsa_registerRecordDeviceDriver(pdbbase)
 
 
-dbLoadRecords("db/getter.db", "USER=${USER},PORT=${PORT_NAME}, ADDR=0,TIMEOUT=0,D_HXR=${D_HXR},D_SXR=${D_SXR},ATTR=${ATTR}")
+dbLoadRecords("db/beamPathDetermination.db", "USER=${USER},PORT=${PORT_NAME}, ADDR=0,TIMEOUT=0,D_HXR=${D_HXR},D_SXR=${D_SXR},ATTR=${ATTR}")
 
 #iocBoot/common/st.cmd CODE STARTS HERE
 
@@ -126,7 +126,7 @@ system("rtPrioritySetup.cmd.evr ${VEVR}")
 evrInitialize();
 
 ##Driver Launches
-GetterDriverConfigure("${PORT_NAME}")
+BeamPathDriverConfigure("${PORT_NAME}")
 
 iocInit
 

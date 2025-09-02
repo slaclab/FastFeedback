@@ -1,6 +1,6 @@
-//Getter.cpp
+//beamPathDetermination.cpp
 
-#include "getter.h"
+#include "beamPathDetermination.h"
 #include <unistd.h>
 
 static epicsEventId EVRFireEvent = NULL;
@@ -10,7 +10,7 @@ void xrayTask(void *driverPointer);
 void EVRFireTest(void*);
 
 
-GetterDriver::GetterDriver(const char *portName): asynPortDriver(
+BeamPathDriver::BeamPathDriver(const char *portName): asynPortDriver(
     portName,
     1,
     asynDrvUserMask | asynInt32ArrayMask | asynInt16ArrayMask | asynUInt32DigitalMask | asynInt32Mask | asynFloat64Mask | asynFloat64ArrayMask,
@@ -48,9 +48,11 @@ GetterDriver::GetterDriver(const char *portName): asynPortDriver(
   createParam("BYKIKS", asynParamInt32, &bykiks_idx);
   createParam("TDUNDB_IN", asynParamInt32, &tdundb_in_idx);
 
+  // create BSA channels
   _bsaHXRChannel = BSA_CreateChannel("HXR_CHANNEL");
   _bsaSXRChannel = BSA_CreateChannel("SXR_CHANNEL");
 
+  // launch a thread that determines the state of the HXR and the SXR beams
   asynStatus status_xray;
   status_xray = (asynStatus)(epicsThreadCreate("XRAYGetterTask", epicsThreadPriorityMedium, epicsThreadGetStackSize(epicsThreadStackMedium), (EPICSTHREADFUNC)::xrayTask, this) == NULL);
   if (status_xray)
@@ -62,11 +64,11 @@ GetterDriver::GetterDriver(const char *portName): asynPortDriver(
 
 void xrayTask(void *driverPointer)
 {
-  GetterDriver *pPvt = (GetterDriver *) driverPointer;
+  BeamPathDriver *pPvt = (BeamPathDriver *) driverPointer;
   pPvt->xrayTask();
 }
 
-void GetterDriver::xrayTask(void)
+void BeamPathDriver::xrayTask(void)
 {
   int hxr_state = 0;
   int sxr_state = 0;
@@ -217,6 +219,7 @@ void GetterDriver::xrayTask(void)
     double hxr_state_double = (double)hxr_state;
     double sxr_state_double = (double)sxr_state;
 
+    // store the state values for HXR and SXR into their respective BSA PVs
     int return_status_hxr = BSA_StoreData(_bsaHXRChannel, time40, hxr_state_double, epicsAlarmNone, epicsSevNone);
     if (return_status_hxr) {std::cout << "BSA_StoreData failed for HXR" << std::endl;}
 
@@ -225,7 +228,7 @@ void GetterDriver::xrayTask(void)
   }
 }
 
-GetterDriver::~GetterDriver() 
+BeamPathDriver::~BeamPathDriver() 
 {
   // Release BSA channels here
   BSA_ReleaseChannel(_bsaHXRChannel);
@@ -264,20 +267,20 @@ void EVRFireTest(void*)
 
 
 extern "C" {
-  int GetterDriverConfigure(const char* portName) {
-    new GetterDriver(portName);
+  int BeamPathDriverConfigure(const char* portName) {
+    new BeamPathDriver(portName);
     return asynSuccess;
   }
-  static const iocshArg getterArg0 ={"portName", iocshArgString};
-  static const iocshArg * const getterArgs[] = {&getterArg0};
-  static const iocshFuncDef getterFuncDef = {"GetterDriverConfigure", 1, getterArgs};
-  static void getterCallFunc(const iocshArgBuf *args)
+  static const iocshArg beamPathArg0 ={"portName", iocshArgString};
+  static const iocshArg * const beamPathArgs[] = {&beamPathArg0};
+  static const iocshFuncDef beamPathFuncDef = {"BeamPathDriverConfigure", 1, beamPathArgs};
+  static void beamPathCallFunc(const iocshArgBuf *args)
   {
-    GetterDriverConfigure(args[0].sval);
+    BeamPathDriverConfigure(args[0].sval);
   }
-  void GetterDriverRegister(void) {
-    iocshRegister(&getterFuncDef, getterCallFunc);
+  void BeamPathDriverRegister(void) {
+    iocshRegister(&beamPathFuncDef, beamPathCallFunc);
   }
-  epicsExportRegistrar(GetterDriverRegister);
+  epicsExportRegistrar(BeamPathDriverRegister);
 }
 

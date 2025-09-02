@@ -7,7 +7,7 @@ include $(TOP)/configure/CONFIG
 
 # Install databases, templates & substitutions like this
 DB += ModeBsaVersion.db
-DB += getter.db
+DB += beamPathDetermination.db
 
 # If <anyname>.db template is not named <anyname>*.template add
 # <anyname>_TEMPLATE = <templatename>

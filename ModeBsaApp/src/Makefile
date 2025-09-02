@@ -33,7 +33,7 @@ ModeBsa_DBD += bsaCore.dbd
 
 # ModeBsa_registerRecordDeviceDriver.cpp derives from ModeBsa.dbd
 ModeBsa_SRCS += ModeBsa_registerRecordDeviceDriver.cpp
-ModeBsa_SRCS += getter.cpp
+ModeBsa_SRCS += beamPathDetermination.cpp
 
 # Build the main IOC entry point where needed
 ModeBsa_SRCS_DEFAULT += ModeBsaMain.cpp
