@@ -117,6 +117,9 @@ void BeamPathDriver::xrayTask(void)
 			}
 		}
 
+    hxr_state = 0;
+    sxr_state = 0;
+
     getIntegerParam(shutter_idx, &shutter);
     getIntegerParam(bcs_fault_idx, &bcs_fault);
     getIntegerParam(gun_off_idx, &gun_off);
@@ -128,11 +131,11 @@ void BeamPathDriver::xrayTask(void)
     getDoubleParam(sxr_permit_idx, &sxr_permit);
     getDoubleParam(soft_injrate_idx, &soft_injrate);
 
-    // NC beam is present
-    if ((modifier_prev[MOD3_IDX] & POCKCEL_PERM) != 0)
+    // If either of these masks are present, we infer that NC beam is present
+    if ((modifier_prev[MOD3_IDX] & POCKCEL_PERM) != 0 or (modifier_prev[MOD6_IDX] & MPS_PERM_POCKCELL_MASK) != 0)
     {
       // check conditions for HXR
-      // absence of BKRCUS indicates absence of SXR
+      // absence of BKRCUS indicates absence of SXR, which implies presence of HXR
       if (((modifier_prev[MOD3_IDX] & BKRCUS) == 0) and
         not(shutter == 1 or bcs_fault == 0 or gun_off == 1 or gun_rate == 0 or hxr_permit == 1 or hard_injrate == 0))
       {
@@ -161,7 +164,7 @@ void BeamPathDriver::xrayTask(void)
         {
           hxr_state = 3;
         }
-        else if (bykik == 0 and ((modifier_prev[MOD2_IDX] & BYKIK) != 0))
+        else if (bykik == 0 or ((modifier_prev[MOD2_IDX] & BYKIK) != 0))
         {
           hxr_state = 4;
         }
@@ -205,7 +208,7 @@ void BeamPathDriver::xrayTask(void)
         {
           sxr_state = 3;
         }
-        else if (bykiks == 0 and ((modifier_prev[MOD2_IDX] & BYKIKS) != 0))
+        else if (bykiks == 0 or ((modifier_prev[MOD2_IDX] & BYKIKS) != 0))
         {
           sxr_state = 4;
         }
