@@ -45,7 +45,7 @@ record(mbbi, "$(USER):$(D_SXR):$(ATTR)BR")
 
 record(ao, "$(USER):SHUTTER") 
 {
-  field(DOL,     "$(USER):TEST_0 CPP")
+  field(DOL,     "MPS:IN20:200:MSHT1_IN_MPS CPP")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynInt32")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))SHUTTER")
@@ -53,7 +53,7 @@ record(ao, "$(USER):SHUTTER")
 
 record(ao, "$(USER):BCS_FAULT") 
 {
-  field(DOL,     "$(USER):TEST_1 CPP")
+  field(DOL,     "BCS:MCC0:1:BEAMPMSV CPP")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynInt32")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))BCS_FAULT")
@@ -61,7 +61,7 @@ record(ao, "$(USER):BCS_FAULT")
 
 record(ao, "$(USER):GUN_OFF") 
 {
-  field(DOL,     "$(USER):TEST_2 CPP")
+  field(DOL,     "IOC:BSY0:MP01:PC_RATE CPP")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynInt32")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))GUN_OFF")
@@ -69,7 +69,7 @@ record(ao, "$(USER):GUN_OFF")
 
 record(ao, "$(USER):GUN_RATE") 
 {
-  field(DOL,     "$(USER):TEST_3 CPP")
+  field(DOL,     "EVNT:SYS0:1:LCLSBEAMRATE CPP")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynFloat64")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))GUN_RATE")
@@ -77,7 +77,7 @@ record(ao, "$(USER):GUN_RATE")
 
 record(ao, "$(USER):HXR_PERMIT") 
 {
-  field(DOL,     "$(USER):TEST_4 CPP")
+  field(DOL,     "IOC:BSY0:MP01:GUNHXR_RATE CPP")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynFloat64")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))HXR_PERMIT")
@@ -85,7 +85,7 @@ record(ao, "$(USER):HXR_PERMIT")
 
 record(ao, "$(USER):HARD_INJRATE") 
 {
-  field(DOL,     "$(USER):TEST_5 CPP")
+  field(DOL,     "EVNT:SYS0:1:NC_HARD_INJRATE CPP")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynFloat64")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))HARD_INJRATE")
@@ -93,7 +93,7 @@ record(ao, "$(USER):HARD_INJRATE")
 
 record(ao, "$(USER):SPECTROMETER_STATE") 
 {
-  field(DOL,     "$(USER):TEST_6 CPP")
+  field(DOL,     "BEND:IN20:931:STATE CPP")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynInt32")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))SPECTROMETER_STATE")
@@ -101,7 +101,7 @@ record(ao, "$(USER):SPECTROMETER_STATE")
 
 record(ao, "$(USER):TD_11_IN") 
 {
-  field(DOL,     "$(USER):TEST_7 CPP")
+  field(DOL,     "DUMP:LI21:305:TGT_STS CPP")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynInt32")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))TD_11_IN")
@@ -109,7 +109,7 @@ record(ao, "$(USER):TD_11_IN")
 
 record(ao, "$(USER):D2_IN_A") 
 {
-  field(DOL,     "$(USER):TEST_8 CPP")
+  field(DOL,     "STPR:BSYH:2:STD2_OUT_A CPP")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynInt32")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))D2_IN_A")
@@ -117,7 +117,7 @@ record(ao, "$(USER):D2_IN_A")
 
 record(ao, "$(USER):D2_IN_B") 
 {
-  field(DOL,     "$(USER):TEST_9 CPP")
+  field(DOL,     "STPR:BSYH:2:STD2_OUT_B CPP")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynInt32")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))D2_IN_B")
@@ -125,7 +125,7 @@ record(ao, "$(USER):D2_IN_B")
 
 record(ao, "$(USER):BYKIK") 
 {
-  field(DOL,     "$(USER):TEST_10  CPP")
+  field(DOL,     "IOC:BSY0:MP01:BYKIK_RATE CPP")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynInt32")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))BYKIK")
@@ -133,7 +133,7 @@ record(ao, "$(USER):BYKIK")
 
 record(ao, "$(USER):TDUND_IN") 
 {
-  field(DOL,     "$(USER):TEST_11  CPP")
+  field(DOL,     "DUMP:LTUH:970:TGT_STS CPP")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynInt32")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))TDUND_IN")
@@ -185,64 +185,4 @@ record(ao, "$(USER):TDUNDB_IN")
   field(OMSL,    "closed_loop")
   field(DTYP,    "asynInt32")
   field(OUT,     "@asyn($(PORT),$(ADDR),$(TIMEOUT))TDUNDB_IN")
-}
-
-record(ai, "$(USER):TEST_0") 
-{
-  
-}
-
-record(ai, "$(USER):TEST_1") 
-{
-
-}
-
-record(ai, "$(USER):TEST_2") 
-{
-
-}
-
-record(ai, "$(USER):TEST_3") 
-{
-
-}
-
-record(ai, "$(USER):TEST_4") 
-{
-
-}
-
-record(ai, "$(USER):TEST_5") 
-{
-
-}
-
-record(ai, "$(USER):TEST_6") 
-{
-
-}
-
-record(ai, "$(USER):TEST_7") 
-{
-
-}
-
-record(ai, "$(USER):TEST_8") 
-{
-
-}
-
-record(ai, "$(USER):TEST_9") 
-{
-
-}
-
-record(ai, "$(USER):TEST_10") 
-{
-
-}
-
-record(ai, "$(USER):TEST_11") 
-{
-
 }
