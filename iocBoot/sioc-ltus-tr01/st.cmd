@@ -59,6 +59,10 @@ epicsEnvSet("D_HXR", "D_HXR")
 epicsEnvSet("D_SXR", "D_SXR")
 epicsEnvSet("ATTR", "X_POS")
 
+epicsEnvSet("DEV", "PHYS:SYS0:1")
+epicsEnvSet("ATTR_HXR", "CU_HXR")
+epicsEnvSet("ATTR_SXR", "CU_SXR")
+
 # Required for the port driver
 epicsEnvSet("USER", "USER")
 epicsEnvSet("PORT_NAME", "PORT_NAME")
@@ -69,7 +73,7 @@ dbLoadDatabase("dbd/ModeBsa.dbd")
 ModeBsa_registerRecordDeviceDriver(pdbbase)
 
 
-dbLoadRecords("db/beamPathDetermination.db", "USER=${USER},PORT=${PORT_NAME}, ADDR=0,TIMEOUT=0,D_HXR=${D_HXR},D_SXR=${D_SXR},ATTR=${ATTR}")
+dbLoadRecords("db/beamPathDetermination.db", "USER=${USER},PORT=${PORT_NAME}, ADDR=0,TIMEOUT=0,D=${DEV},ATTR_HXR=${ATTR_HXR},ATTR_SXR=${ATTR_SXR}")
 
 #iocBoot/common/st.cmd CODE STARTS HERE
 
@@ -112,8 +116,8 @@ dbLoadRecords("db/EVR-TEMPLATE.db", "EVR=${EVR_DEV1},IOC=${IOC_NAME}")
 # ===================================================================
 # load bsa database
 # ===================================================================
-dbLoadRecords("db/bsaFbck.db",  "D=${D_HXR}, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=${ATTR}, INP=HXR_CHANNEL, SINK_SIZE=1")
-dbLoadRecords("db/bsaFbck.db",  "D=${D_SXR}, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=${ATTR}, INP=SXR_CHANNEL, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=${DEV}, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=${ATTR_HXR}, INP=HXR_CHANNEL, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=${DEV}, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=${ATTR_SXR}, INP=SXR_CHANNEL, SINK_SIZE=1")
     
 ######################################################################
 #=======================================================================

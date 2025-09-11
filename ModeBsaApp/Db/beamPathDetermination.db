@@ -1,7 +1,7 @@
 ## beamPathDetermination.db
 
 
-record(mbbi, "$(USER):$(D_HXR):$(ATTR)BR")
+record(mbbi, "$(D):$(ATTR_HXR)")
 {
   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))HXR_STATE")
   field(DTYP, "asynInt32")
@@ -22,7 +22,7 @@ record(mbbi, "$(USER):$(D_HXR):$(ATTR)BR")
   field(SCAN, "I/O Intr")
 }
 
-record(mbbi, "$(USER):$(D_SXR):$(ATTR)BR")
+record(mbbi, "$(D):$(ATTR_SXR)")
 {
   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))SXR_STATE")
   field(DTYP, "asynInt32")
