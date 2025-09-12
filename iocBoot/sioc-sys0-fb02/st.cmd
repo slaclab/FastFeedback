@@ -56,10 +56,6 @@ epicsEnvSet("LOCAL_SETPOINTS", "1")
 # =================================================================
 
 # BSA Prefixes
-epicsEnvSet("D_HXR", "D_HXR")
-epicsEnvSet("D_SXR", "D_SXR")
-epicsEnvSet("ATTR", "X_POS")
-
 epicsEnvSet("DEV", "PHYS:SYS0:1")
 epicsEnvSet("ATTR_HXR", "CU_HXR")
 epicsEnvSet("ATTR_SXR", "CU_SXR")
