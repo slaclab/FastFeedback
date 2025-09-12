@@ -23,7 +23,7 @@ cd ${TOP}
 # will try to repplace it.
 # So, uncomment the following and remove the backslash
 
-epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
+#epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
 
 #======================================================================
 ## iocAdmin environment variables
@@ -48,7 +48,7 @@ epicsEnvSet("IOC_TYPE", "SIOC")
 #epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")
 epicsEnvSet("IOC_NAME",  "SIOC:SYS0:FB02")
 epicsEnvSet("LOCAL_SETPOINTS", "1")
-epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
+#epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 
 # =================================================================
 # User defined environment vars
@@ -136,4 +136,3 @@ BeamPathDriverConfigure("${PORT_NAME}")
 iocInit
 
 #Done  
-
