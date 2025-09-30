@@ -14,6 +14,7 @@
 #==============================================================
 R4.1.2   16 April 2025   K. Leleux (kleleux)
     * Fixing typo with root mean square calculations
+    * Changing scan rate of :AUTOACTSAVE to 10 min per CATER 179708 
 R4.1.1    16 April 2025   K. Leleux (kleleux)
     * Changing FACMODE datatype. Got it wrong when moving to MeasurementDevice.h
 R4.1.0    16 April 2025   K. Leleux (kleleux)
