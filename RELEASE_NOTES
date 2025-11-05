@@ -12,6 +12,8 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R4.2.0   05 November 2025   K. Leleux (kleleux)
+    * Adding new transverse ioc sioc-bc1b-tr01
 R4.1.2   16 April 2025   K. Leleux (kleleux)
     * Fixing typo with root mean square calculations
     * Changing scan rate of :AUTOACTSAVE to 10 min per CATER 179708 
