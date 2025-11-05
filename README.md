@@ -52,6 +52,7 @@ Links to various bits of information about the FastFeedback system are below. A 
 | sioc-l2b-tr01     | cpu-sys0-fb03     | L2B Launch       | FB06    | TR05  | 4     |                                                  |
 | sioc-bpn16-tr01   | cpu-sys0-fb03     | Bypass Launch    | FB06    | TR06  | 5     |                                                  |
 | sioc-dog-tr01     | cpu-sys0-fb03     | DOG Launch       | FB06    | TR07  | 6     |                                                  |
+| sioc-bc1b-tr01    | cpu-sys0-fb03     | BC1B Launch      | FB06    | TR08  | 7     |                                                  |
 
 ### Global
 | Name              | CPU               | Function         | FB      |Loop   |VEVR # | Notes                                            |
