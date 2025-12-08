@@ -605,7 +605,9 @@ void Device::setUsedBy(bool used) {
 }
 
 bool Device::getUsedBy() {
-  //    return _usedByLoopPv.getValue();
-  return _usedByLoop;
+  // Changing to .getValue method to get latest update.
+  // Not sure why it was just returning the non-PV value
+  return _usedByLoopPv.getValue();
+  //return _usedByLoop;
 }
 

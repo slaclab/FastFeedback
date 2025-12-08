@@ -766,27 +766,35 @@ int Loop::setDevices(bool skip) {
 
     for (actIt = _actuators.begin();
             actIt != _actuators.end(); ++actIt) {
-      if ((*actIt)->write(send) == 0) {
-	if (_lastActuatorTimestamp.secPastEpoch == 0) {
-	  _lastActuatorTimestamp = timestamp;
-	}
-	else {
-	  // Update PV if last set happened after 5 seconds...
-	  if (_lastActuatorTimestamp.secPastEpoch < (timestamp.secPastEpoch - 5)) {
-	    epicsTimeToStrftime(_timeString, sizeof(_timeString), "%Y/%m/%d %H:%M:%S", &timestamp);
-	    _configuration->_actuatorLastUpdatePv = _timeString;
-	    _configuration->_actuatorLastUpdatePv.scanIoRequest();
-	    _lastActuatorTimestamp = timestamp;
-	  }
+    // Adding a new feature into the transverse feedback. Specifically for sioc-bc1b-tr01,
+    // we would like to control X position, but not Y. We aim to accomplish this by utilizing
+    // the :A<NUM>USEDBYLOOP PV in a similar way to the longitudinal feedback voting scheme. 
+    // We will still use a YCOR as a :A<NUM>USED device so the matrices and support scripts 
+    // still work how they need to, but we will not be writing to the actuator device, hopefully
+    // accomplishing independent X control. - kleleux 12/08/25
+      if ((*actIt)->getUsedBy() == true) {
+         if ((*actIt)->write(send) == 0) {
+	        if (_lastActuatorTimestamp.secPastEpoch == 0) {
+	            _lastActuatorTimestamp = timestamp;
+	        }
+	     else {
+	        // Update PV if last set happened after 5 seconds...
+	        if (_lastActuatorTimestamp.secPastEpoch < (timestamp.secPastEpoch - 5)) {
+	            epicsTimeToStrftime(_timeString, sizeof(_timeString), "%Y/%m/%d %H:%M:%S", &timestamp);
+	            _configuration->_actuatorLastUpdatePv = _timeString;
+	            _configuration->_actuatorLastUpdatePv.scanIoRequest();
+	            _lastActuatorTimestamp = timestamp;
+	        }
 
-	  // If last update happened more then 30 seconds ago set an alarm...
-	  if (_lastActuatorTimestamp.secPastEpoch < (timestamp.secPastEpoch - 30)) {
-	    epicsTimeToStrftime(_timeString, sizeof(_timeString), "%Y/%m/%d %H:%M:%S", &_lastActuatorTimestamp);
-	    _configuration->_logger << Log::showtime << "Last actuator set on " << _timeString << ". Feedback may be stuck."
-				    << Log::flushpvonly;
+	        // If last update happened more then 30 seconds ago set an alarm...
+	        if (_lastActuatorTimestamp.secPastEpoch < (timestamp.secPastEpoch - 30)) {
+	            epicsTimeToStrftime(_timeString, sizeof(_timeString), "%Y/%m/%d %H:%M:%S", &_lastActuatorTimestamp);
+	            _configuration->_logger << Log::showtime << "Last actuator set on " << _timeString << ". Feedback may be stuck."
+				            << Log::flushpvonly;
 	  }
 	}
       }
+    }
     }
 
     // Write state values to FcomBlob
