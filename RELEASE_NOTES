@@ -12,6 +12,22 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R4.3.0   09 December 2025   K. Leleux (kleleux)
+    * Implemented new feature based off of new :A<NUM>DISABLED PV
+      that allows for the disabling of writing to certain actuator devices.
+      For example, Chris Zimmer wanted a feedback loop (sioc-bc1b-tr01) that
+      only controls YCOR because the XCOR is used in the longitudinal energy
+      control. The problem is that all of the matrix math and support scripts
+      need X/Y measurement device pairs as well as XCOR/YCOR actuator pairs
+      to work. This allows for all of the support scripts to work without
+      actually writing to an actuator. Couldn't use the :A<NUM>USEDBYLOOP PV
+      because the device support is not bi-directional. The :A<NUM>USEDBYLOOP PV
+      is set dynamically by the code base during the voting scheme in the longitudinal
+      feedback. This is a binary input record, so it reads from the code. To send
+      data to the code, you need a binary output record. The new :A<NUM>DISABLED PV
+      is used as a conditional in Loop.cc for writing to the actuators. The 
+      BC1B_settings.sh script is very important to this feedback loop working 
+      properly.
 R4.2.0   05 November 2025   K. Leleux (kleleux)
     * Adding new transverse ioc sioc-bc1b-tr01
 R4.1.2   16 April 2025   K. Leleux (kleleux)
