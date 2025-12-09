@@ -359,6 +359,21 @@ record(bi, "FBCK:$(AREA):$(LOOP):A$(ANUM)USEDBYLOOP") {
   field(PRIO, "LOW")
 }
 
+record(bo, "FBCK:$(AREA):$(LOOP):A$(ANUM)DISABLED") {
+  field(DESC, "Disable writing to actuator, but keep in matrices")
+  field(PINI, "YES")
+#  field(OMSL, "supervisory")
+  field(ZNAM, "NO")
+  field(ONAM, "YES")
+  field(VAL, "$(USED)")
+  field(ZSV, "NO_ALARM")
+  field(OSV, "NO_ALARM")
+  field(DTYP, "FfConfig")
+  field(OUT, "@$(LOOP) A$(ANUM)DISABLED")
+  field(SCAN, "I/O Intr")
+  field(PRIO, "LOW")
+}
+
 record(seq, "FBCK:$(AREA):$(LOOP):A$(ANUM)P1TOLSEQIN") {
   field(DOL1, "FBCK:$(AREA):$(LOOP):A$(ANUM)HIHI")
   field(LNK1, "FBCK:$(AREA):$(LOOP):A$(ANUM)P1.HIHI")
