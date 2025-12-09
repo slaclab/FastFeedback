@@ -99,7 +99,7 @@ caput FBCK:FB06:TR08:A7USEDBYLOOP    NO  > /dev/null
 caput FBCK:FB06:TR08:A8USEDBYLOOP    NO  > /dev/null
 caput FBCK:FB06:TR08:A9USEDBYLOOP    NO  > /dev/null
 caput FBCK:FB06:TR08:A10USEDBYLOOP   NO  > /dev/null
-caput FBCK:FB06:TR08:A1CAMODE        NO  > /dev/null
+caput FBCK:FB06:TR08:A1CAMODE        YES  > /dev/null
 caput FBCK:FB06:TR08:A2CAMODE        YES  > /dev/null
 caput FBCK:FB06:TR08:A3CAMODE        NO  > /dev/null
 caput FBCK:FB06:TR08:A4CAMODE        NO  > /dev/null
