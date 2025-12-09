@@ -772,7 +772,8 @@ int Loop::setDevices(bool skip) {
     // We will still use a YCOR as a :A<NUM>USED device so the matrices and support scripts 
     // still work how they need to, but we will not be writing to the actuator device, hopefully
     // accomplishing independent X control. - kleleux 12/08/25
-      if ((*actIt)->getUsedBy() == true) {
+      if ((*actIt)->getDisabledPv() == true) {
+         std::cout << ((*actIt)->getName()) << ": Actuating " << ((*actIt)->getDisabledPv()) << std::endl;
          if ((*actIt)->write(send) == 0) {
 	        if (_lastActuatorTimestamp.secPastEpoch == 0) {
 	            _lastActuatorTimestamp = timestamp;
