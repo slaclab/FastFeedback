@@ -359,6 +359,27 @@ record(bi, "FBCK:$(AREA):$(LOOP):A$(ANUM)USEDBYLOOP") {
   field(PRIO, "LOW")
 }
 
+# Specialized PV. As of 12/09/25, the only time this pv is used
+# is in sioc-bc1b-tr01 where they ONLY want Y control because X
+# control is in the longitudinal feedback. The feedbacks need
+# both X/Y measurement devices and XCOR/YCOR actuators for the
+# matrix math and support scripts to work. This is used in 
+# Loop.cc to skip over the writing of the disabled actuator. 
+record(bo, "FBCK:$(AREA):$(LOOP):A$(ANUM)DISABLED") {
+  field(DESC, "Disable writing to actuator, but keep in matrices")
+  field(PINI, "YES")
+#  field(OMSL, "supervisory")
+  field(ZNAM, "NO")
+  field(ONAM, "YES")
+  field(VAL, "0")
+  field(ZSV, "NO_ALARM")
+  field(OSV, "NO_ALARM")
+  field(DTYP, "FfConfig")
+  field(OUT, "@$(LOOP) A$(ANUM)DISABLED")
+  field(SCAN, "I/O Intr")
+  field(PRIO, "LOW")
+}
+
 record(seq, "FBCK:$(AREA):$(LOOP):A$(ANUM)P1TOLSEQIN") {
   field(DOL1, "FBCK:$(AREA):$(LOOP):A$(ANUM)HIHI")
   field(LNK1, "FBCK:$(AREA):$(LOOP):A$(ANUM)P1.HIHI")

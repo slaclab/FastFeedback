@@ -32,7 +32,8 @@ _referenceOffset(0),
 _hihiInPv(loopName + " " + name + "HIHIIN", 10),
 _highInPv(loopName + " " + name + "HIGHIN", 1),
 _lowInPv(loopName + " " + name + "LOWIN", -1),
-_loloInPv(loopName + " " + name + "LOLOIN", -10) {
+_loloInPv(loopName + " " + name + "LOLOIN", -10),
+_disabledActPv(loopName + " " + name + "DISABLED") {
 #ifdef CONTROL_ACTUATORS	      
   _setFbckPv = true;
 #ifdef NO_FBCK_PV
@@ -620,4 +621,8 @@ void ActuatorDevice::setLimits(double high, double low) {
         _lowInPv.scanIoRequest();
         _loloInPv.scanIoRequest();
     }
+}
+
+bool ActuatorDevice::getDisabledPv() {
+    return _disabledActPv.getValue();
 }

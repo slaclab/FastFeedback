@@ -93,6 +93,8 @@ public:
         _referenceActuator = referenceActuator;
     }
 
+    bool getDisabledPv();
+
 protected:
     int write(double value);
 
@@ -163,6 +165,18 @@ protected:
      * This attribute maps to the $(LOOP):<dev>LOLOIN PV
      */
     PvData<double> _loloInPv;
+
+    /**
+     * Specialized PV. As of 12/09/25, the only time this pv is used
+     * is in sioc-bc1b-tr01 where they ONLY want Y control because X
+     * control is in the longitudinal feedback. The feedbacks need
+     * both X/Y measurement devices and XCOR/YCOR actuators for the
+     * matrix math and support scripts to work. This is used in 
+     * Loop.cc to skip over the writing of the disabled actuator. 
+     *
+     * This attribute maps to the FBCK:$(LOOP):A<num>DISABLED PV
+     */
+    PvData<bool> _disabledActPv;
 };
 
 FF_NAMESPACE_END

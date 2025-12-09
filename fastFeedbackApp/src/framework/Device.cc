@@ -605,7 +605,6 @@ void Device::setUsedBy(bool used) {
 }
 
 bool Device::getUsedBy() {
-  //    return _usedByLoopPv.getValue();
   return _usedByLoop;
 }
 
