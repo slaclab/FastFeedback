@@ -768,7 +768,7 @@ int Loop::setDevices(bool skip) {
             actIt != _actuators.end(); ++actIt) {
     // Adding a new feature into the transverse feedback. Specifically for sioc-bc1b-tr01,
     // we would like to control X position, but not Y. We aim to accomplish this by utilizing
-    // the :A<NUM>USEDBYLOOP PV in a similar way to the longitudinal feedback voting scheme. 
+    // the :A<NUM>DISABLED PV in a similar way to the longitudinal feedback voting scheme. 
     // We will still use a YCOR as a :A<NUM>USED device so the matrices and support scripts 
     // still work how they need to, but we will not be writing to the actuator device, hopefully
     // accomplishing independent X control. - kleleux 12/08/25
