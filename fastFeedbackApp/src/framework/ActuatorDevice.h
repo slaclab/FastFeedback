@@ -93,6 +93,8 @@ public:
         _referenceActuator = referenceActuator;
     }
 
+    bool getDisabledPv();
+
 protected:
     int write(double value);
 
@@ -163,6 +165,11 @@ protected:
      * This attribute maps to the $(LOOP):<dev>LOLOIN PV
      */
     PvData<double> _loloInPv;
+
+    /**
+     * TODO: Documentation
+     */
+    PvData<bool> _disabledActPv;
 };
 
 FF_NAMESPACE_END
