@@ -365,7 +365,7 @@ record(bo, "FBCK:$(AREA):$(LOOP):A$(ANUM)DISABLED") {
 #  field(OMSL, "supervisory")
   field(ZNAM, "NO")
   field(ONAM, "YES")
-  field(VAL, "$(USED)")
+  field(VAL, "0")
   field(ZSV, "NO_ALARM")
   field(OSV, "NO_ALARM")
   field(DTYP, "FfConfig")
