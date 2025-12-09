@@ -773,7 +773,6 @@ int Loop::setDevices(bool skip) {
     // still work how they need to, but we will not be writing to the actuator device, hopefully
     // accomplishing independent X control. - kleleux 12/08/25
       if ((*actIt)->getDisabledPv() == false) {
-         std::cout << ((*actIt)->getName()) << ": Actuating " << ((*actIt)->getDisabledPv()) << std::endl;
          if ((*actIt)->write(send) == 0) {
 	        if (_lastActuatorTimestamp.secPastEpoch == 0) {
 	            _lastActuatorTimestamp = timestamp;
