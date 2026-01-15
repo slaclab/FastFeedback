@@ -76,6 +76,7 @@ public:
     int disconnectDevices();
 
     static ExecThread &getInstance();
+    void setPatternGenMode(bool patternGenMode);
 
     friend class ExecThreadTest;
 
@@ -97,6 +98,8 @@ private:
 
     /** Flags that iocInit() can proceed -> used at statup time only */
     bool _proceedWithIocInit;
+    
+    bool _hasPatternGenerator;
 };
 
 FF_NAMESPACE_END
