@@ -708,7 +708,8 @@ int LoopThread::processMeasurementEvent(Event &event) {
 			 << (int) event._pattern.getPulseId() << Log::dp;
 
       _unexpectedMeasurementCount++;
-      if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
+      if (!ExecConfiguration::getInstance()._forceStatePv.getValue() ||
+          !ExecConfiguration::getInstance()._forceActPv.getValue()) {
       return -1;
       
     }}
@@ -723,7 +724,8 @@ int LoopThread::processMeasurementEvent(Event &event) {
       */
         _unexpectedMeasurementPatternCount++;
         _state = WAITING_PATTERN;
-        if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
+      if (!ExecConfiguration::getInstance()._forceStatePv.getValue() ||
+          !ExecConfiguration::getInstance()._forceActPv.getValue()) {
         return -1;
     }
     }
@@ -739,7 +741,8 @@ int LoopThread::processMeasurementEvent(Event &event) {
     if (_pattern.getPulseId() != event._pattern.getPulseId()) {
         _unexpectedMeasurementPatternCount++;
         _state = WAITING_PATTERN;
-        if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
+      if (!ExecConfiguration::getInstance()._forceStatePv.getValue() ||
+          !ExecConfiguration::getInstance()._forceActPv.getValue()) {
         return -1;
     }}
 

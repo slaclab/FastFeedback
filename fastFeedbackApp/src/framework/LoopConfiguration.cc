@@ -378,7 +378,8 @@ int LoopConfiguration::configure() {
     if (countUsedDevices() != 0) {
       _logger << Log::showtime <<"ERROR: Failed to count used devices." << Log::flushpv;
       _logger << Log::showtime <<"ERROR: Failed to count used devices." << Log::cout;
-      if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
+      if (!ExecConfiguration::getInstance()._forceStatePv.getValue() ||
+          !ExecConfiguration::getInstance()._forceActPv.getValue()) {
       return -1;  
       }
     }
@@ -402,7 +403,8 @@ int LoopConfiguration::configure() {
     if (configureFMatrix() != 0) {
       _logger << Log::showtime <<"ERROR: Failed to configure F Matrix." << Log::flushpv;
       _logger << Log::showtime <<"ERROR: Failed to configure F Matrix." << Log::cout;
-      if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
+      if (!ExecConfiguration::getInstance()._forceStatePv.getValue() ||
+          !ExecConfiguration::getInstance()._forceActPv.getValue()) {
         return -1;
     }
     }
@@ -417,7 +419,8 @@ int LoopConfiguration::configure() {
       if (configureAlgorithm() != 0) {
 	_logger << Log::showtime <<"ERROR: Failed to configure algorithm." << Log::flushpv;
 	_logger << Log::showtime <<"ERROR: Failed to configure algorithm." << Log::cout;
-      if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
+      if (!ExecConfiguration::getInstance()._forceStatePv.getValue() ||
+          !ExecConfiguration::getInstance()._forceActPv.getValue()) {
         return -1;
       }
       
@@ -501,7 +504,8 @@ int LoopConfiguration::countUsedDevices() {
 	_logger << Log::showtime << "No actuators defined" << Log::flushpv;
 	_logger << Log::showtime << "No actuators defined" << Log::cout;
     
-    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()){
+      if (!ExecConfiguration::getInstance()._forceStatePv.getValue() ||
+          !ExecConfiguration::getInstance()._forceActPv.getValue()) {
 	    return -1;
       }
     }

@@ -509,7 +509,8 @@ int Loop::calculate(Pattern pattern) {
 
     // TMIT is not checked if Longitudital/BunchCharge is the used algorithm
     // _skipTmitCheck is set when the Loop is (re)configured
-    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()) {
+      if (!ExecConfiguration::getInstance()._forceStatePv.getValue() ||
+          !ExecConfiguration::getInstance()._forceActPv.getValue()) {
         if (!_configuration->_skipTmitCheck) {
             if (checkTmit(pattern) != 0) {	  
 	            _lowTmitCount++;
@@ -528,7 +529,8 @@ int Loop::calculate(Pattern pattern) {
     // DataPoint::READ. In that case the latest measurements are read out,
     // discarded and the calculation returns an error.
     // TODO: Wrap with override -Kyle Leleux 
-    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()) {
+      if (!ExecConfiguration::getInstance()._forceStatePv.getValue() ||
+          !ExecConfiguration::getInstance()._forceActPv.getValue()) {
 
         if (checkMeasurementStatus(pattern.getPulseId()) != 0) {
             discardLatestMeasurements();
@@ -544,7 +546,8 @@ int Loop::calculate(Pattern pattern) {
     _calculateFailStats.start();
     int status = 0;
     // Dont actually want it to calculate - kleleux
-    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()) {
+    if (!ExecConfiguration::getInstance()._forceStatePv.getValue() ||
+        !ExecConfiguration::getInstance()._forceActPv.getValue()) {
     try {
       status = _algorithm->calculate(*_configuration, _measurements,
 				     _actuators, _states);
@@ -730,7 +733,8 @@ int Loop::setDevices(bool skip) {
     ActuatorSet::iterator actIt;
 //#ifdef RTEMS
     bool pulseMismatch = false;
-    if (!ExecConfiguration::getInstance()._forceDataPv.getValue()) {
+    if (!ExecConfiguration::getInstance()._forceStatePv.getValue() ||
+        !ExecConfiguration::getInstance()._forceActPv.getValue()) {
     for (actIt = _actuators.begin();
             actIt != _actuators.end(); ++actIt) {
         ActuatorDevice *actuator = (*actIt);
