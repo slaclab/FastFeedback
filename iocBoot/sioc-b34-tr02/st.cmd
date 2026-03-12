@@ -36,8 +36,8 @@ epicsEnvSet("LOCATION","cpu-sys0-fb01")
 #========================================================================
 
 #System Location:
-epicsEnvSet("FB", "FB16")
-epicsEnvSet("LOOP", "TR02")
+#epicsEnvSet("FB", "FB16")
+#epicsEnvSet("LOOP", "TR02")
 # Using sioc-ltus-tr02 macros for sending the states:
 epicsEnvSet("FB", "FB05")
 epicsEnvSet("LOOP", "TR05")
