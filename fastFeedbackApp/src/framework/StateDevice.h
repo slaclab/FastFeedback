@@ -79,6 +79,8 @@ private:
      */
     PvData<double> *_offsetPv;
 
+    PvData<double> _forcedStateValPv; 
+
     /**
      * Maps to the PV that indicates whethes this state is in use by
      * the loop or not (used by the Longitudital feedback)
@@ -107,9 +109,6 @@ private:
 	 */
 	double stateValue;
 
-#ifdef DEV_FCOM
-    PvData<double> _forcedValPv; 
-#endif
 
 };
 

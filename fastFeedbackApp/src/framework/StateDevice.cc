@@ -30,7 +30,7 @@ _setpoint(0),
 _error(0),
 _offset(0),
 #ifdef DEV_FCOM
-_forcedValPv(loopName + " " + name + "FORCEDVAL"),
+_forcedStateValPv(loopName + " " + name + "FORCEDVAL"),
 #endif
 _statesChannel(NULL),
 _stateIndex(1) {
@@ -115,12 +115,13 @@ int StateDevice::write(epicsTimeStamp timestamp) {
   BSA_StoreData(_bsaStateChannel, timestamp, _lastValueSet, epicsAlarmNone, epicsSevNone); //BsaChannel, epicsTimeStamp, double, BsaStat, BsaSevr
 
 #ifdef DEV_FCOM
-  if (ExecConfiguration::getInstance()._forceDataPv.getValue()) {
+  if (ExecConfiguration::getInstance()._forceStatePv.getValue()) {
       if (_statesChannel != NULL) {
           float value = 1.23;
+          Log::getInstance() << _forcedStateValPv.getValue() << Log::cout;
           //_statesChannel->write(_forceValPv.getValue(), _stateIndex);
           //Log::getInstance() << Log::showtime << "Trying to set state channels" << Log::cout;
-          _statesChannel->write(value, _stateIndex);
+          //_statesChannel->write(value, _stateIndex);
           return 0;
       }
       else {
