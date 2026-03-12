@@ -1,11 +1,23 @@
-record(bo, "FBCK:$(AREA):$(LOOP):FORCEDATA"){
+record(bo, "FBCK:$(AREA):$(LOOP):FORCESTATES"){
     field(DESC, "Toggle forced known state data to FCOM")
     field(DTYP, "FfConfig")
-    field(OUT,  "@$(LOOP) FORCEDATA")
+    field(OUT,  "@$(LOOP) FORCESTATE")
     field(PINI, "YES")
     field(ZNAM, "NO")
     field(ONAM, "YES")
-    field(VAL,  "$(FDVAL)")
+    field(VAL,  "$(FDVAL=0)")
+    field(ZSV,  "NO_ALARM")
+    field(OSV,  "NO_ALARM")
+}
+
+record(bo, "FBCK:$(AREA):$(LOOP):FORCEACTUATORS"){
+    field(DESC, "Toggle forced known actuator data to FCOM")
+    field(DTYP, "FfConfig")
+    field(OUT,  "@$(LOOP) FORCEACT")
+    field(PINI, "YES")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+    field(VAL,  "$(FDVAL=0)")
     field(ZSV,  "NO_ALARM")
     field(OSV,  "NO_ALARM")
 }
