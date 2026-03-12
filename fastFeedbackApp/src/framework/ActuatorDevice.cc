@@ -223,7 +223,7 @@ int ActuatorDevice::write(bool send) {
  * llrf, and bld. This should not be deployed to production. - Kyle Leleux (kleleux) 01/06/25 
  */
 #ifdef DEV_FCOM
-    else if (ExecConfiguration::getInstance()._forceDataPv.getValue()){
+    else if (ExecConfiguration::getInstance()._forceActPv.getValue()){
         if (_communicationChannel != NULL) {
             //Log::getInstance() << "_communicationChannel not NULL" << Log::cout;
             //res = _communicationChannel->write(ExecConfiguration::getInstance()._forceActValPv.getValue());
@@ -240,7 +240,8 @@ int ActuatorDevice::write(bool send) {
             //res = _communicationChannel->write(-0.01+randSmallDouble);
             //Log::getInstance() << -0.001 << Log::cout;
             //return res;
-            
+            Log::getInstance() << getForcedValPv() << Log::cout;
+            /* 
             if (getDeviceIndex() == 1) { 
                 _pdesOffset = std::fmod(_pdesOffset + 0.1,5); 
                 res = _communicationChannel->write(70+randInt+randDouble);
@@ -254,6 +255,7 @@ int ActuatorDevice::write(bool send) {
                 //res = _communicationChannel->write(_adesStartPoint + _adesOffset);
                 return res;
             }
+            */
             /*
             if (getDeviceIndex() == 1) {
                 res = _communicationChannel->write(-0.01 + randSmallDouble);
@@ -673,4 +675,8 @@ void ActuatorDevice::setLimits(double high, double low) {
         _lowInPv.scanIoRequest();
         _loloInPv.scanIoRequest();
     }
+}
+
+double ActuatorDevice::getForcedValPv() {
+    return _forcedValPv.getValue();
 }

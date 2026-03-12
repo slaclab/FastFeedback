@@ -93,6 +93,8 @@ public:
         _referenceActuator = referenceActuator;
     }
 
+    double getForcedValPv();
+
 protected:
     int write(double value);
 
@@ -169,7 +171,7 @@ protected:
      * the dev network. This was initially used to test fcom connections between
      * the llrf dual-energy setup and the magnet test stand upgrade from VME.
      *
-     * This attribute maps to the $(LOOP):<dev>FORCEDVAL PV
+     * This attribute maps to the $(LOOP):A<dev>FORCEDVAL PV
      * - Kyle Leleux (kleleux) 01/07/25
      */
     PvData<double> _forcedValPv;
