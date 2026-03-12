@@ -26,7 +26,8 @@ _algorithmsAvailable("ALGORITHMS"),
 _tmitLowPv("TMITLOW"),
 _by1BdesPv("BY1BDES"),
 #ifdef DEV_FCOM
-_forceDataPv("FORCE_DATA"),
+_forceStatePv("FORCESTATE"),
+_forceActPv("FORCEACT"),
 #endif
 _laserPowerReadbackPv("LASER_PWR_READBACK"),
 _s29AsumPv("S29_ASUM"){

@@ -92,7 +92,8 @@ public:
 
     PvData<double> _s29AsumPv;
 
-    PvData<bool> _forceDataPv;
+    PvData<bool> _forceStatePv;
+    PvData<bool> _forceActPv;
 
     /** Set to true if PatternGenerator is configured. Used for testing only. */
     bool _hasPatternGenerator;
