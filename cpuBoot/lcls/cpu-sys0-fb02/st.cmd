@@ -30,17 +30,17 @@ ipmitool lan print
 loadModule.sh $EPICS_CPU_LIB/evrma.ko
 chmod 666 /dev/evr0mng
 
-evrManager /dev/evr0mng create vevr0
-evrManager /dev/evr0mng create vevr1
-evrManager /dev/evr0mng create vevr2
-evrManager /dev/evr0mng create vevr3
-evrManager /dev/evr0mng create vevr4
-evrManager /dev/evr0mng create vevr5
-evrManager /dev/evr0mng create vevr6
-evrManager /dev/evr0mng create vevr7
+evrManager /dev/evr0mng create vevr0 # sioc-in20-tr01
+evrManager /dev/evr0mng create vevr1 # sioc-in20-tr02
+evrManager /dev/evr0mng create vevr2 # sioc-sys0-gn01
+evrManager /dev/evr0mng create vevr3 # sioc-sys0-lg01
+evrManager /dev/evr0mng create vevr4 # sioc-undh-tr01
+evrManager /dev/evr0mng create vevr5 # sioc-undh-tr02
+evrManager /dev/evr0mng create vevr6 # sioc-bsy0-tr02
+evrManager /dev/evr0mng create vevr7 # sioc-in20-tr05
 evrManager /dev/evr0mng create vevr8
-evrManager /dev/evr0mng create vevr9
-evrManager /dev/evr0mng create vevr10
+evrManager /dev/evr0mng create vevr9 # sioc-sys0-lg02
+evrManager /dev/evr0mng create vevr10 # sioc-ltus-tr02
 
 # wait a bit to device become visible
 sleep 1
