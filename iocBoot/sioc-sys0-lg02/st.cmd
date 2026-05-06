@@ -29,7 +29,7 @@ epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
 #======================================================================
 ## iocAdmin environment variables
 #=====================================================================
-epicsEnvSet("ENGINEER","J.Mock")
+epicsEnvSet("ENGINEER","K. Leleux")
 epicsEnvSet("LOCATION","cpu-sys0-fb02")
 
 #========================================================================
@@ -37,8 +37,8 @@ epicsEnvSet("LOCATION","cpu-sys0-fb02")
 #========================================================================
 
 #System Location:
-epicsEnvSet("FB", "FB01")
-epicsEnvSet("LOOP", "LG01")
+epicsEnvSet("FB", "FB04")
+epicsEnvSet("LOOP", "LG02")
 epicsEnvSet("CONFIG_NAME", "LaunchLoop2")
 
 # Which BY1 bend magnet do we want to read energy from?
@@ -54,7 +54,7 @@ epicsEnvSet("LOCA","SYS0")
 epicsEnvSet(FAC,"${LOCA}")
 epicsEnvSet(UNIT,"LG02")
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
-epicsEnvSet(VEVR, "vevr10")
+epicsEnvSet(VEVR, "vevr9")
 
 epicsEnvSet("IOC_TYPE","SIOC")
 epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")
@@ -84,12 +84,22 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # ====================================================================
 ## Load common fast feedback st.cmd
 # ====================================================================
+
 dbLoadDatabase("dbd/fastFeedback.dbd")
 fastFeedback_registerRecordDeviceDriver(pdbbase)
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=X_POS, INP=STATE1, SINK_SIZE=1")
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mrad, HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=X_ANG, INP=STATE2, SINK_SIZE=1")
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=Y_POS, INP=STATE3, SINK_SIZE=1")
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mrad, HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=Y_ANG, INP=STATE4, SINK_SIZE=1")
+dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI22:1,RF=L2,PHASE_LNK=ACCL:LI22:1:PDES,AMPL_LNK=ACCL:LI22:1:ADES,DRVH=6000")
+dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI25:1,RF=L3,PHASE_LNK=ACCL:LI25:1:PDES,AMPL_LNK=ACCL:LI25:1:ADES,DRVH=16000")
+# Load converged status and auto act ref+offset save databases.
+dbLoadRecords("db/fbckSettled.db",     "LP=FBCK:$(FB):$(LOOP)")
+dbLoadRecords("db/fbckSettledSum.db",  "LP=FBCK:$(FB):$(LOOP)")
+dbLoadRecords("db/fbckAutoActLong.db", "LP=FBCK:$(FB):$(LOOP)")
+
+#dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=200,   LO=-90,    AD=5, PR=3, I='', LNK='', ATTR=DL1_ENERGY,  INP=STATE1, SINK_SIZE=1")
+#dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=400,   LO=-150,   AD=5, PR=3, I='', LNK='', ATTR=BC1_ENERGY,  INP=STATE2, SINK_SIZE=1")
+#dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=amps, HO=450,   LO=-300,   AD=5, PR=3, I='', LNK='', ATTR=BC1_CURRENT, INP=STATE3, SINK_SIZE=1")
+#dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=6500,  LO=-1700,  AD=5, PR=3, I='', LNK='', ATTR=BC2_ENERGY,  INP=STATE4, SINK_SIZE=1")
+#dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=amps, HO=50000, LO=-28000, AD=5, PR=3, I='', LNK='', ATTR=BC2_CURRENT, INP=STATE5, SINK_SIZE=1")
+#dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=17400, LO=-1,     AD=5, PR=3, I='', LNK='', ATTR=DL2_ENERGY,  INP=STATE6, SINK_SIZE=1")
 
 # Loading a record type that will differentiate which longitudinal controls
 # are being used. This helps to write to the correct PVs for the different
@@ -97,5 +107,15 @@ dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mrad, HO=10, LO=-10, AD=5, PR
 dbLoadRecords("db/fbckLongType.db", "AREA=$(FB), LOOP=$(LOOP), LG_TYPE=1")
 
 <iocBoot/common/st.cmd
+
+# ====================================================================
+# Sequencer scripts to keep track of the CHIRP control and DL2 limits
+# ====================================================================
+seq(&chirpControl, "IOC=FB04,LOOP=LG01")
+seq(&chirpUpdate, "IOC=FB04,LOOP=LG01")
+seq(&limitUpdate, "IOC=FB04,LOOP=LG01")
+
+seqShow()
+
 
 #Done  

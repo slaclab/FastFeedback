@@ -23,7 +23,7 @@ epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
 #======================================================================
 ## iocAdmin environment variables
 #=====================================================================
-epicsEnvSet("ENGINEER","J.Mock")
+epicsEnvSet("ENGINEER","K. Leleux")
 epicsEnvSet("LOCATION","cpu-sys0-fb02")
 
 #========================================================================
