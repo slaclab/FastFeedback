@@ -13,7 +13,7 @@ include $(TOP)/configure/CONFIG
 # each delivered *.template file specified below looks for its
 # *.substitutions file
 
-DB_INSTALLS += $(EVENT)/db/bsaATTREdef.db
+DB_INSTALLS += $(EVRCLIENT)/db/bsaATTREdef.db
 
 # for each feedback loop
 DB += fbckState.db
