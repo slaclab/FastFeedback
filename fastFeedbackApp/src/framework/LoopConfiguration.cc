@@ -1272,10 +1272,10 @@ void LoopConfiguration::showEref() {
 	      << "DL1="  << _dl1ErefPv.getValue() * 1000 << " MeV; "
 	      << "BC1="  << _bc1ErefPv.getValue() * 1000 << " MeV; "
 	      << "BC2="  << _bc2ErefPv.getValue() * 1000 << " MeV; "
-	      << "DL2="  << _dl2ErefPv.getValue() * 1000 << " MeV"
+	      << "DL2="  << _dl2ErefPv.getValue() * 1000 << " MeV;\n ";
     std::cout << "DL2 Energy Limits: "
 	      << "Low: "  <<_dl2EnLoloPv.getValue() << " MeV; "
-	      << "High: " <<_dl2EnHihiPv.getValue() << " MeV"
+	      << "High: " <<_dl2EnHihiPv.getValue() << " MeV;\n";
 }
 
 /**

@@ -668,22 +668,6 @@ private:
     PvData<bool> _poi3DestPv;
     PvData<bool> _poi4DestPv;
 
-    /*
-     * The following PVs are specific to a destination. Used for Longitudinal feedback.
-     */
-
-    /** FBCK:FBxx:LG0x:DL1VERNIER */
-    PvData<double> _dl1EnergyVernierPv;
-
-    /** FBCK:FBxx:LG0x:BC1VERNIER */
-    PvData<double> _bc1EnergyVernierPv;
-
-    /** FBCK:FBxx:LG0x:BC2VERNIER */
-    PvData<double> _bc2EnergyVernierPv;
-
-    /** FBCK:FBxx:LG0x:DL2VERNIER */
-    PvData<double> _dl2EnergyVernierPv;
-
     /* SIOC:SYS0:FBxx:DL1_EREF PV via CA */
     PvData<double> _dl1ErefPv;
 
