@@ -8,4 +8,6 @@ record(bo, "FBCK:$(AREA):$(LOOP):LG_TYPE") {
     field(ONAM, "SXR")
     field(ZSV,  "NO_ALARM")
     field(OSV,  "NO_ALARM")
+# Disable caputs to this record:
+    field(DISP, "1")
 }
