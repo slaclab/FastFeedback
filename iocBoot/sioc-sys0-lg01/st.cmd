@@ -97,6 +97,7 @@ dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=17400, LO=-1,     AD
 # Loading a record type that will differentiate which longitudinal controls
 # are being used. This helps to write to the correct PVs for the different
 # Feedbacks. This one is for HXR (Type 0):
+# TODO: Make this record not writable
 dbLoadRecords("db/fbckLongType.db", "AREA=$(FB), LOOP=$(LOOP), LG_TYPE=0")
 
 <iocBoot/common/st.cmd
@@ -104,8 +105,8 @@ dbLoadRecords("db/fbckLongType.db", "AREA=$(FB), LOOP=$(LOOP), LG_TYPE=0")
 # ====================================================================
 # Sequencer scripts to keep track of the CHIRP control and DL2 limits
 # ====================================================================
-seq(&chirpControl, "IOC=FB04,LOOP=LG01")
-seq(&chirpUpdate, "IOC=FB04,LOOP=LG01")
+seq(&chirpControl, "IOC=FB04,LOOP=LG01,CHIRP_PV=FBCK:LI22:1:CHIRP")
+seq(&chirpUpdate, "IOC=FB04,LOOP=LG01,CHIRP_PV=FBCK:LI22:1:CHIRP")
 seq(&limitUpdate, "IOC=FB04,LOOP=LG01")
 
 seqShow()
