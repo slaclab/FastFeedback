@@ -1,5 +1,5 @@
 
-record(ai, "$(DEV):PH") {
+record(ai, "$(DEV):PH$(FBCKNUM=)") {
   field(DESC, "phase at $(RF)")
   field(FLNK, "$(DEV):CHIRPFAN2")
   field(INP, "$(PHASE_LNK) CPP MS")
@@ -7,7 +7,7 @@ record(ai, "$(DEV):PH") {
   field(PINI, "YES")
 }
 
-record(ai, "$(DEV):AMP") {
+record(ai, "$(DEV):AMP$(FBCKNUM=)") {
   field(DESC, "amplitude at $(RF)")
   field(FLNK, "$(DEV):ENERGYFAN2")
   field(INP, "$(AMPL_LNK) CPP MS")
@@ -15,7 +15,7 @@ record(ai, "$(DEV):AMP") {
   field(PINI, "YES")
 }
 
-record(calc, "$(DEV):CHIRP") {
+record(calc, "$(DEV):CHIRP$(FBCKNUM=)") {
   field(DESC, "$(RF) phase amp to energy")
   field(CALC, "B*sin(A*3.141592653589793/180)")
   field(INPA, "$(DEV):PH")
@@ -24,7 +24,7 @@ record(calc, "$(DEV):CHIRP") {
   field(PREC, "8")
 }
 
-record(calc, "$(DEV):ENERGY") {
+record(calc, "$(DEV):ENERGY$(FBCKNUM=)") {
   field(DESC, "$(RF) phase amp to energy")
   field(CALC, "B*cos( A*3.141592653589793/180)")
   field(INPA, "$(DEV):PH")
@@ -33,13 +33,13 @@ record(calc, "$(DEV):ENERGY") {
   field(PREC, "8")
 }
 
-record(fanout, "$(DEV):CHIRPFAN2") {
+record(fanout, "$(DEV):CHIRPFAN$(FBCKNUM=)") {
   field(SELM, "All")
   field(LNK1, "$(DEV):ENERGY.VAL")
   field(LNK2, "$(DEV):CHIRP.VAL")
 }
 
-record(fanout, "$(DEV):ENERGYFAN2") {
+record(fanout, "$(DEV):ENERGYFAN$(FBCKNUM=)") {
   field(SELM, "All")
   field(LNK1, "$(DEV):ENERGY.VAL")
   field(LNK2, "$(DEV):CHIRP.VAL")
