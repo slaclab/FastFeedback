@@ -193,16 +193,6 @@ record(sel, "$(IOC):$(LC):$(LOOP):DL2_EREF_IN") {
   field(EGU, "GeV/c")
   field(PRIO, "MEDIUM")
 }
-record(ai, "$(IOC):$(LC):$(LOOP):DL2_EREF_IN") {
-  field(DESC, "DL2 energy ref")
-  field(SCAN, "Passive")
-  field(PINI, "YES")
-  field(FLNK, "$(IOC):$(LC):$(LOOP):DL2_EREF")
-  field(VAL, "0")
-  field(INP, "REFS:DMPH:400:EDES CPP MS")
-  field(EGU, "GeV/c")
-  field(PRIO, "MEDIUM")
-}
 record(ao, "$(IOC):$(LC):$(LOOP):DL2_EREF") {
   field(DESC, "DL2 energy ref")
   field(SCAN, "Passive")
