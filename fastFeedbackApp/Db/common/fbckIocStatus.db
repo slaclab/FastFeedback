@@ -181,6 +181,18 @@ record(ao, "$(IOC):$(LC):$(LOOP):BC2_EREF") {
 }
 
 # DL2 Energy Reference
+record(sel, "$(IOC):$(LC):$(LOOP):DL2_EREF_IN") {
+  field(DESC, "DL2 energy ref")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(INPA, "REFS:DMPH:400:EDES CPP MS")
+  field(INPB, "REFS:DMPS:400:EDES CPP MS")
+  field(NVL,  "FBCK:$(AREA):$(LOOP):LG_TYPE")
+  field(SELM, "Specified")
+  field(FLNK, "$(IOC):$(LC):$(LOOP):DL2_EREF")
+  field(EGU, "GeV/c")
+  field(PRIO, "MEDIUM")
+}
 record(ai, "$(IOC):$(LC):$(LOOP):DL2_EREF_IN") {
   field(DESC, "DL2 energy ref")
   field(SCAN, "Passive")
