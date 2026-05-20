@@ -1,5 +1,5 @@
 record(bo, "FBCK:$(AREA):$(LOOP):FORCESTATES"){
-    field(DESC, "Toggle forced known state data to FCOM")
+    field(DESC, "Toggle known state data to FCOM")
     field(DTYP, "FfConfig")
     field(OUT,  "@$(LOOP) FORCESTATE")
     field(PINI, "YES")
@@ -11,7 +11,7 @@ record(bo, "FBCK:$(AREA):$(LOOP):FORCESTATES"){
 }
 
 record(bo, "FBCK:$(AREA):$(LOOP):FORCEACTUATORS"){
-    field(DESC, "Toggle forced known actuator data to FCOM")
+    field(DESC, "Toggle known actuator data to FCOM")
     field(DTYP, "FfConfig")
     field(OUT,  "@$(LOOP) FORCEACT")
     field(PINI, "YES")
@@ -21,19 +21,3 @@ record(bo, "FBCK:$(AREA):$(LOOP):FORCEACTUATORS"){
     field(ZSV,  "NO_ALARM")
     field(OSV,  "NO_ALARM")
 }
-
-record(ao, "FBCK:$(AREA):$(LOOP):FORCEDSTATEVALUE"){
-    field(DESC, "val to be written to dev states chan")
-    field(DTYP, "FfConfig")
-    field(OUT,  "@$(LOOP) FORCEDSTATE")
-    field(PINI, "YES")
-    field(VAL,  "0.0")
-}
-
-#record(ao, "FBCK:$(AREA):$(LOOP):FORCEDACTUATORVALUE"){
-#    field(DESC, "Forced value to be written to actuator channel")
-#    field(DTYP, "FfConfig")
-#    field(OUT,  "@$(LOOP) FORCEDACTUATOR")
-#    field(PINI, "YES")
-#    field(VAL,  "57.0")
-#}
