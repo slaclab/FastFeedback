@@ -42,7 +42,7 @@ record(stringout, "FBCK:$(AREA):$(LOOP):S$(SNUM)NAME") {
 }
 
 record(ao, "FBCK:$(AREA):$(LOOP):S$(SNUM)FORCEDVAL"){
-    field(DESC, "value to be written to dev state chan only")
+    field(DESC, "value written to dev state only")
     field(DTYP, "FfConfig")
     field(OUT,  "@$(LOOP) S$(SNUM)FORCEDVAL")
     field(PINI, "YES")
