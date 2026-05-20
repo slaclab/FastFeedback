@@ -39,9 +39,10 @@ epicsEnvSet("LOCATION","cpu-sys0-fb02")
 #System Location:
 epicsEnvSet("FB", "FB04")
 epicsEnvSet("LOOP", "LG02")
-epicsEnvSet("CONFIG_NAME", "LaunchLoop2")
+epicsEnvSet("CONFIG_NAME", "Longitudinal")
 
 # Which BY1 bend magnet do we want to read energy from?
+# TODO: WHICH MAGNET SHOULD WE GO FOR?
 epicsEnvSet("BEND_MAG", "BEND:LTUS:525:BDES")
 
 #=====================================================================
@@ -112,9 +113,9 @@ dbLoadRecords("db/fbckLongType.db", "AREA=$(FB), LOOP=$(LOOP), LG_TYPE=1")
 # ====================================================================
 # Sequencer scripts to keep track of the CHIRP control and DL2 limits
 # ====================================================================
-seq(&chirpControl, "IOC=FB04,LOOP=LG01,CHIRP_PV=FBCK:LI22:1:CHIRP2")
-seq(&chirpUpdate, "IOC=FB04,LOOP=LG01,CHIRP_PV=FBCK:LI22:1:CHIRP2")
-seq(&limitUpdate, "IOC=FB04,LOOP=LG01")
+seq(&chirpControl, "IOC=FB04,LOOP=LG02,CHIRP_PV=FBCK:LI22:1:CHIRP2")
+seq(&chirpUpdate, "IOC=FB04,LOOP=LG02,CHIRP_PV=FBCK:LI22:1:CHIRP2")
+seq(&limitUpdate, "IOC=FB04,LOOP=LG02")
 
 seqShow()
 
