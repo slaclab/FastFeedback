@@ -37,7 +37,7 @@ record(ai, "FBCK:$(AREA):$(LOOP):A$(ANUM)") {
 }
 
 record(ao, "FBCK:$(AREA):$(LOOP):A$(ANUM)FORCEDVAL"){
-    field(DESC, "value to be written to dev act chan only")
+    field(DESC, "value written to dev act only")
     field(DTYP, "FfConfig")
     field(OUT,  "@$(LOOP) A$(ANUM)FORCEDVAL")
     field(PINI, "YES")
