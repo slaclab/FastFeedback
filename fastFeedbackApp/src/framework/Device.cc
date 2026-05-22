@@ -370,7 +370,7 @@ bool Device::isSetFbckPvEnabled() {
  *   BPMS:LI20:230:X -> BPMS:LI20:230:FBCK
  *
  * RF actuators whose PV name starts with ACCL must have the ":FBCK" or ":FBCK2" string 
- * appended to the original nome, e.g.:
+ * appended to the original name, e.g.:
  *
  *   ACCL:LI24:2:ADES -> ACCL:LI24:2:ADES:FBCK
  * 
