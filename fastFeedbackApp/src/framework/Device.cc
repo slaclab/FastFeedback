@@ -8,6 +8,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include "Device.h"
+#include "ExecConfiguration.h"
 #include "FileChannel.h"
 #include "CaChannel.h"
 #include "FcomChannel.h"
@@ -50,7 +51,6 @@ _loloPv(slotName + " " + name + "LOLO", -1000),
 _caModePv(slotName + " " + name + "CAMODE", false),
 _usedPv(slotName + " " + name + "USED", false),
 _devNamePv(slotName + " " + name + "DEVNAME", name + "DEVNAME"),
-_longTypePv(slotName + " " + name + "LG_TYPE"),
 _fbckCommunicationChannel(NULL),
 _setFbckPv(true),
 _usedByLoopPv(slotName + " " + name + "USEDBYLOOP", true),
@@ -420,11 +420,11 @@ int Device::createFbckPv(CommunicationChannel::AccessType accessType) {
       //    * ACCL:LI24:2:ADES -> ACCL:LI24:2:ADES:FBCK2
       if (found != std::string::npos) {
         fbckName = deviceName;
-        if (getLongType() == 0){
+        if (!ExecConfiguration::getInstance().getLongType()){
             // For _longTypePv == 0 (HXR):
             fbckName += ":FBCK";
         }
-        else if (getLongType() == 1){
+        else if (ExecConfiguration::getInstance().getLongType()){
             // For _longTypePv == 1 (SXR):
             fbckName += ":FBCK2";
         }
@@ -581,10 +581,6 @@ bool Device::isFcom() {
  */
 std::string Device::getDeviceName() {
     return _devNamePv.getValue();
-}
-
-bool Device::getLongType() {
-    return _longTypePv.getValue();
 }
 
 /**

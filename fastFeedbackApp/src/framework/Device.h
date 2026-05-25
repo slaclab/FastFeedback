@@ -199,7 +199,6 @@ public:
         return _name;
     };
     std::string getDeviceName();
-    bool getLongType();
     int getDeviceIndex();
     
     int getBufferSize() {
@@ -314,8 +313,6 @@ protected:
      * This attribute maps to the $(LOOP):<dev>DEVNAME PV.
      */
     PvData<std::string> _devNamePv;
-
-    PvData<bool> _longTypePv;
 
     /**
      * CommunicationChannel used to set the FBCK attribute of Measurements and
