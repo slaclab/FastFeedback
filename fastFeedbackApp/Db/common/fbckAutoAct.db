@@ -15,7 +15,7 @@ record(waveform, "$(LP):AUTOACTREF") {
 
 record(aSub, "$(LP):AUTOACTSAVE") {
   field(DESC, "Put all ActRef values into array")
-  field(SCAN, "10 second")
+  field(SCAN, "600 second")
   field(PINI, "YES")
   field(SNAM, "AutoActSave")
   field(INPA, "$(LP):CVGSUMM")

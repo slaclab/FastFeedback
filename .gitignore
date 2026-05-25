@@ -10,4 +10,4 @@ RELEASE_SITE
 .clang_complete
 *~
 *.log
-*.swp
+*.sw*
