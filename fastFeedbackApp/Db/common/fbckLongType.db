@@ -1,13 +1,32 @@
 record(bo, "FBCK:$(AREA):$(LOOP):LG_TYPE") {
-    field(DESC, "Longitudinal Type (SXR/HXR)")
+    field(DESC, "Feedback Type (SXR/HXR/Transverse)")
     field(DTYP, "FfConfig")
-    field(OUT,  "@$(LOOP) LG_TYPE")
+    field(OUT,  "@LG_TYPE")
     field(PINI, "YES")
-    field(VAL,  "$(LG_TYPE)")
-    field(ZNAM, "HXR")
-    field(ONAM, "SXR")
-    field(ZSV,  "NO_ALARM")
-    field(OSV,  "NO_ALARM")
+    field(RVAL, "$(LG_TYPE)")
+    field(ZNAM, "Long. HXR")
+    field(ONAM, "Long. SXR")
+    field(ZRSV,  "NO_ALARM")
+    field(ONSV,  "NO_ALARM")
 # Disable caputs to this record:
     field(DISP, "1")
 }
+
+#record(mbbo, "FBCK:$(AREA):$(LOOP):FBCK_TYPE") {
+#    field(DESC, "Feedback Type (SXR/HXR/Transverse)")
+#    field(DTYP, "FfConfig")
+#    field(OUT,  "@LG_TYPE")
+#    field(PINI, "YES")
+#    field(RVAL, "$(FBCK_TYPE)")
+#    field(ZRVL, "0")
+#    field(ONVL, "1")
+#    field(TWVL, "2")
+#    field(ZRST, "Long. HXR")
+#    field(ONST, "Long. SXR")
+#    field(TWST, "Transverse")
+#    field(ZRSV,  "NO_ALARM")
+#    field(ONSV,  "NO_ALARM")
+#    field(TWSV,  "NO_ALARM")
+## Disable caputs to this record:
+#    field(DISP, "1")
+#}
