@@ -6,10 +6,8 @@ record(bo, "FBCK:$(AREA):$(LOOP):LG_TYPE") {
     field(RVAL, "$(LG_TYPE)")
     field(ZNAM, "Long. HXR")
     field(ONAM, "Long. SXR")
-    field(ZRSV,  "NO_ALARM")
-    field(ONSV,  "NO_ALARM")
-# Disable caputs to this record:
-    field(DISP, "1")
+    field(ZSV,   "NO_ALARM")
+    field(OSV,   "NO_ALARM")
 }
 
 #record(mbbo, "FBCK:$(AREA):$(LOOP):FBCK_TYPE") {

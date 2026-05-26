@@ -35,14 +35,14 @@ record(calc, "$(DEV):ENERGY$(FBCKNUM=)") {
 
 record(fanout, "$(DEV):CHIRPFAN$(FBCKNUM=)") {
   field(SELM, "All")
-  field(LNK1, "$(DEV):ENERGY.VAL")
-  field(LNK2, "$(DEV):CHIRP.VAL")
+  field(LNK1, "$(DEV):ENERGY$(FBCKNUM=).VAL")
+  field(LNK2, "$(DEV):CHIRP$(FBCKNUM=).VAL")
 }
 
 record(fanout, "$(DEV):ENERGYFAN$(FBCKNUM=)") {
   field(SELM, "All")
-  field(LNK1, "$(DEV):ENERGY.VAL")
-  field(LNK2, "$(DEV):CHIRP.VAL")
+  field(LNK1, "$(DEV):ENERGY$(FBCKNUM=).VAL")
+  field(LNK2, "$(DEV):CHIRP$(FBCKNUM=).VAL")
 }
 
 #record(ao, "$(DEV):TMITLOW") {
