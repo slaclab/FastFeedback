@@ -622,3 +622,4 @@ bool Device::getUsedBy() {
   //    return _usedByLoopPv.getValue();
   return _usedByLoop;
 }
+

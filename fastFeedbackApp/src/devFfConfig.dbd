@@ -8,6 +8,7 @@ device(stringout, INST_IO, devStringoutFfConfig, "FfConfig")
 device(waveform, INST_IO, devWoFfConfig, "FfConfig")
 device(longout, INST_IO, devLongoutFfConfig, "FfConfig")
 device(calcout, INST_IO, devCalcoutFfConfig, "FfConfig")
+device(mbbo, INST_IO, devMbboFfConfig, "FfConfig")
 
 # Input Records
 device(waveform, INST_IO, devWiFfConfig, "FfConfig Waveform Read")
@@ -15,6 +16,7 @@ device(longin, INST_IO, devLonginFfConfig, "FfConfig")
 device(stringin, INST_IO, devStringinFfConfig, "FfConfig")
 device(bi, INST_IO, devBiFfConfig, "FfConfig")
 device(ai, INST_IO, devAiFfConfig, "FfConfig")
+device(mbbi, INST_IO, devMbbiFfConfig, "FfConfig")
 
 # Chirp and limit update Sequence
 registrar(chirpControlRegistrar)

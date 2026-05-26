@@ -1536,7 +1536,9 @@ int Longitudinal::selectStates() {
 	measurementDevice = (*measIt);
 	if (_measurementStatus[M8] == VALID &&
 			_measurementStatus[M7] == INVALID &&
-			stateDevice->isUsed()) {
+			stateDevice->isUsed() &&
+            measurementDevice->getMeasCheckInclusion()) {
+        // Why this second check???? - KEL 04/07/24
 		if (_measurementStatus[M8] == VALID) {
 			measurementDevice->setUsedBy(true);
 		}
@@ -1553,7 +1555,8 @@ int Longitudinal::selectStates() {
 	if (_measurementStatus[M8] == VALID &&
 			_measurementStatus[M9] == VALID &&
 			_measurementStatus[M7] == INVALID &&
-			stateDevice->isUsed()) {
+			stateDevice->isUsed() &&
+            measurementDevice->getMeasCheckInclusion()) {
 		measurementDevice->setUsedBy(true);
 	}
 	else {
@@ -1565,7 +1568,9 @@ int Longitudinal::selectStates() {
 	if (_measurementStatus[M8] == INVALID &&
 			_measurementStatus[M10] == VALID &&
 			_measurementStatus[M7] == INVALID &&
-			stateDevice->isUsed()) {
+			stateDevice->isUsed() &&
+            measurementDevice->getMeasCheckInclusion()) {
+        // why this second check??? - KEL 04/07/24
 		if (_measurementStatus[M10] == VALID) {
 			measurementDevice->setUsedBy(true);
 		}
