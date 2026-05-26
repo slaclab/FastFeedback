@@ -1,7 +1,7 @@
 
 record(ai, "$(DEV):PH$(FBCKNUM=)") {
   field(DESC, "phase at $(RF)")
-  field(FLNK, "$(DEV):CHIRPFAN2")
+  field(FLNK, "$(DEV):CHIRPFAN$(FBCKNUM=)")
   field(INP, "$(PHASE_LNK) CPP MS")
   field(MDEL, "-1")
   field(PINI, "YES")
@@ -9,7 +9,7 @@ record(ai, "$(DEV):PH$(FBCKNUM=)") {
 
 record(ai, "$(DEV):AMP$(FBCKNUM=)") {
   field(DESC, "amplitude at $(RF)")
-  field(FLNK, "$(DEV):ENERGYFAN2")
+  field(FLNK, "$(DEV):ENERGYFAN$(FBCKNUM=)")
   field(INP, "$(AMPL_LNK) CPP MS")
   field(MDEL, "-1")
   field(PINI, "YES")
@@ -18,8 +18,8 @@ record(ai, "$(DEV):AMP$(FBCKNUM=)") {
 record(calc, "$(DEV):CHIRP$(FBCKNUM=)") {
   field(DESC, "$(RF) phase amp to energy")
   field(CALC, "B*sin(A*3.141592653589793/180)")
-  field(INPA, "$(DEV):PH")
-  field(INPB, "$(DEV):AMP")
+  field(INPA, "$(DEV):PH$(FBCKNUM)")
+  field(INPB, "$(DEV):AMP$(FBCKNUM)")
   field(EGU, "MeV")
   field(PREC, "8")
 }
@@ -27,8 +27,8 @@ record(calc, "$(DEV):CHIRP$(FBCKNUM=)") {
 record(calc, "$(DEV):ENERGY$(FBCKNUM=)") {
   field(DESC, "$(RF) phase amp to energy")
   field(CALC, "B*cos( A*3.141592653589793/180)")
-  field(INPA, "$(DEV):PH")
-  field(INPB, "$(DEV):AMP")
+  field(INPA, "$(DEV):PH$(FBCKNUM=)")
+  field(INPB, "$(DEV):AMP$(FBCKNUM=)")
   field(EGU, "MeV")
   field(PREC, "8")
 }
