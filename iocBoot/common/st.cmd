@@ -96,6 +96,11 @@ dbLoadRecords("db/save_restoreStatus.db", "P=${IOC_NAME}:")
 # These macros are used in PV generation:
 dbLoadRecords("db/fbck_template.db","VIOC=${IOC_TYPE},LOC=${LOCA},FEEDBACK=${FB},LOOP_TYPE=${LOOP},CON_NAME=${CONFIG_NAME},LOCAL_SETPOINTS=${LOCAL_SETPOINTS},BEND_MAG=${BEND_MAG},UNIT=${UNIT}")
 
+# Loading a record type that will differentiate which longitudinal controls
+# are being used. This helps to write to the correct PVs for the different
+# Feedbacks. This one is for HXR (Type 0):
+dbLoadRecords("db/fbckLongType.db", "AREA=$(FB), LOOP=$(LOOP), FBCK_TYPE=$(FBCK_TYPE)")
+
 #########################################################################
 #BEGIN: Setup autosave/restore
 ######################################################################
@@ -235,5 +240,8 @@ create_monitor_set("info_mon_${FB}.req",60,"")
 
 makeAutosaveFileFromDbInfo("info_config_${LOOP}.req", "autosaveConfig${LOOP}")
 create_monitor_set("info_config_${LOOP}.req",60,"")
+
+# Stop caputs to the configuration record:
+dbpf FBCK:$(FB):$(LOOP):FBCK_TYPE.DISP 1
 
 #Done

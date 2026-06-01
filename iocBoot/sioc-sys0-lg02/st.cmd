@@ -39,7 +39,8 @@ epicsEnvSet("LOCATION","cpu-sys0-fb02")
 #System Location:
 epicsEnvSet("FB", "FB04")
 epicsEnvSet("LOOP", "LG02")
-epicsEnvSet("CONFIG_NAME", "Longitudinal")
+epicsEnvSet("CONFIG_NAME", "SXR Longitudinal")
+epicsEnvSet("FBCK_TYPE", 1) # SXR
 
 # Which BY1 bend magnet do we want to read energy from?
 # TODO: WHICH MAGNET SHOULD WE GO FOR?
@@ -106,7 +107,7 @@ dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=17400, LO=-1,     AD
 # are being used. This helps to write to the correct PVs for the different
 # Feedbacks. This one is for SXR (Type 1):
 # TODO: Make this record not writable
-dbLoadRecords("db/fbckLongType.db", "AREA=$(FB), LOOP=$(LOOP), LG_TYPE=1")
+dbLoadRecords("db/fbckLongType.db", "AREA=$(FB), LOOP=$(LOOP), FBCK_TYPE=1")
 
 <iocBoot/common/st.cmd
 
@@ -118,6 +119,5 @@ seq(&chirpUpdate, "IOC=FB04,LOOP=LG02,CHIRP_PV=FBCK:LI22:1:CHIRP2")
 seq(&limitUpdate, "IOC=FB04,LOOP=LG02")
 
 seqShow()
-
 
 #Done  
