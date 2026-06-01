@@ -43,7 +43,7 @@ public:
     static ExecConfiguration &getInstance();
     int getLoopIndex(std::string loopName);
     int getSlotNames(std::vector<std::string> &slotNames);
-    bool getLongType();
+    bool getFeedbackType();
 
     /**
      * Map containing the feedback loop configurations, keyed by the
@@ -107,7 +107,7 @@ public:
      * FBCK_TYPE 1 -> Long. SXR
      * FBCK_TYPE 2 -> Transverse
      */
-    PvData<bool> _longTypePv;
+    PvData<bool> _feedbackTypePv;
 
     /** Set to true if PatternGenerator is configured. Used for testing only. */
     bool _hasPatternGenerator;
