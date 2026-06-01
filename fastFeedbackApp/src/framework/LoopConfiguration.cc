@@ -91,12 +91,12 @@ _dl1EnergyVernierPv(slotName + " DL1VERNIER"),
 _bc1EnergyVernierPv(slotName + " BC1VERNIER"),
 _bc2EnergyVernierPv(slotName + " BC2VERNIER"),
 _dl2EnergyVernierPv(slotName + " DL2VERNIER"),
-_dl1ErefPv("DL1_EREF"),
-_bc1ErefPv("BC1_EREF"),
-_bc2ErefPv("BC2_EREF"),
-_dl2ErefPv("DL2_EREF"),
-_dl2EnLoloPv("LEM_DL2ENLOLO"),
-_dl2EnHihiPv("LEM_DL2ENHIHI"),
+_dl1ErefPv(slotName + "DL1_EREF"),
+_bc1ErefPv(slotName + "BC1_EREF"),
+_bc2ErefPv(slotName + "BC2_EREF"),
+_dl2ErefPv(slotName + "DL2_EREF"),
+_dl2EnLoloPv(slotName + "LEM_DL2ENLOLO"),
+_dl2EnHihiPv(slotName + "LEM_DL2ENHIHI"),
 _bcastStatesPv(slotName + " BCASTSTATES")
 {
     _statusMessage << "Not configured";
