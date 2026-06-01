@@ -412,23 +412,24 @@ int Device::createFbckPv(CommunicationChannel::AccessType accessType) {
     }
     else {
       // With split LLRF controls, we will need to append differently based
-      // on whether we are HXR or SXR. This information is stored in the
-      // BLANK PV:
-      // HXR:
+      // on whether we are HXR or SXR longitudinal. This information is stored
+      // in the FBCK:<LOOP>:FBCK_TYPE  PV:
+      // HXR (FBCK_TYPE 0):
       //    * ACCL:LI24:2:ADES -> ACCL:LI24:2:ADES:FBCK
-      // SXR:
+      // SXR (FBCK_TYPE 1):
       //    * ACCL:LI24:2:ADES -> ACCL:LI24:2:ADES:FBCK2
+      // Transverse (FBCK_TYPE 2)
       if (found != std::string::npos) {
         fbckName = deviceName;
-        if (!ExecConfiguration::getInstance().getLongType()){
-            // For _longTypePv == 0 (HXR):
+        if (ExecConfiguration::getInstance().getFeedbackType() == 0){
+            // For _feedbackTypePv == 0 (HXR):
             fbckName += ":FBCK";
         }
-        else if (ExecConfiguration::getInstance().getLongType()){
-            // For _longTypePv == 1 (SXR):
+        else if (ExecConfiguration::getInstance().getFeedbackType() == 1){
+            // For _feedbackTypePv == 1 (SXR):
             fbckName += ":FBCK2";
         }
-      }// if there is no ACCL, remove last part of PV name and add ":FBCK"
+      } // if there is no ACCL, remove last part of PV name and add ":FBCK"
       else {
         fbckName = deviceName.substr(0, lastColon);
         fbckName += ":FBCK";

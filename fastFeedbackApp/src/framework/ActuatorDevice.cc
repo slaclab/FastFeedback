@@ -344,7 +344,7 @@ int ActuatorDevice::configure(CommunicationChannel::AccessType accessType,
     //     2              ACCL:LI22:1:PDES2          ACCL:LI22:1:PDES
     //     3              ACCL:LI22:1:PDES           ACCL:LI22:1:PDES
 
-    if (ExecConfiguration::getInstance().getLongType() && !deviceName.empty() && deviceName.back() == '2') {
+    if (ExecConfiguration::getInstance().getFeedbackType()==1 && !deviceName.empty() && deviceName.back() == '2') {
         // Remove the appended 2 from SXR actuator device names
         deviceName.pop_back();
     }
