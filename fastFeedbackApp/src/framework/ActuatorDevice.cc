@@ -330,7 +330,6 @@ DataPoint::Status ActuatorDevice::peekStatus() {
 int ActuatorDevice::configure(CommunicationChannel::AccessType accessType,
 															int patternIndex) {
 	std::string deviceName = _devNamePv.getValue();
-    // TODO: Need to add a carveout here for SXR longitudinal where we take the 2 off the device name
     // As of 05/23/26, the longitudinal feedback is now split into 2 different instances,
     // one for HXR, one for SXR. The SXR pvs have a 2 appended (e.g PDES2, ADES2), but 
     // there remains one MUX for the controls, but 4 data-slots: 0,3 for HXR, 1,2 for SXR.
