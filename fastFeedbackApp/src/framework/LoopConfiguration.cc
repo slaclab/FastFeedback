@@ -87,26 +87,16 @@ _polyvalsPv(slotName + " POLYVALS"),
 _skipOnlyCompute(false),
 _clearStatusCounter(0),
 _chirpReadyPv(slotName + " CHIRPREADY"),
-_dl1EnergyVernierPvHXR(slotName + " DL1VERNIER"),
-_dl1EnergyVernierPvSXR(slotName + " DL1VERNIER_SXR"),
-_bc1EnergyVernierPvHXR(slotName + " BC1VERNIER"),
-_bc1EnergyVernierPvSXR(slotName + " BC1VERNIER_SXR"),
-_bc2EnergyVernierPvHXR(slotName + " BC2VERNIER"),
-_bc2EnergyVernierPvSXR(slotName + " BC2VERNIER_SXR"),
-_dl2EnergyVernierPvHXR(slotName + " DL2VERNIER"),
-_dl2EnergyVernierPvSXR(slotName + " DL2VERNIER_SXR"),
-_dl1ErefPvHXR("DL1_EREF"),
-_dl1ErefPvSXR("DL1_EREF_SXR"),
-_bc1ErefPvHXR("BC1_EREF"),
-_bc1ErefPvSXR("BC1_EREF_SXR"),
-_bc2ErefPvHXR("BC2_EREF"),
-_bc2ErefPvSXR("BC2_EREF_SXR"),
-_dl2ErefPvHXR("DL2_EREF"),
-_dl2ErefPvSXR("DL2_EREF_SXR"),
-_dl2EnLoloPvHXR("LEM_DL2ENLOLO"),
-_dl2EnLoloPvSXR("LEM_DL2ENLOLO_SXR"),
-_dl2EnHihiPvHXR("LEM_DL2ENHIHI"),
-_dl2EnHihiPvSXR("LEM_DL2ENHIHI_SXR"),
+_dl1EnergyVernierPv(slotName + " DL1VERNIER"),
+_bc1EnergyVernierPv(slotName + " BC1VERNIER"),
+_bc2EnergyVernierPv(slotName + " BC2VERNIER"),
+_dl2EnergyVernierPv(slotName + " DL2VERNIER"),
+_dl1ErefPv(slotName + "DL1_EREF"),
+_bc1ErefPv(slotName + "BC1_EREF"),
+_bc2ErefPv(slotName + "BC2_EREF"),
+_dl2ErefPv(slotName + "DL2_EREF"),
+_dl2EnLoloPv(slotName + "LEM_DL2ENLOLO"),
+_dl2EnHihiPv(slotName + "LEM_DL2ENHIHI"),
 _bcastStatesPv(slotName + " BCASTSTATES")
 {
     _statusMessage << "Not configured";
@@ -178,7 +168,7 @@ int LoopConfiguration::initialize() {
          * TRANSVERSE:
          * Use P1 as the reference for P2/P3/P4.
          */ 
-        if ("LG01" == _slotName) {
+        if ("LG01" == _slotName || "LG02" == _slotName) {
             switch (i) {
                 case 0:
                     actuatorSetP1 = aIt->second;
@@ -1059,42 +1049,26 @@ int LoopConfiguration::peek(std::string deviceName, PatternMask patternMask,
 }
 
 /**
- * Get the Energy Reference and Vernier based on destination and location in the LINAC.
+ * Get the Energy Reference and Vernier based on location in the LINAC.
  *
- * @param patternIndex pattern the loop requesting the vernier is associated with. Used to look up destination.
  * @param energyLocation which part of the LINAC we want the vernier from.
  * @return a pair of Eref, Vernier.
  */
-
 std::pair<double, double> 
-LoopConfiguration::getEnergy(int patternIndex, EnergyLocation energyLocation)
+LoopConfiguration::getEnergy(EnergyLocation energyLocation)
 {
-    auto destination = getPatternDestination(patternIndex);
-
     switch (energyLocation) {
        case DL1_ENERGY:
-           if (destination == Destination::HXR)
-               return std::pair { _dl1ErefPvHXR.getValue(), _dl1EnergyVernierPvHXR.getValue() };
-           else
-               return std::pair { _dl1ErefPvSXR.getValue(), _dl1EnergyVernierPvSXR.getValue() };
+               return std::pair { _dl1ErefPv.getValue(), _dl1EnergyVernierPv.getValue() };
 
        case BC1_ENERGY:
-           if (destination == Destination::HXR)
-               return std::pair { _bc1ErefPvHXR.getValue(), _bc1EnergyVernierPvHXR.getValue() };
-           else
-               return std::pair { _bc1ErefPvSXR.getValue(), _bc1EnergyVernierPvSXR.getValue() };
+               return std::pair { _bc1ErefPv.getValue(), _bc1EnergyVernierPv.getValue() };
 
        case BC2_ENERGY:
-           if (destination == Destination::HXR)
-               return std::pair { _bc2ErefPvHXR.getValue(), _bc2EnergyVernierPvHXR.getValue() };
-           else
-               return std::pair { _bc2ErefPvSXR.getValue(), _bc2EnergyVernierPvSXR.getValue() };
+               return std::pair { _bc2ErefPv.getValue(), _bc2EnergyVernierPv.getValue() };
 
        case DL2_ENERGY:
-           if (destination == Destination::HXR)
-               return std::pair { _dl2ErefPvHXR.getValue(), _dl2EnergyVernierPvHXR.getValue() };
-           else
-               return std::pair { _dl2ErefPvSXR.getValue(), _dl2EnergyVernierPvSXR.getValue() };
+               return std::pair { _dl2ErefPv.getValue(), _dl2EnergyVernierPv.getValue() };
     }
 
     // energyLocation was invalid.
@@ -1295,25 +1269,20 @@ void LoopConfiguration::showDispersion() {
 
 void LoopConfiguration::showEref() {
     std::cout << "Energy refs: "
-	      << "DL1="  << _dl1ErefPvHXR.getValue() * 1000 << " MeV; "
-	      << "DL1S=" << _dl1ErefPvSXR.getValue() * 1000 << " MeV; "
-	      << "BC1="  << _bc1ErefPvHXR.getValue() * 1000 << " MeV; "
-	      << "BC1S=" << _bc1ErefPvSXR.getValue() * 1000 << " MeV; "
-	      << "BC2="  << _bc2ErefPvHXR.getValue() * 1000 << " MeV; "
-	      << "BC2S=" << _bc2ErefPvSXR.getValue() * 1000 << " MeV; "
-	      << "DL2="  << _dl2ErefPvHXR.getValue() * 1000 << " MeV"
-	      << "DL2S=" << _dl2ErefPvSXR.getValue() * 1000 << " MeV\n";
+	      << "DL1="  << _dl1ErefPv.getValue() * 1000 << " MeV; "
+	      << "BC1="  << _bc1ErefPv.getValue() * 1000 << " MeV; "
+	      << "BC2="  << _bc2ErefPv.getValue() * 1000 << " MeV; "
+	      << "DL2="  << _dl2ErefPv.getValue() * 1000 << " MeV;\n ";
     std::cout << "DL2 Energy Limits: "
-	      << "HXR Low: "  <<_dl2EnLoloPvHXR.getValue() << " MeV; "
-	      << "HXR High: " <<_dl2EnHihiPvHXR.getValue() << " MeV"
-	      << "SXR Low: "  <<_dl2EnLoloPvSXR.getValue() << " MeV; "
-	      << "SXR High: " <<_dl2EnHihiPvSXR.getValue() << " MeV\n";
+	      << "Low: "  <<_dl2EnLoloPv.getValue() << " MeV; "
+	      << "High: " <<_dl2EnHihiPv.getValue() << " MeV;\n";
 }
 
 /**
  * When the loop is configured, the destination for each POI is updated
  * so that the information can be queried from the control system
  */
+// TODO: Maybe can remove since we no longer care about the destination on a code level.
 void
 LoopConfiguration::updatePatternDestinations()
 {

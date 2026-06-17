@@ -25,6 +25,7 @@ _timerDelayPv("TIMERDELAY"), // Delay is in microseconds
 _algorithmsAvailable("ALGORITHMS"),
 _tmitLowPv("TMITLOW"),
 _by1BdesPv("BY1BDES"),
+_feedbackTypePv("FBCK_TYPE"),
 _laserPowerReadbackPv("LASER_PWR_READBACK"),
 _lclsModePv("LCLSMODE"),
 _s29AsumPv("S29_ASUM") {
@@ -199,4 +200,8 @@ int ExecConfiguration::getLoopIndex(std::string loopName) {
         ++it;
     }
     return -1;
+}
+
+bool ExecConfiguration::getFeedbackType() {
+    return _feedbackTypePv.getValue();
 }

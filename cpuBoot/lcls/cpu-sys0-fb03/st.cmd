@@ -30,13 +30,13 @@ ipmitool lan print
 loadModule.sh $EPICS_CPU_LIB/evrma.ko
 chmod 666 /dev/evr0mng
 
-evrManager /dev/evr0mng create vevr0
-evrManager /dev/evr0mng create vevr1
-evrManager /dev/evr0mng create vevr2
-evrManager /dev/evr0mng create vevr3
-evrManager /dev/evr0mng create vevr4
-evrManager /dev/evr0mng create vevr5
-evrManager /dev/evr0mng create vevr6
+evrManager /dev/evr0mng create vevr0 # sioc-l3b-tr01
+evrManager /dev/evr0mng create vevr1 # sioc-htr-tr01
+evrManager /dev/evr0mng create vevr2 # sioc-diag0-tr01
+evrManager /dev/evr0mng create vevr3 # sioc-l1b-tr01
+evrManager /dev/evr0mng create vevr4 # sioc-l2b-tr02
+evrManager /dev/evr0mng create vevr5 # sioc-bpn16-tr01
+evrManager /dev/evr0mng create vevr6 # sioc-dog-tr01
 evrManager /dev/evr0mng create vevr7
 evrManager /dev/evr0mng create vevr8
 evrManager /dev/evr0mng create vevr9

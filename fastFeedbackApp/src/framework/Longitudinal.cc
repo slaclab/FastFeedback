@@ -525,7 +525,7 @@ double Longitudinal::calculateEnergyDl1(MeasurementDevice *m1, MeasurementDevice
     }
 
     // Joe's algorithm
-    auto [eref, vernier] = _loopConfiguration->getEnergy(_patternIndex, EnergyLocation::DL1_ENERGY);
+    auto [eref, vernier] = _loopConfiguration->getEnergy(EnergyLocation::DL1_ENERGY);
 
     double refEnergy = eref * 1000;
     double setpoint  = refEnergy + vernier + s1->getOffset();
@@ -568,7 +568,7 @@ double Longitudinal::calculateEnergyBc1(MeasurementDevice* m3, StateDevice* s2) 
     }
 
     // Joe's algorithm
-    auto [eref, vernier] = _loopConfiguration->getEnergy(_patternIndex, EnergyLocation::BC1_ENERGY);
+    auto [eref, vernier] = _loopConfiguration->getEnergy(EnergyLocation::BC1_ENERGY);
 
     double refEnergy = eref * 1000;
     double setpoint  = refEnergy + vernier + s2->getOffset();
@@ -660,7 +660,7 @@ double Longitudinal::calculateEnergyBc2(MeasurementDevice* m5, StateDevice* s4) 
     }
 
     // Joe's algorithm
-    auto [eref, vernier] = _loopConfiguration->getEnergy(_patternIndex, EnergyLocation::BC2_ENERGY);
+    auto [eref, vernier] = _loopConfiguration->getEnergy(EnergyLocation::BC2_ENERGY);
     
     double refEnergy = eref * 1000;
     double setpoint  = refEnergy + vernier + s4->getOffset();
@@ -751,7 +751,7 @@ double Longitudinal::calculateEnergyDl2(MeasurementDevice* m7,
         return 0;
     }
 
-    auto [eref, vernier] = _loopConfiguration->getEnergy(_patternIndex, EnergyLocation::DL2_ENERGY);
+    auto [eref, vernier] = _loopConfiguration->getEnergy(EnergyLocation::DL2_ENERGY);
     
     double refEnergy = eref * 1000;
     double setpoint = refEnergy + vernier + s6->getOffset();
@@ -815,7 +815,7 @@ int Longitudinal::updateStates() {
 
     // Energy at DL1
     if ((*stateIt)->isUsed() && (*stateIt)->getUsedBy()) {
-        auto [_, vernier] = _loopConfiguration->getEnergy(_patternIndex, DL1_ENERGY);
+        auto [_, vernier] = _loopConfiguration->getEnergy(DL1_ENERGY);
 
         if (calculateEnergyState(*stateIt, _energyAverage[DL1_ENERGY]->getLatestValue(), vernier) != 0) {
             stateLimit = true;
@@ -826,7 +826,7 @@ int Longitudinal::updateStates() {
     // Energy at BC1
     ++stateIt;
     if ((*stateIt)->isUsed() && (*stateIt)->getUsedBy()) {
-        auto [_, vernier] = _loopConfiguration->getEnergy(_patternIndex, BC1_ENERGY);
+        auto [_, vernier] = _loopConfiguration->getEnergy(BC1_ENERGY);
 
         if (calculateEnergyState(*stateIt, _energyAverage[BC1_ENERGY]->getLatestValue(), vernier) != 0) {
             stateLimit = true;
@@ -846,7 +846,7 @@ int Longitudinal::updateStates() {
     // Energy at BC2
     ++stateIt;
     if ((*stateIt)->isUsed() && (*stateIt)->getUsedBy()) {
-        auto [_, vernier] = _loopConfiguration->getEnergy(_patternIndex, BC2_ENERGY);
+        auto [_, vernier] = _loopConfiguration->getEnergy(BC2_ENERGY);
 
         if (calculateEnergyState(*stateIt, _energyAverage[BC2_ENERGY]->getLatestValue(), vernier) != 0) {
             stateLimit = true;
@@ -866,7 +866,7 @@ int Longitudinal::updateStates() {
     // Energy at DL2
     ++stateIt;
     if ((*stateIt)->isUsed() && (*stateIt)->getUsedBy()) {
-        auto [_, vernier] = _loopConfiguration->getEnergy(_patternIndex, DL2_ENERGY);
+        auto [_, vernier] = _loopConfiguration->getEnergy(DL2_ENERGY);
 
         if (calculateEnergyState(*stateIt, _energyAverage[DL2_ENERGY]->getLatestValue(), vernier) != 0) {
             stateLimit = true;

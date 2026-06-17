@@ -6,6 +6,7 @@
  */
 
 #include "ActuatorDevice.h"
+#include "ExecConfiguration.h"
 #include "FileChannel.h"
 #include "Log.h"
 #include <string.h>
@@ -329,13 +330,29 @@ DataPoint::Status ActuatorDevice::peekStatus() {
 int ActuatorDevice::configure(CommunicationChannel::AccessType accessType,
 															int patternIndex) {
 	std::string deviceName = _devNamePv.getValue();
+    // As of 05/23/26, the longitudinal feedback is now split into 2 different instances,
+    // one for HXR, one for SXR. The SXR pvs have a 2 appended (e.g PDES2, ADES2), but 
+    // there remains one MUX for the controls, but 4 data-slots: 0,3 for HXR, 1,2 for SXR.
+    // The feedback writing to the correct data-slots is done through configuring the patterns
+    // correctly. We need to remove the 2 from the SXR actuator devices.
+    // There should probably be some sort of check that always prevents one IOC writing to 
+    // the other IOCs data-slots or reconfiguring the patterns.
+    // Data-slot:       Feedback Actuator PV:            MUX Name:
+    //     0              ACCL:LI22:1:PDES           ACCL:LI22:1:PDES
+    //     1              ACCL:LI22:1:PDES2          ACCL:LI22:1:PDES
+    //     2              ACCL:LI22:1:PDES2          ACCL:LI22:1:PDES
+    //     3              ACCL:LI22:1:PDES           ACCL:LI22:1:PDES
+
+    if (ExecConfiguration::getInstance().getFeedbackType()==1 && !deviceName.empty() && deviceName.back() == '2') {
+        // Remove the appended 2 from SXR actuator device names
+        deviceName.pop_back();
+    }
 
 	// If actuator is the Laser IOC, disable the FBCK Pv.
 	size_t found = deviceName.find("IN20:LS11:PCTRL");
 	if (found != std::string::npos) {
 		_setFbckPv = false;
 	}
-
 	if (_patternIndex > 0 && _patternIndex < 5 && !isNull() && _caModePv == false) {
 		std::ostringstream fcomDeviceName;
 		fcomDeviceName << deviceName << ":GETFCOM_" << _patternIndex - 1;

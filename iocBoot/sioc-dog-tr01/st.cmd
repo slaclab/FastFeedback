@@ -40,6 +40,7 @@ epicsEnvSet("LOCATION","cpu-sys0-fb03")
 epicsEnvSet("FB", "FB06")
 epicsEnvSet("LOOP", "TR07")
 epicsEnvSet("CONFIG_NAME", "DOG Launch")
+epicsEnvSet("FBCK_TYPE", 2) # Transverse
 
 # Which BY1 bend magnet do we want to read energy from?
 epicsEnvSet("BEND_MAG", "REFS:COL0:950:EDES")

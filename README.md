@@ -1,5 +1,5 @@
 # FastFeedback
-## The NC LINAC FastFeedback EPICS Application
+## The NC/SC LINAC FastFeedback EPICS Application
 
 # Contents
 1. [Documentation](#documentation)
@@ -59,7 +59,7 @@ Links to various bits of information about the FastFeedback system are below. A 
 |:-----------------:|:-----------------:|:----------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
 | sioc-sys0-fb01    | cpu-sys0-fb01     | Watchdog         | N/A     | N/A   | N/A   | Moved from lcls-daemon1 in R3.2.0 (Aug 25, 2020) |
 | sioc-sys0-lg01    | cpu-sys0-fb02     | HXR Longitudinal | FB04    | LG01  | 3     |                                                  |
-| sioc-sys0-lg02    | cpu-sys0-fb01     | SXR Longitudinal | FB03    | LG01  | 10    | Deferred                                         |
+| sioc-sys0-lg02    | cpu-sys0-fb02     | SXR Longitudinal | FB04    | LG02  | 9     |                                                  |
 | sioc-sys0-gn01    | cpu-sys0-fb02     | BunchCharge      | FB02    | GN01  | 2     |                                                  |
 
 ### S20                                                               
@@ -106,6 +106,6 @@ Links to various bits of information about the FastFeedback system are below. A 
 | Name              | CPU               | Function         | FB      |Loop   |VEVR # | Notes                                            |
 |:-----------------:|:-----------------:|:----------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
 | sioc-undh-tr01    | cpu-sys0-fb02     | UNDH Launch      | FB03    | TR04  | 4     |                                                  |
-| sioc-undh-tr02    | cpu-sys0-fb02     | UNDH BLD         | FB05    | TR05  | 6     |                                                  |
+| sioc-undh-tr02    | cpu-sys0-fb02     | UNDH BLD         | FB05    | TR05  | 5     |                                                  |
 | sioc-unds-tr01    | cpu-sys0-fb01     | UNDS Launch      | FB04    | TR02  | 12    |                                                  |
 | sioc-unds-tr02    | cpu-sys0-fb01     | UNDS BLD         | FB03    | TR02  | 13    |                                                  |

@@ -224,10 +224,10 @@ public:
 	     DataPoint &dataPoint, int pos);
 
     /**
-     * Get the appropriate vernier or Eref values based on destination and location in the LINAC. 
+     * Get the appropriate vernier or Eref values based on location in the LINAC. 
      * enum EnergyLocation is defined in Longitudinal.h 
      */
-    std::pair<double, double> getEnergy(int patternMask, EnergyLocation energyLocation);
+    std::pair<double, double> getEnergy(EnergyLocation energyLocation);
 
     /**
      * Defines whether the Loop is in compute only mode (i.e. all actuator
@@ -644,6 +644,7 @@ private:
 
     /** Get beam destination from the PatternMask */
 
+    //TODO: Figure out what to do with this now that we dont need destination dependence
     enum class Destination {
         HXR = 0,
         SXR = 1,
@@ -667,49 +668,23 @@ private:
     PvData<bool> _poi3DestPv;
     PvData<bool> _poi4DestPv;
 
-    /*
-     * The following PVs are specific to a destination. Used for Longitudinal feedback.
-     */
+    /* SIOC:SYS0:FBxx:DL1_EREF PV via CA */
+    PvData<double> _dl1ErefPv;
 
-    /** FBCK:FBxx:LG01:DL1VERNIER_(SXR) */
-    PvData<double> _dl1EnergyVernierPvHXR;
-    PvData<double> _dl1EnergyVernierPvSXR;
+    /* SIOC:SYS0:FBxx:BC1_EREF PV via CA */
+    PvData<double> _bc1ErefPv;
 
-    /** FBCK:FBxx:LG01:BC1VERNIER_(SXR) */
-    PvData<double> _bc1EnergyVernierPvHXR;
-    PvData<double> _bc1EnergyVernierPvSXR;
+    /* SIOC:SYS0:FBxx:BC2_EREF PV via CA */
+    PvData<double> _bc2ErefPv;
 
-    /** FBCK:FBxx:LG01:BC2VERNIER_(SXR) */
-    PvData<double> _bc2EnergyVernierPvHXR;
-    PvData<double> _bc2EnergyVernierPvSXR;
+    /* SIOC:SYS0:FBxx:DL2_EREF PV via CA */
+    PvData<double> _dl2ErefPv;
 
-    /** FBCK:FBxx:LG01:DL2VERNIER_(SXR) */
-    PvData<double> _dl2EnergyVernierPvHXR;
-    PvData<double> _dl2EnergyVernierPvSXR;
+    /* SIOC:SYS0:FBxx:LEM_DL2ENLOLO PV via CA */
+    PvData<double> _dl2EnLoloPv;
 
-    /* SIOC:SYS0:FBxx:DL1_EREF_(SXR) PV via CA */
-    PvData<double> _dl1ErefPvHXR;
-    PvData<double> _dl1ErefPvSXR;
-
-    /* SIOC:SYS0:FBxx:BC1_EREF_(SXR) PV via CA */
-    PvData<double> _bc1ErefPvHXR;
-    PvData<double> _bc1ErefPvSXR;
-
-    /* SIOC:SYS0:FBxx:BC2_EREF_(SXR) PV via CA */
-    PvData<double> _bc2ErefPvHXR;
-    PvData<double> _bc2ErefPvSXR;
-
-    /* SIOC:SYS0:FBxx:DL2_EREF_(SXR) PV via CA */
-    PvData<double> _dl2ErefPvHXR;
-    PvData<double> _dl2ErefPvSXR;
-
-    /* SIOC:SYS0:FBxx:LEM_DL2ENLOLO_(SXR) PV via CA */
-    PvData<double> _dl2EnLoloPvHXR;
-    PvData<double> _dl2EnLoloPvSXR;
-
-    /* SIOC:SYS0:FBxx:LEM_DL2ENHIHI_(SXR) PV via CA */
-    PvData<double> _dl2EnHihiPvHXR;
-    PvData<double> _dl2EnHihiPvSXR;
+    /* SIOC:SYS0:FBxx:LEM_DL2ENHIHI PV via CA */
+    PvData<double> _dl2EnHihiPv;
 
 };
 
