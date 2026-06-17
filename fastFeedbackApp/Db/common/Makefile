@@ -42,7 +42,7 @@ DB += fbckIoc.db
 DB += iocEnergyChirp.db
 
 # Longitudinal Type Record:
-DB += fbckLongType.db
+DB += fbckType.db
 #
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add

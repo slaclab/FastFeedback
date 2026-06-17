@@ -102,7 +102,7 @@ dbLoadRecords("db/fbck_template.db","VIOC=${IOC_TYPE},LOC=${LOCA},FEEDBACK=${FB}
 #   HXR -> 0
 #   SXR -> 1
 #   Transverse -> 2
-dbLoadRecords("db/fbckLongType.db", "AREA=$(FB), LOOP=$(LOOP), FBCK_TYPE=$(FBCK_TYPE)")
+dbLoadRecords("db/fbckType.db", "AREA=$(FB), LOOP=$(LOOP), FBCK_TYPE=$(FBCK_TYPE)")
 
 #########################################################################
 #BEGIN: Setup autosave/restore
