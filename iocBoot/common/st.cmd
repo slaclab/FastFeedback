@@ -98,7 +98,10 @@ dbLoadRecords("db/fbck_template.db","VIOC=${IOC_TYPE},LOC=${LOCA},FEEDBACK=${FB}
 
 # Loading a record type that will differentiate which longitudinal controls
 # are being used. This helps to write to the correct PVs for the different
-# Feedbacks. This one is for HXR (Type 0):
+# Feedbacks:
+#   HXR -> 0
+#   SXR -> 1
+#   Transverse -> 2
 dbLoadRecords("db/fbckLongType.db", "AREA=$(FB), LOOP=$(LOOP), FBCK_TYPE=$(FBCK_TYPE)")
 
 #########################################################################
