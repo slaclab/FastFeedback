@@ -18,18 +18,11 @@ cd ${TOP}
 #Setup some additional environment variables
 #=======================================================================
 
-# tag messages with IOC name
-# How to escape the "sioc-ltus-tr01" as the PERL program
-# will try to repplace it.
-# So, uncomment the following and remove the backslash
-
-#epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
-
 #======================================================================
 ## iocAdmin environment variables
 #=====================================================================
 epicsEnvSet("ENGINEER","J.Mock")
-epicsEnvSet("LOCATION","cpu-sys0-fb01")
+epicsEnvSet("LOCATION","cpu-sys0-fb03")
 
 #===================================================================
 # Set MACROS for EVRs & VIOC
@@ -37,18 +30,16 @@ epicsEnvSet("LOCATION","cpu-sys0-fb01")
 # SYS0 ==> LCLS1
 # SYS1 ==> FACET
 
-epicsEnvSet("LOCA","LTUS")
+epicsEnvSet("LOCA","SYS0")
 epicsEnvSet(FAC,"${LOCA}")
-epicsEnvSet(UNIT,"TR01") 
+epicsEnvSet(UNIT,"FB02") 
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
 epicsEnvSet(VEVR, "vevr11")
-
 
 epicsEnvSet("IOC_TYPE", "SIOC")
 #epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")
 epicsEnvSet("IOC_NAME",  "SIOC:SYS0:FB02")
 epicsEnvSet("LOCAL_SETPOINTS", "1")
-#epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 
 # =================================================================
 # User defined environment vars
@@ -72,9 +63,6 @@ ModeBsa_registerRecordDeviceDriver(pdbbase)
 
 dbLoadRecords("db/beamPathDetermination.db", "USER=${USER},PORT=${PORT_NAME}, ADDR=0,TIMEOUT=0,D=${DEV},ATTR_HXR=${ATTR_HXR},ATTR_SXR=${ATTR_SXR}")
 
-#iocBoot/common/st.cmd CODE STARTS HERE
-
-    
 ######################################################################
 #======================================================================    
 # Initialize all Hardware 
@@ -129,6 +117,6 @@ evrInitialize();
 ##Driver Launches
 BeamPathDriverConfigure("${PORT_NAME}")
 
-iocInit
+iocInit()
 
 #Done  
