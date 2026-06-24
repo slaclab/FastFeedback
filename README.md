@@ -54,11 +54,10 @@ Links to various bits of information about the FastFeedback system are below. A 
 | sioc-bc1b-tr01    | cpu-sys0-fb03     | BC1B Launch      | FB06    | TR08  | 7     |                                                  |
 
 ### Global
-| Name              | CPU               | Function         | FB      |Loop   |VEVR # | Notes                                            |
-|:-----------------:|:-----------------:|:----------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
-| sioc-sys0-fb01    | cpu-sys0-fb01     | Watchdog         | N/A     | N/A   | N/A   | Moved from lcls-daemon1 in R3.2.0 (Aug 25, 2020) |
-| sioc-sys0-fb02    | cpu-sys0-fb03     | Beam Destination | N/A     | N/A   | 11    | Calculates Beam Destination in real-time         |
-|                   |                   |                  |         |       |       | OperationsSupport not build for EVR support, so its here |
+| Name              | CPU               | Function                     | FB      |Loop   |VEVR # | Notes                                            |
+|:-----------------:|:-----------------:|:----------------------------:|:-------:|:-----:|:-----:|:-------------------------------------------------|
+| sioc-sys0-fb01    | cpu-sys0-fb01     | Watchdog                     | N/A     | N/A   | N/A   | Moved from lcls-daemon1 in R3.2.0 (Aug 25, 2020) |
+| sioc-sys0-fb02    | cpu-sys0-fb03     | Beam Destination Calculation | N/A     | N/A   | 11    | Calculates Beam Destination in real-time. OperationsSupport not built for EVR support, so its here |
 | sioc-sys0-lg01    | cpu-sys0-fb02     | HXR Longitudinal | FB04    | LG01  | 3     |                                                  |
 | sioc-sys0-lg02    | cpu-sys0-fb02     | SXR Longitudinal | FB04    | LG02  | 9     |                                                  |
 | sioc-sys0-gn01    | cpu-sys0-fb02     | BunchCharge      | FB02    | GN01  | 2     |                                                  |
