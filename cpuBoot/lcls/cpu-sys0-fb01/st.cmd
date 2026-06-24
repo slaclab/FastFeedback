@@ -30,20 +30,20 @@ ipmitool lan print
 loadModule.sh $EPICS_CPU_LIB/evrma.ko
 chmod 666 /dev/evr0mng
 
-evrManager /dev/evr0mng create vevr0
-evrManager /dev/evr0mng create vevr1
-evrManager /dev/evr0mng create vevr2
-evrManager /dev/evr0mng create vevr3
-evrManager /dev/evr0mng create vevr4
-evrManager /dev/evr0mng create vevr5
-evrManager /dev/evr0mng create vevr6
-evrManager /dev/evr0mng create vevr7
-evrManager /dev/evr0mng create vevr8
-evrManager /dev/evr0mng create vevr9
-# evrManager /dev/evr0mng create vevr10 <-- upcoming softline longitudinal
-evrManager /dev/evr0mng create vevr11
-evrManager /dev/evr0mng create vevr12
-evrManager /dev/evr0mng create vevr13
+evrManager /dev/evr0mng create vevr0   # sioc-bsy0-tr01
+evrManager /dev/evr0mng create vevr1   # sioc-li21-tr01
+evrManager /dev/evr0mng create vevr2   # sioc-li21-tr02
+evrManager /dev/evr0mng create vevr3   # sioc-li24-tr01
+evrManager /dev/evr0mng create vevr4   # sioc-li28-tr01
+evrManager /dev/evr0mng create vevr5   # sioc-ltuh-tr01
+evrManager /dev/evr0mng create vevr6   # sioc-ltuh-tr02
+evrManager /dev/evr0mng create vevr7   # sioc-ltuh-tr03
+evrManager /dev/evr0mng create vevr8   # sioc-in20-tr03
+evrManager /dev/evr0mng create vevr9   # sioc-in20-tr04
+evrManager /dev/evr0mng create vevr10  # sioc-sys0-op20 
+evrManager /dev/evr0mng create vevr11  # sioc-ltus-tr02
+evrManager /dev/evr0mng create vevr12  # sioc-unds-tr01
+evrManager /dev/evr0mng create vevr13  # sioc-unds-tr02
 
 # wait a bit to device become visible
 sleep 1
