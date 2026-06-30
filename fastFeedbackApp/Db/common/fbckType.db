@@ -14,3 +14,19 @@ record(mbbo, "FBCK:$(AREA):$(LOOP):FBCK_TYPE") {
     field(ONSV,  "NO_ALARM")
     field(TWSV,  "NO_ALARM")
 }
+
+record(mbbi, "FBCK:$(AREA):$(LOOP):FBCK_TYPE_RBV") {
+    field(DESC, "Feedback Type (SXR/HXR/Transverse) RBV")
+    field(DTYP, "FfConfig")
+    field(OUT,  "@FBCK_TYPE_RBV")
+    field(PINI, "YES")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(ZRST, "Long. HXR")
+    field(ONST, "Long. SXR")
+    field(TWST, "Transverse")
+    field(ZRSV,  "NO_ALARM")
+    field(ONSV,  "NO_ALARM")
+    field(TWSV,  "NO_ALARM")
+}
