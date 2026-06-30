@@ -424,15 +424,18 @@ int Device::createFbckPv(CommunicationChannel::AccessType accessType) {
         if (ExecConfiguration::getInstance().getFeedbackType() == 0){
             // For _feedbackTypePv == 0 (HXR):
             fbckName += ":FBCK";
+            ExecConfiguration::getInstance().setFeedbackType(0);
         }
         else if (ExecConfiguration::getInstance().getFeedbackType() == 1){
             // For _feedbackTypePv == 1 (SXR):
             fbckName += ":FBCK2";
+            ExecConfiguration::getInstance().setFeedbackType(1);
         }
       } // if there is no ACCL, remove last part of PV name and add ":FBCK"
       else {
         fbckName = deviceName.substr(0, lastColon);
         fbckName += ":FBCK";
+        ExecConfiguration::getInstance().setFeedbackType(2);
       }
     }
 
