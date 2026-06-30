@@ -44,6 +44,7 @@ public:
     int getLoopIndex(std::string loopName);
     int getSlotNames(std::vector<std::string> &slotNames);
     bool getFeedbackType();
+    void setFeedbackType(long fbckType);
 
     /**
      * Map containing the feedback loop configurations, keyed by the
@@ -107,7 +108,8 @@ public:
      * FBCK_TYPE 1 -> Long. SXR
      * FBCK_TYPE 2 -> Transverse
      */
-    PvData<bool> _feedbackTypePv;
+    PvData<long> _feedbackTypePv;
+    PvData<long> _feedbackTypeRbvPv;
 
     /** Set to true if PatternGenerator is configured. Used for testing only. */
     bool _hasPatternGenerator;
