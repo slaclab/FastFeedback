@@ -67,17 +67,9 @@ record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)") {
 record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)_RBV"){
     field(DESC, "RBV for dev->M$(DEVNUM) for displays")
     field(PINI, "YES")
-    field(INP,  "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)")
+    field(INP,  "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM) CPP MSS")
     field(PREC, "4")
-    field(EGU,  "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).EGU")
-    field(HIHI, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).HIHI")
-    field(LOLO, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).LOLO")
-    field(HIGH, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).HIGH")
-    field(LOW,  "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).LOW")
-    field(HHSV, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).HHSV")
-    field(LLSV, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).LLSV")
-    field(HSV,  "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).HSV")
-    field(LSV,  "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM).LSV")
+    field(EGU,  "mm")
     field(SCAN, "1 second")
 }
 
