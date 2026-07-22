@@ -175,7 +175,7 @@ private:
      * 0 -> NC
      * 1 -> SC
      */
-    PvData<double> _facModePv;
+    PvData<long> _facModePv;
     
     /** Updated when in the Device::checkMeasurementStatus. Alarms if bad.
      * 0 -> Bad

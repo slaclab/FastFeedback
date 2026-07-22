@@ -23,11 +23,11 @@ DB += fbck_template.db
 # ========================================
 # # Install timing/event related databases
 # ========================================
-DB_INSTALLS += $(EVENT)/db/EvrPmc.db
-DB_INSTALLS += $(EVENT)/db/EvrPci.db
-DB_INSTALLS += $(EVENT)/db/Pattern.db
-DB_INSTALLS += $(EVENT)/db/PCI-trig.db
-DB_INSTALLS += $(EVENT)/db/PMC-trig.db
+DB_INSTALLS += $(EVRCLIENT)/db/EvrPmc.db
+DB_INSTALLS += $(EVRCLIENT)/db/EvrPci.db
+DB_INSTALLS += $(EVRCLIENT)/db/Pattern.db
+DB_INSTALLS += $(EVRCLIENT)/db/PCI-trig.db
+DB_INSTALLS += $(EVRCLIENT)/db/PMC-trig.db
 
 # ========================================================
 # # Install databases from iocAdmin package

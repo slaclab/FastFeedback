@@ -1526,7 +1526,7 @@ static long devMbbiFfConfig_init_record(mbbiRecord *precord) {
  */
 static long devMbbiFfConfig_get_ioint_info(int cmd, struct dbCommon *precord,
         IOSCANPVT *pvt_ps) {
-    PvData<double> *pvDataDouble = reinterpret_cast<PvData<double> *> (precord->dpvt);
+    PvData<long> *pvDataDouble = reinterpret_cast<PvData<long> *> (precord->dpvt);
 
     if (pvDataDouble != NULL) {
         IOSCANPVT scanlist = pvDataDouble->getScanList();
@@ -1545,7 +1545,7 @@ static long devMbbiFfConfig_get_ioint_info(int cmd, struct dbCommon *precord,
  * @author K.Leleux
  */
 static long devMbbiFfConfig_read_mbbi(mbbiRecord *precord) {
-    PvData<double> *pvDataDouble = reinterpret_cast<PvData<double> *> (precord->dpvt);
+    PvData<long> *pvDataDouble = reinterpret_cast<PvData<long> *> (precord->dpvt);
 
     if (pvDataDouble != NULL) {
       precord->val = pvDataDouble->getValue();
@@ -1603,12 +1603,12 @@ static long devMbboFfConfig_init_record(mbboRecord *precord) {
     long status = -1;
 
     std::string pvName;
-    PvMap<double>::iterator it;
+    PvMap<long>::iterator it;
     switch (precord->out.type) {
         case INST_IO:
             pvName = precord->out.value.instio.string;
-            it = PvData<double>::getPvMap().find(pvName);
-            if (it == PvData<double>::getPvMap().end()) {
+            it = PvData<long>::getPvMap().find(pvName);
+            if (it == PvData<long>::getPvMap().end()) {
                 std::cout << "PvData: \"" << pvName;
                 std::cout << "\" not found." << std::endl;
                 status = -1;
@@ -1645,13 +1645,13 @@ static long devMbboFfConfig_write_mbbo(mbboRecord *precord) {
         return 0;
     }
 
-    std::vector<PvData<double> *> *vector =
-            reinterpret_cast<std::vector<PvData<double> *> *> (precord->dpvt);
+    std::vector<PvData<long> *> *vector =
+            reinterpret_cast<std::vector<PvData<long> *> *> (precord->dpvt);
     try {
         for (int i = 0; i < (int) vector->size(); ++i) {
             //std::cout << "VAL1 " << &precord->val << std::endl;
             //std::cout << "VAL2 " << precord->val << std::endl;
-            double newValue = precord->val;
+            long newValue = precord->val;
             //vector->at(i)->write(reinterpret_cast<double *> (&newValue));
             vector->at(i)->write(&newValue);
         }

@@ -13,7 +13,7 @@ include $(TOP)/configure/CONFIG
 # each delivered *.template file specified below looks for its
 # *.substitutions file
 
-DB_INSTALLS += $(EVENT)/db/bsaATTREdef.db
+DB_INSTALLS += $(EVRCLIENT)/db/bsaATTREdef.db
 
 # for each feedback loop
 DB += fbckState.db
@@ -40,7 +40,9 @@ DB += bsaFbck.db
 # IOC substitutions for PVs per feedback IOC
 DB += fbckIoc.db
 DB += iocEnergyChirp.db
-#DB += testRecord.db
+
+# Longitudinal Type Record:
+DB += fbckType.db
 #
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add

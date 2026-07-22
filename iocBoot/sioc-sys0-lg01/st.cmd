@@ -23,7 +23,7 @@ epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
 #======================================================================
 ## iocAdmin environment variables
 #=====================================================================
-epicsEnvSet("ENGINEER","J.Mock")
+epicsEnvSet("ENGINEER","K. Leleux")
 epicsEnvSet("LOCATION","cpu-sys0-fb02")
 
 #========================================================================
@@ -33,7 +33,8 @@ epicsEnvSet("LOCATION","cpu-sys0-fb02")
 #System Location:
 epicsEnvSet("FB", "FB04")
 epicsEnvSet("LOOP", "LG01")
-epicsEnvSet("CONFIG_NAME", "Longitudinal")
+epicsEnvSet("CONFIG_NAME", "HXR Longitudinal")
+epicsEnvSet("FBCK_TYPE", 0) # HXR
 
 # Which BY1 bend magnet do we want to read energy from?
 epicsEnvSet("BEND_MAG", "BEND:LTUH:125:BDES")
@@ -80,8 +81,8 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # ====================================================================
 dbLoadDatabase("dbd/fastFeedback.dbd")
 fastFeedback_registerRecordDeviceDriver(pdbbase)
-dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI22:1,RF=L2,PHASE_LNK=ACCL:LI22:1:PDES,AMPL_LNK=ACCL:LI22:1:ADES,DRVH=6000")
-dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI25:1,RF=L3,PHASE_LNK=ACCL:LI25:1:PDES,AMPL_LNK=ACCL:LI25:1:ADES,DRVH=16000")
+dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI22:1,RF=L2,PHASE_LNK=ACCL:LI22:1:PDES,AMPL_LNK=ACCL:LI22:1:ADES,DRVH=6000,FBCKNUM=")
+dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI25:1,RF=L3,PHASE_LNK=ACCL:LI25:1:PDES,AMPL_LNK=ACCL:LI25:1:ADES,DRVH=16000,FBCKNUM=")
 # Load converged status and auto act ref+offset save databases.
 dbLoadRecords("db/fbckSettled.db",     "LP=FBCK:$(FB):$(LOOP)")
 dbLoadRecords("db/fbckSettledSum.db",  "LP=FBCK:$(FB):$(LOOP)")
@@ -94,12 +95,14 @@ dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=6500,  LO=-1700,  AD
 dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=amps, HO=50000, LO=-28000, AD=5, PR=3, I='', LNK='', ATTR=BC2_CURRENT, INP=STATE5, SINK_SIZE=1")
 dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=17400, LO=-1,     AD=5, PR=3, I='', LNK='', ATTR=DL2_ENERGY,  INP=STATE6, SINK_SIZE=1")
 
+
 <iocBoot/common/st.cmd
+
 # ====================================================================
 # Sequencer scripts to keep track of the CHIRP control and DL2 limits
 # ====================================================================
-seq(&chirpControl, "IOC=FB04,LOOP=LG01")
-seq(&chirpUpdate, "IOC=FB04,LOOP=LG01")
+seq(&chirpControl, "IOC=FB04,LOOP=LG01,CHIRP_PV=FBCK:LI22:1:CHIRP")
+seq(&chirpUpdate, "IOC=FB04,LOOP=LG01,CHIRP_PV=FBCK:LI22:1:CHIRP")
 seq(&limitUpdate, "IOC=FB04,LOOP=LG01")
 
 seqShow()

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include "Device.h"
+#include "ExecConfiguration.h"
 #include "FileChannel.h"
 #include "CaChannel.h"
 #include "FcomChannel.h"
@@ -368,8 +369,8 @@ bool Device::isSetFbckPvEnabled() {
  *
  *   BPMS:LI20:230:X -> BPMS:LI20:230:FBCK
  *
- * RF actuators whose PV name starts with ACCL must have the "FBCK" string appended 
- * to the original nome, e.g.:
+ * RF actuators whose PV name starts with ACCL must have the ":FBCK" or ":FBCK2" string 
+ * appended to the original name, e.g.:
  *
  *   ACCL:LI24:2:ADES -> ACCL:LI24:2:ADES:FBCK
  * 
@@ -410,11 +411,25 @@ int Device::createFbckPv(CommunicationChannel::AccessType accessType) {
       std::cout << "Feedback PV: " << fbckName << std::endl;
     }
     else {
-      // If has ACCL, then append ":FBCK" to the PV name
+      // With split LLRF controls, we will need to append differently based
+      // on whether we are HXR or SXR longitudinal. This information is stored
+      // in the FBCK:<LOOP>:FBCK_TYPE  PV:
+      // HXR (FBCK_TYPE 0):
+      //    * ACCL:LI24:2:ADES -> ACCL:LI24:2:ADES:FBCK
+      // SXR (FBCK_TYPE 1):
+      //    * ACCL:LI24:2:ADES -> ACCL:LI24:2:ADES:FBCK2
+      // Transverse (FBCK_TYPE 2)
       if (found != std::string::npos) {
         fbckName = deviceName;
-        fbckName += ":FBCK";
-      }// if there is no ACCL, remove last part of PV name and add ":FBCK"
+        if (ExecConfiguration::getInstance().getFeedbackType() == 0){
+            // For _feedbackTypePv == 0 (HXR):
+            fbckName += ":FBCK";
+        }
+        else if (ExecConfiguration::getInstance().getFeedbackType() == 1){
+            // For _feedbackTypePv == 1 (SXR):
+            fbckName += ":FBCK2";
+        }
+      } // if there is no ACCL, remove last part of PV name and add ":FBCK"
       else {
         fbckName = deviceName.substr(0, lastColon);
         fbckName += ":FBCK";

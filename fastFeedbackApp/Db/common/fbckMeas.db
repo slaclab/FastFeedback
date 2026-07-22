@@ -40,7 +40,7 @@ record(calc, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)ENABLE") {
 }
 
 record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)") {
-  field(DESC, "RB for dev->M$(DEVNUM)")
+  field(DESC, "Live RB for dev->M$(DEVNUM)")
   field(PINI, "YES")
   field(DISV, "0")
 #  field(SDIS, "FBCK:$(AREA):$(LOOP):STATE")
@@ -62,6 +62,15 @@ record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)") {
   field(SCAN, "I/O Intr")
   field(PRIO, "LOW")
   info(autosaveMon$(AREA), "EGU HIHI HIGH LOW LOLO")
+}
+
+record(ai, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)_RBV"){
+    field(DESC, "RBV for dev->M$(DEVNUM) for displays")
+    field(PINI, "YES")
+    field(INP,  "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM) CPP MSS")
+    field(PREC, "4")
+    field(EGU,  "mm")
+    field(SCAN, "1 second")
 }
 
 record(compress, "FBCK:$(AREA):$(LOOP):$(DEVTYPE)$(DEVNUM)HST") {

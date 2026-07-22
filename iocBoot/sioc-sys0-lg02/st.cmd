@@ -29,7 +29,7 @@ epicsEnvSet("EPICS_IOC_LOG_CLIENT_INET","${VIOC}")
 #======================================================================
 ## iocAdmin environment variables
 #=====================================================================
-epicsEnvSet("ENGINEER","J.Mock")
+epicsEnvSet("ENGINEER","K. Leleux")
 epicsEnvSet("LOCATION","cpu-sys0-fb02")
 
 #========================================================================
@@ -37,11 +37,13 @@ epicsEnvSet("LOCATION","cpu-sys0-fb02")
 #========================================================================
 
 #System Location:
-epicsEnvSet("FB", "FB01")
-epicsEnvSet("LOOP", "LG01")
-epicsEnvSet("CONFIG_NAME", "LaunchLoop2")
+epicsEnvSet("FB", "FB04")
+epicsEnvSet("LOOP", "LG02")
+epicsEnvSet("CONFIG_NAME", "SXR Longitudinal")
+epicsEnvSet("FBCK_TYPE", 1) # SXR
 
 # Which BY1 bend magnet do we want to read energy from?
+# TODO: WHICH MAGNET SHOULD WE GO FOR?
 epicsEnvSet("BEND_MAG", "BEND:LTUS:525:BDES")
 
 #=====================================================================
@@ -54,7 +56,7 @@ epicsEnvSet("LOCA","SYS0")
 epicsEnvSet(FAC,"${LOCA}")
 epicsEnvSet(UNIT,"LG02")
 epicsEnvSet(EVR_DEV1,"EVR:${FAC}:${UNIT}")
-epicsEnvSet(VEVR, "vevr10")
+epicsEnvSet(VEVR, "vevr9")
 
 epicsEnvSet("IOC_TYPE","SIOC")
 epicsEnvSet("IOC_NAME",  "${IOC_TYPE}:${LOCA}:${UNIT}")
@@ -84,13 +86,32 @@ epicsEnvSet("IOCSH_PS1","epics@${VIOC}>")
 # ====================================================================
 ## Load common fast feedback st.cmd
 # ====================================================================
+
 dbLoadDatabase("dbd/fastFeedback.dbd")
 fastFeedback_registerRecordDeviceDriver(pdbbase)
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=X_POS, INP=STATE1, SINK_SIZE=1")
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mrad, HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=X_ANG, INP=STATE2, SINK_SIZE=1")
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mm,   HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=Y_POS, INP=STATE3, SINK_SIZE=1")
-dbLoadRecords("db/bsaFbck.db",  "D=FBCK:UND0:1, EG=mrad, HO=10, LO=-10, AD=5, PR=3, I='', LNK='', ATTR=Y_ANG, INP=STATE4, SINK_SIZE=1")
+dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI22:1,RF=L2,PHASE_LNK=ACCL:LI22:1:PDES2,AMPL_LNK=ACCL:LI22:1:ADES2,DRVH=6000,FBCKNUM=2")
+dbLoadRecords("db/iocEnergyChirp.db","DEV=FBCK:LI25:1,RF=L3,PHASE_LNK=ACCL:LI25:1:PDES,AMPL_LNK=ACCL:LI25:1:ADES2,DRVH=16000,FBCKNUM=2")
+# Load converged status and auto act ref+offset save databases.
+dbLoadRecords("db/fbckSettled.db",     "LP=FBCK:$(FB):$(LOOP)")
+dbLoadRecords("db/fbckSettledSum.db",  "LP=FBCK:$(FB):$(LOOP)")
+dbLoadRecords("db/fbckAutoActLong.db", "LP=FBCK:$(FB):$(LOOP)")
+
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=200,   LO=-90,    AD=5, PR=3, I='', LNK='', ATTR=DL1_ENERGY2,  INP=STATE1, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=400,   LO=-150,   AD=5, PR=3, I='', LNK='', ATTR=BC1_ENERGY2,  INP=STATE2, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=amps, HO=450,   LO=-300,   AD=5, PR=3, I='', LNK='', ATTR=BC1_CURRENT2, INP=STATE3, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=6500,  LO=-1700,  AD=5, PR=3, I='', LNK='', ATTR=BC2_ENERGY2,  INP=STATE4, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=amps, HO=50000, LO=-28000, AD=5, PR=3, I='', LNK='', ATTR=BC2_CURRENT2, INP=STATE5, SINK_SIZE=1")
+dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=17400, LO=-1,     AD=5, PR=3, I='', LNK='', ATTR=DL2_ENERGY2,  INP=STATE6, SINK_SIZE=1")
 
 <iocBoot/common/st.cmd
+
+# ====================================================================
+# Sequencer scripts to keep track of the CHIRP control and DL2 limits
+# ====================================================================
+seq(&chirpControl, "IOC=FB04,LOOP=LG02,CHIRP_PV=FBCK:LI22:1:CHIRP2")
+seq(&chirpUpdate, "IOC=FB04,LOOP=LG02,CHIRP_PV=FBCK:LI22:1:CHIRP2")
+seq(&limitUpdate, "IOC=FB04,LOOP=LG02")
+
+seqShow()
 
 #Done  

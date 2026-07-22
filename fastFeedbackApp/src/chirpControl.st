@@ -5,7 +5,7 @@ assign chirpState to "FBCK:{IOC}:{LOOP}:CHIRPSTATE";
 monitor chirpState;
 
 double chirpValue;
-assign chirpValue to "FBCK:LI22:1:CHIRP";
+assign chirpValue to "{CHIRP_PV}";
 /* This one is for testing on DEV only */
 /* assign chirpValue to "FBCK:{IOC}:TR01:M1"; */
 
