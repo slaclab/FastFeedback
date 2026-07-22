@@ -12,6 +12,10 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R4.2.1   24 June 2026   K. Leleux (kleleux)
+    * Updating documentation to include sioc-sys0-op20, which is used to determine
+      beam destination in real time, but needs an evr, which the Fast Feedback cpus
+      have, so we are running it on cpu-sys0-fb01, vevr10.
 R4.2.0   05 November 2025   K. Leleux (kleleux)
     * Adding new transverse ioc sioc-bc1b-tr01
 R4.1.2   16 April 2025   K. Leleux (kleleux)
