@@ -11,6 +11,7 @@
 #include <iostream>
 #include <exception>
 #include <sstream>
+#include "ExecConfiguration.h"
 #include "FcomChannel.h"
 #include <fcomUtil.h>
 #include <fcom_api.h>
@@ -78,9 +79,29 @@ int FcomChannel::initialize() {
     /**
      * If this FcomChannel is write only and the read() method is
      * invoked we must have a CaChannel ready to perform the read.
+     *
+     * As of 05/23/26, the longitudinal feedback is now split into 2 different instances,
+     * one for HXR, one for SXR. The SXR pvs have a 2 appended (e.g PDES2, ADES2), but 
+     * there remains one MUX for the controls, but 4 data-slots: 0,3 for HXR, 1,2 for SXR.
+     * When an FcomChannel is created for SXR actuator devices, a CaChannel is created
+     * without the appended 2, so when the feedback is re-enabled, the SXR feedback
+     * pulls the most recent setpoint from the HXR feedback. We need to check the 
+     * feedback type and re-append this 2 back ONLY for the SXR Actuator Device CaChannels.
+     * Example:
+     *      Longitudinal Feedback:      FCOM Name:              CA Name:
+     *              HXR             ACCL:LI22:1:PDES        ACCL:LI22:1:PDES
+     *              SXR             ACCL:LI22:1:PDES        ACCL:LI22:1:PDES2
+     * 
+     * TODO: Make sure I need the second condition by seeing if this device name is gotten
+     * every time the feedback is enabled, otherwise it is just doing nothing.
      */
     if (_accessType == CommunicationChannel::WRITE_ONLY) {
-      _readCaChannel = new CaChannel(CommunicationChannel::READ_ONLY, _name);
+        std::string _caName = _name;
+
+        if (ExecConfiguration::getInstance().getFeedbackType()==1 && !_caName.empty() && _caName.back() != '2') {
+            _caName += "2";
+        }
+        _readCaChannel = new CaChannel(CommunicationChannel::READ_ONLY, _caName);
     }
 
     std::string fcomName = _name;
