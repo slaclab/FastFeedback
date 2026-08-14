@@ -89,6 +89,12 @@ protected:
      * to an FcomID
      */
     std::string _name;
+    /**
+     * There is a special case for SXR actuators where the FCOM Mux does not have an
+     * appended 2 (eg. ACCL:LI22:1:PDES), but the CaChannel create MUST have it in order
+     * to get the appropriate setpoint for the actuator (eg. ACCL:LI22:1:PDES)
+     */
+    std::string _caName;
 
     /** FcomID for this device. The ID in retrieved based on the device name */
     FcomID _id;
