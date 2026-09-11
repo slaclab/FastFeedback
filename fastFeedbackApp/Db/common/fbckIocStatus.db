@@ -56,32 +56,6 @@ record(ao, "$(IOC):$(LC):$(LOOP):BY1BDES") {
   field(PRIO, "LOW")
 }
 
-record(ai, "$(IOC):$(LC):$(LOOP):LASER_PWR_READBACK_IN") {
-  field(DESC, "Laser Power")
-  field(SCAN, "Passive")
-  field(PINI, "YES")
-  field(FLNK, "$(IOC):$(LC):$(LOOP):LASER_PWR_READBACK")
-  field(VAL, "0")
-  field(INP, "IOC:IN20:LS11:LASER_PWR_READBACK CPP MS")
-  field(EGU, "percent")
-  field(PRIO, "LOW")
-}
-
-record(ao, "$(IOC):$(LC):$(LOOP):LASER_PWR_READBACK") {
-  field(DESC, "Laser Power")
-  field(SCAN, "Passive")
-  field(VAL, "0")
-  field(DTYP, "FfConfig")
-  field(OUT, "@LASER_PWR_READBACK")
-  field(DOL, "$(IOC):$(LC):$(LOOP):LASER_PWR_READBACK_IN")
-  field(EGU, "percent")
-  field(OMSL, "closed_loop")
-  field(OIF, "Full")
-  field(DRVH, "100")
-  field(DRVL, "0")
-  field(PRIO, "LOW")
-}
-
 record(bo, "$(IOC):$(LC):$(LOOP):LCLSMODE") {
   field(DESC, "NC/SC Mode")
   field(DTYP, "FfConfig")
