@@ -59,7 +59,7 @@ Links to various bits of information about the FastFeedback system are below. A 
 | sioc-sys0-fb01    | cpu-sys0-fb01     | Watchdog                     | N/A     | N/A   | N/A   | Moved from lcls-daemon1 in R3.2.0 (Aug 25, 2020) |
 | sioc-sys0-lg01    | cpu-sys0-fb02     | HXR Longitudinal             | FB04    | LG01  | 3     |                                                  |
 | sioc-sys0-lg02    | cpu-sys0-fb02     | SXR Longitudinal             | FB04    | LG02  | 9     |                                                  |
-| sioc-sys0-gn01    | cpu-sys0-fb02     | BunchCharge                  | FB02    | GN01  | 2     |                                                  |
+| sioc-sys0-gn01    | cpu-sys0-fb02     | BunchCharge                  | FB02    | GN01  | 2     | Deprecated as of 09/11/2026                      |
 | sioc-sys0-op20    | cpu-sys0-fb01     | Beam Destination Calculation | N/A     | N/A   | 10    | Calculates Beam Destination in real-time. FastFeedback had an evr to use, so its here |
 
 ### S20                                                               
