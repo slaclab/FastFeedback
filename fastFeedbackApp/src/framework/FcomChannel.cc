@@ -95,7 +95,7 @@ int FcomChannel::initialize() {
     if (_accessType == CommunicationChannel::WRITE_ONLY) {
         std::string _caName = _name;
 
-        // This condition is for a non empty SXR actuator device (not :GETFCOM device) that has not already had 2 added to it.
+        // This condition is for a non empty SXR actuator device (not :GETFCOM mux) that has not already had 2 added to it.
         if (ExecConfiguration::getInstance().getFeedbackType()==1 && !_caName.empty() && _caName.back() != '2' && _caName.find(":GETFCOM_") == std::string::npos) {
             _caName += "2";
         }
