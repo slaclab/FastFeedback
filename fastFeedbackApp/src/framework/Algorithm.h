@@ -45,7 +45,8 @@ const std::string TRAJECTORY_FIT_EACT = "TrajectoryFitEact";
 const std::string INJECTOR_LAUNCH_ALGORITHM = "InjectorLaunch";
 const std::string LONGITUDINAL_ALGORITHM = "Longitudinal";
 const std::string LONGITUDINAL_CHIRP_ALGORITHM = "LongitudinalChirp";
-const std::string BUNCH_CHARGE_ALGORITHM = "BunchCharge";
+// Deprecated as of 09/14/25. Only commenting in case it gets revived: 
+// const std::string BUNCH_CHARGE_ALGORITHM = "BunchCharge";
 const std::string SINE_ALGORITHM = "Sine";
 const std::string SINE_ALGORITHM_N = "SineN";
 

@@ -111,7 +111,7 @@ CC_FILES = Thread.cc EventReceiver.cc EventGenerator.cc PatternManager.cc \
 	Longitudinal.cc MeasurementAverage.cc LongitudinalChirp.cc \
 	TrajectoryFitGeneral.cc TrajectoryFitStatic.cc InjectorLaunch.cc \
 	TrajectoryFitBy1.cc TrajectoryFit.cc FcomChannelStates.cc \
-	TrajectoryFitPoly.cc BunchCharge.cc TrajectoryFitPinv.cc \
+	TrajectoryFitPoly.cc  TrajectoryFitPinv.cc \
 	TrajectoryFitEact.cc EventLogger.cc
 
 ## ======================================================================      

@@ -85,13 +85,6 @@ public:
     PvData<double> _by1BdesPv;
 
     /**
-     * This PvData is mapped to the IOC:IN20:LS11:PASER_PWR_READBACK PV through
-     * ChannelAccess link. Whenever the PASER_PWR_READBACK PV changes this attribute
-     * is changed as well.
-     */
-    PvData<double> _laserPowerReadbackPv;
-
-    /**
      * This PvData is mapped to the <LOOP>:LCLSMODE PV.  In LCLS1 Mode (mode = 0), the loops
        work as they always have done.  When in LCLS2 Mode (mode = 1), Measurement (BPM) timestamps
        are checked for all measurement devices to ensure a coherent set of data are used.  Also, timestamps

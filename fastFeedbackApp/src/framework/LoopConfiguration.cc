@@ -23,7 +23,6 @@
 #include "TrajectoryFitPinv.h"
 #include "TrajectoryFitEact.h"
 #include "InjectorLaunch.h"
-#include "BunchCharge.h"
 #include "PatternManager.h"
 #include "CaChannel.h"
 #include "Loop.h"
@@ -31,6 +30,8 @@
 #include "ExecConfiguration.h"
 #include "Longitudinal.h"
 #include "LongitudinalChirp.h"
+// Deprecated as of 09/14/26. Commenting out in case it gets revived:
+//#include "BunchCharge.h"
 
 //#include <cadef.h>
 
@@ -782,10 +783,13 @@ int LoopConfiguration::configureAlgorithm() {
         } else if (algoName == LONGITUDINAL_CHIRP_ALGORITHM) {
             algorithm = new LongitudinalChirp();
             _skipTmitCheck = true;
-        } else if (algoName == BUNCH_CHARGE_ALGORITHM) {
-            algorithm = new BunchCharge();
-	    _skipTmitCheck = true;
-        } else if (algoName == SINE_ALGORITHM) {
+        } 
+        // Deprecated as of 09/14/26. Commenting out in case it gets revived:
+        //else if (algoName == BUNCH_CHARGE_ALGORITHM) {
+        //    algorithm = new BunchCharge();
+	    //    _skipTmitCheck = true;
+        //}
+        else if (algoName == SINE_ALGORITHM) {
             algorithm = new SineWave(SineWave::ONE_MEAS_ONE_ACT);
         } else if (algoName == SINE_ALGORITHM_N) {
             algorithm = new SineWave(SineWave::N_MEAS_N_ACT);
