@@ -12,6 +12,13 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R5.0.3   14 September 2026   K. Leleux (kleleux)
+    * Figured out a bug with the creation of FcomChannels where it runs twice.
+      First, it runs for the :GETFCOM_ mux, which we do not want to append 2
+      to this. Second, it runs to create a writable fcom channel for the 
+      actuator itself using a read only CaChannel, which needs the appended 2
+      to get the correct starting actuator setpoint.
+
 R5.0.2   14 September 2026   K. Leleux (kleleux)
     * Fixing bug with where the 2 was being appending for fcomChannels for 
       SXR longitudinal feedback.
