@@ -788,7 +788,8 @@ int LoopConfiguration::configureAlgorithm() {
         //else if (algoName == BUNCH_CHARGE_ALGORITHM) {
         //    algorithm = new BunchCharge();
 	    //    _skipTmitCheck = true;
-        } else if (algoName == SINE_ALGORITHM) {
+        //}
+        else if (algoName == SINE_ALGORITHM) {
             algorithm = new SineWave(SineWave::ONE_MEAS_ONE_ACT);
         } else if (algoName == SINE_ALGORITHM_N) {
             algorithm = new SineWave(SineWave::N_MEAS_N_ACT);
