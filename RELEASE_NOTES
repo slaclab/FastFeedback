@@ -12,6 +12,10 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R5.0.2   14 September 2026   K. Leleux (kleleux)
+    * Fixing bug with where the 2 was being appending for fcomChannels for 
+      SXR longitudinal feedback.
+
 R5.0.1   14 September 2026   K. Leleux (kleleux)
     * Starting the decommissioning of BunchCharge feedback
 
