@@ -91,9 +91,6 @@ int FcomChannel::initialize() {
      *      Longitudinal Feedback:      FCOM Name:              CA Name:
      *              HXR             ACCL:LI22:1:PDES        ACCL:LI22:1:PDES
      *              SXR             ACCL:LI22:1:PDES        ACCL:LI22:1:PDES2
-     * 
-     * TODO: Make sure I need the second condition by seeing if this device name is gotten
-     * every time the feedback is enabled, otherwise it is just doing nothing.
      */
     if (_accessType == CommunicationChannel::WRITE_ONLY) {
         std::string _caName = _name;
