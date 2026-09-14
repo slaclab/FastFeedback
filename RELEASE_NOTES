@@ -12,6 +12,9 @@
 #               2020, R. Reno            (rreno)
 #      
 #==============================================================
+R5.0.1   14 September 2026   K. Leleux (kleleux)
+    * Starting the decommissioning of BunchCharge feedback
+
 R5.0.0   09 September 2026   K. Leleux (kleleux)
     * Longitudinal feedback split with new SXR feedback (see FF-7)
     * Some small fixes with BSA 
