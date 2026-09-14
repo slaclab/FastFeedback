@@ -98,9 +98,16 @@ int FcomChannel::initialize() {
     if (_accessType == CommunicationChannel::WRITE_ONLY) {
         std::string _caName = _name;
 
-        if (ExecConfiguration::getInstance().getFeedbackType()==1 && !_caName.empty() && _caName.back() != '2') {
-            _caName += "2";
+    if (ExecConfiguration::getInstance().getFeedbackType() == 1 && !_caName.empty()) {
+        std::size_t pos = _caName.find(":ADES");
+        if (pos == std::string::npos)
+            pos = _caName.find(":PDES");
+
+        if (pos != std::string::npos && _caName.compare(pos + 5, 1, "2") != 0) {
+            _caName.insert(pos + 5, "2");
         }
+    }   
+
         _readCaChannel = new CaChannel(CommunicationChannel::READ_ONLY, _caName);
     }
 
