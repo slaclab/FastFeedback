@@ -800,7 +800,7 @@ record(compress, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQAVG") {
 record(calc, "FBCK:$(AREA):$(LOOP):S$(SNUM)RMS") {
     field(DESC, "RMS of State value")
     field(CALC, "SQR(A)")
-    field(INPA, "FBCK:$(AREA):$(LOOP):S($SNUM)SQAVG.VAL")
+    field(INPA, "FBCK:$(AREA):$(LOOP):S$(SNUM)SQAVG.VAL")
     field(EGU,  "$(EGU)")
     field(PREC, "4")
 }
