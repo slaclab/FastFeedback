@@ -61,11 +61,11 @@ evrManager /dev/evr0mng init
 
 # ============================================================================
 # Let's activate another ethernet port:
-# Let's activate the second network chip for Fast Feedback. cpu-sys0-fb01-fnet
-# Name:   cpu-sys0-fb01-fnet.slac.stanford.edu
-# Address: 172.27.29.102
+# Let's activate the second network chip for Fast Feedback. cpu-sys0-fb02-fnet
+# Name:   cpu-sys0-fb02-fnet.slac.stanford.edu
+# Address: 172.27.29.103
 # ============================================================================
-ifconfig eth2 172.27.29.102 netmask 255.255.252.0
+ifconfig eth2 172.27.29.103 netmask 255.255.252.0
 export FCOMMCGRP="mc-lcls-fcom"
 route add -net $FCOMMCGRP netmask 255.255.252.0 dev eth2
 ip route add 224.0.0.0/4 dev eth2
