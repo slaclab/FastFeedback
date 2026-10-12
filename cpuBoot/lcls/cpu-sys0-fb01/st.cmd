@@ -58,7 +58,7 @@ chmod 666 /dev/vevr6
 chmod 666 /dev/vevr7
 chmod 666 /dev/vevr8
 chmod 666 /dev/vevr9
-# chmod 666 /dev/vevr10
+chmod 666 /dev/vevr10
 chmod 666 /dev/vevr11
 chmod 666 /dev/vevr12
 chmod 666 /dev/vevr13
