@@ -127,10 +127,10 @@ record(aSub, "$(LP):A3_ALLPOI") {
     field(SCAN, "Passive")
     field(PINI, "YES")
     field(SNAM, "CollectActPOIs")
-    field(INPA, "$(LP):A1P1")
-    field(INPB, "$(LP):A1P2")
-    field(INPC, "$(LP):A1P3")
-    field(INPD, "$(LP):A1P4")
+    field(INPA, "$(LP):A3P1")
+    field(INPB, "$(LP):A3P2")
+    field(INPC, "$(LP):A3P3")
+    field(INPD, "$(LP):A3P4")
     field(NOVA, "4")
 }
 
