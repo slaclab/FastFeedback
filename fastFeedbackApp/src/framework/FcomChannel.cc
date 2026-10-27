@@ -280,8 +280,8 @@ int FcomChannel::write(double value, epicsTimeStamp timestamp) {
 
     // Code common for Fcom channel instances
     blob.fc_vers = FCOM_PROTO_VERSION;
-    blob.fc_tsHi = 0xDD;//timestamp.secPastEpoch;
-    blob.fc_tsLo = 0xEE;//timestamp.nsec;
+    blob.fc_tsHi = timestamp.secPastEpoch;
+    blob.fc_tsLo = timestamp.nsec;
     blob.fc_stat = _counter;
     _counter++;
 
@@ -322,8 +322,8 @@ extern "C" {
 
     // Code common for Fcom channel instances
     blob.fc_vers = FCOM_PROTO_VERSION;
-    blob.fc_tsHi = 0xDD;//timestamp.secPastEpoch;
-    blob.fc_tsLo = 0xEE;//timestamp.nsec;
+    blob.fc_tsHi = timestamp.secPastEpoch;
+    blob.fc_tsLo = timestamp.nsec;
     blob.fc_stat = 0;
 
     // Code for this specific channel
