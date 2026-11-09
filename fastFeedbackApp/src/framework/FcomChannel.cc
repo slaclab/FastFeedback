@@ -322,6 +322,7 @@ extern "C" {
 
     // Code common for Fcom channel instances
     blob.fc_vers = FCOM_PROTO_VERSION;
+    epicsTimeStamp timestamp;
     blob.fc_tsHi = timestamp.secPastEpoch;
     blob.fc_tsLo = timestamp.nsec;
     blob.fc_stat = 0;
