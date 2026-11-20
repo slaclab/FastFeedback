@@ -213,3 +213,13 @@ PatternMask::destinationHXR()
     return ( _exclusionMask[MOD3_IDX] & BKRCUS ||
            !(_inclusionMask[MOD3_IDX] & BKRCUS) );
 }
+
+/**
+ * Longitudinal feedbacks have two active patterns, but 4 instances are still created. 
+ * We rely on the pattern configuration to make sure the HXR feedback does not write to 
+ * SXR data-slots and vice-versa. We are defining an "active" pattern as one that does
+ * not have all timeslots in its exclusion mask. 
+ */
+bool PatternMask::checkAllTimeslotsExcluded() {
+    return (_exclusionMask[MOD2_IDX] & TIMESLOT_MASK) == TIMESLOT_MASK;
+}

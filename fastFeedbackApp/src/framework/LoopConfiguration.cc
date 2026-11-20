@@ -49,6 +49,10 @@ _poi1DestPv(slotName + " POI1_DEST"),
 _poi2DestPv(slotName + " POI2_DEST"),
 _poi3DestPv(slotName + " POI3_DEST"),
 _poi4DestPv(slotName + " POI4_DEST"),
+_poi1ActivePv(slotName + " POI1_ACTIVE"),
+_poi2ActivePv(slotName + " POI2_ACTIVE"),
+_poi3ActivePv(slotName + " POI3_ACTIVE"),
+_poi4ActivePv(slotName + " POI4_ACTIVE"),
 _refOrbit(MAX_MEASUREMENTS),
 _actEnergy(MAX_ACTUATORS),
 _dispersions(MAX_MEASUREMENTS),
@@ -1301,4 +1305,25 @@ LoopConfiguration::updatePatternDestinations()
     _poi2DestPv.scanIoRequest();
     _poi3DestPv.scanIoRequest();
     _poi4DestPv.scanIoRequest();
+}
+
+/**
+ * We are defining an "inactive" pattern as one that has all 6 time slots
+ * in its exclusion mask. This is relevant for the longitudinal feedbacks
+ * where HXR writes to patterns 1/4, but still creates a device for patterns  2/3. 
+ * The opposite is true for SXR, writing to patterns 2/3. The loops will still try
+ * to update these devices internally, causing some errors regarding initial setpoint
+ * limits.
+ * See FF-113 for more.  
+ */
+void LoopConfiguration::updatePatternActive() {
+    _poi1ActivePv = (_patternMasks[0].checkAllTimeslotsExcluded()) ? 0 : 1;
+    _poi2ActivePv = (_patternMasks[1].checkAllTimeslotsExcluded()) ? 0 : 1;
+    _poi3ActivePv = (_patternMasks[2].checkAllTimeslotsExcluded()) ? 0 : 1;
+    _poi4ActivePv = (_patternMasks[3].checkAllTimeslotsExcluded()) ? 0 : 1;
+
+    _poi1ActivePv.scanIoRequest();
+    _poi2ActivePv.scanIoRequest();
+    _poi3ActivePv.scanIoRequest();
+    _poi4ActivePv.scanIoRequest();
 }

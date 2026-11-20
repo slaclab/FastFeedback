@@ -50,6 +50,9 @@ typedef struct PatternMask {
     /** Determines whether the destination is HXR or SXR */ 
     bool destinationHXR();
 
+    /** Checks whether a pattern is "active" via value of _exclusionMask */
+    bool checkAllTimeslotsExcluded();
+
     /**
      * Print out the PatternMask information to the specified stream.
      *
