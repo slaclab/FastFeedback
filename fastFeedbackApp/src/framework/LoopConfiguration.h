@@ -660,6 +660,8 @@ private:
 
     void updatePatternDestinations();
 
+    void updatePatternActive();
+
     /**
      * PVs for querying the destination for each pattern
      */
@@ -667,6 +669,16 @@ private:
     PvData<bool> _poi2DestPv;
     PvData<bool> _poi3DestPv;
     PvData<bool> _poi4DestPv;
+
+    /**
+     * PVs for POI active/inactive status
+     * Maps to :POI<poi-num>_ACTIVE PV
+     */
+    PvData<bool> _poi1ActivePv;
+    PvData<bool> _poi2ActivePv;
+    PvData<bool> _poi3ActivePv;
+    PvData<bool> _poi4ActivePv;
+
 
     /* SIOC:SYS0:FBxx:DL1_EREF PV via CA */
     PvData<double> _dl1ErefPv;

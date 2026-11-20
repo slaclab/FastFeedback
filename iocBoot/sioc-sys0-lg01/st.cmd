@@ -103,7 +103,7 @@ dbLoadRecords("db/bsaFbck.db",  "D=FBCK:SYS0:1, EG=MeV,  HO=17400, LO=-1,     AD
 # ====================================================================
 seq(&chirpControl, "IOC=FB04,LOOP=LG01,CHIRP_PV=FBCK:LI22:1:CHIRP")
 seq(&chirpUpdate, "IOC=FB04,LOOP=LG01,CHIRP_PV=FBCK:LI22:1:CHIRP")
-seq(&limitUpdate, "IOC=FB04,LOOP=LG01")
+seq(&limitUpdate, "IOC=FB04,LOOP=LG01,LEM_PV=")
 
 seqShow()
 

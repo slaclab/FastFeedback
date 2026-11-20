@@ -130,6 +130,25 @@ int ActuatorDevice::set(double value) {
 
     if (value < _loloPv.getValue() || _hihiPv.getValue() < value) {
         _buffer[CIRCULAR_DECREMENT(_next)]._status = DataPoint::SET_LIMIT;
+
+        /**
+         * There is a problem with the longitudinal HXR/SXR split where, during 
+         * the reconfiguration of an actuator device, it will use channel access
+         * to grab the most recent value of :GETFCOM_<data-slot> to update its
+         * internal circular buffer to be written out once a valid trigger has 
+         * been received with a matching pattern mask. The setting of this circular
+         * buffer compares the set point to the limits of the actuator. If HXR and SXR
+         * are running off energy enough to where SXR energies are outside of HXR 
+         * high/low limits, the HXR feedback will throw an error for patterns 2/3 and
+         * vice-versa for SXR but with patterns 1/4. 
+         *
+         * To prevent this, we define an "inactive" pattern that has all 6 timeslots in
+         * its exclusion mask and use this to bypass the limit checks for the circular
+         * buffer. See FF-113 for more. 
+         */
+        if (_patternMask.checkAllTimeslotsExcluded()) {
+            return 0;
+        }
         return -1;
     }
 
