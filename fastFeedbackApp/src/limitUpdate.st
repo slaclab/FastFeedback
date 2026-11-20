@@ -29,17 +29,17 @@ program limitUpdate
 
 double l3AmpNofs;
 /*assign l3AmpNofs to "$(IOC):$(LC):{LOOP}:L3AMP_NOFS";*/
-assign l3AmpNofs to "ACCL:LI25:1:A_NOFS";
+assign l3AmpNofs to "ACCL:LI25:1:A_NOFS{LEM_PV}";
 monitor l3AmpNofs;
 
 double s29Asum;
 /*assign s29Asum to "$(IOC):$(LC):{LOOP}:S29_ASUM";*/
-assign s29Asum to "ACCL:LI29:0:A_SUM";
+assign s29Asum to "ACCL:LI29:0:A_SUM{LEM_PV}";
 monitor s29Asum;
 
 double s30Asum;
 /*assign s30Asum to "$(IOC):$(LC):{LOOP}:S30_ASUM";*/
-assign s30Asum to "ACCL:LI30:0:A_SUM";
+assign s30Asum to "ACCL:LI30:0:A_SUM{LEM_PV}";
 monitor s30Asum;
 
 double loloLimit;
