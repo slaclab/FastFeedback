@@ -432,6 +432,7 @@ int LoopConfiguration::configure() {
     }
 
     updatePatternDestinations();
+    updatePatternActive();
       
     _logger << Log::showtime << "INFO: Loop configured successfully" << Log::flushpvnoalarm;
 
